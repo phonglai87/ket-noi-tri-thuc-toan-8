@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiểm Tra Tổng Hợp Chương 1: Đa Thức (100 Câu) - Toán Lớp 8</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- KaTeX (Render công thức Toán học tức thì, không bị lỗi chuỗi thô) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .palette-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 0.375rem;
+        }
+        .option-btn {
+            transition: all 0.15s ease-in-out;
+        }
+        .katex {
+            font-size: 1.05em;
+        }
+        /* Custom scrollbar for question palette */
+        .custom-scroll::-webkit-scrollbar {
+            width: 5px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 8px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 8px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased selection:bg-blue-600 selection:text-white">
+
+    <!-- Header / Sticky Top Bar -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="flex items-center gap-2 text-slate-600 hover:text-blue-600 transition-colors font-medium text-sm bg-slate-100 hover:bg-blue-50 px-3 py-2 rounded-xl">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">Trang chủ Toán 8</span>
+                </a>
+                <span class="text-slate-300 hidden sm:inline">|</span>
+                <span class="text-xs font-semibold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200">
+                    Ôn tập Chương 1 • 100 Câu
+                </span>
+            </div>
+
+            <!-- Bộ đếm thời gian & Thao tác nhanh -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <div class="flex items-center gap-1.5 bg-slate-100 text-slate-700 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold border border-slate-200">
+                    <i data-lucide="clock" class="w-4 h-4 text-blue-600"></i>
+                    <span id="timer-display">00:00</span>
+                </div>
+
+                <label class="hidden md:flex items-center gap-2 text-xs font-semibold text-slate-700 bg-slate-100 px-3 py-2 rounded-xl cursor-pointer hover:bg-slate-200/70 transition-colors border border-slate-200">
+                    <input type="checkbox" id="instant-check-toggle" checked class="rounded text-blue-600 focus:ring-blue-500 w-3.5 h-3.5">
+                    <span>Chấm ngay từng câu</span>
+                </label>
+
+                <button onclick="submitQuiz()" class="flex items-center gap-1.5 text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 px-3.5 py-2 rounded-xl shadow-sm transition-all">
+                    <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+                    <span>Nộp bài & Chấm điểm</span>
+                </button>
+
+                <button onclick="resetQuiz()" class="flex items-center gap-1 text-xs font-semibold text-slate-600 hover:text-rose-600 bg-slate-100 hover:bg-rose-50 px-2.5 py-2 rounded-xl transition-colors border border-slate-200" title="Làm lại từ đầu">
+                    <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-9 sm:py-11 border-b border-blue-900/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-wrap items-center gap-2 mb-3">
+                <span class="bg-white/15 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full border border-white/20">
+                    Đề Cương Tổng Hợp Chương 1
+                </span>
+                <span class="text-blue-100 text-xs sm:text-sm font-medium">70 Câu Trắc Nghiệm 4 Lựa Chọn • 30 Câu Trả Lời Ngắn</span>
+            </div>
+            <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight leading-tight">
+                Bài Tập & Kiểm Tra Chương 1: Đa Thức
+            </h1>
+            <p class="mt-2 text-blue-100 text-sm sm:text-base max-w-3xl">
+                Hệ thống 100 câu hỏi bao quát toàn bộ các dạng toán Chương 1: Đơn thức, Đa thức, Cộng trừ đa thức, Phép nhân đa thức, Phép chia đa thức cho đơn thức và toán ứng dụng nâng cao.
+            </p>
+        </div>
+    </section>
+
+    <!-- Bảng Kết Quả Tổng Hợp (Hiện ra khi bấm Nộp Bài) -->
+    <section id="result-banner" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+        <div class="bg-white rounded-2xl border-2 border-blue-500 shadow-lg p-6 sm:p-8">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div class="space-y-2">
+                    <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
+                        <i data-lucide="award" class="w-4 h-4"></i>
+                        Kết quả bài kiểm tra Chương 1
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900" id="result-grade-title">
+                        Hoàn thành bài kiểm tra!
+                    </h2>
+                    <p class="text-sm text-slate-600" id="result-subtitle">
+                        Bạn có thể xem chi tiết đáp án và lời giải của từng câu bên dưới.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full md:w-auto">
+                    <div class="bg-blue-50 border border-blue-200 rounded-xl p-3.5 text-center min-w-[110px]">
+                        <div class="text-xs font-semibold text-blue-600 uppercase">Điểm số (Hệ 10)</div>
+                        <div class="text-2xl font-extrabold text-blue-800 mt-0.5" id="score-10">0.0</div>
+                    </div>
+                    <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5 text-center min-w-[110px]">
+                        <div class="text-xs font-semibold text-emerald-600 uppercase">Số câu đúng</div>
+                        <div class="text-2xl font-extrabold text-emerald-700 mt-0.5" id="score-correct">0/100</div>
+                    </div>
+                    <div class="bg-rose-50 border border-rose-200 rounded-xl p-3.5 text-center min-w-[110px]">
+                        <div class="text-xs font-semibold text-rose-600 uppercase">Số câu sai</div>
+                        <div class="text-2xl font-extrabold text-rose-700 mt-0.5" id="score-wrong">0</div>
+                    </div>
+                    <div class="bg-amber-50 border border-amber-200 rounded-xl p-3.5 text-center min-w-[110px]">
+                        <div class="text-xs font-semibold text-amber-700 uppercase">Chưa làm</div>
+                        <div class="text-2xl font-extrabold text-amber-800 mt-0.5" id="score-unanswered">100</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+            <!-- Sidebar: Tiến độ + Bộ lọc + Bản đồ 100 câu hỏi -->
+            <aside class="lg:col-span-4 xl:col-span-3 lg:sticky lg:top-20 bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm space-y-5">
+                <!-- Thống kê nhanh -->
+                <div>
+                    <div class="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+                        <span>Tiến độ làm bài</span>
+                        <span id="progress-text" class="text-blue-600">0 / 100 câu</span>
+                    </div>
+                    <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden border border-slate-200/60">
+                        <div id="progress-bar" class="h-full bg-blue-600 transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2 mt-3 text-center text-xs">
+                        <div class="bg-emerald-50 border border-emerald-200/80 text-emerald-700 py-1.5 rounded-lg font-semibold">
+                            Đúng: <span id="live-correct">0</span>
+                        </div>
+                        <div class="bg-rose-50 border border-rose-200/80 text-rose-700 py-1.5 rounded-lg font-semibold">
+                            Sai: <span id="live-wrong">0</span>
+                        </div>
+                        <div class="bg-slate-100 border border-slate-200 text-slate-600 py-1.5 rounded-lg font-semibold">
+                            Còn: <span id="live-remain">100</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bộ lọc theo phần & chuyên đề -->
+                <div class="space-y-2 pt-3 border-t border-slate-100">
+                    <label class="text-xs font-bold uppercase tracking-wider text-slate-400 block">
+                        Lọc theo dạng / chuyên đề
+                    </label>
+                    <select id="topic-filter" onchange="applyFilter()" class="w-full text-xs sm:text-sm font-medium bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="all">Tất cả 100 câu hỏi</option>
+                        <option value="part-mcq">Phần I: Trắc nghiệm 4 lựa chọn (Câu 1 – 70)</option>
+                        <option value="part-sa">Phần II: Trắc nghiệm trả lời ngắn (Câu 71 – 100)</option>
+                        <option value="topic-1">• Chuyên đề 1: Đơn thức & đơn thức đồng dạng</option>
+                        <option value="topic-2">• Chuyên đề 2: Đa thức & thu gọn đa thức</option>
+                        <option value="topic-3">• Chuyên đề 3: Cộng, trừ đa thức</option>
+                        <option value="topic-4">• Chuyên đề 4: Phép nhân đa thức</option>
+                        <option value="topic-5">• Chuyên đề 5: Chia đa thức cho đơn thức & Tổng hợp</option>
+                    </select>
+                </div>
+
+                <!-- Bản đồ 100 câu -->
+                <div class="pt-3 border-t border-slate-100">
+                    <div class="flex items-center justify-between mb-2.5">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-400">
+                            Danh sách 100 câu
+                        </span>
+                        <div class="flex items-center gap-2 text-[11px] text-slate-500">
+                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-emerald-500 inline-block"></span>Đúng</span>
+                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-rose-500 inline-block"></span>Sai</span>
+                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-blue-500 inline-block"></span>Đã chọn</span>
+                        </div>
+                    </div>
+                    <div id="question-palette" class="palette-grid max-h-72 overflow-y-auto custom-scroll pr-1">
+                        <!-- Sinh tự động bằng JS -->
+                    </div>
+                </div>
+
+                <!-- Nút tiện ích -->
+                <div class="pt-3 border-t border-slate-100 flex flex-col gap-2">
+                    <button onclick="toggleAllExplanations()" id="toggle-exp-btn" class="w-full flex items-center justify-center gap-1.5 text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 py-2.5 rounded-xl transition-colors">
+                        <i data-lucide="eye" class="w-4 h-4"></i>
+                        <span>Hiện tất cả đáp án & giải thích</span>
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Danh sách 100 câu hỏi -->
+            <div class="lg:col-span-8 xl:col-span-9 space-y-10">
+
+                <!-- PHẦN I: TRẮC NGHIỆM 4 LỰA CHỌN (CÂU 1 - 70) -->
+                <section id="section-mcq" class="space-y-5">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold shadow-sm">
+                                I
+                            </div>
+                            <div>
+                                <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">
+                                    PHẦN I. TRẮC NGHIỆM 4 LỰA CHỌN (CÂU 1 – CÂU 70)
+                                </h2>
+                                <p class="text-xs text-slate-500">Chọn 1 đáp án đúng nhất A, B, C hoặc D cho mỗi câu hỏi</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="mcq-container" class="space-y-5">
+                        <!-- Render câu 1 -> 70 tại đây -->
+                    </div>
+                </section>
+
+                <!-- PHẦN II: TRẮC NGHIỆM TRẢ LỜI NGẮN (CÂU 71 - 100) -->
+                <section id="section-sa" class="space-y-5 pt-4">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold shadow-sm">
+                                II
+                            </div>
+                            <div>
+                                <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">
+                                    PHẦN II. TRẮC NGHIỆM TRẢ LỜI NGẮN (CÂU 71 – CÂU 100)
+                                </h2>
+                                <p class="text-xs text-slate-500">Điền kết quả là số nguyên, phân số tối giản (vd: -3/4) hoặc số thập phân (vd: -0,75) rồi bấm Kiểm tra</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="sa-container" class="space-y-5">
+                        <!-- Render câu 71 -> 100 tại đây -->
+                    </div>
+                </section>
+
+                <!-- Footer Navigation -->
+                <div class="pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <a href="bai5_phepchia_dathuc.html" class="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-blue-400 hover:text-blue-600 font-semibold text-sm transition-all shadow-sm">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                        <span>Quay lại Bài 5: Phép chia đa thức</span>
+                    </a>
+                    <button onclick="submitQuiz()" class="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition-all shadow-md">
+                        <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+                        <span>Nộp bài & Xem tổng điểm</span>
+                    </button>
+                    <a href="bai6_binhphuong_tonghieu.html" class="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm transition-all shadow-sm">
+                        <span>Sang Chương 2: Hằng đẳng thức</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200/80 mt-12 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-slate-500">
+            Hệ thống Kiến Thức Trọng Tâm & Kiểm Tra Toán Lớp 8 • Chương 1: Đa thức (100 Câu)
+        </div>
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- DỮ LIỆU 100 CÂU HỎI & LOGIC CHẤM BÀI       -->
+    <!-- ========================================== -->
+    <script>
+        // Hàm gọi KaTeX để biến mọi chuỗi $...$ thành ký hiệu Toán học tức thì
+        function renderMath(element = document.body) {
+            if (typeof renderMathInElement === 'function') {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: '$$', right: '$$', display: true },
+                        { left: '$', right: '$', display: false },
+                        { left: '\\(', right: '\\)', display: false },
+                        { left: '\\[', right: '\\]', display: true }
+                    ],
+                    throwOnError: false
+                });
+            }
+        }
+
+        const questions = [
+            // =========================================================================
+            // PHẦN I: TRẮC NGHIỆM 4 LỰA CHỌN (CÂU 1 -> CÂU 70)
+            // Chuyên đề 1 (Câu 1 - 15): Bài 1 - Đơn thức và rút gọn đơn thức
+            // =========================================================================
+            {
+                id: 1, type: 'mcq', topic: 'topic-1', badge: 'Bài 1 • Đơn thức',
+                q: 'Trong các biểu thức đại số sau, biểu thức nào là <strong>đơn thức</strong>?',
+                options: ['$-2x^4y$', '$-x - 5$', '$2x^2 - 3y$', '$\\dfrac{1}{x} - 2$'],
+                ans: 0,
+                exp: 'Đơn thức là biểu thức đại số chỉ gồm một số, một biến hoặc một tích giữa các số và các biến. Biểu thức $-2x^4y$ là đơn thức.'
+            },
+            {
+                id: 2, type: 'mcq', topic: 'topic-1', badge: 'Bài 1 • Đơn thức',
+                q: 'Biểu thức nào sau đây <strong>không phải</strong> là đơn thức?',
+                options: ['$99x^{100}$', '$-1$', '$4y(1 - x)$', '$\\dfrac{5}{-9}x$'],
+                ans: 2,
+                exp: 'Biểu thức $4y(1 - x)$ có chứa phép trừ $(1 - x)$ nên không phải là đơn thức.'
+            },
+            {
+                id: 3, type: 'mcq', topic: 'topic-1', badge: 'Bài 1 • Đơn thức',
+                q: 'Trong các biểu thức: $x^2y$; $-3x - 1$; $-13$; $\\dfrac{1}{6 - x}$; $(-2)^3xy^7$, có bao nhiêu biểu thức là đơn thức?',
+                options: ['$2$', '$3$', '$4$', '$5$'],
+                ans: 1,
+                exp: 'Có $3$ đơn thức là: $x^2y$, $-13$ và $(-2)^3xy^7$.'
+            },
+            {
+                id: 4, type: 'mcq', topic: 'topic-1', badge: 'Bài 1 • Đơn thức',
+                q: 'Biểu thức nào sau đây là đơn thức?',
+                options: ['$\\dfrac{6}{x^2}$', '$\\dfrac{x^2y}{2}$', '$\\dfrac{-1}{x}$', '$6\\sqrt{y}$'],
+                ans: 1,
+                exp: '$\\dfrac{x^2y}{2} = \\dfrac{1}{2}x^2y$ là tích của số $\\dfrac{1}{2}$ và các biến nên là đơn thức. Các biểu thức có biến ở mẫu hoặc trong căn không phải là đơn thức.'
+            },
+            {
+                id: 5, type: 'mcq', topic: 'topic-1', badge: 'Bài 1 • Đơn thức thu gọn',
+                q: 'Thu gọn đơn thức $A = 2x^2y \\cdot (-3)xy^5z$ ta được kết quả là:',
+                options: ['$-6x^2y^5z$', '$-6x^3y^6z$', '$-x^3y^6z$', '$6x^3y^6z$'],
+                ans: 1,
+                exp: '$A = [2 \\cdot (-3)] \\cdot (x^2 \\cdot x) \\cdot (y \\cdot y^5) \\cdot z = -6x^3y^6z$.'
+            },
+            {
+                id: 6, type: 'mcq', topic: 'topic-1', badge: 'Bài 1 • Hệ số & Phần biến',
+                q: 'Phần hệ số và phần biến của đơn thức thu gọn $(-2)^3x^3y^5z$ lần lượt là:',
+                options: ['Hệ số $-8$, phần biến $x^3y^5z$', 'Hệ số $-2$, phần biến $x^3y^5z$', 'Hệ số $-6$, phần biến $x^3y^5z$', 'Hệ số $8$, phần biến $xyz$'],
+                ans: 0,
+                exp: 'Ta có $(-2)^3 = -8$, phần biến là $x^3y^5z$.'
+            },
+            {
+                id: 7, type: 'mcq', topic: 'topic-1', badge: 'Bài 1 • Bậc của đơn thức',
+                q: 'Bậc của đơn thức $-6x^3y^6z$ là:',
+                options: ['$9$', '$10$', '$18$', '$6$'],
+                ans: 1,
+                exp: 'Tổng số mũ của các biến $x, y, z$ là $3 + 6 + 1 = 10$.'
+            },
+            {
+                id: 8, type: 'mcq', topic: 'topic-1', badge: 'Bài 1 • Bậc của đơn thức',
+                q: 'Khẳng định nào sau đây là <strong>đúng</strong>?',
+                options: [
+                    'Mỗi số thực khác $0$ là một đơn thức thu gọn có bậc là $1$.',
+                    'Số $0$ là đơn thức có bậc bằng $0$.',
+                    'Mỗi số khác $0$ là một đơn thức thu gọn có bậc là $0$, còn số $0$ là đơn thức không có bậc.',
+                    'Đơn thức $-x^5y$ có hệ số là $0$.'
+                ],
+                ans: 2,
+                exp: 'Theo lý thuyết: Mỗi số khác $0$ là đơn thức thu gọn bậc $0$; số $0$ là đơn thức không có bậc; đơn thức $-x^5y$ có hệ số là $-1$.'
+            },
+            {
+                id: 9, type: 'mcq', topic: 'topic-1', badge: 'Bài 1 • Thu gọn đơn thức',
+                q: 'Thu gọn đơn thức $\\dfrac{-3}{4}x^2y \\cdot \\left(\\dfrac{2}{3}xy^2z\\right)$ ta được đơn thức có hệ số và bậc là:',
+                options: [
+                    'Hệ số $\\dfrac{-1}{2}$, bậc $7$',
+                    'Hệ số $\\dfrac{-1}{2}$, bậc $6$',
+                    'Hệ số $\\dfrac{-6}{7}$, bậc $7$',
+                    'Hệ số $\\dfrac{1}{2}$, bậc $7$'
+                ],
+                ans: 0,
+                exp: '$\\dfrac{-3}{4}x^2y \\cdot \\left(\\dfrac{2}{3}xy^2z\\right) = \\dfrac{-1}{2}x^3y^3z$. Hệ số là $\\dfrac{-1}{2}$ và bậc là $3 + 3 + 1 = 7$.'
+            },
+            {
+                id: 10, type: 'mcq', topic: 'topic-1', badge: 'Bài 1 • Thu gọn đơn thức',
+                q: 'Thu gọn đơn thức $P = (-2x^2y)^2 \\cdot 8x^3yz^3$ ta được:',
+                options: ['$-16x^7y^3z^3$', '$32x^7y^3z^3$', '$-32x^7y^3z^3$', '$16x^5y^2z^3$'],
+                ans: 1,
+                exp: '$P = 4x^4y^2 \\cdot 8x^3yz^3 = 32x^7y^3z^3$.'
+            },
+            {
+                id: 11, type: 'mcq', topic: 'topic-1', badge: 'Bài 1 • Đơn thức đồng dạng',
+                q: 'Cặp đơn thức nào sau đây là hai đơn thức <strong>đồng dạng</strong>?',
+                options: ['$4x^2y^4$ và $\\dfrac{-5}{2}x^2y^4$', '$3x^2y$ và $3xy^2$', '$-5x^2y$ và $0x^2y$', '$x^3y^2$ và $x^2y^3$'],
+                ans: 0,
+                exp: 'Hai đơn thức đồng dạng là hai đơn thức có hệ số khác $0$ và có cùng phần biến ($x^2y^4$).'
+            },
+            {
+                id: 12, type: 'mcq', topic: 'topic-1', badge: 'Bài 1 • Đơn thức đồng dạng',
+                q: 'Đơn thức nào sau đây đồng dạng với đơn thức $-12x^2y$ (sau khi thu gọn)?',
+                options: ['$-2xy \\cdot y$', '$-2xy \\cdot x$', '$y \\cdot \\left(-\\dfrac{1}{3}xy\\right)$', '$-3xyz$'],
+                ans: 1,
+                exp: 'Ta có $-2xy \\cdot x = -2x^2y$, có cùng phần biến $x^2y$ với $-12x^2y$.'
+            },
+            {
+                id: 13, type: 'mcq', topic: 'topic-1', badge: 'Bài 1 • Cộng trừ đơn thức',
+                q: 'Kết quả của phép tính $6xy^2 - 3xy^2 - 12xy^2$ là:',
+                options: ['$-9xy^2$', '$9xy^2$', '$-15xy^2$', '$-9x^3y^6$'],
+                ans: 0,
+                exp: '$(6 - 3 - 12)xy^2 = -9xy^2$.'
+            },
+            {
+                id: 14, type: 'mcq', topic: 'topic-1', badge: 'Bài 1 • Cộng trừ đơn thức',
+                q: 'Thực hiện phép tính $-5xy^3 - 7y^2(xy)$ ta được:',
+                options: ['$-2xy^3$', '$-12xy^3$', '$-12x^2y^6$', '$2xy^3$'],
+                ans: 1,
+                exp: '$-5xy^3 - 7y^2(xy) = -5xy^3 - 7xy^3 = -12xy^3$.'
+            },
+            {
+                id: 15, type: 'mcq', topic: 'topic-1', badge: 'Bài 1 • Giá trị đơn thức',
+                q: 'Cho đơn thức $A = \\left(\\dfrac{2}{3}x^2y^2\\right)\\left(\\dfrac{-6}{5}x^4y^3\\right)$. Giá trị của đơn thức $A$ tại $x = -1, y = -2$ là:',
+                options: ['$\\dfrac{-128}{5}$', '$\\dfrac{128}{5}$', '$\\dfrac{64}{5}$', '$\\dfrac{-64}{5}$'],
+                ans: 1,
+                exp: 'Thu gọn $A = \\dfrac{-4}{5}x^6y^5$. Thay $x = -1, y = -2$: $A = \\dfrac{-4}{5} \\cdot (-1)^6 \\cdot (-2)^5 = \\dfrac{-4}{5} \\cdot 1 \\cdot (-32) = \\dfrac{128}{5}$.'
+            },
+
+            // =========================================================================
+            // Chuyên đề 2 (Câu 16 - 29): Bài 2 - Đa thức và thu gọn đa thức
+            // =========================================================================
+            {
+                id: 16, type: 'mcq', topic: 'topic-2', badge: 'Bài 2 • Đa thức',
+                q: 'Trong các biểu thức sau, biểu thức nào là <strong>đa thức</strong>?',
+                options: ['$x + 2y$', '$6 - \\dfrac{1}{x^2 + y^2}$', '$\\dfrac{x + 2y}{z^2}$', '$\\dfrac{x}{x^2 + 1}$'],
+                ans: 0,
+                exp: 'Đa thức là tổng của những đơn thức. Các biểu thức có chứa biến ở mẫu không phải là đa thức.'
+            },
+            {
+                id: 17, type: 'mcq', topic: 'topic-2', badge: 'Bài 2 • Đa thức',
+                q: 'Biểu thức nào sau đây <strong>không phải</strong> là đa thức?',
+                options: ['$\\dfrac{1}{2}xy^2 - \\dfrac{x}{3}$', '$\\dfrac{x + 2y}{5}$', '$6 - 2xy + \\dfrac{1}{x^2}$', '$0$'],
+                ans: 2,
+                exp: 'Biểu thức $6 - 2xy + \\dfrac{1}{x^2}$ có chứa hạng tử $\\dfrac{1}{x^2}$ (biến ở mẫu) nên không phải là đa thức.'
+            },
+            {
+                id: 18, type: 'mcq', topic: 'topic-2', badge: 'Bài 2 • Hạng tử đa thức',
+                q: 'Các hạng tử của đa thức $C = x^2y - 5x - 7x^3$ là:',
+                options: [
+                    '$x^2y; 5x; 7x^3$',
+                    '$x^2y; -5x; -7x^3$',
+                    '$x^2y; -5x; 7x^3$',
+                    '$x^2; y; -5x; -7x^3$'
+                ],
+                ans: 1,
+                exp: 'Viết đa thức dưới dạng tổng các đơn thức: $C = x^2y + (-5x) + (-7x^3)$ nên các hạng tử là $x^2y; -5x; -7x^3$.'
+            },
+            {
+                id: 19, type: 'mcq', topic: 'topic-2', badge: 'Bài 2 • Thu gọn đa thức',
+                q: 'Thu gọn đa thức $A = x^2y^3 - 5x^4 - 6x^2y^3 + 1 + 6x^4$ ta được:',
+                options: ['$-5x^2y^3 + x^4 + 1$', '$5x^2y^3 + x^4 + 1$', '$-5x^2y^3 - x^4 + 1$', '$-7x^2y^3 + 11x^4 + 1$'],
+                ans: 0,
+                exp: '$A = (x^2y^3 - 6x^2y^3) + (-5x^4 + 6x^4) + 1 = -5x^2y^3 + x^4 + 1$.'
+            },
+            {
+                id: 20, type: 'mcq', topic: 'topic-2', badge: 'Bài 2 • Bậc của đa thức',
+                q: 'Bậc của đa thức $P = -5x^2y^3 + x^4 + 1$ là:',
+                options: ['$4$', '$5$', '$6$', '$9$'],
+                ans: 1,
+                exp: 'Đa thức đã thu gọn có hạng tử $-5x^2y^3$ có bậc $2 + 3 = 5$ là cao nhất nên bậc của đa thức là $5$.'
+            },
+            {
+                id: 21, type: 'mcq', topic: 'topic-2', badge: 'Bài 2 • Bậc của đa thức',
+                q: 'Thu gọn và tìm bậc của đa thức $A = x^3y^4 - 5y^8 + x^3y^4 + xy^4 - xy^4 + 5y^8$:',
+                options: [
+                    '$A = 2x^3y^4$, bậc $8$',
+                    '$A = 2x^3y^4$, bậc $7$',
+                    '$A = 2x^3y^4 - 10y^8$, bậc $8$',
+                    '$A = x^3y^4$, bậc $7$'
+                ],
+                ans: 1,
+                exp: 'Thu gọn: $(-5y^8 + 5y^8) = 0$, $(xy^4 - xy^4) = 0$, còn lại $A = 2x^3y^4$ có bậc là $3 + 4 = 7$.'
+            },
+            {
+                id: 22, type: 'mcq', topic: 'topic-2', badge: 'Bài 2 • Thu gọn đa thức',
+                q: 'Đa thức $D = x^2 - 2x^2y + 5x^2 + 2x^2y$ sau khi thu gọn là:',
+                options: ['$6x^2$', '$6x^2 - 4x^2y$', '$4x^2$', '$6x^4$'],
+                ans: 0,
+                exp: '$D = (x^2 + 5x^2) + (-2x^2y + 2x^2y) = 6x^2$.'
+            },
+            {
+                id: 23, type: 'mcq', topic: 'topic-2', badge: 'Bài 2 • Bậc của đa thức',
+                q: 'Bậc của đa thức $E = 3x^2y - \\dfrac{1}{4}xy + 1 - 3x^2y + \\dfrac{1}{2}xy - \\dfrac{1}{4}xy$ là:',
+                options: ['$3$', '$2$', '$1$', '$0$'],
+                ans: 3,
+                exp: 'Thu gọn $E = (3x^2y - 3x^2y) + \\left(-\\dfrac{1}{4} + \\dfrac{1}{2} - \\dfrac{1}{4}\\right)xy + 1 = 1$. Số $1$ là đa thức bậc $0$.'
+            },
+            {
+                id: 24, type: 'mcq', topic: 'topic-2', badge: 'Bài 2 • Bậc của đa thức',
+                q: 'Bậc của đa thức $H = 3xy^5 - 3x^6y^7 + \\dfrac{1}{2}x^2y - 3xy^5 + 3x^6y^7$ là:',
+                options: ['$13$', '$6$', '$3$', '$2$'],
+                ans: 2,
+                exp: 'Sau khi thu gọn, $H = \\dfrac{1}{2}x^2y$ có bậc là $2 + 1 = 3$.'
+            },
+            {
+                id: 25, type: 'mcq', topic: 'topic-2', badge: 'Bài 2 • Thu gọn đa thức',
+                q: 'Thu gọn đa thức $A = 5x^2 \\cdot 2y^2 - 5x \\cdot 3xy - x^2y + 6x^2y^2$ ta được:',
+                options: ['$16x^2y^2 - 16x^2y$', '$16x^2y^2 - 14x^2y$', '$10x^2y^2 - 16x^2y$', '$16x^4y^4 - 16x^2y$'],
+                ans: 0,
+                exp: '$A = 10x^2y^2 - 15x^2y - x^2y + 6x^2y^2 = 16x^2y^2 - 16x^2y$.'
+            },
+            {
+                id: 26, type: 'mcq', topic: 'topic-2', badge: 'Bài 2 • Giá trị đa thức',
+                q: 'Cho đa thức $B = 3x^5y^3 - 4x^4y^3 + 2x^4y^3 - 3x^5y^3$. Giá trị của $B$ tại $x = 1; y = -2$ là:',
+                options: ['$-16$', '$16$', '$8$', '$-8$'],
+                ans: 1,
+                exp: 'Thu gọn $B = -2x^4y^3$. Tại $x = 1, y = -2$ thì $B = -2 \\cdot 1^4 \\cdot (-2)^3 = 16$.'
+            },
+            {
+                id: 27, type: 'mcq', topic: 'topic-2', badge: 'Bài 2 • Giá trị đa thức',
+                q: 'Cho đa thức $A = \\dfrac{1}{3}x^2y + xy^2 - xy + \\dfrac{1}{2}xy^2 - 5xy - \\dfrac{1}{3}x^2y$. Giá trị của $A$ tại $x = \\dfrac{1}{2}, y = 1$ là:',
+                options: ['$-\\dfrac{9}{4}$', '$\\dfrac{9}{4}$', '$-\\dfrac{3}{4}$', '$\\dfrac{4}{3}$'],
+                ans: 0,
+                exp: 'Thu gọn $A = \\dfrac{3}{2}xy^2 - 6xy$. Thay $x = \\dfrac{1}{2}, y = 1$: $A = \\dfrac{3}{2} \\cdot \\dfrac{1}{2} \\cdot 1 - 6 \\cdot \\dfrac{1}{2} \\cdot 1 = \\dfrac{3}{4} - 3 = -\\dfrac{9}{4}$.'
+            },
+            {
+                id: 28, type: 'mcq', topic: 'topic-2', badge: 'Bài 2 • Giá trị đa thức',
+                q: 'Cho đa thức $C = 2x^2y^4 + 4xyz - 2x^2 - 5 + 3x^2y^4 - 4xyz + 3 - y^9$. Giá trị của $C$ tại $x = 1, y = -1$ là:',
+                options: ['$0$', '$2$', '$-2$', '$4$'],
+                ans: 1,
+                exp: 'Thu gọn $C = 5x^2y^4 - 2x^2 - y^9 - 2$. Thay $x = 1, y = -1$: $C = 5(1)(1) - 2(1) - (-1) - 2 = 2$.'
+            },
+            {
+                id: 29, type: 'mcq', topic: 'topic-2', badge: 'Bài 2 • Đa thức không',
+                q: 'Khẳng định nào sau đây là <strong>sai</strong>?',
+                options: [
+                    'Đa thức thu gọn là đa thức không có hai hạng tử nào đồng dạng.',
+                    'Mỗi đơn thức cũng được coi là một đa thức.',
+                    'Số $0$ được gọi là đa thức không và có bậc bằng $0$.',
+                    'Bậc của một đa thức là bậc của hạng tử có bậc cao nhất trong dạng thu gọn của đa thức đó.'
+                ],
+                ans: 2,
+                exp: 'Số $0$ được gọi là đa thức không và KHÔNG có bậc xác định.'
+            },
+
+            // =========================================================================
+            // Chuyên đề 3 (Câu 30 - 43): Bài 3 - Cộng, trừ đa thức
+            // =========================================================================
+            {
+                id: 30, type: 'mcq', topic: 'topic-3', badge: 'Bài 3 • Cộng đa thức',
+                q: 'Cho hai đa thức $A = 3x + y - z$ và $B = 4x - 2y + 6z$. Tổng $A + B$ bằng:',
+                options: ['$7x - y + 5z$', '$7x + y + 5z$', '$-x + 3y - 7z$', '$7x - 3y + 5z$'],
+                ans: 0,
+                exp: '$A + B = (3x + 4x) + (y - 2y) + (-z + 6z) = 7x - y + 5z$.'
+            },
+            {
+                id: 31, type: 'mcq', topic: 'topic-3', badge: 'Bài 3 • Trừ đa thức',
+                q: 'Cho hai đa thức $A = 3x + y - z$ và $B = 4x - 2y + 6z$. Hiệu $A - B$ bằng:',
+                options: ['$-x - y + 5z$', '$-x + 3y - 7z$', '$x - 3y + 7z$', '$-x + 3y + 5z$'],
+                ans: 1,
+                exp: '$A - B = 3x + y - z - 4x + 2y - 6z = -x + 3y - 7z$.'
+            },
+            {
+                id: 32, type: 'mcq', topic: 'topic-3', badge: 'Bài 3 • Trừ đa thức',
+                q: 'Kết quả của phép tính $(4x^2 + x^2y - 5y^2) - (x^3 - 6xy^2 - x^2y)$ là:',
+                options: [
+                    '$4x^2 + 2x^2y - 5y^2 - x^3 + 6xy^2$',
+                    '$4x^2 - 5y^2 - x^3 - 6xy^2$',
+                    '$4x^2 + 2x^2y - 5y^2 - x^3 - 6xy^2$',
+                    '$3x^2 + 2x^2y - 5y^2 + 6xy^2$'
+                ],
+                ans: 0,
+                exp: 'Phá ngoặc đổi dấu: $4x^2 + x^2y - 5y^2 - x^3 + 6xy^2 + x^2y = 4x^2 + 2x^2y - 5y^2 - x^3 + 6xy^2$.'
+            },
+            {
+                id: 33, type: 'mcq', topic: 'topic-3', badge: 'Bài 3 • Cộng đa thức',
+                q: 'Thực hiện phép tính $(x^2 - 2xy + y^2) + (y^2 + 2xy + x^2 + 1)$ ta được:',
+                options: ['$2x^2 + 2y^2 + 1$', '$2x^2 - 4xy + 2y^2 + 1$', '$x^2 + y^2 + 1$', '$-4xy - 1$'],
+                ans: 0,
+                exp: '$(x^2 + x^2) + (-2xy + 2xy) + (y^2 + y^2) + 1 = 2x^2 + 2y^2 + 1$.'
+            },
+            {
+                id: 34, type: 'mcq', topic: 'topic-3', badge: 'Bài 3 • Trừ đa thức',
+                q: 'Thực hiện phép tính $(x^2 - 2xy + y^2) - (y^2 + 2xy + x^2 + 1)$ ta được:',
+                options: ['$-4xy - 1$', '$-4xy + 1$', '$2x^2 + 2y^2 - 1$', '$1$'],
+                ans: 0,
+                exp: '$x^2 - 2xy + y^2 - y^2 - 2xy - x^2 - 1 = -4xy - 1$.'
+            },
+            {
+                id: 35, type: 'mcq', topic: 'topic-3', badge: 'Bài 3 • Tìm đa thức',
+                q: 'Tìm đa thức $A$ biết $A - (xy + x^2 - y^2) = x^2 + y^2$:',
+                options: ['$A = 2x^2 + xy$', '$A = 2x^2 + 2y^2 + xy$', '$A = 2y^2 - xy$', '$A = -xy$'],
+                ans: 0,
+                exp: '$A = (x^2 + y^2) + (xy + x^2 - y^2) = 2x^2 + xy$.'
+            },
+            {
+                id: 36, type: 'mcq', topic: 'topic-3', badge: 'Bài 3 • Tìm đa thức',
+                q: 'Tìm đa thức $A$ biết $(6x^2 - 3xy^2) + A = x^2 + y^2 - 2xy^2$:',
+                options: [
+                    '$A = -5x^2 + xy^2 + y^2$',
+                    '$A = 5x^2 - xy^2 + y^2$',
+                    '$A = 7x^2 - 5xy^2 + y^2$',
+                    '$A = -5x^2 - 5xy^2 + y^2$'
+                ],
+                ans: 0,
+                exp: '$A = (x^2 + y^2 - 2xy^2) - (6x^2 - 3xy^2) = -5x^2 + xy^2 + y^2$.'
+            },
+            {
+                id: 37, type: 'mcq', topic: 'topic-3', badge: 'Bài 3 • Tìm đa thức',
+                q: 'Tìm đa thức $A$ biết $(25x^2y - 13xy^2 + y^3) - A = 11x^2y - 2y^3$:',
+                options: [
+                    '$A = 14x^2y - 13xy^2 + 3y^3$',
+                    '$A = 14x^2y - 13xy^2 - y^3$',
+                    '$A = 36x^2y - 13xy^2 - y^3$',
+                    '$A = 14x^2y + 13xy^2 + 3y^3$'
+                ],
+                ans: 0,
+                exp: '$A = (25x^2y - 13xy^2 + y^3) - (11x^2y - 2y^3) = 14x^2y - 13xy^2 + 3y^3$.'
+            },
+            {
+                id: 38, type: 'mcq', topic: 'topic-3', badge: 'Bài 3 • Rút gọn ngoặc',
+                q: 'Cho $P = a^2 - 2ab + 3b^2$ và $Q = 2a^2 - 3ab - b^2 + (-3a^2 + 2ab - b^2)$. Tổng $P + Q$ bằng:',
+                options: ['$-3ab + b^2$', '$2a^2 - ab + 5b^2$', '$-3ab + 5b^2$', '$a^2 - 3ab + b^2$'],
+                ans: 0,
+                exp: 'Thu gọn $Q = -a^2 - ab - 2b^2$. Khi đó $P + Q = (a^2 - 2ab + 3b^2) + (-a^2 - ab - 2b^2) = -3ab + b^2$.'
+            },
+            {
+                id: 39, type: 'mcq', topic: 'topic-3', badge: 'Bài 3 • Cộng trừ 3 đa thức',
+                q: 'Cho $A = 4x^2 - 5xy + 3y^2$, $B = 3x^2 + 2xy + y^2$ và $C = -x^2 + 3xy + 2y^2$. Tổng $A + B + C$ bằng:',
+                options: ['$6x^2 + 6y^2$', '$6x^2 + 6xy + 6y^2$', '$8x^2 + 6y^2$', '$6x^2 - 6xy + 6y^2$'],
+                ans: 0,
+                exp: '$A + B + C = (4 + 3 - 1)x^2 + (-5 + 2 + 3)xy + (3 + 1 + 2)y^2 = 6x^2 + 6y^2$.'
+            },
+            {
+                id: 40, type: 'mcq', topic: 'topic-3', badge: 'Bài 3 • Cộng trừ 3 đa thức',
+                q: 'Với $A = 4x^2 - 5xy + 3y^2$, $B = 3x^2 + 2xy + y^2$, $C = -x^2 + 3xy + 2y^2$, đa thức $B - C - A$ bằng:',
+                options: ['$4xy - 4y^2$', '$-2x^2 + 4xy - 2y^2$', '$-4xy - 4y^2$', '$4x^2 + 4xy - 4y^2$'],
+                ans: 0,
+                exp: '$B - C - A = (3 - (-1) - 4)x^2 + (2 - 3 - (-5))xy + (1 - 2 - 3)y^2 = 4xy - 4y^2$.'
+            },
+            {
+                id: 41, type: 'mcq', topic: 'topic-3', badge: 'Bài 3 • Tìm hiệu A - B',
+                q: 'Biết $-x^2y + A + 2xy^2 - B = 3x^2y - 4xy^2$. Hiệu $A - B$ là:',
+                options: ['$4x^2y - 6xy^2$', '$2x^2y - 2xy^2$', '$4x^2y - 2xy^2$', '$-4x^2y + 6xy^2$'],
+                ans: 0,
+                exp: '$A - B = (3x^2y - 4xy^2) + x^2y - 2xy^2 = 4x^2y - 6xy^2$.'
+            },
+            {
+                id: 42, type: 'mcq', topic: 'topic-3', badge: 'Bài 3 • Đa thức một biến',
+                q: 'Cho $P(x) = 5x^2 + 5x - 4$, $Q(x) = 2x^2 - 3x + 1$ và $R(x) = 4x^2 - x + 3$. Đa thức $M(x) = P(x) + Q(x) - R(x)$ là:',
+                options: ['$3x^2 + 3x - 6$', '$3x^2 + x - 6$', '$11x^2 + x$', '$3x^2 + 3x$'],
+                ans: 0,
+                exp: '$M(x) = (5 + 2 - 4)x^2 + (5 - 3 - (-1))x + (-4 + 1 - 3) = 3x^2 + 3x - 6$.'
+            },
+            {
+                id: 43, type: 'mcq', topic: 'topic-3', badge: 'Bài 3 • Tìm đa thức C',
+                q: 'Cho $A = x^2 - 3xy - y^2 + 1$ và $B = 2x^2 + y^2 - 7xy - 5$. Đa thức $C$ thỏa mãn $C + A - B = 0$ là:',
+                options: [
+                    '$C = x^2 - 4xy + 2y^2 - 6$',
+                    '$C = -x^2 + 4xy - 2y^2 + 6$',
+                    '$C = 3x^2 - 10xy - 4$',
+                    '$C = x^2 - 10xy + 2y^2 - 4$'
+                ],
+                ans: 0,
+                exp: '$C + A - B = 0 \\Rightarrow C = B - A = (2x^2 + y^2 - 7xy - 5) - (x^2 - 3xy - y^2 + 1) = x^2 - 4xy + 2y^2 - 6$.'
+            },
+
+            // =========================================================================
+            // Chuyên đề 4 (Câu 44 - 58): Bài 4 - Phép nhân đa thức
+            // =========================================================================
+            {
+                id: 44, type: 'mcq', topic: 'topic-4', badge: 'Bài 4 • Nhân đơn thức',
+                q: 'Tích của hai đơn thức $3x^2y$ và $-2xy^3$ là:',
+                options: ['$-6x^3y^4$', '$6x^3y^4$', '$-5x^3y^4$', '$-6x^2y^3$'],
+                ans: 0,
+                exp: '$3x^2y \\cdot (-2xy^3) = -6x^3y^4$.'
+            },
+            {
+                id: 45, type: 'mcq', topic: 'topic-4', badge: 'Bài 4 • Đơn thức × Đa thức',
+                q: 'Kết quả của phép nhân $3x^2 \\cdot (x^3y - 4yz^2)$ là:',
+                options: ['$3x^5y - 12x^2yz^2$', '$3x^6y - 12x^2yz^2$', '$3x^5y - 4yz^2$', '$3x^5y + 12x^2yz^2$'],
+                ans: 0,
+                exp: '$3x^2 \\cdot x^3y - 3x^2 \\cdot 4yz^2 = 3x^5y - 12x^2yz^2$.'
+            },
+            {
+                id: 46, type: 'mcq', topic: 'topic-4', badge: 'Bài 4 • Đơn thức × Đa thức',
+                q: 'Thực hiện phép tính $-4x^2y(x^2 - xy + 2y^2)$ ta được:',
+                options: [
+                    '$-4x^4y + 4x^3y^2 - 8x^2y^3$',
+                    '$-4x^4y - 4x^3y^2 - 8x^2y^3$',
+                    '$-4x^4y + 4x^3y^2 + 8x^2y^3$',
+                    '$4x^4y - 4x^3y^2 + 8x^2y^3$'
+                ],
+                ans: 0,
+                exp: 'Nhân $-4x^2y$ với từng hạng tử và chú ý dấu: $-4x^4y + 4x^3y^2 - 8x^2y^3$.'
+            },
+            {
+                id: 47, type: 'mcq', topic: 'topic-4', badge: 'Bài 4 • Rút gọn biểu thức',
+                q: 'Rút gọn biểu thức $P = 5(x^2 - 3x + 1) + x(5x + 15) + 5$ ta được:',
+                options: ['$10x^2 + 10$', '$10x^2 - 30x + 10$', '$10x^2$', '$5x^2 + 10$'],
+                ans: 0,
+                exp: '$P = 5x^2 - 15x + 5 + 5x^2 + 15x + 5 = 10x^2 + 10$.'
+            },
+            {
+                id: 48, type: 'mcq', topic: 'topic-4', badge: 'Bài 4 • Rút gọn biểu thức',
+                q: 'Rút gọn biểu thức $Q = -4x^2(x - 7) + 4x(x^2 - 5) - 28x^2$ ta được:',
+                options: ['$-20x$', '$20x$', '$-8x^3 - 20x$', '$56x^2 - 20x$'],
+                ans: 0,
+                exp: '$Q = -4x^3 + 28x^2 + 4x^3 - 20x - 28x^2 = -20x$.'
+            },
+            {
+                id: 49, type: 'mcq', topic: 'topic-4', badge: 'Bài 4 • Đa thức × Đa thức',
+                q: 'Kết quả của phép nhân $(3x + 5y)(2x - 7y)$ là:',
+                options: [
+                    '$6x^2 - 11xy - 35y^2$',
+                    '$6x^2 + 11xy - 35y^2$',
+                    '$6x^2 - 31xy - 35y^2$',
+                    '$6x^2 - 35y^2$'
+                ],
+                ans: 0,
+                exp: '$(3x + 5y)(2x - 7y) = 6x^2 - 21xy + 10xy - 35y^2 = 6x^2 - 11xy - 35y^2$.'
+            },
+            {
+                id: 50, type: 'mcq', topic: 'topic-4', badge: 'Bài 4 • Đa thức × Đa thức',
+                q: 'Thực hiện phép nhân $(x + y)(x^2 - xy + y^2)$ ta được kết quả thu gọn là:',
+                options: ['$x^3 + y^3$', '$x^3 - y^3$', '$x^3 + 2x^2y + y^3$', '$x^3 - 2xy^2 + y^3$'],
+                ans: 0,
+                exp: '$x^3 - x^2y + xy^2 + x^2y - xy^2 + y^3 = x^3 + y^3$.'
+            },
+            {
+                id: 51, type: 'mcq', topic: 'topic-4', badge: 'Bài 4 • Đa thức × Đa thức',
+                q: 'Rút gọn biểu thức $M = 2x(1 - x) - (2x - 1)(x + 1)$ ta được:',
+                options: ['$-4x^2 + x + 1$', '$-4x^2 - x - 1$', '$x + 1$', '$-4x^2 + 3x + 1$'],
+                ans: 0,
+                exp: '$M = 2x - 2x^2 - (2x^2 + x - 1) = -4x^2 + x + 1$.'
+            },
+            {
+                id: 52, type: 'mcq', topic: 'topic-4', badge: 'Bài 4 • Đa thức × Đa thức',
+                q: 'Rút gọn biểu thức $N = (3x - 5)(2x + 11) - (2x + 3)(3x + 7)$ ta được:',
+                options: ['$-76$', '$-34$', '$46x - 76$', '$12x^2 - 76$'],
+                ans: 0,
+                exp: '$N = (6x^2 + 23x - 55) - (6x^2 + 23x + 21) = -76$.'
+            },
+            {
+                id: 53, type: 'mcq', topic: 'topic-4', badge: 'Bài 4 • Không phụ thuộc biến',
+                q: 'Biểu thức nào sau đây có giá trị <strong>không phụ thuộc</strong> vào giá trị của biến $x$?',
+                options: [
+                    '$A = x(x^2 + x + 1) - x^2(x + 1) - x + 5$',
+                    '$B = x(x - 1) + x^2$',
+                    '$C = (x + 1)(x + 2) - x^2$',
+                    '$D = 2x(x - 3) - 2x^2$'
+                ],
+                ans: 0,
+                exp: 'Thu gọn $A = x^3 + x^2 + x - x^3 - x^2 - x + 5 = 5$ (hằng số không phụ thuộc vào $x$).'
+            },
+            {
+                id: 54, type: 'mcq', topic: 'topic-4', badge: 'Bài 4 • Tìm x',
+                q: 'Tìm $x$ biết $(2x - 1)(x - 5) - 2x^2 + 10x - 25 = 0$:',
+                options: ['$x = -20$', '$x = 20$', '$x = -30$', '$x = 5$'],
+                ans: 0,
+                exp: '$2x^2 - 11x + 5 - 2x^2 + 10x - 25 = 0 \\Rightarrow -x - 20 = 0 \\Rightarrow x = -20$.'
+            },
+            {
+                id: 55, type: 'mcq', topic: 'topic-4', badge: 'Bài 4 • Tìm x',
+                q: 'Tìm $x$ biết $(12x - 5)(4x - 1) + (3x - 7)(1 - 16x) = 81$:',
+                options: ['$x = 1$', '$x = -1$', '$x = 2$', '$x = 0$'],
+                ans: 0,
+                exp: 'Thu gọn vế trái: $(48x^2 - 32x + 5) + (-48x^2 + 115x - 7) = 83x - 2 = 81 \\Rightarrow 83x = 83 \\Rightarrow x = 1$.'
+            },
+            {
+                id: 56, type: 'mcq', topic: 'topic-4', badge: 'Bài 4 • Tính nhanh giá trị',
+                q: 'Giá trị của biểu thức $A = x^3 - 30x^2 - 31x + 1$ tại $x = 31$ là:',
+                options: ['$1$', '$31$', '$0$', '$-1$'],
+                ans: 0,
+                exp: 'Thay $30 = x - 1$ và $31 = x$: $A = x^3 - (x - 1)x^2 - x \\cdot x + 1 = x^3 - x^3 + x^2 - x^2 + 1 = 1$.'
+            },
+            {
+                id: 57, type: 'mcq', topic: 'topic-4', badge: 'Bài 4 • Chứng minh chia hết',
+                q: 'Với mọi số nguyên $n$, biểu thức $B = n(n + 5) - (n - 3)(n + 2)$ luôn chia hết cho số nào sau đây?',
+                options: ['$6$', '$5$', '$7$', '$12$'],
+                ans: 0,
+                exp: 'Thu gọn $B = n^2 + 5n - (n^2 - n - 6) = 6n + 6 = 6(n + 1)$ luôn chia hết cho $6$ với mọi $n \\in \\mathbb{Z}$.'
+            },
+            {
+                id: 58, type: 'mcq', topic: 'topic-4', badge: 'Bài 4 • Bài toán số dư',
+                q: 'Cho hai số tự nhiên $a, b$ biết $a$ chia $5$ dư $1$ và $b$ chia $5$ dư $2$. Khi đó tích $ab$ chia cho $5$ có số dư là:',
+                options: ['$2$', '$1$', '$3$', '$4$'],
+                ans: 0,
+                exp: 'Đặt $a = 5k + 1, b = 5m + 2 \\Rightarrow ab = (5k + 1)(5m + 2) = 25km + 10k + 5m + 2 = 5(5km + 2k + m) + 2$, chia $5$ dư $2$.'
+            },
+
+            // =========================================================================
+            // Chuyên đề 5 (Câu 59 - 70): Bài 5 - Phép chia đa thức cho đơn thức
+            // =========================================================================
+            {
+                id: 59, type: 'mcq', topic: 'topic-5', badge: 'Bài 5 • Điều kiện chia hết',
+                q: 'Đơn thức $A = 6x^5y^6$ chia hết cho đơn thức nào dưới đây?',
+                options: ['$2x^3y$', '$2x^6y^2$', '$3x^2y^7$', '$5x^3y^2z$'],
+                ans: 0,
+                exp: 'Đơn thức $A$ chia hết cho $B$ khi mỗi biến của $B$ đều là biến của $A$ với số mũ không lớn hơn số mũ trong $A$.'
+            },
+            {
+                id: 60, type: 'mcq', topic: 'topic-5', badge: 'Bài 5 • Chia đơn thức',
+                q: 'Kết quả của phép chia $-8x^2y^3 : (-6xy^2)$ là:',
+                options: ['$\\dfrac{4}{3}xy$', '$-\\dfrac{4}{3}xy$', '$\\dfrac{3}{4}xy$', '$\\dfrac{4}{3}x^2y$'],
+                ans: 0,
+                exp: '$-8x^2y^3 : (-6xy^2) = \\dfrac{-8}{-6} x^{2-1} y^{3-2} = \\dfrac{4}{3}xy$.'
+            },
+            {
+                id: 61, type: 'mcq', topic: 'topic-5', badge: 'Bài 5 • Chia đơn thức',
+                q: 'Thực hiện phép tính $12x^4y^7 : (-3xy^2)^2$ ta được:',
+                options: ['$\\dfrac{4}{3}x^2y^3$', '$-\\dfrac{4}{3}x^2y^3$', '$4x^2y^3$', '$\\dfrac{4}{3}x^3y^5$'],
+                ans: 0,
+                exp: '$12x^4y^7 : (9x^2y^4) = \\dfrac{4}{3}x^2y^3$.'
+            },
+            {
+                id: 62, type: 'mcq', topic: 'topic-5', badge: 'Bài 5 • Chia đơn thức',
+                q: 'Kết quả của phép tính $(-xy)^{10} : (-2xy)^5$ là:',
+                options: ['$-\\dfrac{1}{32}x^5y^5$', '$\\dfrac{1}{32}x^5y^5$', '$-32x^5y^5$', '$-\\dfrac{1}{2}x^5y^5$'],
+                ans: 0,
+                exp: '$x^{10}y^{10} : (-32x^5y^5) = -\\dfrac{1}{32}x^5y^5$.'
+            },
+            {
+                id: 63, type: 'mcq', topic: 'topic-5', badge: 'Bài 5 • Đa thức : Đơn thức',
+                q: 'Thực hiện phép chia $(4x^4 - 8x^2y^2 + 12x^5y) : (-4x^2)$ ta được:',
+                options: [
+                    '$-x^2 + 2y^2 - 3x^3y$',
+                    '$-x^2 - 2y^2 + 3x^3y$',
+                    '$x^2 - 2y^2 + 3x^3y$',
+                    '$-x^2 + 2y^2 + 3x^3y$'
+                ],
+                ans: 0,
+                exp: 'Chia từng hạng tử cho $-4x^2$: $-x^2 + 2y^2 - 3x^3y$.'
+            },
+            {
+                id: 64, type: 'mcq', topic: 'topic-5', badge: 'Bài 5 • Đa thức : Đơn thức',
+                q: 'Kết quả của phép chia $(3xy^2 - x^2y + 2x^2y^2) : (-4xy)$ là:',
+                options: [
+                    '$\\dfrac{-3}{4}y + \\dfrac{1}{4}x - \\dfrac{1}{2}xy$',
+                    '$\\dfrac{-3}{4}y - \\dfrac{1}{4}x - \\dfrac{1}{2}xy$',
+                    '$\\dfrac{3}{4}y - \\dfrac{1}{4}x + \\dfrac{1}{2}xy$',
+                    '$\\dfrac{-3}{4}y + \\dfrac{1}{4}x + \\dfrac{1}{2}xy$'
+                ],
+                ans: 0,
+                exp: 'Chia từng hạng tử cho $-4xy$ ta được $\\dfrac{-3}{4}y + \\dfrac{1}{4}x - \\dfrac{1}{2}xy$.'
+            },
+            {
+                id: 65, type: 'mcq', topic: 'topic-5', badge: 'Bài 5 • Đa thức : Đơn thức',
+                q: 'Thực hiện phép tính $(27x^4y^2 - 18x^3y^2 + 12x^2y) : 3x^2y$ ta được:',
+                options: [
+                    '$9x^2y - 6xy + 4$',
+                    '$9x^2y - 6xy + 4xy$',
+                    '$9x^2 - 6xy + 4$',
+                    '$9x^2y + 6xy + 4$'
+                ],
+                ans: 0,
+                exp: '$27x^4y^2 : 3x^2y - 18x^3y^2 : 3x^2y + 12x^2y : 3x^2y = 9x^2y - 6xy + 4$.'
+            },
+            {
+                id: 66, type: 'mcq', topic: 'topic-5', badge: 'Bài 5 • Tìm đơn thức',
+                q: 'Tìm đơn thức $A$ biết $A \\cdot (2xy^2) = -6(xy^2)^2$:',
+                options: ['$A = -3xy^2$', '$A = 3xy^2$', '$A = -3x^2y^2$', '$A = -12xy^2$'],
+                ans: 0,
+                exp: '$A = -6x^2y^4 : (2xy^2) = -3xy^2$.'
+            },
+            {
+                id: 67, type: 'mcq', topic: 'topic-5', badge: 'Bài 5 • Tìm đa thức',
+                q: 'Tìm đa thức $A$ biết $-A \\cdot (3x^2y)^2 = 2x^5y^4 + 4x^4y^5$:',
+                options: [
+                    '$A = -\\dfrac{2}{9}xy^2 - \\dfrac{4}{9}y^3$',
+                    '$A = \\dfrac{2}{9}xy^2 + \\dfrac{4}{9}y^3$',
+                    '$A = -\\dfrac{2}{3}xy^2 - \\dfrac{4}{3}y^3$',
+                    '$A = -\\dfrac{2}{9}x^2y - \\dfrac{4}{9}y^3$'
+                ],
+                ans: 0,
+                exp: '$-A = (2x^5y^4 + 4x^4y^5) : (9x^4y^2) = \\dfrac{2}{9}xy^2 + \\dfrac{4}{9}y^3 \\Rightarrow A = -\\dfrac{2}{9}xy^2 - \\dfrac{4}{9}y^3$.'
+            },
+            {
+                id: 68, type: 'mcq', topic: 'topic-5', badge: 'Bài 5 • Tìm đơn thức B',
+                q: 'Tìm đơn thức $B$ biết $(B + 2x^2y^3) \\cdot (-3xy) = -3x^2y^2 - 6x^3y^4$:',
+                options: ['$B = xy$', '$B = -xy$', '$B = x^2y$', '$B = 3xy$'],
+                ans: 0,
+                exp: '$B + 2x^2y^3 = (-3x^2y^2 - 6x^3y^4) : (-3xy) = xy + 2x^2y^3 \\Rightarrow B = xy$.'
+            },
+            {
+                id: 69, type: 'mcq', topic: 'topic-5', badge: 'Bài 5 • Tìm đơn thức B',
+                q: 'Tìm đơn thức $B$ biết $(2x^3y - 5xy^3) : 3xy = B - \\dfrac{5}{3}y^2$:',
+                options: ['$B = \\dfrac{2}{3}x^2$', '$B = \\dfrac{2}{3}xy$', '$B = 2x^2$', '$B = -\\dfrac{2}{3}x^2$'],
+                ans: 0,
+                exp: 'Vế trái $= \\dfrac{2}{3}x^2 - \\dfrac{5}{3}y^2 = B - \\dfrac{5}{3}y^2 \\Rightarrow B = \\dfrac{2}{3}x^2$.'
+            },
+            {
+                id: 70, type: 'mcq', topic: 'topic-5', badge: 'Bài 5 • Điều kiện số mũ',
+                q: 'Tìm số tự nhiên $n$ để đa thức $A = 4x^4y^3 - 3x^3y^2$ chia hết cho đơn thức $B = 2x^ny^2$:',
+                options: ['$n \\in \\{0; 1; 2; 3\\}$', '$n \\in \\{1; 2; 3; 4\\}$', '$n = 3$', '$n \\in \\{0; 1; 2; 3; 4\\}$'],
+                ans: 0,
+                exp: 'Để $A$ chia hết cho $B$ thì cả hai hạng tử của $A$ đều chia hết cho $B$, suy ra $n \\le 3$ và $n \\in \\mathbb{N} \\Rightarrow n \\in \\{0; 1; 2; 3\\}$.'
+            },
+
+            // =========================================================================
+            // PHẦN II: TRẮC NGHIỆM TRẢ LỜI NGẮN (CÂU 71 -> CÂU 100)
+            // =========================================================================
+            {
+                id: 71, type: 'sa', topic: 'topic-1', badge: 'Bài 1 • Hệ số đơn thức',
+                q: 'Thu gọn đơn thức $A = 4x^2 \\cdot (-4xy^2)$. Hãy cho biết <strong>phần hệ số</strong> của đơn thức thu gọn là bao nhiêu?',
+                ans: ['-16'],
+                displayAns: '$-16$',
+                exp: '$A = 4 \\cdot (-4) \\cdot (x^2 \\cdot x) \\cdot y^2 = -16x^3y^2$. Hệ số là $-16$.'
+            },
+            {
+                id: 72, type: 'sa', topic: 'topic-1', badge: 'Bài 1 • Bậc đơn thức',
+                q: 'Tìm <strong>bậc</strong> của đơn thức $B = 2x^3y^5x^2y^4x$ sau khi thu gọn.',
+                ans: ['15'],
+                displayAns: '$15$',
+                exp: 'Thu gọn $B = 2x^{3+2+1}y^{5+4} = 2x^6y^9$. Bậc của đơn thức là $6 + 9 = 15$.'
+            },
+            {
+                id: 73, type: 'sa', topic: 'topic-1', badge: 'Bài 1 • Hệ số đơn thức',
+                q: 'Cho đơn thức $C = \\dfrac{1}{6}x \\cdot (-2y^5)^3 \\cdot (-9x^5y)$. Sau khi thu gọn, <strong>hệ số</strong> của đơn thức $C$ bằng bao nhiêu?',
+                ans: ['12'],
+                displayAns: '$12$',
+                exp: '$C = \\dfrac{1}{6}x \\cdot (-8y^{15}) \\cdot (-9x^5y) = \\left(\\dfrac{1}{6} \\cdot (-8) \\cdot (-9)\\right)x^6y^{16} = 12x^6y^{16}$. Hệ số là $12$.'
+            },
+            {
+                id: 74, type: 'sa', topic: 'topic-1', badge: 'Bài 1 • Cộng trừ đơn thức',
+                q: 'Thực hiện phép tính $25x^2y + (-55x^2y)$ ta được đơn thức có <strong>hệ số</strong> bằng bao nhiêu?',
+                ans: ['-30'],
+                displayAns: '$-30$',
+                exp: '$25x^2y + (-55x^2y) = -30x^2y$, có hệ số là $-30$.'
+            },
+            {
+                id: 75, type: 'sa', topic: 'topic-1', badge: 'Bài 1 • Cộng trừ đơn thức',
+                q: 'Thu gọn biểu thức $15x^4 + 7x^4 - 20x^2 \\cdot x^2$ ta được đơn thức có <strong>hệ số</strong> là bao nhiêu?',
+                ans: ['2'],
+                displayAns: '$2$',
+                exp: '$15x^4 + 7x^4 - 20x^4 = (15 + 7 - 20)x^4 = 2x^4$. Hệ số là $2$.'
+            },
+            {
+                id: 76, type: 'sa', topic: 'topic-1', badge: 'Bài 1 • Giá trị đơn thức',
+                q: 'Cho đơn thức $C = \\dfrac{1}{3} \\cdot (-6x^2y^2)^2 \\left(\\dfrac{1}{2}x^3y\\right)$. Tính giá trị của $C$ tại $x = 1, y = -1$.',
+                ans: ['-6'],
+                displayAns: '$-6$',
+                exp: 'Thu gọn $C = \\dfrac{1}{3} \\cdot 36x^4y^4 \\cdot \\dfrac{1}{2}x^3y = 6x^7y^5$. Tại $x = 1, y = -1$: $C = 6 \\cdot 1^7 \\cdot (-1)^5 = -6$.'
+            },
+            {
+                id: 77, type: 'sa', topic: 'topic-2', badge: 'Bài 2 • Bậc đa thức',
+                q: 'Tìm <strong>bậc</strong> của đa thức $A = x^6 + y^5 + x^4y^4 + 1 - x^4y^4$.',
+                ans: ['6'],
+                displayAns: '$6$',
+                exp: 'Thu gọn $A = x^6 + y^5 + 1$. Hạng tử bậc cao nhất là $x^6$ nên bậc của đa thức là $6$.'
+            },
+            {
+                id: 78, type: 'sa', topic: 'topic-2', badge: 'Bài 2 • Bậc đa thức',
+                q: 'Tìm <strong>bậc</strong> của đa thức $E = x^6 + x^2y^5 + xy^6 + x^2y^5 - xy^6$.',
+                ans: ['7'],
+                displayAns: '$7$',
+                exp: 'Thu gọn $E = x^6 + 2x^2y^5$. Hạng tử $2x^2y^5$ có bậc $2 + 5 = 7 > 6$, nên bậc của đa thức là $7$.'
+            },
+            {
+                id: 79, type: 'sa', topic: 'topic-2', badge: 'Bài 2 • Giá trị đa thức',
+                q: 'Tính giá trị của đa thức $E = 3x^2y - \\dfrac{1}{4}xy + 1 - 3x^2y + \\dfrac{1}{2}xy - \\dfrac{1}{4}xy$ tại $x = 2026, y = -2027$.',
+                ans: ['1'],
+                displayAns: '$1$',
+                exp: 'Sau khi thu gọn, mọi hạng tử chứa biến đều triệt tiêu và $E = 1$ với mọi $x, y$.'
+            },
+            {
+                id: 80, type: 'sa', topic: 'topic-2', badge: 'Bài 2 • Giá trị đa thức',
+                q: 'Cho đa thức $B = \\dfrac{1}{2}xy^2 + \\dfrac{2}{3}x^2y - xy + xy^2 - \\dfrac{1}{3}x^2y + 2xy$. Tính giá trị của $B$ tại $x = \\dfrac{1}{2}, y = 1$ (nhập dưới dạng phân số tối giản a/b).',
+                ans: ['4/3'],
+                displayAns: '$\\dfrac{4}{3}$',
+                exp: 'Thu gọn $B = \\dfrac{3}{2}xy^2 + \\dfrac{1}{3}x^2y + xy$. Thay $x = \\dfrac{1}{2}, y = 1$: $B = \\dfrac{3}{4} + \\dfrac{1}{12} + \\dfrac{1}{2} = \\dfrac{4}{3}$.'
+            },
+            {
+                id: 81, type: 'sa', topic: 'topic-3', badge: 'Bài 3 • Giá trị tổng hai đa thức',
+                q: 'Cho hai đa thức $A = x^5y + 3x^4 + 5x^2y$ và $B = 2xy - 3x^4 - 2xy + 9 + 2x^2y$. Tính giá trị của đa thức $C = A + B$ tại $x = -1, y = 2$.',
+                ans: ['21'],
+                displayAns: '$21$',
+                exp: 'Thu gọn $C = A + B = x^5y + 7x^2y + 9$. Tại $x = -1, y = 2$: $C = (-1)^5 \\cdot 2 + 7(-1)^2 \\cdot 2 + 9 = -2 + 14 + 9 = 21$.'
+            },
+            {
+                id: 82, type: 'sa', topic: 'topic-3', badge: 'Bài 3 • Giá trị đa thức',
+                q: 'Cho $P(x) = 5x^2 + 5x - 4$, $Q(x) = 2x^2 - 3x + 1$ và $R(x) = 4x^2 - x + 3$. Tính giá trị của biểu thức $P(x) + Q(x) - R(x)$ tại $x = 2$.',
+                ans: ['12'],
+                displayAns: '$12$',
+                exp: '$P(x) + Q(x) - R(x) = 3x^2 + 3x - 6$. Tại $x = 2$: $3(2^2) + 3(2) - 6 = 12 + 6 - 6 = 12$.'
+            },
+            {
+                id: 83, type: 'sa', topic: 'topic-3', badge: 'Bài 3 • Cộng trừ đa thức',
+                q: 'Cho $A = x^2 - 3xy - y^2 + 1$ và $B = 2x^2 + y^2 - 7xy - 5$. Biết đa thức $C = B - A$. Tính giá trị của $C$ tại $x = 2, y = -\\dfrac{1}{2}$ (viết dưới dạng phân số a/b hoặc số thập phân).',
+                ans: ['5/2', '2.5', '2,5'],
+                displayAns: '$\\dfrac{5}{2}$ (hoặc $2,5$)',
+                exp: '$C = B - A = x^2 - 4xy + 2y^2 - 6$. Thay $x = 2, y = -\\dfrac{1}{2}$: $C = 4 - 4(2)\\left(-\\dfrac{1}{2}\\right) + 2\\left(\\dfrac{1}{4}\\right) - 6 = 4 + 4 + \\dfrac{1}{2} - 6 = \\dfrac{5}{2} = 2,5$.'
+            },
+            {
+                id: 84, type: 'sa', topic: 'topic-4', badge: 'Bài 4 • Giá trị biểu thức',
+                q: 'Tính giá trị của biểu thức $A = 5x(x^2 - 3) + x^2(7 - 5x) - 7x^2$ tại $x = -5$.',
+                ans: ['75'],
+                displayAns: '$75$',
+                exp: 'Thu gọn $A = 5x^3 - 15x + 7x^2 - 5x^3 - 7x^2 = -15x$. Tại $x = -5 \\Rightarrow A = -15 \\cdot (-5) = 75$.'
+            },
+            {
+                id: 85, type: 'sa', topic: 'topic-4', badge: 'Bài 4 • Giá trị biểu thức',
+                q: 'Tính giá trị của biểu thức $B = x(x^2 + xy + y^2) - y(x^2 + xy + y^2)$ tại $x = 10, y = -1$.',
+                ans: ['1001'],
+                displayAns: '$1001$',
+                exp: 'Thu gọn $B = x^3 - y^3$. Tại $x = 10, y = -1 \\Rightarrow B = 10^3 - (-1)^3 = 1000 + 1 = 1001$.'
+            },
+            {
+                id: 86, type: 'sa', topic: 'topic-4', badge: 'Bài 4 • Giá trị biểu thức',
+                q: 'Tính giá trị của biểu thức $D = x(x^2 - y) - x^2(x + y) + y(x^2 - x)$ tại $x = \\dfrac{1}{2}, y = -100$.',
+                ans: ['100'],
+                displayAns: '$100$',
+                exp: 'Thu gọn $D = x^3 - xy - x^3 - x^2y + x^2y - xy = -2xy$. Tại $x = \\dfrac{1}{2}, y = -100 \\Rightarrow D = -2 \\cdot \\dfrac{1}{2} \\cdot (-100) = 100$.'
+            },
+            {
+                id: 87, type: 'sa', topic: 'topic-4', badge: 'Bài 4 • Giá trị biểu thức',
+                q: 'Tính giá trị của biểu thức $A = (x - 2)(x - 2) - (x - 1)(x + 1)$ tại $x = 21$.',
+                ans: ['-79'],
+                displayAns: '$-79$',
+                exp: 'Thu gọn $A = (x^2 - 4x + 4) - (x^2 - 1) = -4x + 5$. Tại $x = 21 \\Rightarrow A = -4(21) + 5 = -79$.'
+            },
+            {
+                id: 88, type: 'sa', topic: 'topic-4', badge: 'Bài 4 • Tính nhanh giá trị',
+                q: 'Tính giá trị của biểu thức $A = x^6 - 20x^5 + 20x^4 - 20x^3 + 20x^2 - 20x + 3$ tại $x = 19$.',
+                ans: ['-16'],
+                displayAns: '$-16$',
+                exp: 'Thay $20 = x + 1$: $A = x^6 - (x+1)x^5 + (x+1)x^4 - (x+1)x^3 + (x+1)x^2 - (x+1)x + 3 = -x + 3 = -19 + 3 = -16$.'
+            },
+            {
+                id: 89, type: 'sa', topic: 'topic-4', badge: 'Bài 4 • Tính nhanh giá trị',
+                q: 'Tính giá trị của biểu thức $C = x^4 - 17x^3 + 17x^2 - 17x + 20$ tại $x = 16$.',
+                ans: ['4'],
+                displayAns: '$4$',
+                exp: 'Thay $17 = x + 1$: $C = x^4 - (x+1)x^3 + (x+1)x^2 - (x+1)x + 20 = -x + 20 = -16 + 20 = 4$.'
+            },
+            {
+                id: 90, type: 'sa', topic: 'topic-4', badge: 'Bài 4 • Tính nhanh giá trị',
+                q: 'Tính giá trị của biểu thức $G = x^5 - 100x^4 + 100x^3 - 100x^2 + 100x - 9$ tại $x = 99$.',
+                ans: ['90'],
+                displayAns: '$90$',
+                exp: 'Thay $100 = x + 1$: $G = x - 9 = 99 - 9 = 90$.'
+            },
+            {
+                id: 91, type: 'sa', topic: 'topic-4', badge: 'Bài 4 • Hằng số không phụ thuộc biến',
+                q: 'Rút gọn biểu thức $D = -2(x - 7)(x + 3) + (5x - 1)(x + 4) - 3x^2 - 27x$ ta được một hằng số. Hằng số đó bằng bao nhiêu?',
+                ans: ['38'],
+                displayAns: '$38$',
+                exp: '$D = -2(x^2 - 4x - 21) + (5x^2 + 19x - 4) - 3x^2 - 27x = -2x^2 + 8x + 42 + 5x^2 + 19x - 4 - 3x^2 - 27x = 38$.'
+            },
+            {
+                id: 92, type: 'sa', topic: 'topic-4', badge: 'Bài 4 • Hằng số không phụ thuộc biến',
+                q: 'Rút gọn biểu thức $C = 2x(6x - 4) - 5x^2(8 + 3x) + 2(5x^2 + 4x + 1) + 3x^2(5x + 6)$ ta được giá trị bằng bao nhiêu?',
+                ans: ['2'],
+                displayAns: '$2$',
+                exp: '$C = 12x^2 - 8x - 40x^2 - 15x^3 + 10x^2 + 8x + 2 + 15x^3 + 18x^2 = 2$.'
+            },
+            {
+                id: 93, type: 'sa', topic: 'topic-4', badge: 'Bài 4 • Tìm x',
+                q: 'Tìm $x$ biết $4(x + 2) - 7(2x - 1) + 9(3x - 4) = 30$.',
+                ans: ['3'],
+                displayAns: '$3$',
+                exp: '$4x + 8 - 14x + 7 + 27x - 36 = 30 \\Rightarrow 17x - 21 = 30 \\Rightarrow 17x = 51 \\Rightarrow x = 3$.'
+            },
+            {
+                id: 94, type: 'sa', topic: 'topic-4', badge: 'Bài 4 • Tìm x',
+                q: 'Tìm $x$ biết $3(5x - 1) - x(x - 2) + x^2 - 13x = 7$ (viết dưới dạng phân số a/b hoặc số thập phân).',
+                ans: ['5/2', '2.5', '2,5'],
+                displayAns: '$\\dfrac{5}{2}$ (hoặc $2,5$)',
+                exp: '$15x - 3 - x^2 + 2x + x^2 - 13x = 7 \\Rightarrow 4x - 3 = 7 \\Rightarrow 4x = 10 \\Rightarrow x = \\dfrac{5}{2} = 2,5$.'
+            },
+            {
+                id: 95, type: 'sa', topic: 'topic-4', badge: 'Bài 4 • Tìm x',
+                q: 'Tìm $x$ biết $(3x - 1)(2x + 7) - (x + 1)(6x - 5) = 7$ (viết dưới dạng phân số a/b hoặc số thập phân).',
+                ans: ['1/2', '0.5', '0,5'],
+                displayAns: '$\\dfrac{1}{2}$ (hoặc $0,5$)',
+                exp: '$(6x^2 + 19x - 7) - (6x^2 + x - 5) = 7 \\Rightarrow 18x - 2 = 7 \\Rightarrow 18x = 9 \\Rightarrow x = \\dfrac{1}{2} = 0,5$.'
+            },
+            {
+                id: 96, type: 'sa', topic: 'topic-4', badge: 'Bài 4 • Tìm x',
+                q: 'Tìm $x$ biết $2(3x - 1)(2x + 5) - 6(2x - 1)(x + 2) = -6$.',
+                ans: ['-1'],
+                displayAns: '$-1$',
+                exp: '$(12x^2 + 26x - 10) - (12x^2 + 18x - 12) = -6 \\Rightarrow 8x + 2 = -6 \\Rightarrow 8x = -8 \\Rightarrow x = -1$.'
+            },
+            {
+                id: 97, type: 'sa', topic: 'topic-5', badge: 'Bài 5 • Chia đơn thức',
+                q: 'Thực hiện phép chia $\\dfrac{3}{4}(x^2y)^2 : \\dfrac{1}{8}xy^2$ ta được đơn thức có <strong>hệ số</strong> bằng bao nhiêu?',
+                ans: ['6'],
+                displayAns: '$6$',
+                exp: '$\\dfrac{3}{4}x^4y^2 : \\dfrac{1}{8}xy^2 = \\left(\\dfrac{3}{4} : \\dfrac{1}{8}\\right)x^3 = 6x^3$. Hệ số là $6$.'
+            },
+            {
+                id: 98, type: 'sa', topic: 'topic-5', badge: 'Bài 5 • Giá trị thương',
+                q: 'Tính giá trị của biểu thức $P = (20x^2y^2 - 5x^2y + 15x^2y^3) : 5x^2y$ tại $x = 2026, y = -1$.',
+                ans: ['-2'],
+                displayAns: '$-2$',
+                exp: 'Thực hiện phép chia: $P = 4y - 1 + 3y^2$. Thay $y = -1$: $P = 4(-1) - 1 + 3(-1)^2 = -4 - 1 + 3 = -2$.'
+            },
+            {
+                id: 99, type: 'sa', topic: 'topic-5', badge: 'Bài 5 • Tìm đơn thức A',
+                q: 'Biết $4x^5y^2 : A = -\\dfrac{1}{2}x^2y$. Hãy cho biết <strong>hệ số</strong> của đơn thức $A$ là bao nhiêu?',
+                ans: ['-8'],
+                displayAns: '$-8$',
+                exp: '$A = 4x^5y^2 : \\left(-\\dfrac{1}{2}x^2y\\right) = -8x^3y$. Hệ số của $A$ là $-8$.'
+            },
+            {
+                id: 100, type: 'sa', topic: 'topic-5', badge: 'Bài 5 • Tổng hợp Chương 1',
+                q: 'Cho hai đơn thức $A = -18x^3y^4z^5$ và $B = \\dfrac{2}{9}x^5(yz^2)^2$. Tìm <strong>bậc</strong> của đơn thức tích $C = A \\cdot B$.',
+                ans: ['23'],
+                displayAns: '$23$',
+                exp: 'Ta có $B = \\dfrac{2}{9}x^5y^2z^4 \\Rightarrow C = A \\cdot B = -4x^8y^6z^9$. Bậc của $C$ là $8 + 6 + 9 = 23$.'
+            }
+        ];
+
+        // State quản lý bài làm của học sinh
+        const userState = {};
+        let timerSeconds = 0;
+        let timerInterval = null;
+        let allExplanationsOpen = false;
+
+        // Khởi tạo giao diện
+        function initQuiz() {
+            const mcqContainer = document.getElementById('mcq-container');
+            const saContainer = document.getElementById('sa-container');
+            const palette = document.getElementById('question-palette');
+
+            mcqContainer.innerHTML = '';
+            saContainer.innerHTML = '';
+            palette.innerHTML = '';
+
+            questions.forEach((item) => {
+                userState[item.id] = {
+                    answered: false,
+                    userVal: null,
+                    isCorrect: null
+                };
+
+                // Nút trên bản đồ câu hỏi
+                const palBtn = document.createElement('a');
+                palBtn.href = `#q-card-${item.id}`;
+                palBtn.id = `pal-btn-${item.id}`;
+                palBtn.className = 'h-8 rounded-lg border border-slate-200 bg-slate-50 text-slate-600 text-xs font-bold flex items-center justify-center hover:border-blue-400 hover:text-blue-600 transition-all';
+                palBtn.textContent = item.id;
+                palette.appendChild(palBtn);
+
+                // Tạo card câu hỏi
+                const card = document.createElement('div');
+                card.id = `q-card-${item.id}`;
+                card.dataset.topic = item.topic;
+                card.dataset.part = item.type === 'mcq' ? 'part-mcq' : 'part-sa';
+                card.className = 'question-card bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 sm:p-6 space-y-4 transition-all scroll-mt-24';
+
+                const headerHTML = `
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-1 rounded-lg bg-blue-600 text-white text-xs font-extrabold">
+                                Câu ${item.id}
+                            </span>
+                            <span class="text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md border border-slate-200/80">
+                                ${item.badge}
+                            </span>
+                        </div>
+                        <span id="status-badge-${item.id}" class="hidden text-xs font-bold px-2.5 py-1 rounded-full"></span>
+                    </div>
+                    <div class="text-slate-800 text-sm sm:text-base leading-relaxed font-medium">
+                        ${item.q}
+                    </div>
+                `;
+
+                if (item.type === 'mcq') {
+                    const labels = ['A', 'B', 'C', 'D'];
+                    let optionsHTML = '<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">';
+                    item.options.forEach((opt, idx) => {
+                        optionsHTML += `
+                            <button type="button"
+                                id="opt-${item.id}-${idx}"
+                                onclick="selectMCQ(${item.id}, ${idx})"
+                                class="option-btn text-left px-4 py-3 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-blue-50/60 hover:border-blue-300 flex items-center gap-3 text-sm sm:text-base">
+                                <span id="opt-label-${item.id}-${idx}" class="w-7 h-7 rounded-lg bg-white border border-slate-300 text-slate-700 font-bold text-xs flex items-center justify-center shrink-0">
+                                    ${labels[idx]}
+                                </span>
+                                <span class="text-slate-800">${opt}</span>
+                            </button>
+                        `;
+                    });
+                    optionsHTML += '</div>';
+
+                    card.innerHTML = headerHTML + optionsHTML + buildExplanationBox(item);
+                    mcqContainer.appendChild(card);
+                } else {
+                    const saInputHTML = `
+                        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 pt-1">
+                            <input type="text"
+                                id="sa-input-${item.id}"
+                                placeholder="Nhập đáp số (vd: -16, 5/2, 2,5)..."
+                                onkeydown="if(event.key==='Enter') checkSA(${item.id})"
+                                class="flex-1 px-4 py-2.5 rounded-xl border border-slate-300 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base font-semibold text-slate-800">
+                            <button type="button"
+                                onclick="checkSA(${item.id})"
+                                class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs sm:text-sm transition-colors shrink-0">
+                                Kiểm tra đáp án
+                            </button>
+                        </div>
+                    `;
+                    card.innerHTML = headerHTML + saInputHTML + buildExplanationBox(item);
+                    saContainer.appendChild(card);
+                }
+            });
+
+            // Khởi chạy đồng hồ
+            startTimer();
+
+            // Render toàn bộ ký hiệu toán học ngay lập tức bằng KaTeX
+            renderMath(document.body);
+            lucide.createIcons();
+        }
+
+        function buildExplanationBox(item) {
+            const labels = ['A', 'B', 'C', 'D'];
+            const ansText = item.type === 'mcq' ? `Đáp án đúng: <strong>${labels[item.ans]}</strong>` : `Đáp số đúng: <strong>${item.displayAns}</strong>`;
+            return `
+                <div id="exp-box-${item.id}" class="hidden rounded-xl bg-indigo-50/70 border border-indigo-200/80 p-4 text-xs sm:text-sm space-y-1.5">
+                    <div class="font-bold text-indigo-900 flex items-center gap-1.5">
+                        <span>✓ ${ansText}</span>
+                    </div>
+                    <div class="text-slate-700 leading-relaxed">
+                        <strong>Hướng dẫn giải:</strong> ${item.exp}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Xử lý khi học sinh chọn đáp án Trắc nghiệm 4 lựa chọn
+        function selectMCQ(qId, optIdx) {
+            const item = questions.find(q => q.id === qId);
+            const isInstant = document.getElementById('instant-check-toggle').checked;
+
+            userState[qId].answered = true;
+            userState[qId].userVal = optIdx;
+            userState[qId].isCorrect = (optIdx === item.ans);
+
+            if (isInstant) {
+                renderQuestionResult(qId);
+            } else {
+                for (let i = 0; i < 4; i++) {
+                    const btn = document.getElementById(`opt-${qId}-${i}`);
+                    const lbl = document.getElementById(`opt-label-${qId}-${i}`);
+                    if (i === optIdx) {
+                        btn.className = 'option-btn text-left px-4 py-3 rounded-xl border-2 border-blue-600 bg-blue-50/80 flex items-center gap-3 text-sm sm:text-base';
+                        lbl.className = 'w-7 h-7 rounded-lg bg-blue-600 text-white font-bold text-xs flex items-center justify-center shrink-0';
+                    } else {
+                        btn.className = 'option-btn text-left px-4 py-3 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-blue-50/60 flex items-center gap-3 text-sm sm:text-base';
+                        lbl.className = 'w-7 h-7 rounded-lg bg-white border border-slate-300 text-slate-700 font-bold text-xs flex items-center justify-center shrink-0';
+                    }
+                }
+                const palBtn = document.getElementById(`pal-btn-${qId}`);
+                palBtn.className = 'h-8 rounded-lg border border-blue-600 bg-blue-600 text-white text-xs font-bold flex items-center justify-center';
+            }
+
+            updateProgressStats();
+        }
+
+        // Chuẩn hóa chuỗi trả lời ngắn (hỗ trợ cả phân số và số thập phân)
+        function normalizeSA(str) {
+            if (!str) return '';
+            return str.toString().trim().replace(/\s+/g, '').replace(',', '.').toLowerCase();
+        }
+
+        function isNumericMatch(userStr, validList) {
+            const normUser = normalizeSA(userStr);
+            if (!normUser) return false;
+
+            for (const valid of validList) {
+                const normValid = normalizeSA(valid);
+                if (normUser === normValid) return true;
+
+                const valUser = parseFractionOrNumber(normUser);
+                const valTarget = parseFractionOrNumber(normValid);
+                if (valUser !== null && valTarget !== null && Math.abs(valUser - valTarget) < 1e-9) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function parseFractionOrNumber(s) {
+            if (s.includes('/')) {
+                const parts = s.split('/');
+                if (parts.length === 2) {
+                    const num = Number(parts[0]);
+                    const den = Number(parts[1]);
+                    if (!isNaN(num) && !isNaN(den) && den !== 0) return num / den;
+                }
+                return null;
+            }
+            const n = Number(s);
+            return isNaN(n) ? null : n;
+        }
+
+        // Xử lý kiểm tra câu trả lời ngắn
+        function checkSA(qId) {
+            const inputEl = document.getElementById(`sa-input-${qId}`);
+            const rawVal = inputEl.value.trim();
+            if (!rawVal) {
+                inputEl.focus();
+                return;
+            }
+
+            const item = questions.find(q => q.id === qId);
+            const correct = isNumericMatch(rawVal, item.ans);
+
+            userState[qId].answered = true;
+            userState[qId].userVal = rawVal;
+            userState[qId].isCorrect = correct;
+
+            renderQuestionResult(qId);
+            updateProgressStats();
+        }
+
+        // Hiển thị màu sắc Đúng / Sai và Giải thích cho câu hỏi
+        function renderQuestionResult(qId) {
+            const item = questions.find(q => q.id === qId);
+            const state = userState[qId];
+            const badge = document.getElementById(`status-badge-${qId}`);
+            const expBox = document.getElementById(`exp-box-${qId}`);
+            const palBtn = document.getElementById(`pal-btn-${qId}`);
+
+            if (item.type === 'mcq') {
+                for (let i = 0; i < 4; i++) {
+                    const btn = document.getElementById(`opt-${qId}-${i}`);
+                    const lbl = document.getElementById(`opt-label-${qId}-${i}`);
+
+                    if (i === item.ans) {
+                        btn.className = 'option-btn text-left px-4 py-3 rounded-xl border-2 border-emerald-500 bg-emerald-50/90 flex items-center gap-3 text-sm sm:text-base font-semibold';
+                        lbl.className = 'w-7 h-7 rounded-lg bg-emerald-600 text-white font-bold text-xs flex items-center justify-center shrink-0';
+                    } else if (state.answered && i === state.userVal && !state.isCorrect) {
+                        btn.className = 'option-btn text-left px-4 py-3 rounded-xl border-2 border-rose-500 bg-rose-50/90 flex items-center gap-3 text-sm sm:text-base';
+                        lbl.className = 'w-7 h-7 rounded-lg bg-rose-600 text-white font-bold text-xs flex items-center justify-center shrink-0';
+                    } else {
+                        btn.className = 'option-btn text-left px-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 opacity-75 flex items-center gap-3 text-sm sm:text-base';
+                        lbl.className = 'w-7 h-7 rounded-lg bg-white border border-slate-300 text-slate-600 font-bold text-xs flex items-center justify-center shrink-0';
+                    }
+                }
+            } else {
+                const inputEl = document.getElementById(`sa-input-${qId}`);
+                if (state.answered) {
+                    if (state.isCorrect) {
+                        inputEl.className = 'flex-1 px-4 py-2.5 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-emerald-900 text-sm sm:text-base font-bold';
+                    } else {
+                        inputEl.className = 'flex-1 px-4 py-2.5 rounded-xl border-2 border-rose-500 bg-rose-50 text-rose-900 text-sm sm:text-base font-bold';
+                    }
+                }
+            }
+
+            if (state.answered) {
+                badge.classList.remove('hidden');
+                if (state.isCorrect) {
+                    badge.textContent = '✓ Chính xác';
+                    badge.className = 'text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300';
+                    palBtn.className = 'h-8 rounded-lg bg-emerald-600 text-white text-xs font-bold flex items-center justify-center shadow-sm';
+                } else {
+                    badge.textContent = '✗ Chưa đúng';
+                    badge.className = 'text-xs font-bold px-2.5 py-1 rounded-full bg-rose-100 text-rose-800 border border-rose-300';
+                    palBtn.className = 'h-8 rounded-lg bg-rose-600 text-white text-xs font-bold flex items-center justify-center shadow-sm';
+                }
+            }
+
+            expBox.classList.remove('hidden');
+        }
+
+        // Cập nhật thanh tiến độ
+        function updateProgressStats() {
+            let answeredCount = 0;
+            let correctCount = 0;
+            let wrongCount = 0;
+
+            questions.forEach(q => {
+                const st = userState[q.id];
+                if (st.answered) {
+                    answeredCount++;
+                    if (st.isCorrect) correctCount++;
+                    else wrongCount++;
+                }
+            });
+
+            const remain = questions.length - answeredCount;
+            const percent = Math.round((answeredCount / questions.length) * 100);
+
+            document.getElementById('progress-text').textContent = `${answeredCount} / 100 câu`;
+            document.getElementById('progress-bar').style.width = `${percent}%`;
+            document.getElementById('live-correct').textContent = correctCount;
+            document.getElementById('live-wrong').textContent = wrongCount;
+            document.getElementById('live-remain').textContent = remain;
+        }
+
+        // Nộp bài & chấm tổng điểm toàn bộ 100 câu
+        function submitQuiz() {
+            questions.forEach(q => {
+                if (q.type === 'sa') {
+                    const inputEl = document.getElementById(`sa-input-${q.id}`);
+                    const rawVal = inputEl.value.trim();
+                    if (rawVal && !userState[q.id].answered) {
+                        userState[q.id].answered = true;
+                        userState[q.id].userVal = rawVal;
+                        userState[q.id].isCorrect = isNumericMatch(rawVal, q.ans);
+                    }
+                }
+                renderQuestionResult(q.id);
+            });
+
+            updateProgressStats();
+
+            let correctCount = 0;
+            let wrongCount = 0;
+            let unansweredCount = 0;
+
+            questions.forEach(q => {
+                const st = userState[q.id];
+                if (!st.answered) unansweredCount++;
+                else if (st.isCorrect) correctCount++;
+                else wrongCount++;
+            });
+
+            const score10 = (correctCount / 10).toFixed(1);
+
+            document.getElementById('score-10').textContent = score10;
+            document.getElementById('score-correct').textContent = `${correctCount}/100`;
+            document.getElementById('score-wrong').textContent = wrongCount;
+            document.getElementById('score-unanswered').textContent = unansweredCount;
+
+            const titleEl = document.getElementById('result-grade-title');
+            if (correctCount >= 85) {
+                titleEl.textContent = `Xuất sắc! Bạn đạt ${score10}/10 điểm!`;
+                if (typeof confetti === 'function') {
+                    confetti({ particleCount: 90, spread: 70, origin: { y: 0.6 } });
+                }
+            } else if (correctCount >= 70) {
+                titleEl.textContent = `Khá giỏi! Bạn đạt ${score10}/10 điểm!`;
+            } else if (correctCount >= 50) {
+                titleEl.textContent = `Đạt yêu cầu! Bạn đạt ${score10}/10 điểm.`;
+            } else {
+                titleEl.textContent = `Bạn đạt ${score10}/10 điểm. Hãy xem kỹ lời giải chi tiết bên dưới nhé!`;
+            }
+
+            const banner = document.getElementById('result-banner');
+            banner.classList.remove('hidden');
+            banner.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Làm lại từ đầu
+        function resetQuiz() {
+            if (!confirm('Bạn có chắc muốn xóa toàn bộ câu trả lời để làm lại từ đầu?')) return;
+            timerSeconds = 0;
+            document.getElementById('result-banner').classList.add('hidden');
+            initQuiz();
+            updateProgressStats();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Ẩn/Hiện tất cả lời giải
+        function toggleAllExplanations() {
+            allExplanationsOpen = !allExplanationsOpen;
+            questions.forEach(q => {
+                const expBox = document.getElementById(`exp-box-${q.id}`);
+                if (allExplanationsOpen) expBox.classList.remove('hidden');
+                else if (!userState[q.id].answered) expBox.classList.add('hidden');
+            });
+
+            const btn = document.getElementById('toggle-exp-btn');
+            btn.innerHTML = allExplanationsOpen
+                ? '<i data-lucide="eye-off" class="w-4 h-4"></i><span>Ẩn đáp án & giải thích</span>'
+                : '<i data-lucide="eye" class="w-4 h-4"></i><span>Hiện tất cả đáp án & giải thích</span>';
+            lucide.createIcons();
+        }
+
+        // Bộ lọc chuyên đề
+        function applyFilter() {
+            const val = document.getElementById('topic-filter').value;
+            const cards = document.querySelectorAll('.question-card');
+
+            cards.forEach(card => {
+                if (val === 'all') {
+                    card.classList.remove('hidden');
+                } else if (val === 'part-mcq' || val === 'part-sa') {
+                    card.classList.toggle('hidden', card.dataset.part !== val);
+                } else {
+                    card.classList.toggle('hidden', card.dataset.topic !== val);
+                }
+            });
+        }
+
+        // Bộ đếm thời gian
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timerSeconds++;
+                const mins = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
+                const secs = String(timerSeconds % 60).padStart(2, '0');
+                document.getElementById('timer-display').textContent = `${mins}:${secs}`;
+            }, 1000);
+        }
+
+        window.addEventListener('DOMContentLoaded', initQuiz);
+    </script>
+</body>
+</html>

@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiến Thức Trọng Tâm Toán Lớp 8 - Tổng Hợp Toàn Năm</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono cho công thức -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Hiệu ứng lưới toán học tinh tế ở phần nền trên cùng */
+        .math-grid-bg {
+            background-color: #f8fafc;
+            background-image: 
+                linear-gradient(to right, rgba(226, 232, 240, 0.7) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(226, 232, 240, 0.7) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+        .lesson-item {
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .lesson-item:hover {
+            transform: translateX(4px);
+        }
+        .chapter-card {
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .chapter-card:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-blue-600 selection:text-white min-h-screen flex flex-col">
+
+    <!-- ================= HEADER / NAVBAR ================= -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-lg shadow-sm shadow-blue-600/20 group-hover:bg-blue-700 transition-colors">
+                    <span>∑8</span>
+                </div>
+                <div>
+                    <span class="font-bold text-slate-900 text-lg tracking-tight block leading-none">Toán Học 8</span>
+                    <span class="text-xs text-slate-500 font-medium">Hệ thống kiến thức trọng tâm</span>
+                </div>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-1">
+                <a href="#hoc-ki-1" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-blue-600 hover:bg-blue-50/70 transition-colors">Học kì I</a>
+                <a href="#hoc-ki-2" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-emerald-600 hover:bg-emerald-50/70 transition-colors">Học kì II</a>
+                <a href="#hang-dang-thuc" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-amber-600 hover:bg-amber-50/70 transition-colors">7 Hằng đẳng thức</a>
+                <a href="#de-cuong" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors">Đề cương ôn tập</a>
+            </nav>
+
+            <div class="flex items-center gap-2">
+                <button onclick="toggleFormulaModal()" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-semibold transition-all shadow-sm">
+                    <i data-lucide="sparkles" class="w-4 h-4 text-amber-400"></i>
+                    <span>Bảng công thức nhanh</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ================= HERO & BỘ LỌC TÌM KIẾM ================= -->
+    <section class="math-grid-bg border-b border-slate-200/80 pt-10 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-blue-700 text-xs font-semibold mb-4">
+                    <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+                    Chương trình GDPT Mới • Khối 8
+                </div>
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                    Kiến Thức Trọng Tâm <span class="text-blue-600">Toán Lớp 8</span>
+                </h1>
+                <p class="mt-3 text-slate-600 text-base sm:text-lg leading-relaxed">
+                    Tổng hợp đầy đủ 10 chương, 39 chuyên đề bài học từ Đại số, Hình học phẳng, Hình học trực quan đến Thống kê & Xác suất. Chọn bài học bên dưới để xem chi tiết.
+                </p>
+
+                <!-- Thanh tìm kiếm nhanh bài học -->
+                <div class="mt-7 relative max-w-xl mx-auto">
+                    <i data-lucide="search" class="w-5 h-5 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Tìm nhanh bài học (VD: Hằng đẳng thức, Thalès, Phân thức, Pythagore...)" 
+                        class="w-full pl-12 pr-10 py-3.5 bg-white rounded-2xl border border-slate-200 shadow-sm text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                    >
+                    <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- Các nút lọc Học kì & Phân môn -->
+                <div class="mt-5 flex flex-wrap items-center justify-center gap-2">
+                    <button onclick="filterSemester('all')" data-sem-btn="all" class="sem-filter-btn active px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-slate-900 text-white shadow-sm transition-all">
+                        Tất cả cả năm (10 Chương)
+                    </button>
+                    <button onclick="filterSemester('hk1')" data-sem-btn="hk1" class="sem-filter-btn px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-white text-slate-600 border border-slate-200 hover:border-blue-300 hover:text-blue-600 transition-all">
+                        Học kì I (Chương 1 – 5)
+                    </button>
+                    <button onclick="filterSemester('hk2')" data-sem-btn="hk2" class="sem-filter-btn px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-white text-slate-600 border border-slate-200 hover:border-emerald-300 hover:text-emerald-600 transition-all">
+                        Học kì II (Chương 6 – 10)
+                    </button>
+                    <span class="hidden sm:inline-block text-slate-300 mx-1">|</span>
+                    <button onclick="filterTopic('all')" data-topic-btn="all" class="topic-filter-btn px-3 py-1 rounded-lg text-xs font-medium bg-slate-200/70 text-slate-700 hover:bg-slate-200 transition-all">
+                        Mọi phân môn
+                    </button>
+                    <button onclick="filterTopic('daiso')" data-topic-btn="daiso" class="topic-filter-btn px-3 py-1 rounded-lg text-xs font-medium bg-white border border-slate-200 text-slate-600 hover:text-indigo-600 transition-all">
+                        Số & Đại số
+                    </button>
+                    <button onclick="filterTopic('hinhhoc')" data-topic-btn="hinhhoc" class="topic-filter-btn px-3 py-1 rounded-lg text-xs font-medium bg-white border border-slate-200 text-slate-600 hover:text-teal-600 transition-all">
+                        Hình học
+                    </button>
+                    <button onclick="filterTopic('thongke')" data-topic-btn="thongke" class="topic-filter-btn px-3 py-1 rounded-lg text-xs font-medium bg-white border border-slate-200 text-slate-600 hover:text-amber-600 transition-all">
+                        Thống kê & Xác suất
+                    </button>
+                </div>
+            </div>
+
+            <!-- Thống kê tổng quan -->
+            <div class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-4xl mx-auto">
+                <div class="bg-white/90 border border-slate-200/80 rounded-2xl p-3.5 flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                        <i data-lucide="book-open" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <div class="text-lg font-bold text-slate-900 leading-none">5 Chương</div>
+                        <div class="text-xs text-slate-500 mt-1">Trọng tâm Học kì I</div>
+                    </div>
+                </div>
+                <div class="bg-white/90 border border-slate-200/80 rounded-2xl p-3.5 flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                        <i data-lucide="compass" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <div class="text-lg font-bold text-slate-900 leading-none">5 Chương</div>
+                        <div class="text-xs text-slate-500 mt-1">Trọng tâm Học kì II</div>
+                    </div>
+                </div>
+                <div class="bg-white/90 border border-slate-200/80 rounded-2xl p-3.5 flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+                        <i data-lucide="file-text" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <div class="text-lg font-bold text-slate-900 leading-none">39 Bài học</div>
+                        <div class="text-xs text-slate-500 mt-1">Lý thuyết & Dạng bài</div>
+                    </div>
+                </div>
+                <div class="bg-white/90 border border-slate-200/80 rounded-2xl p-3.5 flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                        <i data-lucide="award" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <div class="text-lg font-bold text-slate-900 leading-none">4 Đề cương</div>
+                        <div class="text-xs text-slate-500 mt-1">Giữa kì & Cuối kì</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full space-y-14">
+
+        <!-- Thông báo khi không tìm thấy bài học -->
+        <div id="emptySearchState" class="hidden bg-white border border-slate-200 rounded-2xl p-10 text-center max-w-md mx-auto">
+            <div class="w-12 h-12 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center mx-auto mb-3">
+                <i data-lucide="search-x" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-base font-bold text-slate-800">Không tìm thấy bài học phù hợp</h3>
+            <p class="text-sm text-slate-500 mt-1">Thử tìm với từ khóa khác hoặc bấm nút bên dưới để xem lại toàn bộ chương trình.</p>
+            <button onclick="resetAllFilters()" class="mt-4 px-4 py-2 rounded-xl bg-blue-600 text-white text-xs font-semibold hover:bg-blue-700 transition-colors">
+                Hiển thị tất cả bài học
+            </button>
+        </div>
+
+        <!-- =================================================================
+             PHẦN 1: HỌC KÌ I (MÀU CHỦ ĐẠO: BLUE / INDIGO)
+             Lưu ý: Tất cả các thẻ <a href="#"> bên dưới đều sẵn sàng để bạn
+             thay dấu "#" bằng đường dẫn trang bài viết thực tế của bạn.
+        ================================================================== -->
+        <section id="hoc-ki-1" data-semester-section="hk1" class="scroll-mt-20">
+            <!-- Tiêu đề Học kì I -->
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-5 border-b border-slate-200">
+                <div class="flex items-start gap-3.5">
+                    <div class="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center font-extrabold text-lg shadow-sm shrink-0">
+                        HK1
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Phần 1 • Học kì I</span>
+                            <span class="text-xs px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 font-medium">5 Chương • 20 Bài</span>
+                        </div>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-0.5">Kiến Thức Trọng Tâm Học Kì I</h2>
+                    </div>
+                </div>
+                <p class="text-sm text-slate-500 max-w-md">
+                    Trọng tâm gồm phép toán đa thức nhiều biến, 7 hằng đẳng thức đáng nhớ, các hình tứ giác đặc biệt, định lí Thalès và biểu đồ thống kê.
+                </p>
+            </div>
+
+            <!-- Grid các chương Học kì I -->
+            <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- CHƯƠNG 1: ĐA THỨC -->
+                <article class="chapter-card bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden flex flex-col" data-topic="daiso">
+                    <div class="p-5 sm:p-6 bg-gradient-to-br from-blue-50/80 via-white to-white border-b border-slate-100">
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold bg-blue-100/80 text-blue-800">
+                                Chương 1
+                            </span>
+                            <span class="text-xs font-semibold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg">
+                                Số & Đại số
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900">Đa thức nhiều biến</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 mt-1">Nhận biết, thu gọn và thực hiện các phép tính cộng, trừ, nhân, chia đa thức nhiều biến.</p>
+                    </div>
+                    <ul class="p-3 sm:p-4 divide-y divide-slate-100 flex-1">
+                        <!-- Thay href="#" bằng link bài viết của bạn -->
+                        <li class="lesson-row">
+                            <a href="bai1_donthuc.html" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-blue-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">01</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-blue-700 truncate">Bài 1: Đơn thức và đơn thức thu gọn</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-blue-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="bai2_dathuc.html" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-blue-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">02</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-blue-700 truncate">Bài 2: Đa thức và thu gọn đa thức</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-blue-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="bai3_phepcongtru.html" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-blue-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">03</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-blue-700 truncate">Bài 3: Phép cộng và phép trừ đa thức</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-blue-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="bai4_phepnhan_dathuc.html" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-blue-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">04</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-blue-700 truncate">Bài 4: Phép nhân đa thức</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-blue-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="bai5_phepchia_dathuc.html" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-blue-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">05</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-blue-700 truncate">Bài 5: Phép chia đa thức cho đơn thức</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-blue-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="BT_C1.html" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 font-mono text-xs font-bold flex items-center justify-center shrink-0">★</span>
+                                    <span class="lesson-title text-sm font-semibold text-slate-800 group-hover:text-blue-700 truncate">Tổng hợp & Bài tập cuối chương I</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-blue-600 shrink-0"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </article>
+
+                <!-- CHƯƠNG 2: HẰNG ĐẲNG THỨC ĐÁNG NHỚ VÀ ỨNG DỤNG -->
+                <article class="chapter-card bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden flex flex-col" data-topic="daiso">
+                    <div class="p-5 sm:p-6 bg-gradient-to-br from-blue-50/80 via-white to-white border-b border-slate-100">
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold bg-blue-100/80 text-blue-800">
+                                Chương 2 • Trọng tâm
+                            </span>
+                            <span class="text-xs font-semibold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg">
+                                Số & Đại số
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900">Hằng đẳng thức đáng nhớ và ứng dụng</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 mt-1">Nắm vững 7 hằng đẳng thức đáng nhớ để khai triển, tính nhanh và phân tích đa thức thành nhân tử.</p>
+                    </div>
+                    <ul class="p-3 sm:p-4 divide-y divide-slate-100 flex-1">
+                        <!-- Thay href="#" bằng link bài viết của bạn -->
+                        <li class="lesson-row">
+                            <a href="bai6_binhphuong_tonghieu.html" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-blue-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">06</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-blue-700 truncate">Bài 6: Hiệu hai bình phương. Bình phương của một tổng hay một hiệu</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-blue-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="bai7_lapphuong_tonghieu.html" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-blue-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">07</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-blue-700 truncate">Bài 7: Lập phương của một tổng hay một hiệu</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-blue-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="bai8_tonghieu_2lapphuong.html" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-blue-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">08</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-blue-700 truncate">Bài 8: Tổng và hiệu hai lập phương</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-blue-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="bai9_dathuc_nhantu.html" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-blue-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">09</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-blue-700 truncate">Bài 9: Phân tích đa thức thành nhân tử (Các phương pháp trọng tâm)</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-blue-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 font-mono text-xs font-bold flex items-center justify-center shrink-0">★</span>
+                                    <span class="lesson-title text-sm font-semibold text-slate-800 group-hover:text-blue-700 truncate">Tổng hợp & Bài tập cuối chương II</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-blue-600 shrink-0"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </article>
+
+                <!-- CHƯƠNG 3: TỨ GIÁC -->
+                <article class="chapter-card bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden flex flex-col" data-topic="hinhhoc">
+                    <div class="p-5 sm:p-6 bg-gradient-to-br from-blue-50/80 via-white to-white border-b border-slate-100">
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold bg-blue-100/80 text-blue-800">
+                                Chương 3
+                            </span>
+                            <span class="text-xs font-semibold text-teal-700 bg-teal-50 px-2.5 py-1 rounded-lg">
+                                Hình học phẳng
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900">Tứ giác</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 mt-1">Định nghĩa, tính chất và dấu hiệu nhận biết hình thang cân, hình bình hành, hình chữ nhật, hình thoi, hình vuông.</p>
+                    </div>
+                    <ul class="p-3 sm:p-4 divide-y divide-slate-100 flex-1">
+                        <!-- Thay href="#" bằng link bài viết của bạn -->
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-blue-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">10</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-blue-700 truncate">Bài 10: Tứ giác và tổng các góc của một tứ giác</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-blue-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-blue-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">11</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-blue-700 truncate">Bài 11: Hình thang và Hình thang cân</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-blue-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-blue-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">12</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-blue-700 truncate">Bài 12: Hình bình hành (Tính chất & Dấu hiệu nhận biết)</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-blue-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-blue-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">13</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-blue-700 truncate">Bài 13: Hình chữ nhật</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-blue-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-blue-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">14</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-blue-700 truncate">Bài 14: Hình thoi và Hình vuông</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-blue-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 font-mono text-xs font-bold flex items-center justify-center shrink-0">★</span>
+                                    <span class="lesson-title text-sm font-semibold text-slate-800 group-hover:text-blue-700 truncate">Sơ đồ tư duy nhận biết các hình tứ giác & Bài tập cuối chương III</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-blue-600 shrink-0"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </article>
+
+                <!-- CHƯƠNG 4: ĐỊNH LÍ THALÈS -->
+                <article class="chapter-card bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden flex flex-col" data-topic="hinhhoc">
+                    <div class="p-5 sm:p-6 bg-gradient-to-br from-blue-50/80 via-white to-white border-b border-slate-100">
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold bg-blue-100/80 text-blue-800">
+                                Chương 4 • Trọng tâm
+                            </span>
+                            <span class="text-xs font-semibold text-teal-700 bg-teal-50 px-2.5 py-1 rounded-lg">
+                                Hình học phẳng
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900">Định lí Thalès</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 mt-1">Đoạn thẳng tỉ lệ, định lí Thalès thuận và đảo, tính chất đường trung bình và đường phân giác của tam giác.</p>
+                    </div>
+                    <ul class="p-3 sm:p-4 divide-y divide-slate-100 flex-1">
+                        <!-- Thay href="#" bằng link bài viết của bạn -->
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-blue-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">15</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-blue-700 truncate">Bài 15: Định lí Thalès trong tam giác (Thuận, Đảo & Hệ quả)</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-blue-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-blue-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">16</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-blue-700 truncate">Bài 16: Đường trung bình của tam giác</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-blue-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-blue-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">17</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-blue-700 truncate">Bài 17: Tính chất đường phân giác của tam giác</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-blue-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 font-mono text-xs font-bold flex items-center justify-center shrink-0">★</span>
+                                    <span class="lesson-title text-sm font-semibold text-slate-800 group-hover:text-blue-700 truncate">Tổng hợp & Bài tập cuối chương IV</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-blue-600 shrink-0"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </article>
+
+                <!-- CHƯƠNG 5: DỮ LIỆU VÀ BIỂU ĐỒ (Chiếm 2 cột trên màn hình lớn để cân đối) -->
+                <article class="chapter-card md:col-span-2 bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden flex flex-col" data-topic="thongke">
+                    <div class="p-5 sm:p-6 bg-gradient-to-r from-blue-50/80 via-white to-white border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <div class="flex items-center gap-2 mb-1.5">
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold bg-blue-100/80 text-blue-800">
+                                    Chương 5
+                                </span>
+                                <span class="text-xs font-semibold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-lg">
+                                    Thống kê & Xác suất
+                                </span>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900">Dữ liệu và biểu đồ</h3>
+                            <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Thu thập, phân loại dữ liệu, lựa chọn dạng biểu đồ thích hợp và phân tích số liệu thống kê.</p>
+                        </div>
+                    </div>
+                    <ul class="p-3 sm:p-4 grid grid-cols-1 md:grid-cols-2 gap-x-6 divide-y md:divide-y-0 divide-slate-100">
+                        <!-- Thay href="#" bằng link bài viết của bạn -->
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-blue-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">18</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-blue-700 truncate">Bài 18: Thu thập và phân loại dữ liệu</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-blue-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-blue-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">19</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-blue-700 truncate">Bài 19: Biểu diễn dữ liệu bằng bảng, biểu đồ</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-blue-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-blue-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">20</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-blue-700 truncate">Bài 20: Phân tích số liệu thống kê dựa vào biểu đồ</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-blue-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 font-mono text-xs font-bold flex items-center justify-center shrink-0">★</span>
+                                    <span class="lesson-title text-sm font-semibold text-slate-800 group-hover:text-blue-700 truncate">Tổng hợp & Bài tập cuối chương V</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-blue-600 shrink-0"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- =================================================================
+             PHẦN 2: HỌC KÌ II (MÀU CHỦ ĐẠO: EMERALD / TEAL)
+             Lưu ý: Tất cả các thẻ <a href="#"> bên dưới đều sẵn sàng để bạn
+             thay dấu "#" bằng đường dẫn trang bài viết thực tế của bạn.
+        ================================================================== -->
+        <section id="hoc-ki-2" data-semester-section="hk2" class="scroll-mt-20">
+            <!-- Tiêu đề Học kì II -->
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-5 border-b border-slate-200">
+                <div class="flex items-start gap-3.5">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center font-extrabold text-lg shadow-sm shrink-0">
+                        HK2
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">Phần 2 • Học kì II</span>
+                            <span class="text-xs px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 font-medium">5 Chương • 19 Bài</span>
+                        </div>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-0.5">Kiến Thức Trọng Tâm Học Kì II</h2>
+                    </div>
+                </div>
+                <p class="text-sm text-slate-500 max-w-md">
+                    Trọng tâm gồm phân thức đại số, phương trình & hàm số bậc nhất, xác suất của biến cố, tam giác đồng dạng, định lí Pythagore và hình chóp đều.
+                </p>
+            </div>
+
+            <!-- Grid các chương Học kì II -->
+            <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- CHƯƠNG 6: PHÂN THỨC ĐẠI SỐ -->
+                <article class="chapter-card bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden flex flex-col" data-topic="daiso">
+                    <div class="p-5 sm:p-6 bg-gradient-to-br from-emerald-50/80 via-white to-white border-b border-slate-100">
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-100/80 text-emerald-800">
+                                Chương 6 • Trọng tâm
+                            </span>
+                            <span class="text-xs font-semibold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg">
+                                Số & Đại số
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900">Phân thức đại số</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 mt-1">Điều kiện xác định, rút gọn phân thức, quy đồng mẫu thức và các phép toán cộng, trừ, nhân, chia phân thức.</p>
+                    </div>
+                    <ul class="p-3 sm:p-4 divide-y divide-slate-100 flex-1">
+                        <!-- Thay href="#" bằng link bài viết của bạn -->
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-emerald-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">21</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-emerald-700 truncate">Bài 21: Phân thức đại số & Hai phân thức bằng nhau</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-emerald-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-emerald-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">22</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-emerald-700 truncate">Bài 22: Tính chất cơ bản của phân thức đại số (Rút gọn & Quy đồng)</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-emerald-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-emerald-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">23</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-emerald-700 truncate">Bài 23: Phép cộng và phép trừ phân thức đại số</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-emerald-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-emerald-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">24</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-emerald-700 truncate">Bài 24: Phép nhân và phép chia phân thức đại số</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-emerald-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-emerald-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 font-mono text-xs font-bold flex items-center justify-center shrink-0">★</span>
+                                    <span class="lesson-title text-sm font-semibold text-slate-800 group-hover:text-emerald-700 truncate">Chuyên đề rút gọn biểu thức hữu tỉ & Bài tập cuối chương VI</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-emerald-600 shrink-0"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </article>
+
+                <!-- CHƯƠNG 7: PHƯƠNG TRÌNH BẬC NHẤT VÀ HÀM SỐ BẬC NHẤT -->
+                <article class="chapter-card bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden flex flex-col" data-topic="daiso">
+                    <div class="p-5 sm:p-6 bg-gradient-to-br from-emerald-50/80 via-white to-white border-b border-slate-100">
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-100/80 text-emerald-800">
+                                Chương 7 • Trọng tâm
+                            </span>
+                            <span class="text-xs font-semibold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg">
+                                Số & Đại số
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900">Phương trình bậc nhất và hàm số bậc nhất</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 mt-1">Giải phương trình bậc nhất một ẩn, giải toán bằng cách lập phương trình, đồ thị hàm số y = ax + b và hệ số góc.</p>
+                    </div>
+                    <ul class="p-3 sm:p-4 divide-y divide-slate-100 flex-1">
+                        <!-- Thay href="#" bằng link bài viết của bạn -->
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-emerald-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">25</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-emerald-700 truncate">Bài 25: Phương trình bậc nhất một ẩn</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-emerald-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-emerald-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">26</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-emerald-700 truncate">Bài 26: Giải bài toán bằng cách lập phương trình</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-emerald-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-emerald-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">27</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-emerald-700 truncate">Bài 27: Khái niệm hàm số và đồ thị của hàm số</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-emerald-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-emerald-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">28</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-emerald-700 truncate">Bài 28: Hàm số bậc nhất và đồ thị của hàm số bậc nhất</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-emerald-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-emerald-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">29</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-emerald-700 truncate">Bài 29: Hệ số góc của đường thẳng (Hai đường thẳng song song, cắt nhau)</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-emerald-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-emerald-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 font-mono text-xs font-bold flex items-center justify-center shrink-0">★</span>
+                                    <span class="lesson-title text-sm font-semibold text-slate-800 group-hover:text-emerald-700 truncate">Tổng hợp & Bài tập cuối chương VII</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-emerald-600 shrink-0"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </article>
+
+                <!-- CHƯƠNG 8: MỞ ĐẦU VỀ TÍNH XÁC SUẤT CỦA BIẾN CỐ -->
+                <article class="chapter-card bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden flex flex-col" data-topic="thongke">
+                    <div class="p-5 sm:p-6 bg-gradient-to-br from-emerald-50/80 via-white to-white border-b border-slate-100">
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-100/80 text-emerald-800">
+                                Chương 8
+                            </span>
+                            <span class="text-xs font-semibold text-amber-700 bg-amber-50 px-2.5 py-1 rounded-lg">
+                                Thống kê & Xác suất
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900">Mở đầu về tính xác suất của biến cố</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 mt-1">Kết quả có thể, kết quả thuận lợi, tính xác suất bằng tỉ số và xác suất thực nghiệm.</p>
+                    </div>
+                    <ul class="p-3 sm:p-4 divide-y divide-slate-100 flex-1">
+                        <!-- Thay href="#" bằng link bài viết của bạn -->
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-emerald-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">30</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-emerald-700 truncate">Bài 30: Kết quả có thể và kết quả thuận lợi</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-emerald-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-emerald-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">31</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-emerald-700 truncate">Bài 31: Cách tính xác suất của biến cố bằng tỉ số</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-emerald-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-emerald-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">32</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-emerald-700 truncate">Bài 32: Mối liên hệ giữa xác suất thực nghiệm với xác suất và ứng dụng</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-emerald-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-emerald-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 font-mono text-xs font-bold flex items-center justify-center shrink-0">★</span>
+                                    <span class="lesson-title text-sm font-semibold text-slate-800 group-hover:text-emerald-700 truncate">Tổng hợp & Bài tập cuối chương VIII</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-emerald-600 shrink-0"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </article>
+
+                <!-- CHƯƠNG 9: TAM GIÁC ĐỒNG DẠNG -->
+                <article class="chapter-card bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden flex flex-col" data-topic="hinhhoc">
+                    <div class="p-5 sm:p-6 bg-gradient-to-br from-emerald-50/80 via-white to-white border-b border-slate-100">
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-100/80 text-emerald-800">
+                                Chương 9 • Trọng tâm
+                            </span>
+                            <span class="text-xs font-semibold text-teal-700 bg-teal-50 px-2.5 py-1 rounded-lg">
+                                Hình học phẳng
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900">Tam giác đồng dạng & Định lí Pythagore</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 mt-1">Các trường hợp đồng dạng của hai tam giác, tam giác vuông và định lí Pythagore trong hình học phẳng.</p>
+                    </div>
+                    <ul class="p-3 sm:p-4 divide-y divide-slate-100 flex-1">
+                        <!-- Thay href="#" bằng link bài viết của bạn -->
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-emerald-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">33</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-emerald-700 truncate">Bài 33: Hai tam giác đồng dạng</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-emerald-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-emerald-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">34</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-emerald-700 truncate">Bài 34: Ba trường hợp đồng dạng của hai tam giác (c.c.c, c.g.c, g.g)</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-emerald-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-emerald-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">35</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-emerald-700 truncate">Bài 35: Định lí Pythagore và ứng dụng</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-emerald-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-emerald-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">36</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-emerald-700 truncate">Bài 36: Các trường hợp đồng dạng của hai tam giác vuông</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-emerald-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-emerald-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">37</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-emerald-700 truncate">Bài 37: Hình đồng dạng</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-emerald-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-emerald-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 font-mono text-xs font-bold flex items-center justify-center shrink-0">★</span>
+                                    <span class="lesson-title text-sm font-semibold text-slate-800 group-hover:text-emerald-700 truncate">Tổng hợp & Bài tập cuối chương IX</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-emerald-600 shrink-0"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </article>
+
+                <!-- CHƯƠNG 10: MỘT SỐ HÌNH KHỐI TRONG THỰC TIỄN -->
+                <article class="chapter-card md:col-span-2 bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden flex flex-col" data-topic="hinhhoc">
+                    <div class="p-5 sm:p-6 bg-gradient-to-r from-emerald-50/80 via-white to-white border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <div class="flex items-center gap-2 mb-1.5">
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-100/80 text-emerald-800">
+                                    Chương 10
+                                </span>
+                                <span class="text-xs font-semibold text-teal-700 bg-teal-50 px-2.5 py-1 rounded-lg">
+                                    Hình học trực quan
+                                </span>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900">Một số hình khối trong thực tiễn</h3>
+                            <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Công thức tính diện tích xung quanh và thể tích của hình chóp tam giác đều, hình chóp tứ giác đều.</p>
+                        </div>
+                    </div>
+                    <ul class="p-3 sm:p-4 grid grid-cols-1 md:grid-cols-3 gap-x-6 divide-y md:divide-y-0 divide-slate-100">
+                        <!-- Thay href="#" bằng link bài viết của bạn -->
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-emerald-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">38</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-emerald-700 truncate">Bài 38: Hình chóp tam giác đều</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-emerald-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-emerald-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-emerald-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">39</span>
+                                    <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-emerald-700 truncate">Bài 39: Hình chóp tứ giác đều</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-emerald-600 shrink-0"></i>
+                            </a>
+                        </li>
+                        <li class="lesson-row">
+                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-emerald-50/60 group">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <span class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 font-mono text-xs font-bold flex items-center justify-center shrink-0">★</span>
+                                    <span class="lesson-title text-sm font-semibold text-slate-800 group-hover:text-emerald-700 truncate">Tổng hợp & Bài tập cuối chương X</span>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300 group-hover:text-emerald-600 shrink-0"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- ================= GÓC TRA CỨU NHANH: 7 HẰNG ĐẲNG THỨC ĐÁNG NHỚ ================= -->
+        <section id="hang-dang-thuc" class="scroll-mt-20 bg-white rounded-3xl border border-slate-200/90 shadow-sm p-6 sm:p-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+                <div>
+                    <span class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-amber-600 bg-amber-50 px-3 py-1 rounded-full">
+                        <i data-lucide="zap" class="w-3.5 h-3.5"></i> Bảng nhớ nhanh
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-2">7 Hằng Đẳng Thức Đáng Nhớ Trọng Tâm</h2>
+                </div>
+                <a href="#" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-700">
+                    <span>Xem bài giảng & Bài tập áp dụng chi tiết</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+
+            <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/70">
+                    <div class="text-xs font-semibold text-slate-500 mb-1">1. Bình phương của một tổng</div>
+                    <div class="font-mono text-sm sm:text-base font-semibold text-slate-900">(A + B)² = A² + 2AB + B²</div>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/70">
+                    <div class="text-xs font-semibold text-slate-500 mb-1">2. Bình phương của một hiệu</div>
+                    <div class="font-mono text-sm sm:text-base font-semibold text-slate-900">(A − B)² = A² − 2AB + B²</div>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/70">
+                    <div class="text-xs font-semibold text-slate-500 mb-1">3. Hiệu hai bình phương</div>
+                    <div class="font-mono text-sm sm:text-base font-semibold text-slate-900">A² − B² = (A − B)(A + B)</div>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/70">
+                    <div class="text-xs font-semibold text-slate-500 mb-1">4. Lập phương của một tổng</div>
+                    <div class="font-mono text-sm sm:text-base font-semibold text-slate-900">(A + B)³ = A³ + 3A²B + 3AB² + B³</div>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/70">
+                    <div class="text-xs font-semibold text-slate-500 mb-1">5. Lập phương của một hiệu</div>
+                    <div class="font-mono text-sm sm:text-base font-semibold text-slate-900">(A − B)³ = A³ − 3A²B + 3AB² − B³</div>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/70">
+                    <div class="text-xs font-semibold text-slate-500 mb-1">6 & 7. Tổng và Hiệu hai lập phương</div>
+                    <div class="font-mono text-xs sm:text-sm font-semibold text-slate-900 space-y-1">
+                        <div>A³ + B³ = (A + B)(A² − AB + B²)</div>
+                        <div>A³ − B³ = (A − B)(A² + AB + B²)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= ĐỀ CƯƠNG & ÔN TẬP KIỂM TRA (CŨNG ĐỂ LINK #) ================= -->
+        <section id="de-cuong" class="scroll-mt-20">
+            <div class="flex items-center justify-between mb-5">
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Đề Cương & Đề Kiểm Tra Các Kì</h2>
+                    <p class="text-sm text-slate-500">Tổng hợp đề cương ôn tập và bộ đề kiểm tra tham khảo từng học kì (Link chờ cập nhật).</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Thay href="#" bằng link trang đề cương của bạn -->
+                <a href="#" class="group bg-white p-5 rounded-2xl border border-slate-200 hover:border-blue-400 shadow-sm transition-all flex flex-col justify-between">
+                    <div>
+                        <span class="inline-block px-2.5 py-1 rounded-md text-xs font-bold bg-blue-50 text-blue-700 mb-3">Học kì I</span>
+                        <h3 class="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Đề cương Giữa Học kì I</h3>
+                        <p class="text-xs text-slate-500 mt-1">Trọng tâm Chương 1 (Đa thức), Chương 2 (Hằng đẳng thức) & Chương 3 (Tứ giác).</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-blue-600">
+                        <span>Xem đề cương</span>
+                        <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                    </div>
+                </a>
+
+                <a href="#" class="group bg-white p-5 rounded-2xl border border-slate-200 hover:border-blue-400 shadow-sm transition-all flex flex-col justify-between">
+                    <div>
+                        <span class="inline-block px-2.5 py-1 rounded-md text-xs font-bold bg-blue-50 text-blue-700 mb-3">Học kì I</span>
+                        <h3 class="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Đề cương Cuối Học kì I</h3>
+                        <p class="text-xs text-slate-500 mt-1">Tổng ôn toàn bộ 5 chương Học kì I kèm bộ đề thi thử chuẩn cấu trúc.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-blue-600">
+                        <span>Xem đề cương</span>
+                        <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                    </div>
+                </a>
+
+                <a href="#" class="group bg-white p-5 rounded-2xl border border-slate-200 hover:border-emerald-400 shadow-sm transition-all flex flex-col justify-between">
+                    <div>
+                        <span class="inline-block px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-50 text-emerald-700 mb-3">Học kì II</span>
+                        <h3 class="font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">Đề cương Giữa Học kì II</h3>
+                        <p class="text-xs text-slate-500 mt-1">Trọng tâm Chương 6 (Phân thức đại số) & Chương 9 (Tam giác đồng dạng).</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-emerald-600">
+                        <span>Xem đề cương</span>
+                        <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                    </div>
+                </a>
+
+                <a href="#" class="group bg-white p-5 rounded-2xl border border-slate-200 hover:border-emerald-400 shadow-sm transition-all flex flex-col justify-between">
+                    <div>
+                        <span class="inline-block px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-50 text-emerald-700 mb-3">Học kì II</span>
+                        <h3 class="font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">Đề cương Cuối Học kì II</h3>
+                        <p class="text-xs text-slate-500 mt-1">Tổng ôn phương trình, hàm số bậc nhất, xác suất, đồng dạng & hình chóp đều.</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-emerald-600">
+                        <span>Xem đề cương</span>
+                        <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ================= MODAL BẢNG CÔNG THỨC NHANH ================= -->
+    <div id="formulaModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/50 backdrop-blur-xs p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-xl border border-slate-200 p-6 sm:p-8">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center">
+                        <i data-lucide="bookmark-check" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">Tóm Tắt Công Thức Cốt Lõi Toán 8</h3>
+                        <p class="text-xs text-slate-500">Tra cứu nhanh Đại số & Hình học cả năm</p>
+                    </div>
+                </div>
+                <button onclick="toggleFormulaModal()" class="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <div class="mt-5 space-y-5 text-sm">
+                <div>
+                    <h4 class="font-bold text-blue-700 mb-2">1. Định lí Thalès & Tam giác (HK1)</h4>
+                    <ul class="space-y-1.5 text-slate-700 bg-slate-50 p-3.5 rounded-2xl border border-slate-200/60">
+                        <li>• <strong>Định lí Thalès:</strong> Nếu B'C' // BC (B' ∈ AB, C' ∈ AC) thì <span class="font-mono font-semibold">AB'/AB = AC'/AC = B'C'/BC</span>.</li>
+                        <li>• <strong>Đường trung bình:</strong> Đi qua trung điểm 2 cạnh của tam giác thì song song với cạnh thứ 3 và bằng nửa cạnh ấy (<span class="font-mono font-semibold">MN = ½ BC</span>).</li>
+                        <li>• <strong>Đường phân giác:</strong> AD là phân giác góc A của ΔABC thì <span class="font-mono font-semibold">DB/DC = AB/AC</span>.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-emerald-700 mb-2">2. Định lí Pythagore & Hình chóp đều (HK2)</h4>
+                    <ul class="space-y-1.5 text-slate-700 bg-slate-50 p-3.5 rounded-2xl border border-slate-200/60">
+                        <li>• <strong>Định lí Pythagore:</strong> Trong ΔABC vuông tại A: <span class="font-mono font-semibold">BC² = AB² + AC²</span>.</li>
+                        <li>• <strong>Diện tích xung quanh hình chóp đều:</strong> <span class="font-mono font-semibold">S_xq = p ⋅ d</span> (với <span class="font-mono">p</span> là nửa chu vi đáy, <span class="font-mono">d</span> là trung đoạn).</li>
+                        <li>• <strong>Thể tích hình chóp đều:</strong> <span class="font-mono font-semibold">V = ⅓ ⋅ S_đáy ⋅ h</span> (với <span class="font-mono">h</span> là chiều cao hình chóp).</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-indigo-700 mb-2">3. Hàm số bậc nhất y = ax + b (a ≠ 0)</h4>
+                    <ul class="space-y-1.5 text-slate-700 bg-slate-50 p-3.5 rounded-2xl border border-slate-200/60">
+                        <li>• Hai đường thẳng <span class="font-mono">d: y = ax + b</span> và <span class="font-mono">d': y = a'x + b'</span>:</li>
+                        <li>• Song song (<span class="font-mono">d // d'</span>) khi: <span class="font-mono font-semibold">a = a'</span> và <span class="font-mono font-semibold">b ≠ b'</span>.</li>
+                        <li>• Cắt nhau khi: <span class="font-mono font-semibold">a ≠ a'</span>. Trùng nhau khi: <span class="font-mono font-semibold">a = a'</span> và <span class="font-mono font-semibold">b = b'</span>.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-6 flex justify-end">
+                <button onclick="toggleFormulaModal()" class="px-5 py-2.5 rounded-xl bg-slate-900 text-white text-xs font-semibold hover:bg-slate-800">
+                    Đóng bảng tra cứu
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="bg-white border-t border-slate-200/80 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm text-slate-500">
+            <div class="flex items-center gap-2.5">
+                <span class="w-7 h-7 rounded-lg bg-blue-600 text-white font-bold text-xs flex items-center justify-center">∑8</span>
+                <span class="font-semibold text-slate-700">Kiến Thức Trọng Tâm Toán Lớp 8</span>
+                <span>•</span>
+                <span>Học kì I & Học kì II</span>
+            </div>
+            <div>
+                Tất cả liên kết bài học đang để <code class="px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 font-mono text-xs">href="#"</code> sẵn sàng để cập nhật.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================= JAVASCRIPT XỬ LÝ TÌM KIẾM & BỘ LỌC ================= -->
+    <script>
+        // Khởi tạo icon Lucide
+        lucide.createIcons();
+
+        let currentSemester = 'all';
+        let currentTopic = 'all';
+
+        const searchInput = document.getElementById('searchInput');
+        const clearSearchBtn = document.getElementById('clearSearchBtn');
+        const emptySearchState = document.getElementById('emptySearchState');
+
+        // Hàm chuẩn hóa tiếng Việt không dấu để tìm kiếm mượt hơn
+        function removeVietnameseTones(str) {
+            return str
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/đ/g, 'd')
+                .replace(/Đ/g, 'D')
+                .toLowerCase();
+        }
+
+        function applyFilters() {
+            const query = removeVietnameseTones(searchInput.value.trim());
+            clearSearchBtn.classList.toggle('hidden', query.length === 0);
+
+            const semesterSections = document.querySelectorAll('[data-semester-section]');
+            let totalVisibleCards = 0;
+
+            semesterSections.forEach(section => {
+                const semKey = section.getAttribute('data-semester-section');
+                const matchSemester = (currentSemester === 'all' || currentSemester === semKey);
+
+                if (!matchSemester) {
+                    section.classList.add('hidden');
+                    return;
+                }
+
+                const cards = section.querySelectorAll('.chapter-card');
+                let visibleCardsInSection = 0;
+
+                cards.forEach(card => {
+                    const cardTopic = card.getAttribute('data-topic');
+                    const matchTopic = (currentTopic === 'all' || currentTopic === cardTopic);
+
+                    const lessonRows = card.querySelectorAll('.lesson-row');
+                    const chapterTitle = removeVietnameseTones(card.querySelector('h3').textContent);
+                    let visibleLessonsInCard = 0;
+
+                    lessonRows.forEach(row => {
+                        const titleText = removeVietnameseTones(row.querySelector('.lesson-title').textContent);
+                        const matchQuery = query === '' || titleText.includes(query) || chapterTitle.includes(query);
+
+                        if (matchQuery) {
+                            row.classList.remove('hidden');
+                            visibleLessonsInCard++;
+                        } else {
+                            row.classList.add('hidden');
+                        }
+                    });
+
+                    if (matchTopic && visibleLessonsInCard > 0) {
+                        card.classList.remove('hidden');
+                        visibleCardsInSection++;
+                        totalVisibleCards++;
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+
+                section.classList.toggle('hidden', visibleCardsInSection === 0);
+            });
+
+            emptySearchState.classList.toggle('hidden', totalVisibleCards > 0);
+        }
+
+        // Lọc theo Học kì (Tất cả / HK1 / HK2)
+        function filterSemester(sem) {
+            currentSemester = sem;
+            document.querySelectorAll('.sem-filter-btn').forEach(btn => {
+                const isActive = btn.getAttribute('data-sem-btn') === sem;
+                btn.className = isActive
+                    ? 'sem-filter-btn px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-slate-900 text-white shadow-sm transition-all'
+                    : 'sem-filter-btn px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-white text-slate-600 border border-slate-200 hover:border-blue-300 hover:text-blue-600 transition-all';
+            });
+            applyFilters();
+        }
+
+        // Lọc theo Phân môn (Đại số / Hình học / Thống kê)
+        function filterTopic(topic) {
+            currentTopic = topic;
+            document.querySelectorAll('.topic-filter-btn').forEach(btn => {
+                const isActive = btn.getAttribute('data-topic-btn') === topic;
+                btn.className = isActive
+                    ? 'topic-filter-btn px-3 py-1 rounded-lg text-xs font-semibold bg-slate-200 text-slate-900 transition-all'
+                    : 'topic-filter-btn px-3 py-1 rounded-lg text-xs font-medium bg-white border border-slate-200 text-slate-600 hover:text-blue-600 transition-all';
+            });
+            applyFilters();
+        }
+
+        function clearSearch() {
+            searchInput.value = '';
+            applyFilters();
+            searchInput.focus();
+        }
+
+        function resetAllFilters() {
+            searchInput.value = '';
+            filterSemester('all');
+            filterTopic('all');
+        }
+
+        function toggleFormulaModal() {
+            const modal = document.getElementById('formulaModal');
+            modal.classList.toggle('hidden');
+            modal.classList.toggle('flex');
+        }
+
+        searchInput.addEventListener('input', applyFilters);
+    </script>
+</body>
+</html>

@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 1: Đơn thức và rút gọn đơn thức - Toán Lớp 8</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- MathJax for rendering LaTeX math -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .math-block {
+            overflow-x: auto;
+            padding: 0.5rem 0;
+        }
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased selection:bg-blue-600 selection:text-white">
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-slate-200/80 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="flex items-center gap-2 text-slate-600 hover:text-blue-600 transition-colors font-medium text-sm bg-slate-100 hover:bg-blue-50 px-3 py-2 rounded-xl">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                    <span>Trang chủ Toán 8</span>
+                </a>
+                <span class="text-slate-300">|</span>
+                <span class="text-xs font-semibold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200 hidden sm:inline-block">
+                    Học kì I • Chương 1: Đa thức
+                </span>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="toggleAllSolutions()" id="toggle-all-btn" class="flex items-center gap-1.5 text-xs font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 px-3 py-2 rounded-xl transition-colors">
+                    <i data-lucide="eye" class="w-4 h-4"></i>
+                    <span>Hiện tất cả lời giải</span>
+                </button>
+                <button onclick="window.print()" class="flex items-center gap-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 px-3 py-2 rounded-xl transition-colors">
+                    <i data-lucide="printer" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">In bài</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner Bài Học -->
+    <section class="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-10 sm:py-12 border-b border-blue-900/20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-wrap items-center gap-2 mb-3">
+                <span class="bg-white/15 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full border border-white/20">
+                    Bài 1
+                </span>
+                <span class="text-blue-100 text-sm font-medium">Đại số 8 • Lý thuyết & 21 Bài tập tự luyện</span>
+            </div>
+            <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight leading-tight">
+                Đơn thức và rút gọn đơn thức
+            </h1>
+            <p class="mt-2.5 text-blue-100 text-sm sm:text-base max-w-3xl">
+                Nắm vững khái niệm đơn thức, cách thu gọn đơn thức, xác định hệ số, phần biến, bậc của đơn thức, phép cộng trừ đơn thức đồng dạng và hệ thống 21 bài tập rèn luyện toàn diện.
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content Layout -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+            <!-- Sidebar Mục lục (Sticky trên Desktop) -->
+            <aside class="lg:col-span-3 lg:sticky lg:top-24 bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm max-h-[calc(100vh-7rem)] overflow-y-auto">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
+                    <i data-lucide="list" class="w-4 h-4 text-blue-600"></i>
+                    Mục lục bài học
+                </h2>
+                <nav class="space-y-1.5 text-sm font-medium">
+                    <a href="#ly-thuyet" class="block px-3 py-2 rounded-lg bg-blue-50 text-blue-700 font-semibold">
+                        I. Lý thuyết trọng tâm
+                    </a>
+                    <div class="pl-3 space-y-1 border-l-2 border-slate-100 ml-2">
+                        <a href="#muc-1" class="block py-1 px-2 text-slate-600 hover:text-blue-600 transition-colors text-xs">
+                            1) Đơn thức & đơn thức thu gọn
+                        </a>
+                        <a href="#muc-2" class="block py-1 px-2 text-slate-600 hover:text-blue-600 transition-colors text-xs">
+                            2) Đơn thức thu gọn & bậc
+                        </a>
+                        <a href="#muc-3" class="block py-1 px-2 text-slate-600 hover:text-blue-600 transition-colors text-xs">
+                            3) Đơn thức đồng dạng
+                        </a>
+                    </div>
+
+                    <a href="#luyen-tap" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors mt-2 font-semibold">
+                        II. Ví dụ luyện tập mẫu
+                    </a>
+
+                    <a href="#bai-tap-tu-luyen" class="block px-3 py-2 rounded-lg bg-indigo-50 text-indigo-700 transition-colors mt-2 font-semibold">
+                        III. Bài tập tự luyện (21 bài)
+                    </a>
+                    <div class="pl-3 space-y-1 border-l-2 border-indigo-100 ml-2 text-xs">
+                        <a href="#dang-1" class="block py-1 px-2 text-slate-600 hover:text-indigo-600">
+                            • Bài 1 – 3: Nhận biết đơn thức
+                        </a>
+                        <a href="#dang-2" class="block py-1 px-2 text-slate-600 hover:text-indigo-600">
+                            • Bài 4 – 6: Thu gọn, hệ số, bậc
+                        </a>
+                        <a href="#dang-3" class="block py-1 px-2 text-slate-600 hover:text-indigo-600">
+                            • Bài 7 – 8: Nhóm đơn thức đồng dạng
+                        </a>
+                        <a href="#dang-4" class="block py-1 px-2 text-slate-600 hover:text-indigo-600">
+                            • Bài 9 – 11: Cộng, trừ đơn thức
+                        </a>
+                        <a href="#dang-5" class="block py-1 px-2 text-slate-600 hover:text-indigo-600">
+                            • Bài 12 – 21: Thu gọn & Tính giá trị
+                        </a>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Nội dung chính -->
+            <div class="lg:col-span-9 space-y-12">
+
+                <!-- ========================================== -->
+                <!-- PHẦN I: LÝ THUYẾT                          -->
+                <!-- ========================================== -->
+                <section id="ly-thuyet" class="space-y-6">
+                    <div class="flex items-center gap-3 border-b border-slate-200 pb-3">
+                        <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold shadow-sm">
+                            I
+                        </div>
+                        <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+                            LÝ THUYẾT TRỌNG TÂM
+                        </h2>
+                    </div>
+
+                    <!-- Mục 1 -->
+                    <div id="muc-1" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+                        <div class="bg-slate-50 border-b border-slate-200/80 px-6 py-4">
+                            <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                                <span class="w-2 h-6 bg-blue-600 rounded-full"></span>
+                                1) Đơn thức và đơn thức thu gọn
+                            </h3>
+                        </div>
+                        <div class="p-6 space-y-5">
+                            <!-- Ví dụ 1 -->
+                            <div class="bg-slate-50/80 rounded-xl p-4 sm:p-5 border border-slate-200/70 space-y-3">
+                                <div class="font-bold text-blue-700 flex items-center gap-1.5">
+                                    <i data-lucide="lightbulb" class="w-4 h-4"></i>
+                                    <span>Ví dụ 1: Cho các biểu thức sau:</span>
+                                </div>
+                                <div class="math-block bg-white px-4 py-3 rounded-lg border border-slate-200/60 text-center text-base sm:text-lg">
+                                    $$-2x^4y, \quad \frac{1}{5}xy^2, \quad -x - 5, \quad x \cdot \frac{3}{-7}y^6, \quad 2x^2 - 3y, \quad 5$$
+                                </div>
+                                <ul class="space-y-2 text-slate-700 text-sm sm:text-base leading-relaxed">
+                                    <li class="flex items-start gap-2">
+                                        <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-600 shrink-0 mt-0.5"></i>
+                                        <span>Trong các biểu thức trên thì các biểu thức như $-2x^4y$, $\dfrac{1}{5}xy^2$, $x \cdot \dfrac{3}{-7}y^6$ và $5$ gọi là các <strong>đơn thức</strong>.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i data-lucide="x-circle" class="w-5 h-5 text-rose-500 shrink-0 mt-0.5"></i>
+                                        <span>Còn các biểu thức $-x - 5$, $2x^2 - 3y$ <strong>không</strong> được gọi là các đơn thức.</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Kết luận -->
+                            <div class="bg-blue-50/70 border-l-4 border-blue-600 rounded-r-xl p-4 sm:p-5">
+                                <h4 class="font-bold text-blue-900 mb-2 flex items-center gap-2">
+                                    <i data-lucide="bookmark-check" class="w-5 h-5 text-blue-600"></i>
+                                    Kết luận:
+                                </h4>
+                                <p class="text-slate-800 leading-relaxed flex items-start gap-2">
+                                    <span class="text-blue-600 font-bold">♣</span>
+                                    <span><strong>Đơn thức</strong> là biểu thức đại số chỉ gồm một số hoặc một biến, hoặc có dạng tích của những số và biến.</span>
+                                </p>
+                            </div>
+
+                            <!-- Ví dụ 2 -->
+                            <div class="bg-slate-50/80 rounded-xl p-4 sm:p-5 border border-slate-200/70 space-y-3">
+                                <div class="font-bold text-blue-700 flex items-center gap-1.5">
+                                    <i data-lucide="lightbulb" class="w-4 h-4"></i>
+                                    <span>Ví dụ 2: Trong các biểu thức sau, đâu là đơn thức?</span>
+                                </div>
+                                <div class="math-block bg-white px-4 py-3 rounded-lg border border-slate-200/60 text-center text-base sm:text-lg">
+                                    $$99x^{100}, \quad -1, \quad 1 - y, \quad \frac{1}{x} - 2, \quad \frac{5}{-9}x, \quad 2\sqrt{x}, \quad 4y(1 - x)$$
+                                </div>
+                                <div class="flex items-center gap-2 text-slate-800 bg-emerald-50/80 border border-emerald-200 px-4 py-2.5 rounded-lg">
+                                    <i data-lucide="arrow-right-circle" class="w-5 h-5 text-emerald-600 shrink-0"></i>
+                                    <span>Các đơn thức là: $99x^{100}$, $-1$, $\dfrac{5}{-9}x$.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mục 2 -->
+                    <div id="muc-2" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+                        <div class="bg-slate-50 border-b border-slate-200/80 px-6 py-4">
+                            <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                                <span class="w-2 h-6 bg-blue-600 rounded-full"></span>
+                                2) Đơn thức thu gọn, bậc của một đơn thức
+                            </h3>
+                        </div>
+                        <div class="p-6 space-y-5">
+                            <!-- Ví dụ 3 -->
+                            <div class="bg-slate-50/80 rounded-xl p-4 sm:p-5 border border-slate-200/70 space-y-3">
+                                <div class="font-bold text-blue-700 flex items-center gap-1.5">
+                                    <i data-lucide="lightbulb" class="w-4 h-4"></i>
+                                    <span>Ví dụ 3: Cho đơn thức $A = 2x^2y \cdot (-3)xy^5z$</span>
+                                </div>
+                                <div class="space-y-2 text-slate-700 leading-relaxed">
+                                    <p>
+                                        Nhận thấy trong đơn thức $A$ có hai số là $2$ và $-3$ và hai biến $x, y$ xuất hiện hai lần nên gọi là <strong>đơn thức chưa thu gọn</strong>.
+                                    </p>
+                                    <p>Để thu gọn đơn thức $A$ ta làm như sau:</p>
+                                    <div class="math-block bg-white px-4 py-2.5 rounded-lg border border-slate-200/60 text-center">
+                                        $$A = 2x^2y \cdot (-3)xy^5z = 2 \cdot (-3) x^2 \cdot x \cdot y \cdot y^5 z = -6x^3y^6z$$
+                                    </div>
+                                    <p>
+                                        Với đơn thức $A$ sau khi thu gọn thì tổng các số mũ của các biến là $3 + 6 + 1 = 10$ nên đơn thức $A$ có <strong>bậc 10</strong>.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Ghi nhớ Mục 2 -->
+                            <div class="bg-blue-50/70 border-l-4 border-blue-600 rounded-r-xl p-4 sm:p-5 space-y-3">
+                                <h4 class="font-bold text-blue-900 flex items-center gap-2">
+                                    <i data-lucide="bookmark-check" class="w-5 h-5 text-blue-600"></i>
+                                    Kiến thức cần nhớ:
+                                </h4>
+                                <ul class="space-y-3 text-slate-800 leading-relaxed">
+                                    <li class="flex items-start gap-2.5">
+                                        <span class="text-blue-600 font-bold mt-0.5">♣</span>
+                                        <span><strong>Đơn thức thu gọn</strong> là đơn thức chỉ gồm một số hoặc có dạng tích của một số với những biến, mỗi biến chỉ xuất hiện một lần và đã được nâng lên lũy thừa với số mũ nguyên dương.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2.5">
+                                        <span class="text-blue-600 font-bold mt-0.5">♣</span>
+                                        <span>Tổng các số mũ của các biến trong một đơn thức thu gọn với hệ số khác $0$ gọi là <strong>bậc của đơn thức</strong> đó.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2.5">
+                                        <span class="text-blue-600 font-bold mt-0.5">♣</span>
+                                        <div>
+                                            <p>Trong một đơn thức thu gọn, phần số còn gọi là <strong>hệ số</strong>, phần còn lại gọi là <strong>phần biến</strong>.</p>
+                                            <div class="mt-1.5 bg-white/80 px-3.5 py-2 rounded-lg border border-blue-200/70 text-sm">
+                                                <em>Cụ thể:</em> Với đơn thức $(-2)^7x^3y^5z$ thì phần hệ số là $(-2)^7$ còn phần biến là $x^3y^5z$.
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-2.5">
+                                        <span class="text-blue-600 font-bold mt-0.5">♣</span>
+                                        <div>
+                                            <p>Với các đơn thức có hệ số là $1$ hay $-1$ ta không viết số $1$.</p>
+                                            <div class="mt-1.5 bg-white/80 px-3.5 py-2 rounded-lg border border-blue-200/70 text-sm">
+                                                <em>Cụ thể:</em> Với đơn thức $-x^5y$ có hệ số là $-1$.
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-2.5">
+                                        <span class="text-blue-600 font-bold mt-0.5">♣</span>
+                                        <span>Mỗi số khác $0$ cũng là một đơn thức thu gọn với <strong>bậc là $0$</strong>.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2.5">
+                                        <span class="text-blue-600 font-bold mt-0.5">♣</span>
+                                        <span>Số $0$ cũng được gọi là một đơn thức, đơn thức này <strong>không có bậc</strong>.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mục 3 -->
+                    <div id="muc-3" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+                        <div class="bg-slate-50 border-b border-slate-200/80 px-6 py-4">
+                            <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                                <span class="w-2 h-6 bg-blue-600 rounded-full"></span>
+                                3) Đơn thức đồng dạng
+                            </h3>
+                        </div>
+                        <div class="p-6 space-y-5">
+                            <!-- Ví dụ 4 -->
+                            <div class="bg-slate-50/80 rounded-xl p-4 sm:p-5 border border-slate-200/70 space-y-2.5">
+                                <div class="font-bold text-blue-700 flex items-center gap-1.5">
+                                    <i data-lucide="lightbulb" class="w-4 h-4"></i>
+                                    <span>Ví dụ 4: Cho hai đơn thức $A = 4x^2y^4$ và $B = \dfrac{-5}{2}x^2y^4$</span>
+                                </div>
+                                <p class="text-slate-700 leading-relaxed">
+                                    Nhận thấy rằng hai đơn thức $A$ và $B$ có phần biến giống nhau ($x^2y^4$) nên gọi là <strong>hai đơn thức đồng dạng</strong>.
+                                </p>
+                            </div>
+
+                            <!-- Ghi nhớ Mục 3 -->
+                            <div class="bg-blue-50/70 border-l-4 border-blue-600 rounded-r-xl p-4 sm:p-5 space-y-3">
+                                <h4 class="font-bold text-blue-900 flex items-center gap-2">
+                                    <i data-lucide="bookmark-check" class="w-5 h-5 text-blue-600"></i>
+                                    Kiến thức cần nhớ:
+                                </h4>
+                                <ul class="space-y-3 text-slate-800 leading-relaxed">
+                                    <li class="flex items-start gap-2.5">
+                                        <span class="text-blue-600 font-bold mt-0.5">♣</span>
+                                        <span><strong>Hai đơn thức đồng dạng</strong> là hai đơn thức có hệ số khác $0$ và có phần biến giống nhau.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2.5">
+                                        <span class="text-blue-600 font-bold mt-0.5">♣</span>
+                                        <span>Hai đơn thức đồng dạng thì có cùng bậc.</span>
+                                    </li>
+                                    <li class="flex items-start gap-2.5">
+                                        <span class="text-blue-600 font-bold mt-0.5">♣</span>
+                                        <div>
+                                            <p>Để thực hiện phép cộng, trừ các đơn thức đồng dạng, ta cộng, trừ phần hệ số và giữ nguyên phần biến.</p>
+                                            <div class="mt-1.5 bg-white/80 px-3.5 py-2 rounded-lg border border-blue-200/70 text-sm">
+                                                <em>Cụ thể:</em> $3x^2y + (-7)x^2y = -4x^2y$
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========================================== -->
+                <!-- PHẦN II: LUYỆN TẬP MẪU                     -->
+                <!-- ========================================== -->
+                <section id="luyen-tap" class="space-y-6">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold shadow-sm">
+                                II
+                            </div>
+                            <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+                                LUYỆN TẬP MẪU
+                            </h2>
+                        </div>
+                        <span class="text-xs font-medium text-slate-500 bg-slate-100 px-3 py-1.5 rounded-full">
+                            3 bài tập mẫu có lời giải
+                        </span>
+                    </div>
+
+                    <!-- Bài mẫu 1 -->
+                    <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                        <div>
+                            <span class="inline-block text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-md mb-2">
+                                Bài 1 (Mẫu)
+                            </span>
+                            <p class="text-slate-800 font-medium text-base sm:text-lg">
+                                Xác định hệ số, phần biến, bậc của đơn thức $\dfrac{-3}{4}x^2y \cdot \left(\dfrac{2}{3}xy^2z\right)$
+                            </p>
+                        </div>
+                        <div class="bg-slate-50 rounded-xl p-5 border border-slate-200/80 space-y-3">
+                            <div class="text-xs font-bold uppercase tracking-wider text-blue-600 flex items-center gap-1.5">
+                                <i data-lucide="check-square" class="w-4 h-4"></i> Lời giải
+                            </div>
+                            <div class="math-block bg-white px-4 py-3 rounded-lg border border-slate-200/60">
+                                $$\frac{-3}{4}x^2y \cdot \left(\frac{2}{3}xy^2z\right) = \frac{-3}{4} \cdot \frac{2}{3} \cdot x^2 \cdot x \cdot y \cdot y^2 \cdot z = \frac{-1}{2}x^3y^3z$$
+                            </div>
+                            <p class="text-slate-800 font-medium">
+                                Hệ số là $\dfrac{-1}{2}$, phần biến là $x^3y^3z$, bậc là $7$.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Bài mẫu 2 -->
+                    <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                        <div>
+                            <span class="inline-block text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-md mb-2">
+                                Bài 2 (Mẫu)
+                            </span>
+                            <p class="text-slate-800 font-semibold text-base sm:text-lg mb-3">Thực hiện phép tính:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <div class="bg-slate-50 px-4 py-3 rounded-xl border border-slate-200/70 font-medium">a) $x^2y - 7x^2y + 5xy^2$</div>
+                                <div class="bg-slate-50 px-4 py-3 rounded-xl border border-slate-200/70 font-medium">b) $-5xy^3 - 7y^2(xy)$</div>
+                                <div class="bg-slate-50 px-4 py-3 rounded-xl border border-slate-200/70 font-medium">c) $3x^4 - \left(5x^2\right)^2$</div>
+                            </div>
+                        </div>
+                        <div class="bg-slate-50 rounded-xl p-5 border border-slate-200/80 space-y-2.5">
+                            <div class="text-xs font-bold uppercase tracking-wider text-blue-600 flex items-center gap-1.5">
+                                <i data-lucide="check-square" class="w-4 h-4"></i> Lời giải
+                            </div>
+                            <div class="space-y-2 bg-white p-4 rounded-lg border border-slate-200/60 text-slate-800">
+                                <p><strong>a)</strong> $x^2y - 7x^2y + 5xy^2 = -6x^2y + 5xy^2$.</p>
+                                <p><strong>b)</strong> $-5xy^3 - 7y^2(xy) = -5xy^3 - 7xy^3 = -12xy^3$.</p>
+                                <p><strong>c)</strong> $3x^4 - \left(5x^2\right)^2 = 3x^4 - 25x^4 = -22x^4$.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bài mẫu 3 -->
+                    <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                        <div>
+                            <span class="inline-block text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-md mb-2">
+                                Bài 3 (Mẫu)
+                            </span>
+                            <p class="text-slate-800 font-semibold text-base sm:text-lg mb-2">
+                                Cho đơn thức $A = \left(\dfrac{2}{3}x^2y^2\right)\left(\dfrac{-6}{5}x^4y^3\right)$.
+                            </p>
+                            <ul class="space-y-1 text-slate-700 pl-2">
+                                <li><strong>a)</strong> Thu gọn rồi tìm bậc của đơn thức $A$.</li>
+                                <li><strong>b)</strong> Tính giá trị của đơn thức $A$ tại $x = -1, y = -2$.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-50 rounded-xl p-5 border border-slate-200/80 space-y-3">
+                            <div class="text-xs font-bold uppercase tracking-wider text-blue-600 flex items-center gap-1.5">
+                                <i data-lucide="check-square" class="w-4 h-4"></i> Lời giải
+                            </div>
+                            <div class="space-y-3 bg-white p-4 rounded-lg border border-slate-200/60 text-slate-800">
+                                <p><strong>a)</strong> $A = \left(\dfrac{2}{3}x^2y^2\right)\left(\dfrac{-6}{5}x^4y^3\right) = \dfrac{2}{3} \cdot \dfrac{-6}{5} \cdot x^2 \cdot x^4 \cdot y^2 \cdot y^3 = \dfrac{-4}{5}x^6y^5$. Bậc là $11$.</p>
+                                <p><strong>b)</strong> Tại $x = -1, y = -2$ thì đơn thức $A$ có giá trị là: $A = \dfrac{-4}{5} \cdot (-1)^6 \cdot (-2)^5 = \dfrac{(-4) \cdot 1 \cdot (-32)}{5} = \dfrac{128}{5}$.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========================================== -->
+                <!-- PHẦN III: BÀI TẬP TỰ LUYỆN (21 BÀI)        -->
+                <!-- ========================================== -->
+                <section id="bai-tap-tu-luyen" class="space-y-8">
+                    <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold shadow-sm">
+                                III
+                            </div>
+                            <div>
+                                <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+                                    BÀI TẬP TỰ LUYỆN
+                                </h2>
+                                <p class="text-xs text-slate-500">Bấm vào từng bài để đối chiếu đáp án và lời giải chi tiết</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-semibold text-indigo-700 bg-indigo-50 border border-indigo-200 px-3 py-1.5 rounded-full">
+                            21 Bài tập (Bài 1 → Bài 21)
+                        </span>
+                    </div>
+
+                    <!-- NHÓM DẠNG 1: BÀI 1 - 3 -->
+                    <div id="dang-1" class="space-y-5">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50/80 px-4 py-2 rounded-lg border border-indigo-100 inline-block">
+                            Dạng 1: Nhận biết đơn thức (Bài 1 – Bài 3)
+                        </h3>
+
+                        <!-- Bài 1 -->
+                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                            <div class="font-bold text-slate-900 text-base sm:text-lg">
+                                <span class="text-indigo-600">Bài 1:</span> Trong các biểu thức sau, biểu thức nào là đơn thức?
+                            </div>
+                            <div class="math-block bg-slate-50 px-4 py-3 rounded-xl border border-slate-200/70 text-center">
+                                $$x^2y, \quad -3x - 1, \quad \frac{1}{5} - x^2y, \quad -13, \quad \frac{1}{6 - x}, \quad (-2)^3xy^7$$
+                            </div>
+                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
+                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải Bài 1</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
+                                </summary>
+                                <div class="p-4 bg-white border-t border-indigo-100 text-sm sm:text-base space-y-2">
+                                    <p>• Các biểu thức là <strong>đơn thức</strong> gồm: $x^2y$; $-13$; $(-2)^3xy^7$.</p>
+                                    <p class="text-slate-600 text-sm">• Các biểu thức $-3x - 1$, $\dfrac{1}{5} - x^2y$ (chứa phép trừ) và $\dfrac{1}{6 - x}$ (chứa biến ở mẫu) không phải là đơn thức.</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Bài 2 -->
+                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                            <div class="font-bold text-slate-900 text-base sm:text-lg">
+                                <span class="text-indigo-600">Bài 2:</span> Trong các biểu thức sau, biểu thức nào là đơn thức?
+                            </div>
+                            <div class="math-block bg-slate-50 px-4 py-3 rounded-xl border border-slate-200/70 text-center">
+                                $$\frac{6}{x^2}, \quad \frac{x^2y}{2}, \quad \frac{-1}{x}, \quad \frac{x}{-5^2}, \quad \frac{-4}{5}, \quad \frac{-x^2y}{xy^2z}$$
+                            </div>
+                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
+                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải Bài 2</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
+                                </summary>
+                                <div class="p-4 bg-white border-t border-indigo-100 text-sm sm:text-base space-y-2">
+                                    <p>• Các biểu thức là <strong>đơn thức</strong> gồm: $\dfrac{x^2y}{2}$; $\dfrac{x}{-5^2}$; $\dfrac{-4}{5}$.</p>
+                                    <p class="text-slate-600 text-sm">• Các biểu thức $\dfrac{6}{x^2}$, $\dfrac{-1}{x}$, $\dfrac{-x^2y}{xy^2z}$ có chứa biến ở mẫu nên không phải là đơn thức.</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Bài 3 -->
+                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                            <div class="font-bold text-slate-900 text-base sm:text-lg">
+                                <span class="text-indigo-600">Bài 3:</span> Trong các biểu thức sau, biểu thức nào là đơn thức?
+                            </div>
+                            <div class="math-block bg-slate-50 px-4 py-3 rounded-xl border border-slate-200/70 text-center">
+                                $$\left(1 - \frac{1}{\sqrt{3}}\right)x^2, \quad \frac{1}{2}(x^2 - 1), \quad x^2 \cdot \frac{7}{2}, \quad 6\sqrt{y}, \quad \frac{1 - \sqrt{5}}{x}, \quad \frac{x - y^2}{4}$$
+                            </div>
+                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
+                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải Bài 3</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
+                                </summary>
+                                <div class="p-4 bg-white border-t border-indigo-100 text-sm sm:text-base space-y-2">
+                                    <p>• Các biểu thức là <strong>đơn thức</strong> gồm: $\left(1 - \dfrac{1}{\sqrt{3}}\right)x^2$ và $x^2 \cdot \dfrac{7}{2}$.</p>
+                                    <p class="text-slate-600 text-sm">• Các biểu thức còn lại chứa phép trừ giữa các biến, căn bậc hai của biến ($6\sqrt{y}$) hoặc biến ở mẫu ($\dfrac{1-\sqrt{5}}{x}$) nên không phải là đơn thức.</p>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+
+                    <!-- NHÓM DẠNG 2: BÀI 4 - 6 -->
+                    <div id="dang-2" class="space-y-5">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50/80 px-4 py-2 rounded-lg border border-indigo-100 inline-block">
+                            Dạng 2: Thu gọn, chỉ ra phần hệ số và tìm bậc của đơn thức (Bài 4 – Bài 6)
+                        </h3>
+
+                        <!-- Bài 4 -->
+                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                            <div class="font-bold text-slate-900 text-base sm:text-lg">
+                                <span class="text-indigo-600">Bài 4:</span> Thu gọn, chỉ ra phần hệ số và tìm bậc của các đơn thức sau:
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm sm:text-base">
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">1) $5x^2 3xy^2$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">2) $4x^2 \cdot (-4xy^2)$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">3) $-x^2y^5 \cdot (-xy)$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">4) $-3xy^2zy^2z$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">5) $-x^3y^4z^5 \cdot (-2)$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">6) $2x^3y^5x^2y^4x$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">7) $-2xy^2xy^2z \cdot 3^2$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">8) $6xyxy^3 \cdot (-6)$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">9) $-xy^2z \cdot (-5)x^2yz^2$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">10) $\dfrac{2}{3}xyz \cdot (-3xy^2z)$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">11) $\dfrac{1}{2}x^2y \cdot \left(\dfrac{-2}{3}xy^2\right)$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">12) $\dfrac{1}{4}x^3y \cdot (-2)x^3y^4$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">13) $\left(\dfrac{-1}{3}x^2y\right)(2xy^3)$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">14) $\left(\dfrac{-3}{4}x^2y\right)(-xy^3)$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">15) $\dfrac{3}{5}x^2y^5x^3y^2 \cdot \dfrac{-2}{3}$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">16) $\left(\dfrac{3}{4}x^2y^3\right)\left(2\dfrac{2}{5}x^4\right)$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">17) $\left(\dfrac{12}{15}x^4y^5\right)\left(\dfrac{5}{9}x^2y\right)$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">18) $\left(-\dfrac{1}{7}x^2y\right)\left(\dfrac{-14}{5}x^4y^5\right)$</div>
+                            </div>
+                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
+                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải chi tiết Bài 4 (18 câu)</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
+                                </summary>
+                                <div class="p-4 bg-white border-t border-indigo-100 overflow-x-auto">
+                                    <table class="w-full text-sm text-left border-collapse">
+                                        <thead>
+                                            <tr class="bg-slate-50 border-b border-slate-200 text-slate-700">
+                                                <th class="py-2 px-3 font-bold">Câu</th>
+                                                <th class="py-2 px-3 font-bold">Đơn thức thu gọn</th>
+                                                <th class="py-2 px-3 font-bold">Hệ số</th>
+                                                <th class="py-2 px-3 font-bold">Bậc</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-slate-100">
+                                            <tr><td class="py-2 px-3 font-medium">1)</td><td class="py-2 px-3">$15x^3y^2$</td><td class="py-2 px-3">$15$</td><td class="py-2 px-3">$5$</td></tr>
+                                            <tr><td class="py-2 px-3 font-medium">2)</td><td class="py-2 px-3">$-16x^3y^2$</td><td class="py-2 px-3">$-16$</td><td class="py-2 px-3">$5$</td></tr>
+                                            <tr><td class="py-2 px-3 font-medium">3)</td><td class="py-2 px-3">$x^3y^6$</td><td class="py-2 px-3">$1$</td><td class="py-2 px-3">$9$</td></tr>
+                                            <tr><td class="py-2 px-3 font-medium">4)</td><td class="py-2 px-3">$-3xy^4z^2$</td><td class="py-2 px-3">$-3$</td><td class="py-2 px-3">$7$</td></tr>
+                                            <tr><td class="py-2 px-3 font-medium">5)</td><td class="py-2 px-3">$2x^3y^4z^5$</td><td class="py-2 px-3">$2$</td><td class="py-2 px-3">$12$</td></tr>
+                                            <tr><td class="py-2 px-3 font-medium">6)</td><td class="py-2 px-3">$2x^6y^9$</td><td class="py-2 px-3">$2$</td><td class="py-2 px-3">$15$</td></tr>
+                                            <tr><td class="py-2 px-3 font-medium">7)</td><td class="py-2 px-3">$-18x^2y^4z$</td><td class="py-2 px-3">$-18$</td><td class="py-2 px-3">$7$</td></tr>
+                                            <tr><td class="py-2 px-3 font-medium">8)</td><td class="py-2 px-3">$-36x^2y^4$</td><td class="py-2 px-3">$-36$</td><td class="py-2 px-3">$6$</td></tr>
+                                            <tr><td class="py-2 px-3 font-medium">9)</td><td class="py-2 px-3">$5x^3y^3z^3$</td><td class="py-2 px-3">$5$</td><td class="py-2 px-3">$9$</td></tr>
+                                            <tr><td class="py-2 px-3 font-medium">10)</td><td class="py-2 px-3">$-2x^2y^3z^2$</td><td class="py-2 px-3">$-2$</td><td class="py-2 px-3">$7$</td></tr>
+                                            <tr><td class="py-2 px-3 font-medium">11)</td><td class="py-2 px-3">$-\dfrac{1}{3}x^3y^3$</td><td class="py-2 px-3">$-\dfrac{1}{3}$</td><td class="py-2 px-3">$6$</td></tr>
+                                            <tr><td class="py-2 px-3 font-medium">12)</td><td class="py-2 px-3">$-\dfrac{1}{2}x^6y^5$</td><td class="py-2 px-3">$-\dfrac{1}{2}$</td><td class="py-2 px-3">$11$</td></tr>
+                                            <tr><td class="py-2 px-3 font-medium">13)</td><td class="py-2 px-3">$-\dfrac{2}{3}x^3y^4$</td><td class="py-2 px-3">$-\dfrac{2}{3}$</td><td class="py-2 px-3">$7$</td></tr>
+                                            <tr><td class="py-2 px-3 font-medium">14)</td><td class="py-2 px-3">$\dfrac{3}{4}x^3y^4$</td><td class="py-2 px-3">$\dfrac{3}{4}$</td><td class="py-2 px-3">$7$</td></tr>
+                                            <tr><td class="py-2 px-3 font-medium">15)</td><td class="py-2 px-3">$-\dfrac{2}{5}x^5y^7$</td><td class="py-2 px-3">$-\dfrac{2}{5}$</td><td class="py-2 px-3">$12$</td></tr>
+                                            <tr><td class="py-2 px-3 font-medium">16)</td><td class="py-2 px-3">$\dfrac{9}{5}x^6y^3$</td><td class="py-2 px-3">$\dfrac{9}{5}$</td><td class="py-2 px-3">$9$</td></tr>
+                                            <tr><td class="py-2 px-3 font-medium">17)</td><td class="py-2 px-3">$\dfrac{4}{9}x^6y^6$</td><td class="py-2 px-3">$\dfrac{4}{9}$</td><td class="py-2 px-3">$12$</td></tr>
+                                            <tr><td class="py-2 px-3 font-medium">18)</td><td class="py-2 px-3">$\dfrac{2}{5}x^6y^6$</td><td class="py-2 px-3">$\dfrac{2}{5}$</td><td class="py-2 px-3">$12$</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Bài 5 -->
+                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                            <div class="font-bold text-slate-900 text-base sm:text-lg">
+                                <span class="text-indigo-600">Bài 5:</span> Thu gọn, chỉ ra phần hệ số và tìm bậc của các đơn thức sau:
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm sm:text-base">
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">1) $5xy^2 \cdot (-3y)^2$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">2) $x^2yz \cdot (-2xy)^3$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">3) $(-2x^2y)^2 \cdot 8x^3yz^3$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">4) $(-2xy^3)^2 \cdot (-2xyz)^3$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">5) $(-5xy^3z) \cdot (-4x^2)^2$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">6) $(2x^2y^3)^2 \cdot (-2xy)$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">7) $\dfrac{-2}{3}xy^2z \cdot (-3x^2y)^2$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">8) $(-2xy^3) \cdot \dfrac{3}{8} \cdot (xz^2)^2$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">9) $\dfrac{1}{4} \cdot (x^2y^3)^2 \cdot (-2xy)$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">10) $\dfrac{1}{6}x \cdot (-2y^5)^3 \cdot (-9x^5y)$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">11) $(-3x^4y^5z^6)^3 \cdot \dfrac{1}{9}x^5 \cdot y^4$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">12) $2xy^2 \cdot \left(\dfrac{-1}{3}x^2y^3\right)^2$</div>
+                            </div>
+                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
+                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải chi tiết Bài 5 (12 câu)</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
+                                </summary>
+                                <div class="p-4 bg-white border-t border-indigo-100 overflow-x-auto">
+                                    <table class="w-full text-sm text-left border-collapse">
+                                        <thead>
+                                            <tr class="bg-slate-50 border-b border-slate-200 text-slate-700">
+                                                <th class="py-2 px-3 font-bold">Câu</th>
+                                                <th class="py-2 px-3 font-bold">Biến đổi & Thu gọn</th>
+                                                <th class="py-2 px-3 font-bold">Hệ số</th>
+                                                <th class="py-2 px-3 font-bold">Bậc</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-slate-100">
+                                            <tr><td class="py-2 px-3 font-medium">1)</td><td class="py-2 px-3">$5xy^2 \cdot 9y^2 = 45xy^4$</td><td class="py-2 px-3">$45$</td><td class="py-2 px-3">$5$</td></tr>
+                                            <tr><td class="py-2 px-3 font-medium">2)</td><td class="py-2 px-3">$x^2yz \cdot (-8x^3y^3) = -8x^5y^4z$</td><td class="py-2 px-3">$-8$</td><td class="py-2 px-3">$10$</td></tr>
+                                            <tr><td class="py-2 px-3 font-medium">3)</td><td class="py-2 px-3">$4x^4y^2 \cdot 8x^3yz^3 = 32x^7y^3z^3$</td><td class="py-2 px-3">$32$</td><td class="py-2 px-3">$13$</td></tr>
+                                            <tr><td class="py-2 px-3 font-medium">4)</td><td class="py-2 px-3">$4x^2y^6 \cdot (-8x^3y^3z^3) = -32x^5y^9z^3$</td><td class="py-2 px-3">$-32$</td><td class="py-2 px-3">$17$</td></tr>
+                                            <tr><td class="py-2 px-3 font-medium">5)</td><td class="py-2 px-3">$(-5xy^3z) \cdot 16x^4 = -80x^5y^3z$</td><td class="py-2 px-3">$-80$</td><td class="py-2 px-3">$9$</td></tr>
+                                            <tr><td class="py-2 px-3 font-medium">6)</td><td class="py-2 px-3">$4x^4y^6 \cdot (-2xy) = -8x^5y^7$</td><td class="py-2 px-3">$-8$</td><td class="py-2 px-3">$12$</td></tr>
+                                            <tr><td class="py-2 px-3 font-medium">7)</td><td class="py-2 px-3">$\dfrac{-2}{3}xy^2z \cdot 9x^4y^2 = -6x^5y^4z$</td><td class="py-2 px-3">$-6$</td><td class="py-2 px-3">$10$</td></tr>
+                                            <tr><td class="py-2 px-3 font-medium">8)</td><td class="py-2 px-3">$(-2xy^3) \cdot \dfrac{3}{8} \cdot x^2z^4 = -\dfrac{3}{4}x^3y^3z^4$</td><td class="py-2 px-3">$-\dfrac{3}{4}$</td><td class="py-2 px-3">$10$</td></tr>
+                                            <tr><td class="py-2 px-3 font-medium">9)</td><td class="py-2 px-3">$\dfrac{1}{4} x^4y^6 \cdot (-2xy) = -\dfrac{1}{2}x^5y^7$</td><td class="py-2 px-3">$-\dfrac{1}{2}$</td><td class="py-2 px-3">$12$</td></tr>
+                                            <tr><td class="py-2 px-3 font-medium">10)</td><td class="py-2 px-3">$\dfrac{1}{6}x \cdot (-8y^{15}) \cdot (-9x^5y) = 12x^6y^{16}$</td><td class="py-2 px-3">$12$</td><td class="py-2 px-3">$22$</td></tr>
+                                            <tr><td class="py-2 px-3 font-medium">11)</td><td class="py-2 px-3">$(-27x^{12}y^{15}z^{18}) \cdot \dfrac{1}{9}x^5y^4 = -3x^{17}y^{19}z^{18}$</td><td class="py-2 px-3">$-3$</td><td class="py-2 px-3">$54$</td></tr>
+                                            <tr><td class="py-2 px-3 font-medium">12)</td><td class="py-2 px-3">$2xy^2 \cdot \dfrac{1}{9}x^4y^6 = \dfrac{2}{9}x^5y^8$</td><td class="py-2 px-3">$\dfrac{2}{9}$</td><td class="py-2 px-3">$13$</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Bài 6 -->
+                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                            <div class="font-bold text-slate-900 text-base sm:text-lg">
+                                <span class="text-indigo-600">Bài 6:</span> Thu gọn, chỉ ra phần hệ số và tìm bậc của các đơn thức sau ($n \in \mathbb{N}^*$):
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm sm:text-base">
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">1) $A = \dfrac{3}{4}x^{n-1} \cdot \dfrac{4}{5}x^{2n+1}y^{2n+1} \cdot \dfrac{5}{6}xy^{n+1}$</div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">2) $B = \dfrac{6}{4}x^{3-n} \cdot \dfrac{4}{2}x^{4-n}y^{5-n} \cdot \dfrac{2}{6}y^{6-n}$</div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">3) $C = \dfrac{-4}{3}x^{2-n}y \cdot \dfrac{6}{7}x^{2n-3}y^{n-1} \cdot \dfrac{-1}{2}xy$</div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">4) $D = \dfrac{1}{5}xy^{n+1} \cdot \dfrac{4}{3}x^{n+1}y \cdot \dfrac{15}{7}x^ny^n$</div>
+                            </div>
+                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
+                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải chi tiết Bài 6</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
+                                </summary>
+                                <div class="p-4 bg-white border-t border-indigo-100 space-y-2.5 text-sm sm:text-base">
+                                    <p><strong>1)</strong> $A = \left(\dfrac{3}{4}\cdot\dfrac{4}{5}\cdot\dfrac{5}{6}\right) x^{(n-1)+(2n+1)+1} y^{(2n+1)+(n+1)} = \dfrac{1}{2}x^{3n+1}y^{3n+2}$. Hệ số: $\dfrac{1}{2}$; Bậc: $6n + 3$.</p>
+                                    <p><strong>2)</strong> $B = \left(\dfrac{6}{4}\cdot\dfrac{4}{2}\cdot\dfrac{2}{6}\right) x^{(3-n)+(4-n)} y^{(5-n)+(6-n)} = x^{7-2n}y^{11-2n}$. Hệ số: $1$; Bậc: $18 - 4n$.</p>
+                                    <p><strong>3)</strong> $C = \left(\dfrac{-4}{3}\cdot\dfrac{6}{7}\cdot\dfrac{-1}{2}\right) x^{(2-n)+(2n-3)+1} y^{1+(n-1)+1} = \dfrac{4}{7}x^ny^{n+1}$. Hệ số: $\dfrac{4}{7}$; Bậc: $2n + 1$.</p>
+                                    <p><strong>4)</strong> $D = \left(\dfrac{1}{5}\cdot\dfrac{4}{3}\cdot\dfrac{15}{7}\right) x^{1+(n+1)+n} y^{(n+1)+1+n} = \dfrac{4}{7}x^{2n+2}y^{2n+2}$. Hệ số: $\dfrac{4}{7}$; Bậc: $4n + 4$.</p>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+
+                    <!-- NHÓM DẠNG 3: BÀI 7 - 8 -->
+                    <div id="dang-3" class="space-y-5">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50/80 px-4 py-2 rounded-lg border border-indigo-100 inline-block">
+                            Dạng 3: Phân nhóm các đơn thức đồng dạng (Bài 7 – Bài 8)
+                        </h3>
+
+                        <!-- Bài 7 -->
+                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                            <div class="font-bold text-slate-900 text-base sm:text-lg">
+                                <span class="text-indigo-600">Bài 7:</span> Phân thành các nhóm đơn thức đồng dạng trong các đơn thức sau:
+                            </div>
+                            <div class="math-block bg-slate-50 px-4 py-3 rounded-xl border border-slate-200/70 text-center">
+                                $$-12x^2y, \quad -\frac{3}{8}xyz, \quad -100, \quad -3yxz, \quad -2xy \cdot x, \quad y \cdot \left(-\frac{1}{3}xy\right)$$
+                            </div>
+                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
+                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải Bài 7</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
+                                </summary>
+                                <div class="p-4 bg-white border-t border-indigo-100 space-y-2 text-sm sm:text-base">
+                                    <p class="text-slate-600">Ta thu gọn trước: $-3yxz = -3xyz$; $-2xy \cdot x = -2x^2y$; $y \cdot \left(-\dfrac{1}{3}xy\right) = -\dfrac{1}{3}xy^2$. Khi đó các nhóm đơn thức đồng dạng là:</p>
+                                    <p>• <strong>Nhóm 1 (phần biến $x^2y$):</strong> $-12x^2y$ và $-2xy \cdot x$.</p>
+                                    <p>• <strong>Nhóm 2 (phần biến $xyz$):</strong> $-\dfrac{3}{8}xyz$ và $-3yxz$.</p>
+                                    <p>• <strong>Các đơn thức còn lại (đơn lẻ):</strong> $-100$ và $y \cdot \left(-\dfrac{1}{3}xy\right)$.</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Bài 8 -->
+                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                            <div class="font-bold text-slate-900 text-base sm:text-lg">
+                                <span class="text-indigo-600">Bài 8:</span> Phân thành các nhóm đơn thức đồng dạng trong các đơn thức sau:
+                            </div>
+                            <div class="math-block bg-slate-50 px-4 py-3 rounded-xl border border-slate-200/70 text-center">
+                                $$3x^3y^2, \quad \frac{x^5y^4z^2}{11}, \quad \frac{-x^3y^3}{6}, \quad -11x^3y^3, \quad -6x^5y^4z^2, \quad 6\frac{1}{2}x^3y^2$$
+                            </div>
+                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
+                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải Bài 8</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
+                                </summary>
+                                <div class="p-4 bg-white border-t border-indigo-100 space-y-2 text-sm sm:text-base">
+                                    <p>• <strong>Nhóm 1 (phần biến $x^3y^2$):</strong> $3x^3y^2$ và $6\dfrac{1}{2}x^3y^2$.</p>
+                                    <p>• <strong>Nhóm 2 (phần biến $x^5y^4z^2$):</strong> $\dfrac{x^5y^4z^2}{11}$ và $-6x^5y^4z^2$.</p>
+                                    <p>• <strong>Nhóm 3 (phần biến $x^3y^3$):</strong> $\dfrac{-x^3y^3}{6}$ và $-11x^3y^3$.</p>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+
+                    <!-- NHÓM DẠNG 4: BÀI 9 - 11 -->
+                    <div id="dang-4" class="space-y-5">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50/80 px-4 py-2 rounded-lg border border-indigo-100 inline-block">
+                            Dạng 4: Cộng, trừ các đơn thức đồng dạng (Bài 9 – Bài 11)
+                        </h3>
+
+                        <!-- Bài 9 -->
+                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                            <div class="font-bold text-slate-900 text-base sm:text-lg">
+                                <span class="text-indigo-600">Bài 9:</span> Thực hiện phép tính:
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm sm:text-base">
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">1) $xy - (-xy) + 5xy$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">2) $6xy^2 - 3xy^2 - 12xy^2$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">3) $3x^2y^3z^4 + (-4x^2y^3z^4)$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">4) $4x^2y + (-8x^2y)$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">5) $25x^2y + (-55x^2y)$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">6) $3x^2y + 4x^2y - x^2y$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">7) $xy^2 + x^2y + (-2xy^2)$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">8) $12x^2y^3z^4 + (-7x^2y^3z^4)$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">9) $-6xy^3 - (-6xy^3) + 6x^3y$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">10) $-\dfrac{x^2}{2} + \dfrac{7}{2}x^2 + x$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">11) $2x^3 + 3x^3 - \dfrac{1}{3}x^3$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">12) $5xy^2 + \dfrac{1}{2}xy^2 + \dfrac{1}{4}xy^2$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">13) $\dfrac{1}{2}x^2 + \dfrac{1}{3}x^3 - \dfrac{5}{2}x^2 - \dfrac{7}{3}x^3$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">14) $\dfrac{3}{4}xyz^2 + \dfrac{2}{4}xyz^2 + \dfrac{1}{4}xyz^2$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">15) $\dfrac{5}{8}x^2y^3 + \dfrac{1}{2}y^3x^2 - 3x^2y^3$</div>
+                            </div>
+                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
+                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải Bài 9 (15 câu)</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
+                                </summary>
+                                <div class="p-4 bg-white border-t border-indigo-100 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 text-sm">
+                                    <div><strong>1)</strong> $7xy$</div>
+                                    <div><strong>2)</strong> $-9xy^2$</div>
+                                    <div><strong>3)</strong> $-x^2y^3z^4$</div>
+                                    <div><strong>4)</strong> $-4x^2y$</div>
+                                    <div><strong>5)</strong> $-30x^2y$</div>
+                                    <div><strong>6)</strong> $6x^2y$</div>
+                                    <div><strong>7)</strong> $x^2y - xy^2$</div>
+                                    <div><strong>8)</strong> $5x^2y^3z^4$</div>
+                                    <div><strong>9)</strong> $6x^3y$</div>
+                                    <div><strong>10)</strong> $3x^2 + x$</div>
+                                    <div><strong>11)</strong> $\dfrac{14}{3}x^3$</div>
+                                    <div><strong>12)</strong> $\dfrac{23}{4}xy^2$</div>
+                                    <div><strong>13)</strong> $-2x^2 - 2x^3$</div>
+                                    <div><strong>14)</strong> $\dfrac{3}{2}xyz^2$</div>
+                                    <div><strong>15)</strong> $-\dfrac{15}{8}x^2y^3$</div>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Bài 10 -->
+                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                            <div class="font-bold text-slate-900 text-base sm:text-lg">
+                                <span class="text-indigo-600">Bài 10:</span> Thực hiện phép tính:
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm sm:text-base">
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">1) $-xyz^2 - 3xz \cdot yz$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">2) $-8x^2y - x \cdot (xy)$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">3) $4xy^2 \cdot x - (-12x^2y^2)$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">4) $\dfrac{1}{2}x^2y^3 - \dfrac{1}{3}x^2y \cdot y^2$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">5) $3xy(x^2y) - \dfrac{5}{6}x^3y^2$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">6) $\dfrac{3}{4}x^4y - \dfrac{1}{6}xy \cdot x^3$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">7) $\dfrac{4}{5}y^2x^5 - x^3 \cdot x^2y^2$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">8) $-xy^3 - \dfrac{2}{7}y^2 \cdot xy$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">9) $\dfrac{5}{6}xy^2z - \dfrac{1}{4}xyz \cdot y$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">10) $15x^4 + 7x^4 - 20x^2 \cdot x^2$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">11) $\dfrac{1}{2}x^5y - \dfrac{3}{4}x^5y + xy \cdot x^4$</div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">12) $13x^2y^5 - 2x^2y^5 + x^6$</div>
+                            </div>
+                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
+                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải Bài 10 (12 câu)</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
+                                </summary>
+                                <div class="p-4 bg-white border-t border-indigo-100 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 text-sm">
+                                    <div><strong>1)</strong> $-xyz^2 - 3xyz^2 = -4xyz^2$</div>
+                                    <div><strong>2)</strong> $-8x^2y - x^2y = -9x^2y$</div>
+                                    <div><strong>3)</strong> $4x^2y^2 + 12x^2y^2 = 16x^2y^2$</div>
+                                    <div><strong>4)</strong> $\dfrac{1}{2}x^2y^3 - \dfrac{1}{3}x^2y^3 = \dfrac{1}{6}x^2y^3$</div>
+                                    <div><strong>5)</strong> $3x^3y^2 - \dfrac{5}{6}x^3y^2 = \dfrac{13}{6}x^3y^2$</div>
+                                    <div><strong>6)</strong> $\dfrac{3}{4}x^4y - \dfrac{1}{6}x^4y = \dfrac{7}{12}x^4y$</div>
+                                    <div><strong>7)</strong> $\dfrac{4}{5}x^5y^2 - x^5y^2 = -\dfrac{1}{5}x^5y^2$</div>
+                                    <div><strong>8)</strong> $-xy^3 - \dfrac{2}{7}xy^3 = -\dfrac{9}{7}xy^3$</div>
+                                    <div><strong>9)</strong> $\dfrac{5}{6}xy^2z - \dfrac{1}{4}xy^2z = \dfrac{7}{12}xy^2z$</div>
+                                    <div><strong>10)</strong> $22x^4 - 20x^4 = 2x^4$</div>
+                                    <div><strong>11)</strong> $\left(\dfrac{1}{2} - \dfrac{3}{4} + 1\right)x^5y = \dfrac{3}{4}x^5y$</div>
+                                    <div><strong>12)</strong> $11x^2y^5 + x^6$</div>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Bài 11 -->
+                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                            <div class="font-bold text-slate-900 text-base sm:text-lg">
+                                <span class="text-indigo-600">Bài 11:</span> Tìm hiệu $A - B$ biết:
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm sm:text-base">
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">1) $-x^2y + A + 2xy^2 - B = 3x^2y - 4xy^2$</div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">2) $5xy^2 - A - 6yx^2 + B = -7xy^2 + 8x^2y$</div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">3) $3x^2y^3 - A - 5x^3y^2 + B = 8x^2y^3 - 4x^3y^2$</div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">4) $-6x^2y^3 + A - 3x^3y^2 - B = 2x^2y^3 - 7x^3y^2$</div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">5) $A - \dfrac{3}{8}xy^2 - B + \dfrac{5}{6}x^2y = \dfrac{3}{4}x^2y - \dfrac{5}{8}xy^2$</div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">6) $5xy^3 - A - \dfrac{5}{8}yx^3 + B = 2\dfrac{1}{4}xy^3 - \dfrac{7}{6}x^3y$</div>
+                            </div>
+                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
+                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải chi tiết Bài 11</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
+                                </summary>
+                                <div class="p-4 bg-white border-t border-indigo-100 space-y-2 text-sm sm:text-base">
+                                    <p><strong>1)</strong> $A - B = (3x^2y - 4xy^2) + x^2y - 2xy^2 = 4x^2y - 6xy^2$.</p>
+                                    <p><strong>2)</strong> Vì $-A + B = -(A - B)$ nên $A - B = (5xy^2 - 6x^2y) - (-7xy^2 + 8x^2y) = 12xy^2 - 14x^2y$.</p>
+                                    <p><strong>3)</strong> $A - B = (3x^2y^3 - 5x^3y^2) - (8x^2y^3 - 4x^3y^2) = -5x^2y^3 - x^3y^2$.</p>
+                                    <p><strong>4)</strong> $A - B = (2x^2y^3 - 7x^3y^2) + 6x^2y^3 + 3x^3y^2 = 8x^2y^3 - 4x^3y^2$.</p>
+                                    <p><strong>5)</strong> $A - B = \left(\dfrac{3}{4}x^2y - \dfrac{5}{8}xy^2\right) - \dfrac{5}{6}x^2y + \dfrac{3}{8}xy^2 = -\dfrac{1}{12}x^2y - \dfrac{1}{4}xy^2$.</p>
+                                    <p><strong>6)</strong> $A - B = \left(5xy^3 - \dfrac{5}{8}x^3y\right) - \left(\dfrac{9}{4}xy^3 - \dfrac{7}{6}x^3y\right) = \dfrac{11}{4}xy^3 + \dfrac{13}{24}x^3y$.</p>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+
+                    <!-- NHÓM DẠNG 5: BÀI 12 - 21 -->
+                    <div id="dang-5" class="space-y-5">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50/80 px-4 py-2 rounded-lg border border-indigo-100 inline-block">
+                            Dạng 5: Thu gọn, nhân đơn thức và tính giá trị tại giá trị biến cho trước (Bài 12 – Bài 21)
+                        </h3>
+
+                        <!-- Bài 12 -->
+                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                            <div>
+                                <div class="font-bold text-slate-900 text-base sm:text-lg mb-2">
+                                    <span class="text-indigo-600">Bài 12:</span> Cho đơn thức: $A = \dfrac{8}{3}x^2y^2 \cdot \left(\dfrac{-1}{4}x^2y\right)$.
+                                </div>
+                                <ul class="space-y-1 text-slate-700 pl-2 text-sm sm:text-base">
+                                    <li><strong>a)</strong> Thu gọn đơn thức $A$ rồi xác định hệ số và tìm bậc của đơn thức.</li>
+                                    <li><strong>b)</strong> Tính giá trị của $A$ tại $x = -1, y = 1$.</li>
+                                </ul>
+                            </div>
+                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
+                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải Bài 12</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
+                                </summary>
+                                <div class="p-4 bg-white border-t border-indigo-100 space-y-2 text-sm sm:text-base">
+                                    <p><strong>a)</strong> $A = \left(\dfrac{8}{3} \cdot \dfrac{-1}{4}\right)(x^2 \cdot x^2)(y^2 \cdot y) = -\dfrac{2}{3}x^4y^3$. Hệ số là $-\dfrac{2}{3}$; bậc là $4 + 3 = 7$.</p>
+                                    <p><strong>b)</strong> Thay $x = -1, y = 1$ vào $A$: $A = -\dfrac{2}{3} \cdot (-1)^4 \cdot 1^3 = -\dfrac{2}{3}$.</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Bài 13 -->
+                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                            <div>
+                                <div class="font-bold text-slate-900 text-base sm:text-lg mb-2">
+                                    <span class="text-indigo-600">Bài 13:</span> Cho đơn thức $B = \left(\dfrac{-2}{3}xy^2\right)\left(-\dfrac{1}{4}x^2y^3\right)$.
+                                </div>
+                                <ul class="space-y-1 text-slate-700 pl-2 text-sm sm:text-base">
+                                    <li><strong>a)</strong> Thu gọn đơn thức $B$.</li>
+                                    <li><strong>b)</strong> Tính giá trị của đơn thức $B$ khi $x = 1, y = -1$.</li>
+                                </ul>
+                            </div>
+                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
+                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải Bài 13</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
+                                </summary>
+                                <div class="p-4 bg-white border-t border-indigo-100 space-y-2 text-sm sm:text-base">
+                                    <p><strong>a)</strong> $B = \left(\dfrac{-2}{3} \cdot \dfrac{-1}{4}\right)(x \cdot x^2)(y^2 \cdot y^3) = \dfrac{1}{6}x^3y^5$.</p>
+                                    <p><strong>b)</strong> Khi $x = 1, y = -1$: $B = \dfrac{1}{6} \cdot 1^3 \cdot (-1)^5 = -\dfrac{1}{6}$.</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Bài 14 -->
+                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                            <div>
+                                <div class="font-bold text-slate-900 text-base sm:text-lg mb-2">
+                                    <span class="text-indigo-600">Bài 14:</span> Cho đơn thức: $C = \dfrac{1}{3} \cdot (-6x^2y^2)^2 \left(\dfrac{1}{2}x^3y\right)$.
+                                </div>
+                                <ul class="space-y-1 text-slate-700 pl-2 text-sm sm:text-base">
+                                    <li><strong>a)</strong> Thu gọn $C$.</li>
+                                    <li><strong>b)</strong> Tính giá trị của $C$ tại $x = 1, y = -1$.</li>
+                                </ul>
+                            </div>
+                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
+                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải Bài 14</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
+                                </summary>
+                                <div class="p-4 bg-white border-t border-indigo-100 space-y-2 text-sm sm:text-base">
+                                    <p><strong>a)</strong> $C = \dfrac{1}{3} \cdot 36x^4y^4 \cdot \dfrac{1}{2}x^3y = 6x^7y^5$.</p>
+                                    <p><strong>b)</strong> Tại $x = 1, y = -1$: $C = 6 \cdot 1^7 \cdot (-1)^5 = -6$.</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Bài 15 -->
+                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                            <div>
+                                <div class="font-bold text-slate-900 text-base sm:text-lg mb-2">
+                                    <span class="text-indigo-600">Bài 15:</span> Cho đơn thức $D = \left(\dfrac{-3}{7}x^2y\right)\left(\dfrac{7}{9}x^2y^2\right)$.
+                                </div>
+                                <ul class="space-y-1 text-slate-700 pl-2 text-sm sm:text-base">
+                                    <li><strong>a)</strong> Thu gọn đơn thức $D$ rồi xác định hệ số và phần biến của đơn thức.</li>
+                                    <li><strong>b)</strong> Tính giá trị của đơn thức $D$ tại $x = -1, y = 2$.</li>
+                                </ul>
+                            </div>
+                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
+                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải Bài 15</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
+                                </summary>
+                                <div class="p-4 bg-white border-t border-indigo-100 space-y-2 text-sm sm:text-base">
+                                    <p><strong>a)</strong> $D = -\dfrac{1}{3}x^4y^3$. Hệ số là $-\dfrac{1}{3}$; phần biến là $x^4y^3$.</p>
+                                    <p><strong>b)</strong> Tại $x = -1, y = 2$: $D = -\dfrac{1}{3} \cdot (-1)^4 \cdot 2^3 = -\dfrac{8}{3}$.</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Bài 16 -->
+                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                            <div>
+                                <div class="font-bold text-slate-900 text-base sm:text-lg mb-2">
+                                    <span class="text-indigo-600">Bài 16:</span> Cho đơn thức $F = \left(\dfrac{-3}{5}xy^2\right)^2 \cdot \left(\dfrac{20}{27}x^3y\right)$.
+                                </div>
+                                <ul class="space-y-1 text-slate-700 pl-2 text-sm sm:text-base">
+                                    <li><strong>a)</strong> Thu gọn đơn thức và tìm bậc của đơn thức $F$.</li>
+                                    <li><strong>b)</strong> Tính giá trị của biểu thức $F$ biết $y = \dfrac{-x}{3}$ và $x + y = 2$.</li>
+                                </ul>
+                            </div>
+                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
+                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải Bài 16</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
+                                </summary>
+                                <div class="p-4 bg-white border-t border-indigo-100 space-y-2 text-sm sm:text-base">
+                                    <p><strong>a)</strong> $F = \dfrac{9}{25}x^2y^4 \cdot \dfrac{20}{27}x^3y = \dfrac{4}{15}x^5y^5$. Bậc của $F$ là $5 + 5 = 10$.</p>
+                                    <p><strong>b)</strong> Thay $y = \dfrac{-x}{3}$ vào $x + y = 2$ ta được: $x - \dfrac{x}{3} = 2 \Rightarrow \dfrac{2}{3}x = 2 \Rightarrow x = 3$, suy ra $y = -1$.</p>
+                                    <p>Thay $x = 3, y = -1$ vào $F$: $F = \dfrac{4}{15} \cdot 3^5 \cdot (-1)^5 = \dfrac{4}{15} \cdot 243 \cdot (-1) = -\dfrac{324}{5}$.</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Bài 17 -->
+                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                            <div>
+                                <div class="font-bold text-slate-900 text-base sm:text-lg mb-2">
+                                    <span class="text-indigo-600">Bài 17:</span> Cho 3 đơn thức $\dfrac{-3}{8}x^2z$, $\dfrac{2}{3}xy^2z^2$, $\dfrac{4}{5}x^3y$.
+                                </div>
+                                <ul class="space-y-1 text-slate-700 pl-2 text-sm sm:text-base">
+                                    <li><strong>a)</strong> Tính tích của 3 đơn thức trên.</li>
+                                    <li><strong>b)</strong> Tính giá trị của mỗi đơn thức và giá trị của tích ba đơn thức tại $x = -1, y = -2, z = 3$.</li>
+                                </ul>
+                            </div>
+                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
+                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải Bài 17</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
+                                </summary>
+                                <div class="p-4 bg-white border-t border-indigo-100 space-y-2 text-sm sm:text-base">
+                                    <p><strong>a)</strong> Tích $P = \left(\dfrac{-3}{8} \cdot \dfrac{2}{3} \cdot \dfrac{4}{5}\right)(x^2 \cdot x \cdot x^3)(y^2 \cdot y)(z \cdot z^2) = -\dfrac{1}{5}x^6y^3z^3$.</p>
+                                    <p><strong>b)</strong> Tại $x = -1, y = -2, z = 3$:</p>
+                                    <ul class="list-disc pl-5 space-y-1">
+                                        <li>Đơn thức thứ nhất: $\dfrac{-3}{8}(-1)^2 \cdot 3 = -\dfrac{9}{8}$.</li>
+                                        <li>Đơn thức thứ hai: $\dfrac{2}{3}(-1)(-2)^2 \cdot 3^2 = -24$.</li>
+                                        <li>Đơn thức thứ ba: $\dfrac{4}{5}(-1)^3(-2) = \dfrac{8}{5}$.</li>
+                                        <li>Giá trị của tích: $P = -\dfrac{1}{5}(-1)^6(-2)^3 \cdot 3^3 = \dfrac{216}{5}$.</li>
+                                    </ul>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Bài 18 -->
+                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                            <div>
+                                <div class="font-bold text-slate-900 text-base sm:text-lg mb-2">
+                                    <span class="text-indigo-600">Bài 18:</span> Cho hai đơn thức $\dfrac{-3}{2}x^3y^2z$ và $(-6xy^3z^5)$.
+                                </div>
+                                <ul class="space-y-1 text-slate-700 pl-2 text-sm sm:text-base">
+                                    <li><strong>a)</strong> Tính tích hai đơn thức trên.</li>
+                                    <li><strong>b)</strong> Chỉ ra hệ số, phần biến và bậc của đơn thức tích.</li>
+                                </ul>
+                            </div>
+                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
+                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải Bài 18</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
+                                </summary>
+                                <div class="p-4 bg-white border-t border-indigo-100 space-y-2 text-sm sm:text-base">
+                                    <p><strong>a)</strong> Tích hai đơn thức là: $\left(\dfrac{-3}{2}x^3y^2z\right) \cdot (-6xy^3z^5) = 9x^4y^5z^6$.</p>
+                                    <p><strong>b)</strong> Hệ số: $9$; Phần biến: $x^4y^5z^6$; Bậc: $4 + 5 + 6 = 15$.</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Bài 19 -->
+                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                            <div>
+                                <div class="font-bold text-slate-900 text-base sm:text-lg mb-2">
+                                    <span class="text-indigo-600">Bài 19:</span> Cho đơn thức: $A = \dfrac{1}{18}x^2y \cdot \dfrac{-9}{7}xy^2$.
+                                </div>
+                                <ul class="space-y-1 text-slate-700 pl-2 text-sm sm:text-base">
+                                    <li><strong>a)</strong> Thu gọn đơn thức.</li>
+                                    <li><strong>b)</strong> Tính giá trị của đơn thức tại $x = 2, y = -1$.</li>
+                                </ul>
+                            </div>
+                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
+                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải Bài 19</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
+                                </summary>
+                                <div class="p-4 bg-white border-t border-indigo-100 space-y-2 text-sm sm:text-base">
+                                    <p><strong>a)</strong> $A = \left(\dfrac{1}{18} \cdot \dfrac{-9}{7}\right)(x^2 \cdot x)(y \cdot y^2) = -\dfrac{1}{14}x^3y^3$.</p>
+                                    <p><strong>b)</strong> Tại $x = 2, y = -1$: $A = -\dfrac{1}{14} \cdot 2^3 \cdot (-1)^3 = \dfrac{8}{14} = \dfrac{4}{7}$.</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Bài 20 -->
+                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                            <div>
+                                <div class="font-bold text-slate-900 text-base sm:text-lg mb-2">
+                                    <span class="text-indigo-600">Bài 20:</span> Cho đơn thức $B = \left(\dfrac{-1}{2}xy^3\right)(2x^3y)^2$.
+                                </div>
+                                <ul class="space-y-1 text-slate-700 pl-2 text-sm sm:text-base">
+                                    <li><strong>a)</strong> Thu gọn đơn thức $B$.</li>
+                                    <li><strong>b)</strong> Tính giá trị của $B$ khi $x = -1, y = \dfrac{1}{2}$.</li>
+                                </ul>
+                            </div>
+                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
+                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải Bài 20</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
+                                </summary>
+                                <div class="p-4 bg-white border-t border-indigo-100 space-y-2 text-sm sm:text-base">
+                                    <p><strong>a)</strong> $B = \left(\dfrac{-1}{2}xy^3\right) \cdot (4x^6y^2) = -2x^7y^5$.</p>
+                                    <p><strong>b)</strong> Khi $x = -1, y = \dfrac{1}{2}$: $B = -2 \cdot (-1)^7 \cdot \left(\dfrac{1}{2}\right)^5 = 2 \cdot \dfrac{1}{32} = \dfrac{1}{16}$.</p>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Bài 21 -->
+                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                            <div>
+                                <div class="font-bold text-slate-900 text-base sm:text-lg mb-2">
+                                    <span class="text-indigo-600">Bài 21:</span> Cho hai đơn thức: $A = -18x^3y^4z^5$ và $B = \dfrac{2}{9}x^5(yz^2)^2$.
+                                </div>
+                                <ul class="space-y-1 text-slate-700 pl-2 text-sm sm:text-base">
+                                    <li><strong>a)</strong> Đơn thức $C$ là tích của đơn thức $A$ và $B$. Xác định phần biến, phần hệ số, bậc của $C$.</li>
+                                    <li><strong>b)</strong> Tính giá trị của đơn thức $C$ khi $x = -1, y = 1, |z| = -1$.</li>
+                                </ul>
+                            </div>
+                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
+                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải Bài 21</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
+                                </summary>
+                                <div class="p-4 bg-white border-t border-indigo-100 space-y-2 text-sm sm:text-base">
+                                    <p><strong>a)</strong> Ta có $B = \dfrac{2}{9}x^5y^2z^4$. Khi đó $C = A \cdot B = (-18x^3y^4z^5) \cdot \left(\dfrac{2}{9}x^5y^2z^4\right) = -4x^8y^6z^9$.</p>
+                                    <p>• Phần hệ số: $-4$; Phần biến: $x^8y^6z^9$; Bậc của $C$: $8 + 6 + 9 = 23$.</p>
+                                    <p><strong>b)</strong> Vì giá trị tuyệt đối của một số luôn không âm ($|z| \ge 0$ với mọi $z$), nên không tồn tại giá trị nào của $z$ thỏa mãn $|z| = -1$. Vậy không tồn tại giá trị của đơn thức $C$ tại điều kiện đã cho (hoặc nếu đề in nhầm từ $z = -1$ thì $C = -4 \cdot (-1)^8 \cdot 1^6 \cdot (-1)^9 = 4$).</p>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Điều hướng bài tiếp theo -->
+                <div class="pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <a href="index.html" class="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-blue-400 hover:text-blue-600 font-semibold text-sm transition-all shadow-sm">
+                        <i data-lucide="home" class="w-4 h-4"></i>
+                        Về trang chủ Toán 8
+                    </a>
+                    <!-- Thay href="#" bằng link Bài 2 của bạn sau này -->
+                    <a href="bai2_dathuc.html" class="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-all shadow-sm">
+                        <span>Bài 2: Đa thức và thu gọn đa thức</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200/80 mt-12 py-6">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-slate-500">
+            Hệ thống Kiến Thức Trọng Tâm Toán Lớp 8 • Học kì I & Học kì II
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        let allOpen = false;
+        function toggleAllSolutions() {
+            allOpen = !allOpen;
+            const detailsElements = document.querySelectorAll('details');
+            detailsElements.forEach(el => {
+                el.open = allOpen;
+            });
+            const btn = document.getElementById('toggle-all-btn');
+            if (allOpen) {
+                btn.innerHTML = '<i data-lucide="eye-off" class="w-4 h-4"></i><span>Ẩn tất cả lời giải</span>';
+            } else {
+                btn.innerHTML = '<i data-lucide="eye" class="w-4 h-4"></i><span>Hiện tất cả lời giải</span>';
+            }
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>

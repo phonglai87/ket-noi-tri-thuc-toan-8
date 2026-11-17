@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 3: Cộng, trừ đa thức - Toán Lớp 8</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- MathJax for rendering LaTeX math -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .math-block {
+            overflow-x: auto;
+            padding: 0.5rem 0;
+        }
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased selection:bg-blue-600 selection:text-white">
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-slate-200/80 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="flex items-center gap-2 text-slate-600 hover:text-blue-600 transition-colors font-medium text-sm bg-slate-100 hover:bg-blue-50 px-3 py-2 rounded-xl">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                    <span>Trang chủ Toán 8</span>
+                </a>
+                <span class="text-slate-300">|</span>
+                <span class="text-xs font-semibold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200 hidden sm:inline-block">
+                    Học kì I • Chương 1: Đa thức
+                </span>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="toggleAllSolutions()" id="toggle-all-btn" class="flex items-center gap-1.5 text-xs font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 px-3 py-2 rounded-xl transition-colors">
+                    <i data-lucide="eye" class="w-4 h-4"></i>
+                    <span>Hiện tất cả lời giải</span>
+                </button>
+                <button onclick="window.print()" class="flex items-center gap-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 px-3 py-2 rounded-xl transition-colors">
+                    <i data-lucide="printer" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">In bài</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner Bài Học -->
+    <section class="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-10 sm:py-12 border-b border-blue-900/20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-wrap items-center gap-2 mb-3">
+                <span class="bg-white/15 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full border border-white/20">
+                    Bài 3
+                </span>
+                <span class="text-blue-100 text-sm font-medium">Đại số 8 • Lý thuyết & Bài tập tự luyện</span>
+            </div>
+            <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight leading-tight">
+                Cộng, trừ đa thức
+            </h1>
+            <p class="mt-2.5 text-blue-100 text-sm sm:text-base max-w-3xl">
+                Nắm vững quy tắc cộng và trừ hai đa thức, tính chất giao hoán, kết hợp, kỹ thuật phá ngoặc đổi dấu và hệ thống 18 bài tập luyện tập từ cơ bản đến nâng cao.
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content Layout -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+            <!-- Sidebar Mục lục (Sticky trên Desktop) -->
+            <aside class="lg:col-span-3 lg:sticky lg:top-24 bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm max-h-[calc(100vh-7rem)] overflow-y-auto">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
+                    <i data-lucide="list" class="w-4 h-4 text-blue-600"></i>
+                    Mục lục bài học
+                </h2>
+                <nav class="space-y-1.5 text-sm font-medium">
+                    <a href="#ly-thuyet" class="block px-3 py-2 rounded-lg bg-blue-50 text-blue-700 font-semibold">
+                        I. Lý thuyết trọng tâm
+                    </a>
+                    <div class="pl-3 space-y-1 border-l-2 border-slate-100 ml-2">
+                        <a href="#muc-1" class="block py-1 px-2 text-slate-600 hover:text-blue-600 transition-colors text-xs">
+                            1) Cộng, trừ hai đa thức
+                        </a>
+                    </div>
+
+                    <a href="#luyen-tap" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors mt-2 font-semibold">
+                        II. Ví dụ luyện tập mẫu
+                    </a>
+
+                    <a href="#bai-tap-tu-luyen" class="block px-3 py-2 rounded-lg bg-indigo-50 text-indigo-700 transition-colors mt-2 font-semibold">
+                        III. Bài tập tự luyện (18 bài)
+                    </a>
+                    <div class="pl-3 space-y-1 border-l-2 border-indigo-100 ml-2 text-xs">
+                        <a href="#dang-1" class="block py-1 px-2 text-slate-600 hover:text-indigo-600">
+                            • Bài 1 – 2: Thực hiện phép tính cộng trừ
+                        </a>
+                        <a href="#dang-2" class="block py-1 px-2 text-slate-600 hover:text-indigo-600">
+                            • Bài 3: Tìm đa thức $A$ chưa biết
+                        </a>
+                        <a href="#dang-3" class="block py-1 px-2 text-slate-600 hover:text-indigo-600">
+                            • Bài 4 – 10: Biểu thức ngoặc phức tạp
+                        </a>
+                        <a href="#dang-4" class="block py-1 px-2 text-slate-600 hover:text-indigo-600">
+                            • Bài 11 – 18: Chuỗi đa thức nâng cao & giá trị
+                        </a>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Nội dung chính -->
+            <div class="lg:col-span-9 space-y-12">
+
+                <!-- ========================================== -->
+                <!-- PHẦN I: LÝ THUYẾT                          -->
+                <!-- ========================================== -->
+                <section id="ly-thuyet" class="space-y-6">
+                    <div class="flex items-center gap-3 border-b border-slate-200 pb-3">
+                        <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold shadow-sm">
+                            I
+                        </div>
+                        <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+                            LÝ THUYẾT TRỌNG TÂM
+                        </h2>
+                    </div>
+
+                    <!-- Mục 1 -->
+                    <div id="muc-1" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+                        <div class="bg-slate-50 border-b border-slate-200/80 px-6 py-4">
+                            <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                                <span class="w-2 h-6 bg-blue-600 rounded-full"></span>
+                                1) Cộng, trừ hai đa thức
+                            </h3>
+                        </div>
+                        <div class="p-6 space-y-5">
+                            <!-- Ví dụ 1 -->
+                            <div class="bg-slate-50/80 rounded-xl p-4 sm:p-5 border border-slate-200/70 space-y-3">
+                                <div class="font-bold text-blue-700 flex items-center gap-1.5">
+                                    <i data-lucide="lightbulb" class="w-4 h-4"></i>
+                                    <span>Ví dụ 1: Cho hai đa thức $A = 3x + y - z$ và $B = 4x - 2y + 6z$</span>
+                                </div>
+                                <div class="space-y-2 text-slate-700 text-sm sm:text-base leading-relaxed">
+                                    <p>Khi đó tổng hai đa thức $A$ và $B$ là:</p>
+                                    <div class="math-block bg-white px-4 py-2.5 rounded-lg border border-slate-200/60 text-center">
+                                        $$A + B = 3x + y - z + 4x - 2y + 6z = (3x + 4x) + (y - 2y) + (-z + 6z) = 7x - y + 5z$$
+                                    </div>
+                                    <p>Và hiệu hai đa thức $A$ cho đa thức $B$ là :</p>
+                                    <div class="math-block bg-white px-4 py-2.5 rounded-lg border border-slate-200/60 text-center">
+                                        $$A - B = 3x + y - z - (4x - 2y + 6z) = 3x + y - z - 4x + 2y - 6z = -x + 3y - 7z$$
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Kết luận -->
+                            <div class="bg-blue-50/70 border-l-4 border-blue-600 rounded-r-xl p-4 sm:p-5 space-y-2.5">
+                                <h4 class="font-bold text-blue-900 flex items-center gap-2">
+                                    <i data-lucide="bookmark-check" class="w-5 h-5 text-blue-600"></i>
+                                    Kết luận:
+                                </h4>
+                                <ul class="space-y-2 text-slate-800 leading-relaxed">
+                                    <li class="flex items-start gap-2.5">
+                                        <span class="text-blue-600 font-bold mt-0.5">♣</span>
+                                        <span>Cộng hay trừ hai đa thức là thu gọn đa thức nhận được sau khi nối hai đa thức đã cho bởi dấu "+" hay dấu "-" .</span>
+                                    </li>
+                                    <li class="flex items-start gap-2.5">
+                                        <span class="text-blue-600 font-bold mt-0.5">♣</span>
+                                        <span>Phép cộng đa thức cũng có các tính chất như giao hoán, kết hợp như phép cộng các số .</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========================================== -->
+                <!-- PHẦN II: LUYỆN TẬP MẪU                     -->
+                <!-- ========================================== -->
+                <section id="luyen-tap" class="space-y-6">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold shadow-sm">
+                                II
+                            </div>
+                            <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+                                LUYỆN TẬP MẪU
+                            </h2>
+                        </div>
+                        <span class="text-xs font-medium text-slate-500 bg-slate-100 px-3 py-1.5 rounded-full">
+                            3 bài tập mẫu có lời giải
+                        </span>
+                    </div>
+
+                    <!-- Bài mẫu 1 -->
+                    <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                        <div>
+                            <span class="inline-block text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-md mb-2">
+                                Bài 1 (Mẫu)
+                            </span>
+                            <p class="text-slate-800 font-medium text-base sm:text-lg">
+                                Thực hiện phép tính: $\left(-5x^2y + 3xy^2 + 7\right) + \left(-6x^3y + 4xy^2 - 5\right)$ 
+                            </p>
+                        </div>
+                        <div class="bg-slate-50 rounded-xl p-5 border border-slate-200/80 space-y-3">
+                            <div class="text-xs font-bold uppercase tracking-wider text-blue-600 flex items-center gap-1.5">
+                                <i data-lucide="check-square" class="w-4 h-4"></i> Lời giải
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-slate-200/60 space-y-2 text-sm sm:text-base">
+                                <div class="math-block">
+                                    $$= -5x^2y + 3xy^2 + 7 - 6x^3y + 4xy^2 - 5$$
+                                    $$= -5x^2y + (3xy^2 + 4xy^2) - 6x^3y + 2 = -5x^2y + 7xy^2 - 6x^3y + 2$$
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bài mẫu 2 -->
+                    <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                        <div>
+                            <span class="inline-block text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-md mb-2">
+                                Bài 2 (Mẫu)
+                            </span>
+                            <p class="text-slate-800 font-medium text-base sm:text-lg">
+                                Thực hiện phép tính: $\left(4x^2 + x^2y - 5y^2\right) - \left(x^3 - 6xy^2 - x^2y\right)$ 
+                            </p>
+                        </div>
+                        <div class="bg-slate-50 rounded-xl p-5 border border-slate-200/80 space-y-3">
+                            <div class="text-xs font-bold uppercase tracking-wider text-blue-600 flex items-center gap-1.5">
+                                <i data-lucide="check-square" class="w-4 h-4"></i> Lời giải
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-slate-200/60 space-y-2 text-sm sm:text-base">
+                                <div class="math-block">
+                                    $$= 4x^2 + x^2y - 5y^2 - x^3 + 6xy^2 + x^2y$$
+                                    $$= 4x^2 + (x^2y + x^2y) - 5y^2 - x^3 + 6xy^2 = 4x^2 + 2x^2y - 5y^2 - x^3 + 6xy^2$$
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bài mẫu 3 -->
+                    <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                        <div>
+                            <span class="inline-block text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-md mb-2">
+                                Bài 3 (Mẫu)
+                            </span>
+                            <p class="text-slate-800 font-medium text-base sm:text-lg mb-2">
+                                Cho đa thức $A = x^5y + 3x^4 + 5x^2y$, $B = 2xy - 3x^4 - 2xy + 9 + 2x^2y$ .
+                            </p>
+                            <ul class="space-y-1 text-slate-700 pl-2 text-sm sm:text-base">
+                                <li><strong>a)</strong> Tính $C = A + B$ </li>
+                                <li><strong>b)</strong> Tính giá trị của $C$ tại $x = -1, y = 2$ .</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-50 rounded-xl p-5 border border-slate-200/80 space-y-3">
+                            <div class="text-xs font-bold uppercase tracking-wider text-blue-600 flex items-center gap-1.5">
+                                <i data-lucide="check-square" class="w-4 h-4"></i> Lời giải
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-slate-200/60 space-y-2 text-sm sm:text-base">
+                                <p><strong>a)</strong> $C = A + B = x^5y + 3x^4 + 5x^2y + 2xy - 3x^4 - 2xy + 9 + 2x^2y$ </p>
+                                <div class="math-block">
+                                    $$= x^5y + (3x^4 - 3x^4) + (5x^2y + 2x^2y) + (2xy - 2xy) + 9 = x^5y + 7x^2y + 9$$
+                                </div>
+                                <p><strong>b)</strong> Tại $x = -1, y = 2$: $C = (-1)^5 \cdot 2 + 7 \cdot (-1)^2 \cdot 2 + 9 = -2 + 14 + 9 = \mathbf{21}$.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========================================== -->
+                <!-- PHẦN III: BÀI TẬP TỰ LUYỆN (18 BÀI)        -->
+                <!-- ========================================== -->
+                <section id="bai-tap-tu-luyen" class="space-y-8">
+                    <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold shadow-sm">
+                                III
+                            </div>
+                            <div>
+                                <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+                                    BÀI TẬP TỰ LUYỆN
+                                </h2>
+                                <p class="text-xs text-slate-500">Bấm vào từng bài để đối chiếu đáp án và lời giải chi tiết</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-semibold text-indigo-700 bg-indigo-50 border border-indigo-200 px-3 py-1.5 rounded-full">
+                            18 Bài tập (Bài 1 → Bài 18)
+                        </span>
+                    </div>
+
+                    <!-- NHÓM DẠNG 1: BÀI 1 - 2 -->
+                    <div id="dang-1" class="space-y-5">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50/80 px-4 py-2 rounded-lg border border-indigo-100 inline-block">
+                            Dạng 1: Thực hiện phép tính cộng, trừ đa thức (Bài 1 – Bài 2) 
+                        </h3>
+
+                        <!-- Bài 1 -->
+                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                            <div class="font-bold text-slate-900 text-base sm:text-lg">
+                                <span class="text-indigo-600">Bài 1:</span> Thực hiện phép tính :
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm sm:text-base">
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">1) $\left(x^2 - 2yz + z^2\right) - \left(3yz - z^2 + 5x^2\right)$ </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">2) $\left(x^2 - 2yz + z^2\right) + \left(3yz - z^2 + 5x^2\right)$ </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">3) $\left(x^3 + 6x^2 + 5y^3\right) - \left(2x^3 - 5x + 7y^3\right)$ </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">4) $\left(x^2 - 2xy + y^2\right) + \left(y^2 + 2xy + x^2 + 1\right)$ </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">5) $\left(x^2 - 2xy + y^2\right) - \left(y^2 + 2xy + x^2 + 1\right)$ </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">6) $\left(4x^2 - 5xy + 3y^2\right) + \left(3x^2 + 2xy - y^2\right)$ </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">7) $\left(4x^2 - 5xy + 3y^2\right) - \left(3x^2 + 2xy - y^2\right)$ </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">8) $\left(5x^3 - 10x^2y\right) + \left(7x^2y - 5x^3 + 3xy^2\right)$ </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">9) $\left(-3x^2y - 2xy^2 + 6\right) + \left(-x^2y + 5xy^2 - 1\right)$ </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">10) $\left(15x^2y - 7xy^2 - 6y^2\right) + \left(-12x^2y + 7xy^2\right)$ </div>
+                            </div>
+                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
+                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải Bài 1 (10 câu)</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
+                                </summary>
+                                <div class="p-4 bg-white border-t border-indigo-100 space-y-2 text-sm">
+                                    <div><strong>1)</strong> $-4x^2 - 5yz + 2z^2$</div>
+                                    <div><strong>2)</strong> $6x^2 + yz$</div>
+                                    <div><strong>3)</strong> $-x^3 + 6x^2 + 5x - 2y^3$</div>
+                                    <div><strong>4)</strong> $2x^2 + 2y^2 + 1$</div>
+                                    <div><strong>5)</strong> $-4xy - 1$</div>
+                                    <div><strong>6)</strong> $7x^2 - 3xy + 2y^2$</div>
+                                    <div><strong>7)</strong> $x^2 - 7xy + 4y^2$</div>
+                                    <div><strong>8)</strong> $-3x^2y + 3xy^2$</div>
+                                    <div><strong>9)</strong> $-4x^2y + 3xy^2 + 5$</div>
+                                    <div><strong>10)</strong> $3x^2y - 6y^2$</div>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Bài 2 -->
+                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                            <div class="font-bold text-slate-900 text-base sm:text-lg">
+                                <span class="text-indigo-600">Bài 2:</span> Thực hiện phép tính :
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm sm:text-base">
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">1) $\left(3x^3 - xy^2 + 4x\right) + \left(-2x^3 + xy^2 + 3x\right)$ </div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">2) $\left(3x^3 - xy^2 + 4x\right) - \left(-2x^3 + xy^2 + 3x\right)$ </div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">3) $\left(x^2 + y - x^2y^2 - 1\right) + \left(x^2 - 2y + xy + 1\right)$ </div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">4) $\left(x^2 + y - x^2y^2 - 1\right) - \left(x^2 - 2y + xy + 1\right)$ </div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">5) $\left(5x^2y + 5x + 3\right) + \left(xyz - 4x^2y + 5x - 2\right)$ </div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">6) $\left(xyz - 4x^2y + 5x - 2\right) - \left(5x^2y + 5x + 3\right)$ </div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">7) $\left(5x^2y - 5xy^2 + xy\right) + \left(xy - x^2y^2 + 5x^2y\right)$ </div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">8) $\left(5x^2y - 5xy^2 + xy\right) - \left(xy - x^2y^2 + 5x^2y\right)$ </div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">9) $\left(x^2y + x^3 - xy^2 + 3\right) + \left(x^3 + xy^2 - xy - 6\right)$ </div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">10) $\left(x^3 + xy^2 - xy - 6\right) - \left(x^2y + x^3 - xy^2 + 3\right)$ </div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">11) $\left(xy + y^2 - x^2y^2 - 2\right) + \left(x^2y^2 + 5 - y^2\right)$ </div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">12) $\left(xy + y^2 - x^2y^2 - 2\right) - \left(x^2y^2 + 5 - y^2\right)$ </div>
+                            </div>
+                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
+                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải chi tiết Bài 2 (12 câu)</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
+                                </summary>
+                                <div class="p-4 bg-white border-t border-indigo-100 space-y-2 text-sm">
+                                    <div><strong>1)</strong> $x^3 + 7x$</div>
+                                    <div><strong>2)</strong> $5x^3 - 2xy^2 + x$</div>
+                                    <div><strong>3)</strong> $2x^2 - y - x^2y^2 + xy$</div>
+                                    <div><strong>4)</strong> $3y - x^2y^2 - xy - 2$</div>
+                                    <div><strong>5)</strong> $x^2y + xyz + 10x + 1$</div>
+                                    <div><strong>6)</strong> $-9x^2y + xyz - 5$</div>
+                                    <div><strong>7)</strong> $10x^2y - 5xy^2 + 2xy - x^2y^2$</div>
+                                    <div><strong>8)</strong> $-5xy^2 + x^2y^2$</div>
+                                    <div><strong>9)</strong> $x^2y + 2x^3 - xy - 3$</div>
+                                    <div><strong>10)</strong> $-x^2y + 2xy^2 - xy - 9$</div>
+                                    <div><strong>11)</strong> $xy + 2y^2 + 3$</div>
+                                    <div><strong>12)</strong> $xy + 2y^2 - 2x^2y^2 - 7$</div>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+
+                    <!-- NHÓM DẠNG 2: BÀI 3 -->
+                    <div id="dang-2" class="space-y-5">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50/80 px-4 py-2 rounded-lg border border-indigo-100 inline-block">
+                            Dạng 2: Tìm đa thức $A$ chưa biết (Bài 3) 
+                        </h3>
+
+                        <!-- Bài 3 -->
+                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                            <div class="font-bold text-slate-900 text-base sm:text-lg">
+                                <span class="text-indigo-600">Bài 3:</span> Tìm đa thức $A$ biết :
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm sm:text-base">
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">1) $A - \left(xy + x^2 - y^2\right) = x^2 + y^2$ </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">2) $\left(6x^2 - 3xy^2\right) + A = x^2 + y^2 - 2xy^2$ </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">3) $A + \left(x^2 + y^2\right) = 5x^2 + 3y^2 - xy$ </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">4) $A + \left(5x^2 - 2xy\right) = 6x^2 + 9xy - y^2$ </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">5) $A + \left(3x^2y - 2xy^3\right) = 2x^2y - 4xy^3$ </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">6) $A + \left(x^2 - 2y^2\right) = x^2 - y^2 + 3y^2 - 1$ </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">7) $A - \left(2xy - 4y^2\right) = 5xy + x^2 - 7y^2$ </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">8) $A - \left(3xy - 4y^2\right) = x^2 - 7xy + 8y^2$ </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">9) $A - \left(5x^2 - xyz\right) = xy + 2x^2 - 3xyz + 5$ </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">10) $\left(25x^2y - 13xy^2 + y^3\right) - A = 11x^2y - 2y^3$ </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">11) $A - \left(12x^4 - 15x^2y + 2xy^2 + 7\right) = 0$ </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">12) $2yz^2 - 4y^2z + 5yz - A = 0$ </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">13) $A - \left(4xy - 3y^2\right) = x^2 - 7xy + 8y^2$ </div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">14) $A + (5x - 2xy) = 6x^2 + 9xy - y^2$ </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">15) $A - x^3 + 5x^2y = x^3 + y^3$ </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">16) $\left(25x^2y - 13xy^2 + x^3\right) - A = 11x^2y - 2x^3$ </div>
+                            </div>
+                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
+                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải chi tiết Bài 3 (16 câu)</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
+                                </summary>
+                                <div class="p-4 bg-white border-t border-indigo-100 space-y-2 text-sm">
+                                    <div><strong>1)</strong> $A = 2x^2 + 2y^2 + xy$</div>
+                                    <div><strong>2)</strong> $A = -5x^2 + xy^2 + y^2$</div>
+                                    <div><strong>3)</strong> $A = 4x^2 + 2y^2 - xy$</div>
+                                    <div><strong>4)</strong> $A = x^2 + 11xy - y^2$</div>
+                                    <div><strong>5)</strong> $A = -x^2y - 2xy^3$</div>
+                                    <div><strong>6)</strong> $A = 2y^2 - 1$</div>
+                                    <div><strong>7)</strong> $A = x^2 + 7xy - 3y^2$</div>
+                                    <div><strong>8)</strong> $A = x^2 - 4xy + 4y^2$</div>
+                                    <div><strong>9)</strong> $A = 7x^2 + xy - 2xyz + 5$</div>
+                                    <div><strong>10)</strong> $A = 14x^2y - 13xy^2 + 3y^3$</div>
+                                    <div><strong>11)</strong> $A = 12x^4 - 15x^2y + 2xy^2 + 7$</div>
+                                    <div><strong>12)</strong> $A = 2yz^2 - 4y^2z + 5yz$</div>
+                                    <div><strong>13)</strong> $A = x^2 - 3xy + 5y^2$</div>
+                                    <div><strong>14)</strong> $A = 6x^2 + 11xy - y^2 - 5x$</div>
+                                    <div><strong>15)</strong> $A = 2x^3 - 5x^2y + y^3$</div>
+                                    <div><strong>16)</strong> $A = 14x^2y - 13xy^2 + 3x^3$</div>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+
+                    <!-- NHÓM DẠNG 3: BÀI 4 - 10 -->
+                    <div id="dang-3" class="space-y-5">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50/80 px-4 py-2 rounded-lg border border-indigo-100 inline-block">
+                            Dạng 3: Biểu thức ngoặc lồng nhau và rút gọn đa thức phức tạp (Bài 4 – Bài 10)[cite: 10, 11]
+                        </h3>
+
+                        <!-- Bài 4 đến Bài 10 -->
+                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                            <div class="font-bold text-slate-900 text-base sm:text-lg">
+                                <span class="text-indigo-600">Bài 4 – Bài 10:</span> Thu gọn các biểu thức đa thức chứa ngoặc[cite: 10, 11]:
+                            </div>
+                            <div class="space-y-3 text-sm sm:text-base">
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">
+                                    <strong>Bài 4:</strong> Cho $A = \left(\dfrac{1}{3}a - \dfrac{1}{3}b\right) - (a - 2b)$ và $B = \dfrac{1}{3}a - \dfrac{1}{3}b - (a - b)$. Tính $A + B$ và $A - B$. 
+                                </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">
+                                    <strong>Bài 5:</strong> Cho $C = x - [b - (c - a - b)]$ và $D = b + [a - (c - b - a)]$. Tính $C + D$ và $C - D$. 
+                                </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">
+                                    <strong>Bài 6:</strong> Cho $E = y - [y - (y + 2x - x)]$ và $F = y - [y - x + 2(x - y)]$. Tính $E + F$ và $E - F$. 
+                                </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">
+                                    <strong>Bài 7:</strong> Cho $G = \left[\dfrac{1}{2}ax - 2(ax + 3)\right] - (ax + 1)$ và $H = ax - 2 - [-(ax - 1) + 3] - 4$. Tính $G + H$ và $G - H$. 
+                                </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">
+                                    <strong>Bài 8:</strong> Cho $M = [x + (y - z) - 2x] + y + z - (2 - x - y)$ và $N = x - [x - (y - z) - x]$. Tính $M + N$ và $M - N$. 
+                                </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">
+                                    <strong>Bài 9:</strong> Cho $P = a^2 - 2ab + 3b^2$ và $Q = 2a^2 - 3ab - b^2 + \left(-3a^2 + 2ab - b^2\right)$. Tính $P + Q$ và $P - Q$. 
+                                </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">
+                                    <strong>Bài 10:</strong> Cho $I = 3a^2 + b^2 - \left(ab - a^2\right)$ và $K = 2a^2 + ab - b^2 - \left(-a^2 + b^2 - ab\right)$. Tính $I + K$ và $I - K$. 
+                                </div>
+                            </div>
+                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
+                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải chi tiết Bài 4 – 10</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
+                                </summary>
+                                <div class="p-4 bg-white border-t border-indigo-100 space-y-3 text-sm">
+                                    <div><strong>Bài 4:</strong> $A = -\dfrac{2}{3}a + \dfrac{5}{3}b$; $B = -\dfrac{2}{3}a + \dfrac{2}{3}b$. $A + B = -\dfrac{4}{3}a + \dfrac{7}{3}b$; $A - B = b$.</div>
+                                    <div><strong>Bài 5:</strong> $C = x + b - c + a$; $D = b + a - c + b = a + 2b - c$. $C + D = x + 2a + 3b - 2c$; $C - D = x - 2b$.</div>
+                                    <div><strong>Bài 6:</strong> $E = x + y$; $F = x - y$. $E + F = 2x$; $E - F = 2y$.</div>
+                                    <div><strong>Bài 7:</strong> $G = -\dfrac{3}{2}ax - 7$; $H = 2ax - 6$. $G + H = \dfrac{1}{2}ax - 13$; $G - H = -\dfrac{7}{2}ax - 1$.</div>
+                                    <div><strong>Bài 8:</strong> Thu gọn $M = 3y + 2z - 2$; $N = x - y + z$. $M + N = x + 2y + 3z - 2$; $M - N = -x + 4y + z - 2$.</div>
+                                    <div><strong>Bài 9:</strong> Thu gọn $P = a^2 - 2ab + 3b^2$; $Q = -a^2 - ab - 2b^2$. $P + Q = -3ab + b^2$; $P - Q = 2a^2 - ab + 5b^2$.</div>
+                                    <div><strong>Bài 10:</strong> Thu gọn $I = 4a^2 - ab + b^2$; $K = 3a^2 + 2ab - 2b^2$. $I + K = 7a^2 + ab - b^2$; $I - K = a^2 - 3ab + 3b^2$.</div>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+
+                    <!-- NHÓM DẠNG 4: BÀI 11 - 18 -->
+                    <div id="dang-4" class="space-y-5">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50/80 px-4 py-2 rounded-lg border border-indigo-100 inline-block">
+                            Dạng 4: Chuỗi đa thức nâng cao & Tính giá trị (Bài 11 – Bài 18) 
+                        </h3>
+
+                        <!-- Bài 11 đến Bài 18 -->
+                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+                            <div class="font-bold text-slate-900 text-base sm:text-lg">
+                                <span class="text-indigo-600">Bài 11 – Bài 18:</span> Bài tập nâng cao hệ thống đa thức :
+                            </div>
+                            <div class="space-y-3 text-sm sm:text-base">
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">
+                                    <strong>Bài 11:</strong> Cho $A = 2x^4 - x + 3x^2 - 6$, $B = -x^4 + 2 - 3x^2 - 5x$ và $C = -2x^3 + 1 - 3x + x^2$. Tính $M = A - B + C$, $N = B - C - A$, $P = C - A - B$. 
+                                </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">
+                                    <strong>Bài 12:</strong> Cho $A = 5x^3y - 4xy^2 - 6x^2y^2$, $B = -8x^3y + xy^2 - 4x^2y^2$ và $C = x^3 + 4x^3y - 6xy^3 - 4xy^2 + 5x^2y^2$. Tính $A - B - C$, $B + A - C$, $C - A - B$. 
+                                </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">
+                                    <strong>Bài 13:</strong> Cho các đa thức $A = 16x^4 - 8x^3y + 7x^2y^2 - 9y^4$, $B = -15x^4 + 3x^3y - 5x^2y^2 - 6y^4$ và $C = 5x^3y + 3x^2y^2 + 17y^4 + 1$. Tính $A + B - C$, $A - C + B$. 
+                                </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">
+                                    <strong>Bài 14:</strong> Cho $A = 4x^2 - 5xy + 3y^2$, $B = 3x^2 + 2xy + y^2$ và $C = -x^2 + 3xy + 2y^2$. Tính $A + B + C$, $B - C - A$, $2A - 3B - C$. 
+                                </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">
+                                    <strong>Bài 15:</strong> Cho $A = x^2 - 3xy - y^2 + 2x - 3y + 1$, $B = -2x^2 + xy + 2y^3 - 3 - 5x + 2y$ và $C = 7y^2 + 3x^2 - 4xy - 6x + 4y + 5$. Tính $A + B + C$, $7A - B - C - 9$, $A - 4B - 3C$. 
+                                </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">
+                                    <strong>Bài 16:</strong> Cho $A = 5xy^2 - 4x^2y - 6x^2$, $B = 8yx^2 - 4y^2x + 3y^2$ và $C = -2xy^2 + 3yx^2 + 5x^2$. Tính $A - B + C$, $2(A + B) + C$. 
+                                </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">
+                                    <strong>Bài 17:</strong> Cho hai đa thức $A = x^2 - 3xy - y^2 + 1$ và $B = 2x^2 + y^2 - 7xy - 5$. 
+                                    <br>a) Tính $A + B$. <br>b) Tìm đa thức $C$ biết $C + A - B = 0$. <br>c) Tính giá trị của $C$ với $x = 2, y = \dfrac{-1}{2}$. 
+                                </div>
+                                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">
+                                    <strong>Bài 18:</strong> Cho $P(x) = 5x^2 + 5x - 4$, $Q(x) = 2x^2 - 3x + 1$ và $R(x) = 4x^2 - x + 3$. Tính $P(x) + Q(x) - R(x)$ rồi tính giá trị của đa thức tại $x = \dfrac{-1}{2}$. 
+                                </div>
+                            </div>
+                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
+                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải chi tiết Bài 11 – 18</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
+                                </summary>
+                                <div class="p-4 bg-white border-t border-indigo-100 space-y-3 text-sm">
+                                    <div><strong>Bài 11:</strong> $M = 3x^4 - 2x^3 + 6x^2 + 4x - 7$; $N = -3x^4 + 2x^3 - 6x^2 - 4x + 7$; $P = -3x^4 + 2x^3 - 6x^2 - 4x + 7$.</div>
+                                    <div><strong>Bài 12:</strong> $A - B - C = 2x^3y + 6xy^3 - 7x^2y^2 - x^3$; $B + A - C = -2x^3y + 6xy^3 - 17x^2y^2 - x^3$; $C - A - B = 6xy^3 + 7x^2y^2 + x^3 - 2x^3y$.</div>
+                                    <div><strong>Bài 13:</strong> $A + B - C = x^4 - 16x^3y + 9x^2y^2 - 30y^4 - 1$; $A - C + B = x^4 - 16x^3y + 9x^2y^2 - 30y^4 - 1$.</div>
+                                    <div><strong>Bài 14:</strong> $A + B + C = 6x^2 + 6xy + 6y^2$; $B - C - A = -2x^2 + 4xy - 2y^2$; $2A - 3B - C = -2x^2 - 19xy - 2y^2$.</div>
+                                    <div><strong>Bài 15:</strong> Thu gọn và tính toán theo yêu cầu từng câu tương ứng với bậc đa thức.</div>
+                                    <div><strong>Bài 16:</strong> $A - B + C = 3xy^2 - 15x^2y + 4x^2 + 3y^2$; $2(A + B) + C = 24xy^2 - 16x^2y - 7x^2 + 9y^2$.</div>
+                                    <div><strong>Bài 17:</strong> a) $A + B = 3x^2 - 10xy + y^2 - 4$; b) $C = B - A = x^2 - 4xy + 2y^2 - 6$; c) Thay $x = 2, y = -\dfrac{1}{2}$ vào $C$ ta được giá trị là $\dfrac{27}{2}$.</div>
+                                    <div><strong>Bài 18:</strong> $P(x) + Q(x) - R(x) = 3x^2 + 9x - 6$. Tại $x = -\dfrac{1}{2}$, giá trị là $3\left(-\dfrac{1}{2}\right)^2 + 9\left(-\dfrac{1}{2}\right) - 6 = \dfrac{3}{4} - \dfrac{9}{2} - 6 = -\dfrac{39}{4}$.</div>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Điều hướng bài học -->
+                <div class="pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <a href="bai2_dathuc.html" class="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-blue-400 hover:text-blue-600 font-semibold text-sm transition-all shadow-sm">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                        <span>Bài 2: Đa thức và thu gọn đa thức</span>
+                    </a>
+                    <!-- Thay href="#" bằng link Bài 4 của bạn sau này -->
+                    <a href="bai4_phepnhan_dathuc.html" class="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-all shadow-sm">
+                        <span>Bài 4: Phép nhân đa thức</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200/80 mt-12 py-6">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-slate-500">
+            Hệ thống Kiến Thức Trọng Tâm Toán Lớp 8 • Học kì I & Học kì II
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        let allOpen = false;
+        function toggleAllSolutions() {
+            allOpen = !allOpen;
+            const detailsElements = document.querySelectorAll('details');
+            detailsElements.forEach(el => {
+                el.open = allOpen;
+            });
+            const btn = document.getElementById('toggle-all-btn');
+            if (allOpen) {
+                btn.innerHTML = '<i data-lucide="eye-off" class="w-4 h-4"></i><span>Ẩn tất cả lời giải</span>';
+            } else {
+                btn.innerHTML = '<i data-lucide="eye" class="w-4 h-4"></i><span>Hiện tất cả lời giải</span>';
+            }
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>
