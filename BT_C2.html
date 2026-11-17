@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bài 9: Phân tích đa thức thành nhân tử - Toán Lớp 8</title>
+    <title>Bài Tập C2: Hằng Đẳng Thức Đáng Nhớ & Ứng Dụng - Toán Lớp 8</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Inter -->
@@ -12,7 +12,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- KaTeX -->
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- KaTeX (Render công thức Toán học tức thì, không bị lỗi chuỗi thô) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
@@ -21,1400 +23,260 @@
             font-family: 'Inter', sans-serif;
             background-color: #f8fafc;
         }
-        .math-block {
-            overflow-x: auto;
-            padding: 0.5rem 0;
+        .palette-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 0.375rem;
+        }
+        .option-btn {
+            transition: all 0.15s ease-in-out;
         }
         .katex {
             font-size: 1.05em;
         }
-        details > summary {
-            list-style: none;
+        /* Custom scrollbar for question palette */
+        .custom-scroll::-webkit-scrollbar {
+            width: 5px;
         }
-        details > summary::-webkit-details-marker {
-            display: none;
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 8px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 8px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
         }
     </style>
 </head>
 <body class="text-slate-800 antialiased selection:bg-blue-600 selection:text-white">
 
-    <!-- Header / Navbar -->
-    <header class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-slate-200/80 shadow-sm">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <!-- Header / Sticky Top Bar -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
             <div class="flex items-center gap-3">
                 <a href="index.html" class="flex items-center gap-2 text-slate-600 hover:text-blue-600 transition-colors font-medium text-sm bg-slate-100 hover:bg-blue-50 px-3 py-2 rounded-xl">
                     <i data-lucide="arrow-left" class="w-4 h-4"></i>
-                    <span>Trang chủ Toán 8</span>
+                    <span class="hidden sm:inline">Trang chủ Toán 8</span>
                 </a>
-                <span class="text-slate-300">|</span>
-                <span class="text-xs font-semibold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200 hidden sm:inline-block">
-                    Học kì I • Chương 2: Hằng đẳng thức đáng nhớ
+                <span class="text-slate-300 hidden sm:inline">|</span>
+                <span class="text-xs font-semibold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200">
+                    Ôn tập Chương 2 • 100 Câu
                 </span>
             </div>
-            <div class="flex items-center gap-2">
-                <button onclick="toggleAllSolutions()" id="toggle-all-btn" class="flex items-center gap-1.5 text-xs font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 px-3 py-2 rounded-xl transition-colors">
-                    <i data-lucide="eye" class="w-4 h-4"></i>
-                    <span>Hiện tất cả lời giải</span>
+
+            <!-- Bộ đếm thời gian & Thao tác nhanh -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <div class="flex items-center gap-1.5 bg-slate-100 text-slate-700 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold border border-slate-200">
+                    <i data-lucide="clock" class="w-4 h-4 text-blue-600"></i>
+                    <span id="timer-display">00:00</span>
+                </div>
+
+                <label class="hidden md:flex items-center gap-2 text-xs font-semibold text-slate-700 bg-slate-100 px-3 py-2 rounded-xl cursor-pointer hover:bg-slate-200/70 transition-colors border border-slate-200">
+                    <input type="checkbox" id="instant-check-toggle" checked class="rounded text-blue-600 focus:ring-blue-500 w-3.5 h-3.5">
+                    <span>Chấm ngay từng câu</span>
+                </label>
+
+                <button onclick="submitQuiz()" class="flex items-center gap-1.5 text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 px-3.5 py-2 rounded-xl shadow-sm transition-all">
+                    <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+                    <span>Nộp bài & Chấm điểm</span>
                 </button>
-                <button onclick="window.print()" class="flex items-center gap-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 px-3 py-2 rounded-xl transition-colors">
-                    <i data-lucide="printer" class="w-4 h-4"></i>
-                    <span class="hidden sm:inline">In bài</span>
+
+                <button onclick="resetQuiz()" class="flex items-center gap-1 text-xs font-semibold text-slate-600 hover:text-rose-600 bg-slate-100 hover:bg-rose-50 px-2.5 py-2 rounded-xl transition-colors border border-slate-200" title="Làm lại từ đầu">
+                    <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Hero Banner Bài Học -->
-    <section class="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-10 sm:py-12 border-b border-blue-900/20">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Hero Banner -->
+    <section class="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-9 sm:py-11 border-b border-blue-900/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-wrap items-center gap-2 mb-3">
                 <span class="bg-white/15 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full border border-white/20">
-                    Bài 9 (Bài 4 Chương 2)
+                    Đề Cương Tổng Hợp Chương 2
                 </span>
-                <span class="text-blue-100 text-sm font-medium">Đại số 8 • Lý thuyết & 20 Bài tập tự luyện</span>
+                <span class="text-blue-100 text-xs sm:text-sm font-medium">70 Câu Trắc Nghiệm 4 Lựa Chọn • 30 Câu Trả Lời Ngắn</span>
             </div>
             <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight leading-tight">
-                Phân tích đa thức thành nhân tử
+                Bài Tập C2: Hằng Đẳng Thức Đáng Nhớ & Ứng Dụng
             </h1>
-            <p class="mt-2.5 text-blue-100 text-sm sm:text-base max-w-3xl">
-                Làm chủ các phương pháp phân tích đa thức thành nhân tử: Đặt nhân tử chung, Nhóm hạng tử, Dùng hằng đẳng thức, Phối hợp nhiều phương pháp, Tách hạng tử và giải bài toán Tìm $x$.
+            <p class="mt-2 text-blue-100 text-sm sm:text-base max-w-3xl">
+                Hệ thống 100 câu hỏi về hiệu hai bình phương, bình phương một tổng hoặc một hiệu, lập phương một tổng hoặc một hiệu, tổng và hiệu hai lập phương, phân tích đa thức thành nhân tử và tìm x.
             </p>
         </div>
     </section>
 
-    <!-- Main Content Layout -->
-    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+    <!-- Bảng Kết Quả Tổng Hợp (Hiện ra khi bấm Nộp Bài) -->
+    <section id="result-banner" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+        <div class="bg-white rounded-2xl border-2 border-blue-500 shadow-lg p-6 sm:p-8">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div class="space-y-2">
+                    <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
+                        <i data-lucide="award" class="w-4 h-4"></i>
+                        Kết quả bài kiểm tra Chương 1
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900" id="result-grade-title">
+                        Hoàn thành bài kiểm tra!
+                    </h2>
+                    <p class="text-sm text-slate-600" id="result-subtitle">
+                        Bạn có thể xem chi tiết đáp án và lời giải của từng câu bên dưới.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full md:w-auto">
+                    <div class="bg-blue-50 border border-blue-200 rounded-xl p-3.5 text-center min-w-[110px]">
+                        <div class="text-xs font-semibold text-blue-600 uppercase">Điểm số (Hệ 10)</div>
+                        <div class="text-2xl font-extrabold text-blue-800 mt-0.5" id="score-10">0.0</div>
+                    </div>
+                    <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5 text-center min-w-[110px]">
+                        <div class="text-xs font-semibold text-emerald-600 uppercase">Số câu đúng</div>
+                        <div class="text-2xl font-extrabold text-emerald-700 mt-0.5" id="score-correct">0/100</div>
+                    </div>
+                    <div class="bg-rose-50 border border-rose-200 rounded-xl p-3.5 text-center min-w-[110px]">
+                        <div class="text-xs font-semibold text-rose-600 uppercase">Số câu sai</div>
+                        <div class="text-2xl font-extrabold text-rose-700 mt-0.5" id="score-wrong">0</div>
+                    </div>
+                    <div class="bg-amber-50 border border-amber-200 rounded-xl p-3.5 text-center min-w-[110px]">
+                        <div class="text-xs font-semibold text-amber-700 uppercase">Chưa làm</div>
+                        <div class="text-2xl font-extrabold text-amber-800 mt-0.5" id="score-unanswered">100</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
-            <!-- Sidebar Mục lục (Sticky trên Desktop) -->
-            <aside class="lg:col-span-3 lg:sticky lg:top-24 bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm max-h-[calc(100vh-7rem)] overflow-y-auto">
-                <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
-                    <i data-lucide="list" class="w-4 h-4 text-blue-600"></i>
-                    Mục lục bài học
-                </h2>
-                <nav class="space-y-1.5 text-sm font-medium">
-                    <a href="#ly-thuyet" class="block px-3 py-2 rounded-lg bg-blue-50 text-blue-700 font-semibold">
-                        I. Lý thuyết trọng tâm
-                    </a>
-                    <div class="pl-3 space-y-1 border-l-2 border-slate-100 ml-2 text-xs">
-                        <a href="#muc-1" class="block py-1 px-2 text-slate-600 hover:text-blue-600">
-                            1) Đặt nhân tử chung
-                        </a>
-                        <a href="#muc-2" class="block py-1 px-2 text-slate-600 hover:text-blue-600">
-                            2) Nhóm hạng tử
-                        </a>
-                        <a href="#muc-3" class="block py-1 px-2 text-slate-600 hover:text-blue-600">
-                            3) Dùng hằng đẳng thức
-                        </a>
+            <!-- Sidebar: Tiến độ + Bộ lọc + Bản đồ 100 câu hỏi -->
+            <aside class="lg:col-span-4 xl:col-span-3 lg:sticky lg:top-20 bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm space-y-5">
+                <!-- Thống kê nhanh -->
+                <div>
+                    <div class="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+                        <span>Tiến độ làm bài</span>
+                        <span id="progress-text" class="text-blue-600">0 / 100 câu</span>
                     </div>
+                    <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden border border-slate-200/60">
+                        <div id="progress-bar" class="h-full bg-blue-600 transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2 mt-3 text-center text-xs">
+                        <div class="bg-emerald-50 border border-emerald-200/80 text-emerald-700 py-1.5 rounded-lg font-semibold">
+                            Đúng: <span id="live-correct">0</span>
+                        </div>
+                        <div class="bg-rose-50 border border-rose-200/80 text-rose-700 py-1.5 rounded-lg font-semibold">
+                            Sai: <span id="live-wrong">0</span>
+                        </div>
+                        <div class="bg-slate-100 border border-slate-200 text-slate-600 py-1.5 rounded-lg font-semibold">
+                            Còn: <span id="live-remain">100</span>
+                        </div>
+                    </div>
+                </div>
 
-                    <a href="#bai-tap-tu-luyen" class="block px-3 py-2 rounded-lg bg-indigo-50 text-indigo-700 transition-colors mt-2 font-semibold">
-                        II. Bài tập tự luyện (20 bài)
-                    </a>
-                    <div class="pl-3 space-y-1 border-l-2 border-indigo-100 ml-2 text-xs">
-                        <a href="#nhom-1" class="block py-1 px-2 text-slate-600 hover:text-indigo-600">
-                            • Bài 1 – 4: Đặt nhân tử chung
-                        </a>
-                        <a href="#nhom-2" class="block py-1 px-2 text-slate-600 hover:text-indigo-600">
-                            • Bài 5 – 7: Nhóm hạng tử
-                        </a>
-                        <a href="#nhom-3" class="block py-1 px-2 text-slate-600 hover:text-indigo-600">
-                            • Bài 8 – 9: Dùng hằng đẳng thức
-                        </a>
-                        <a href="#nhom-4" class="block py-1 px-2 text-slate-600 hover:text-indigo-600">
-                            • Bài 10 – 15: Phối hợp nhiều PP
-                        </a>
-                        <a href="#nhom-5" class="block py-1 px-2 text-slate-600 hover:text-indigo-600">
-                            • Bài 16: Tách hạng tử bậc hai
-                        </a>
-                        <a href="#nhom-6" class="block py-1 px-2 text-slate-600 hover:text-indigo-600 font-semibold text-indigo-700">
-                            • Dạng 2 (Bài 17 – 20): Tìm $x$
-                        </a>
+                <!-- Bộ lọc theo phần & chuyên đề -->
+                <div class="space-y-2 pt-3 border-t border-slate-100">
+                    <label class="text-xs font-bold uppercase tracking-wider text-slate-400 block">
+                        Lọc theo dạng / chuyên đề
+                    </label>
+                    <select id="topic-filter" onchange="applyFilter()" class="w-full text-xs sm:text-sm font-medium bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="all">Tất cả 100 câu hỏi</option>
+                        <option value="part-mcq">Phần I: Trắc nghiệm 4 lựa chọn (Câu 1 – 70)</option>
+                        <option value="part-sa">Phần II: Trắc nghiệm trả lời ngắn (Câu 71 – 100)</option>
+                        <option value="topic-1">• Chuyên đề 1: Bình phương & hiệu hai bình phương</option>
+                        <option value="topic-2">• Chuyên đề 2: Lập phương một tổng hoặc một hiệu</option>
+                        <option value="topic-3">• Chuyên đề 3: Tổng và hiệu hai lập phương</option>
+                        <option value="topic-4">• Chuyên đề 4: Phân tích đa thức thành nhân tử</option>
+                        <option value="topic-5">• Chuyên đề 5: Ứng dụng & tìm x</option>
+                    </select>
+                </div>
+
+                <!-- Bản đồ 100 câu -->
+                <div class="pt-3 border-t border-slate-100">
+                    <div class="flex items-center justify-between mb-2.5">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-400">
+                            Danh sách 100 câu
+                        </span>
+                        <div class="flex items-center gap-2 text-[11px] text-slate-500">
+                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-emerald-500 inline-block"></span>Đúng</span>
+                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-rose-500 inline-block"></span>Sai</span>
+                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-blue-500 inline-block"></span>Đã chọn</span>
+                        </div>
                     </div>
-                </nav>
+                    <div id="question-palette" class="palette-grid max-h-72 overflow-y-auto custom-scroll pr-1">
+                        <!-- Sinh tự động bằng JS -->
+                    </div>
+                </div>
+
+                <!-- Nút tiện ích -->
+                <div class="pt-3 border-t border-slate-100 flex flex-col gap-2">
+                    <button onclick="toggleAllExplanations()" id="toggle-exp-btn" class="w-full flex items-center justify-center gap-1.5 text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 py-2.5 rounded-xl transition-colors">
+                        <i data-lucide="eye" class="w-4 h-4"></i>
+                        <span>Hiện tất cả đáp án & giải thích</span>
+                    </button>
+                </div>
             </aside>
 
-            <!-- Nội dung chính -->
-            <div class="lg:col-span-9 space-y-12">
+            <!-- Danh sách 100 câu hỏi -->
+            <div class="lg:col-span-8 xl:col-span-9 space-y-10">
 
-                <!-- ========================================== -->
-                <!-- PHẦN I: LÝ THUYẾT                          -->
-                <!-- ========================================== -->
-                <section id="ly-thuyet" class="space-y-6">
-                    <div class="flex items-center gap-3 border-b border-slate-200 pb-3">
-                        <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold shadow-sm">
-                            I
-                        </div>
-                        <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
-                            LÝ THUYẾT TRỌNG TÂM
-                        </h2>
-                    </div>
-
-                    <!-- Mục 1: Đặt nhân tử chung -->
-                    <div id="muc-1" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
-                        <div class="bg-slate-50 border-b border-slate-200/80 px-6 py-4">
-                            <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-                                <span class="w-2 h-6 bg-blue-600 rounded-full"></span>
-                                1) Phân tích bằng cách đặt nhân tử chung
-                            </h3>
-                        </div>
-                        <div class="p-6 space-y-5">
-                            <div class="bg-blue-50/70 border-l-4 border-blue-600 rounded-r-xl p-4">
-                                <p class="text-slate-800 leading-relaxed flex items-start gap-2.5">
-                                    <span class="text-blue-600 font-bold">♣</span>
-                                    <span><strong>Phân tích đa thức thành nhân tử</strong> là biến đổi đa thức đó thành một tích của những đa thức.</span>
-                                </p>
+                <!-- PHẦN I: TRẮC NGHIỆM 4 LỰA CHỌN (CÂU 1 - 70) -->
+                <section id="section-mcq" class="space-y-5">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold shadow-sm">
+                                I
                             </div>
-
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div class="bg-slate-50/80 rounded-xl p-4 border border-slate-200/70 space-y-2">
-                                    <div class="font-bold text-blue-700 text-sm flex items-center gap-1.5">
-                                        <i data-lucide="lightbulb" class="w-4 h-4"></i>
-                                        <span>Ví dụ 1:</span>
-                                    </div>
-                                    <p class="text-sm sm:text-base text-slate-700">
-                                        Với đa thức $x^3 + x^2$ ta thấy có chung $x^2$ nên ta làm như sau: $x^3 + x^2 = x^2(x + 1)$. Khi đó $x^2$ gọi là <strong>nhân tử chung</strong>.
-                                    </p>
-                                </div>
-                                <div class="bg-slate-50/80 rounded-xl p-4 border border-slate-200/70 space-y-2">
-                                    <div class="font-bold text-blue-700 text-sm flex items-center gap-1.5">
-                                        <i data-lucide="lightbulb" class="w-4 h-4"></i>
-                                        <span>Ví dụ 2:</span>
-                                    </div>
-                                    <p class="text-sm sm:text-base text-slate-700">
-                                        Phân tích đa thức: $2(x + y) - 3x(x + y) = (x + y)(2 - 3x)$.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="bg-amber-50/80 border border-amber-200 rounded-xl p-4 text-sm sm:text-base text-amber-900 flex items-center gap-2.5">
-                                <i data-lucide="alert-circle" class="w-5 h-5 text-amber-600 shrink-0"></i>
-                                <span><strong>Chú ý:</strong> Đưa dấu "$-$” ra ngoài để có nhân tử chung: $\mathbf{a - b = -(b - a)}$.</span>
+                            <div>
+                                <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">
+                                    PHẦN I. TRẮC NGHIỆM 4 LỰA CHỌN (CÂU 1 – CÂU 70)
+                                </h2>
+                                <p class="text-xs text-slate-500">Chọn 1 đáp án đúng nhất A, B, C hoặc D cho mỗi câu hỏi</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Mục 2: Nhóm hạng tử -->
-                    <div id="muc-2" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
-                        <div class="bg-slate-50 border-b border-slate-200/80 px-6 py-4">
-                            <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-                                <span class="w-2 h-6 bg-blue-600 rounded-full"></span>
-                                2) Phân tích bằng cách nhóm hạng tử
-                            </h3>
-                        </div>
-                        <div class="p-6 space-y-4">
-                            <div class="bg-slate-50/80 rounded-xl p-4 sm:p-5 border border-slate-200/70 space-y-2">
-                                <div class="font-bold text-blue-700 flex items-center gap-1.5">
-                                    <i data-lucide="lightbulb" class="w-4 h-4"></i>
-                                    <span>Ví dụ 3: Với đa thức $ax + bx + cx + a + b + c$ ta có thể làm như sau:</span>
-                                </div>
-                                <div class="math-block bg-white px-4 py-2.5 rounded-lg border border-slate-200/60 text-center">
-                                    $$ax + bx + cx + a + b + c = x(a + b + c) + (a + b + c) = (a + b + c)(x + 1)$$
-                                </div>
-                            </div>
-
-                            <div class="bg-slate-50/80 rounded-xl p-4 sm:p-5 border border-slate-200/70 space-y-2">
-                                <div class="font-bold text-blue-700 flex items-center gap-1.5">
-                                    <i data-lucide="lightbulb" class="w-4 h-4"></i>
-                                    <span>Ví dụ 4: Với đa thức $xy + 1 + x + y$ ta sẽ nhóm hai hạng tử $xy$ và $x$ lại với nhau, $y$ và $1$ lại với nhau:</span>
-                                </div>
-                                <div class="math-block bg-white px-4 py-2.5 rounded-lg border border-slate-200/60 text-center">
-                                    $$(xy + x) + (y + 1) = x(y + 1) + (y + 1) = (y + 1)(x + 1)$$
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Mục 3: Dùng hằng đẳng thức -->
-                    <div id="muc-3" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
-                        <div class="bg-slate-50 border-b border-slate-200/80 px-6 py-4">
-                            <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-                                <span class="w-2 h-6 bg-blue-600 rounded-full"></span>
-                                3) Phân tích bằng cách dùng hằng đẳng thức
-                            </h3>
-                        </div>
-                        <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="bg-slate-50/80 rounded-xl p-4 border border-slate-200/70 space-y-2">
-                                <div class="font-bold text-blue-700 text-sm flex items-center gap-1.5">
-                                    <i data-lucide="lightbulb" class="w-4 h-4"></i>
-                                    <span>Ví dụ 5:</span>
-                                </div>
-                                <p class="text-sm sm:text-base text-slate-700">
-                                    Với đa thức $x^2 - 8x + 16$ ta thấy nó là một hằng đẳng thức nên ta làm như sau:
-                                    <br><span class="inline-block mt-1 font-semibold text-slate-900">$x^2 - 8x + 16 = (x - 4)^2$.</span>
-                                </p>
-                            </div>
-                            <div class="bg-slate-50/80 rounded-xl p-4 border border-slate-200/70 space-y-2">
-                                <div class="font-bold text-blue-700 text-sm flex items-center gap-1.5">
-                                    <i data-lucide="lightbulb" class="w-4 h-4"></i>
-                                    <span>Ví dụ 6:</span>
-                                </div>
-                                <p class="text-sm sm:text-base text-slate-700">
-                                    Với đa thức $x^2 - 5$:
-                                    <br><span class="inline-block mt-1 font-semibold text-slate-900">$x^2 - 5 = x^2 - (\sqrt{5})^2 = (x - \sqrt{5})(x + \sqrt{5})$.</span>
-                                </p>
-                            </div>
-                        </div>
+                    <div id="mcq-container" class="space-y-5">
+                        <!-- Render câu 1 -> 70 tại đây -->
                     </div>
                 </section>
 
-                <!-- ========================================== -->
-                <!-- PHẦN II: BÀI TẬP TỰ LUYỆN (20 BÀI)         -->
-                <!-- ========================================== -->
-                <section id="bai-tap-tu-luyen" class="space-y-8">
-                    <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-3">
+                <!-- PHẦN II: TRẮC NGHIỆM TRẢ LỜI NGẮN (CÂU 71 - 100) -->
+                <section id="section-sa" class="space-y-5 pt-4">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3">
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold shadow-sm">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold shadow-sm">
                                 II
                             </div>
                             <div>
-                                <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
-                                    BÀI TẬP TỰ LUYỆN
+                                <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">
+                                    PHẦN II. TRẮC NGHIỆM TRẢ LỜI NGẮN (CÂU 71 – CÂU 100)
                                 </h2>
-                                <p class="text-xs text-slate-500">Bấm vào từng bài để đối chiếu đáp án và lời giải chi tiết</p>
+                                <p class="text-xs text-slate-500">Điền kết quả là số nguyên, phân số tối giản (vd: -3/4) hoặc số thập phân (vd: -0,75) rồi bấm Kiểm tra</p>
                             </div>
-                        </div>
-                        <span class="text-xs font-semibold text-indigo-700 bg-indigo-50 border border-indigo-200 px-3 py-1.5 rounded-full">
-                            20 Bài tập (399 câu luyện tập)
-                        </span>
-                    </div>
-
-                    <!-- NHÓM 1: BÀI 1 - 4 (ĐẶT NHÂN TỬ CHUNG) -->
-                    <div id="nhom-1" class="space-y-5">
-                        <h3 class="text-sm font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50/80 px-4 py-2 rounded-lg border border-indigo-100 inline-block">
-                            Dạng 1.1: Phân tích đa thức thành nhân tử bằng phương pháp đặt nhân tử chung (Bài 1 – Bài 4)
-                        </h3>
-
-                        <!-- Bài 1 -->
-                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
-                            <div class="font-bold text-slate-900 text-base sm:text-lg">
-                                <span class="text-indigo-600">Bài 1:</span> Phân tích thành nhân tử (Đặt nhân tử chung):
-                            </div>
-                            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 text-sm">
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">1) $x^2 - x$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">2) $x^2 - 8x$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">3) $x^2 + 12x$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">4) $x^3 - 4x$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">5) $3x^2 - x$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">6) $2xy + y^2$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">7) $x^2 - xy$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">8) $x^3 - x^2y$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">9) $3x - 3y$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">10) $10x + 15y$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">11) $3x - 12y$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">12) $4x - 20$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">13) $6x - 2x^2$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">14) $2x - 4x^2$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">15) $3x^2 - 6x$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">16) $3x^2 + 6x$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">17) $4x^2 + 6x$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">18) $2x^2 + 6x$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">19) $2x^3 - 8x$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">20) $2x^3 - 3x^2$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">21) $3x^4 - 24x$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">22) $4x^2 - 12x$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">23) $6x^3 + 9x^2$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">24) $9x - 16x^2$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">25) $yx^3 + 8y$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">26) $x^3y + 5x^2y$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">27) $xy^2 - 25x$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">28) $7x^2 + 14xy$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">29) $4x^2y - 6xy^2$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">30) $3xy - 9x^2$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">31) $6x^2 - 3xy$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">32) $3xy^2 - 3x^3$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">33) $3xy + 6xz$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">34) $18x^2y - 12x^3$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">35) $8xy^2 - 2x^2y$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">36) $3xy^2 + 6xyz$</div>
-                            </div>
-                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
-                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
-                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải chi tiết Bài 1 (36 câu)</span>
-                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
-                                </summary>
-                                <div class="p-4 bg-white border-t border-indigo-100 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 text-xs sm:text-sm">
-                                    <div><strong>1)</strong> $x(x - 1)$</div>
-                                    <div><strong>2)</strong> $x(x - 8)$</div>
-                                    <div><strong>3)</strong> $x(x + 12)$</div>
-                                    <div><strong>4)</strong> $x(x - 2)(x + 2)$</div>
-                                    <div><strong>5)</strong> $x(3x - 1)$</div>
-                                    <div><strong>6)</strong> $y(2x + y)$</div>
-                                    <div><strong>7)</strong> $x(x - y)$</div>
-                                    <div><strong>8)</strong> $x^2(x - y)$</div>
-                                    <div><strong>9)</strong> $3(x - y)$</div>
-                                    <div><strong>10)</strong> $5(2x + 3y)$</div>
-                                    <div><strong>11)</strong> $3(x - 4y)$</div>
-                                    <div><strong>12)</strong> $4(x - 5)$</div>
-                                    <div><strong>13)</strong> $2x(3 - x)$</div>
-                                    <div><strong>14)</strong> $2x(1 - 2x)$</div>
-                                    <div><strong>15)</strong> $3x(x - 2)$</div>
-                                    <div><strong>16)</strong> $3x(x + 2)$</div>
-                                    <div><strong>17)</strong> $2x(2x + 3)$</div>
-                                    <div><strong>18)</strong> $2x(x + 3)$</div>
-                                    <div><strong>19)</strong> $2x(x - 2)(x + 2)$</div>
-                                    <div><strong>20)</strong> $x^2(2x - 3)$</div>
-                                    <div><strong>21)</strong> $3x(x - 2)(x^2 + 2x + 4)$</div>
-                                    <div><strong>22)</strong> $4x(x - 3)$</div>
-                                    <div><strong>23)</strong> $3x^2(2x + 3)$</div>
-                                    <div><strong>24)</strong> $x(9 - 16x)$</div>
-                                    <div><strong>25)</strong> $y(x + 2)(x^2 - 2x + 4)$</div>
-                                    <div><strong>26)</strong> $x^2y(x + 5)$</div>
-                                    <div><strong>27)</strong> $x(y - 5)(y + 5)$</div>
-                                    <div><strong>28)</strong> $7x(x + 2y)$</div>
-                                    <div><strong>29)</strong> $2xy(2x - 3y)$</div>
-                                    <div><strong>30)</strong> $3x(y - 3x)$</div>
-                                    <div><strong>31)</strong> $3x(2x - y)$</div>
-                                    <div><strong>32)</strong> $3x(y - x)(y + x)$</div>
-                                    <div><strong>33)</strong> $3x(y + 2z)$</div>
-                                    <div><strong>34)</strong> $6x^2(3y - 2x)$</div>
-                                    <div><strong>35)</strong> $2xy(4y - x)$</div>
-                                    <div><strong>36)</strong> $3xy(y + 2z)$</div>
-                                </div>
-                            </details>
-                        </div>
-
-                        <!-- Bài 2 -->
-                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
-                            <div class="font-bold text-slate-900 text-base sm:text-lg">
-                                <span class="text-indigo-600">Bài 2:</span> Phân tích thành nhân tử (Đặt nhân tử chung):
-                            </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm">
-                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">1) $x^3 + 2x^2 + x$</div>
-                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">2) $x^4 - 4x^3 + 4x^2$</div>
-                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">3) $5x^3 - 10x^2 + 5x$</div>
-                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">4) $2x^3 - 12x^2 + 18x$</div>
-                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">5) $8x^2y - 8xy + 2x$</div>
-                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">6) $5x^2y - 35xy + 60y$</div>
-                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">7) $2x^2 + 5x^3 + x^2y$</div>
-                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">8) $2x^3y - 8x^2y + 8xy$</div>
-                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">9) $4x^2y - 8xy^2 + 18x^2y^2$</div>
-                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">10) $6x^2y^2 + 4xy^2 - 12x^3y$</div>
-                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">11) $2x^2y - 3xy^2 + 4x^2y^2$</div>
-                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">12) $-3x^2y + 6x^2y^2 - 9xy^2$</div>
-                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">13) $2x^3y^4 - 4x^5y^6 + 6y^7x^8$</div>
-                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">14) $2x^4y^3 - 3x^2y^4 + 5x^3y^4$</div>
-                            </div>
-                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
-                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
-                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải chi tiết Bài 2 (14 câu)</span>
-                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
-                                </summary>
-                                <div class="p-4 bg-white border-t border-indigo-100 grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
-                                    <div><strong>1)</strong> $x(x^2 + 2x + 1) = x(x + 1)^2$</div>
-                                    <div><strong>2)</strong> $x^2(x^2 - 4x + 4) = x^2(x - 2)^2$</div>
-                                    <div><strong>3)</strong> $5x(x^2 - 2x + 1) = 5x(x - 1)^2$</div>
-                                    <div><strong>4)</strong> $2x(x^2 - 6x + 9) = 2x(x - 3)^2$</div>
-                                    <div><strong>5)</strong> $2x(4xy - 4y + 1)$</div>
-                                    <div><strong>6)</strong> $5y(x^2 - 7x + 12) = 5y(x - 3)(x - 4)$</div>
-                                    <div><strong>7)</strong> $x^2(2 + 5x + y)$</div>
-                                    <div><strong>8)</strong> $2xy(x^2 - 4x + 4) = 2xy(x - 2)^2$</div>
-                                    <div><strong>9)</strong> $2xy(2x - 4y + 9xy)$</div>
-                                    <div><strong>10)</strong> $2xy(3xy + 2y - 6x^2)$</div>
-                                    <div><strong>11)</strong> $xy(2x - 3y + 4xy)$</div>
-                                    <div><strong>12)</strong> $-3xy(x - 2xy + 3y)$</div>
-                                    <div><strong>13)</strong> $2x^3y^4(1 - 2x^2y^2 + 3x^5y^3)$</div>
-                                    <div><strong>14)</strong> $x^2y^3(2x^2 - 3y + 5xy)$</div>
-                                </div>
-                            </details>
-                        </div>
-
-                        <!-- Bài 3 & Bài 4 -->
-                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
-                            <div class="font-bold text-slate-900 text-base sm:text-lg">
-                                <span class="text-indigo-600">Bài 3 & Bài 4:</span> Phân tích thành nhân tử (Đặt nhân tử chung là biểu thức / Đổi dấu):
-                            </div>
-                            <div class="space-y-4">
-                                <div>
-                                    <p class="text-xs font-bold uppercase text-slate-500 mb-2">Bài 3 (29 câu):</p>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 text-sm">
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">1) $5(x - y) - y(x - y)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">2) $x(y + 1) + 8(y + 1)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">3) $5(x - y) - x(x - y)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">4) $z(x + y) - 5(x + y)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">5) $3x(x + 5) - 2(5 + x)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">6) $x^2(x - 1) + 4(x - 1)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">7) $5x(x - 1) - (1 - x)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">8) $x(y - 1) - y(1 - y)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">9) $y(x - 2) - 3(2 - x)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">10) $3(x - y) - y(y - x)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">11) $3x(x - 2) + 5(2 - x)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">12) $7x(x - y) - (y - x)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">13) $3x(x - 1) - 2y(1 - x)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">14) $3(x - y) - 5x(y - x)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">15) $x(x - y) + y(y - x)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">16) $x(y^2 - 1) + 4(1 - y^2)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">17) $x(2y - 1) - 5(2y - 1)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">18) $9(x - 2y) + x(2y - x)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">19) $10x(x - y) - 8y(y - x)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">20) $3x(x - y) + 6(y - x)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">21) $5x(x - 1) - 15x(1 - x)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">22) $10x(x - y) - 6y(y - x)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">23) $3x(x - 2y) + 6y(2y - x)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">24) $20x(x + y) - 8y(y + x)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">25) $xy^2(x - 3) + 4x(3 - x)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">26) $2x(x + y) - 6x^2(x + y)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">27) $9x^2(y + z) + 3x(y + z)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">28) $2x^2(y - 1) - 2x(y - 1)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">29) $10xy(x - y) - 6y(y - x)$</div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="text-xs font-bold uppercase text-slate-500 mb-2">Bài 4 (6 câu):</p>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 text-sm">
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">1) $x(x - 1) + (1 - x)^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">2) $(x + 1)^2 - 3(x + 1)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">3) $2x(x - 2) - (x - 2)^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">4) $3x(x - 1)^2 - (1 - x)^3$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">5) $3x(x + 2) - 5(x + 2)^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">6) $4x(x - y) + 3(y - x)^2$</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
-                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
-                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải chi tiết Bài 3 & Bài 4</span>
-                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
-                                </summary>
-                                <div class="p-4 bg-white border-t border-indigo-100 space-y-3 text-xs sm:text-sm">
-                                    <p class="font-bold text-indigo-900">Đáp số Bài 3:</p>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                                        <div>1) $(x - y)(5 - y)$</div>
-                                        <div>2) $(y + 1)(x + 8)$</div>
-                                        <div>3) $(x - y)(5 - x)$</div>
-                                        <div>4) $(x + y)(z - 5)$</div>
-                                        <div>5) $(x + 5)(3x - 2)$</div>
-                                        <div>6) $(x - 1)(x^2 + 4)$</div>
-                                        <div>7) $(x - 1)(5x + 1)$</div>
-                                        <div>8) $(y - 1)(x + y)$</div>
-                                        <div>9) $(x - 2)(y + 3)$</div>
-                                        <div>10) $(x - y)(3 + y)$</div>
-                                        <div>11) $(x - 2)(3x - 5)$</div>
-                                        <div>12) $(x - y)(7x + 1)$</div>
-                                        <div>13) $(x - 1)(3x + 2y)$</div>
-                                        <div>14) $(x - y)(3 + 5x)$</div>
-                                        <div>15) $(x - y)^2$</div>
-                                        <div>16) $(y - 1)(y + 1)(x - 4)$</div>
-                                        <div>17) $(2y - 1)(x - 5)$</div>
-                                        <div>18) $(x - 2y)(9 - x)$</div>
-                                        <div>19) $2(x - y)(5x + 4y)$</div>
-                                        <div>20) $3(x - y)(x - 2)$</div>
-                                        <div>21) $20x(x - 1)$</div>
-                                        <div>22) $2(x - y)(5x + 3y)$</div>
-                                        <div>23) $3(x - 2y)(x - 2y) = 3(x - 2y)^2$</div>
-                                        <div>24) $4(x + y)(5x - 2y)$</div>
-                                        <div>25) $x(x - 3)(y - 2)(y + 2)$</div>
-                                        <div>26) $2x(x + y)(1 - 3x)$</div>
-                                        <div>27) $3x(y + z)(3x + 1)$</div>
-                                        <div>28) $2x(y - 1)(x - 1)$</div>
-                                        <div>29) $2y(x - y)(5x + 3)$</div>
-                                    </div>
-                                    <p class="font-bold text-indigo-900 pt-2 border-t border-slate-100">Đáp số Bài 4:</p>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                                        <div>1) $(x - 1)(x + x - 1) = (x - 1)(2x - 1)$</div>
-                                        <div>2) $(x + 1)(x - 2)$</div>
-                                        <div>3) $(x - 2)(x + 2)$</div>
-                                        <div>4) $(x - 1)^2(3x + x - 1) = (x - 1)^2(4x - 1)$</div>
-                                        <div>5) $(x + 2)(-2x - 10) = -2(x + 2)(x + 5)$</div>
-                                        <div>6) $(x - y)(7x - 3y)$</div>
-                                    </div>
-                                </div>
-                            </details>
                         </div>
                     </div>
 
-                    <!-- NHÓM 2: BÀI 5 - 7 (NHÓM HẠNG TỬ) -->
-                    <div id="nhom-2" class="space-y-5">
-                        <h3 class="text-sm font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50/80 px-4 py-2 rounded-lg border border-indigo-100 inline-block">
-                            Dạng 1.2: Phân tích đa thức thành nhân tử bằng phương pháp nhóm hạng tử (Bài 5 – Bài 7)
-                        </h3>
-
-                        <!-- Bài 5 -->
-                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
-                            <div class="font-bold text-slate-900 text-base sm:text-lg">
-                                <span class="text-indigo-600">Bài 5:</span> Phân tích thành nhân tử (Nhóm hạng tử):
-                            </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 text-sm">
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">1) $2y(x + 2) - 3x - 6$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">2) $3(x + 4) - x^2 - 4x$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">3) $2(x + 5) - x^2 - 5x$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">4) $x^2 + 6x - 3(x + 6)$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">5) $x(x + y) - 5x - 5y$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">6) $x(x - y) + 2x - 2y$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">7) $2x - 6 + 5x(x - 3)$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">8) $3x(x - 2) - 4x + 8$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">9) $x(x + y) - 3x - 3y$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">10) $x(x + y) - 7x - 7y$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">11) $x^2(x - y) + 2x - 2y$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">12) $x(x + 3y) - 5x - 15y$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">13) $2x(x - 5) + 3x - 15$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">14) $x(x + y) + ax + ay$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">15) $a(x + y) - 4x - 4y$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">16) $a(x - y) + bx - by$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">17) $xz + yz - 5(x + y)$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">18) $5(x - y) + ax - ay$</div>
-                            </div>
-                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
-                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
-                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải chi tiết Bài 5 (18 câu)</span>
-                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
-                                </summary>
-                                <div class="p-4 bg-white border-t border-indigo-100 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-xs sm:text-sm">
-                                    <div><strong>1)</strong> $(x + 2)(2y - 3)$</div>
-                                    <div><strong>2)</strong> $(x + 4)(3 - x)$</div>
-                                    <div><strong>3)</strong> $(x + 5)(2 - x)$</div>
-                                    <div><strong>4)</strong> $(x + 6)(x - 3)$</div>
-                                    <div><strong>5)</strong> $(x + y)(x - 5)$</div>
-                                    <div><strong>6)</strong> $(x - y)(x + 2)$</div>
-                                    <div><strong>7)</strong> $(x - 3)(5x + 2)$</div>
-                                    <div><strong>8)</strong> $(x - 2)(3x - 4)$</div>
-                                    <div><strong>9)</strong> $(x + y)(x - 3)$</div>
-                                    <div><strong>10)</strong> $(x + y)(x - 7)$</div>
-                                    <div><strong>11)</strong> $(x - y)(x^2 + 2)$</div>
-                                    <div><strong>12)</strong> $(x + 3y)(x - 5)$</div>
-                                    <div><strong>13)</strong> $(x - 5)(2x + 3)$</div>
-                                    <div><strong>14)</strong> $(x + y)(x + a)$</div>
-                                    <div><strong>15)</strong> $(x + y)(a - 4)$</div>
-                                    <div><strong>16)</strong> $(x - y)(a + b)$</div>
-                                    <div><strong>17)</strong> $(x + y)(z - 5)$</div>
-                                    <div><strong>18)</strong> $(x - y)(5 + a)$</div>
-                                </div>
-                            </details>
-                        </div>
-
-                        <!-- Bài 6 & Bài 7 -->
-                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
-                            <div class="font-bold text-slate-900 text-base sm:text-lg">
-                                <span class="text-indigo-600">Bài 6 & Bài 7:</span> Phân tích thành nhân tử bằng phương pháp nhóm hạng tử (44 câu):
-                            </div>
-                            <div class="space-y-4">
-                                <div>
-                                    <p class="text-xs font-bold uppercase text-slate-500 mb-2">Bài 6 (35 câu):</p>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-xs sm:text-sm">
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">1) $x^2 + 3x - x - 3$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">2) $x^2 - xy + x - y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">3) $xy + y^2 - x - y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">4) $xy + y - 2x - 2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">5) $x^3 - 2x^2 + x - 2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">6) $x^4 + x^3y - x - y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">7) $x^2 + xy - xz - yz$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">8) $xy + xz + 3y + 3z$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">9) $x^2 - 3x + xy - 3y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">10) $xy - 3x - y^2 + 3y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">11) $x^2 + 2x - xy - 2y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">12) $3x^2 - x - 3xy + y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">13) $x^2 + 5xy + x + 5y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">14) $(x + 1)y - 2x - 2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">15) $x^2 - 2xy + x - 2y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">16) $x^2 - 2x + 2y - xy$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">17) $x^2 + xy - 2x - 2y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">18) $x^2 - xy - 6x + 6y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">19) $2xy + 3z + 6y + xz$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">20) $3x^2 - 3xy - 5x + 5y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">21) $x^2 - 6x - 2xy + 12y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">22) $x^2 + 3xy - 5x - 15y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">23) $3x^2 - 2x - 3xy + 2y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">24) $3x^2 - 3xy - 5x + 5y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">25) $x^3 + 6x^2 + x + 6$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">26) $9x^3 - 9x^2y - 4x + 4y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">27) $2x^2 - 6xy + 5x - 15y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">28) $x^2y - x^3 - 9y + 9x$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">29) $x^3 + 2x^2 - 4x - 8$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">30) $5xy^2 - 5x + y^2 - 1$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">31) $4x^3 - 4x^2 - 9x + 9$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">32) $10ax - 5ay - 2x + y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">33) $a^3 - a^2x - ay + xy$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">34) $x^2 + ab + ax + bx$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">35) $ax - bx + ab - x^2$</div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="text-xs font-bold uppercase text-slate-500 mb-2">Bài 7 (9 câu):</p>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs sm:text-sm">
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">1) $ax^2 - 3axy + bx - 3by$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">2) $5x^2y + 5xy^2 - a^2x - a^2y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">3) $2ax^3 + 6ax^2 + 6ax + 18a$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">4) $10xy^2 - 5by^2 + 2ax - ab$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">5) $ax - bx + cx - 3a + 3b - 3c$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">6) $2ax - bx + 3cx - 2a + b - 3c$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">7) $ax - bx - 2cx - 2a + 2b + 4c$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">8) $3ax^2 + 3bx^2 + ax + bx + 5a + 5b$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70 sm:col-span-2">9) $ax^2 - bx^2 - 2ax + 2bx - 3a + 3b$</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
-                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
-                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải chi tiết Bài 6 & Bài 7</span>
-                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
-                                </summary>
-                                <div class="p-4 bg-white border-t border-indigo-100 space-y-3 text-xs sm:text-sm">
-                                    <p class="font-bold text-indigo-900">Đáp số Bài 6:</p>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                                        <div>1) $(x + 3)(x - 1)$</div>
-                                        <div>2) $(x - y)(x + 1)$</div>
-                                        <div>3) $(x + y)(y - 1)$</div>
-                                        <div>4) $(x + 1)(y - 2)$</div>
-                                        <div>5) $(x - 2)(x^2 + 1)$</div>
-                                        <div>6) $(x + y)(x - 1)(x^2 + x + 1)$</div>
-                                        <div>7) $(x + y)(x - z)$</div>
-                                        <div>8) $(y + z)(x + 3)$</div>
-                                        <div>9) $(x - 3)(x + y)$</div>
-                                        <div>10) $(y - 3)(x - y)$</div>
-                                        <div>11) $(x + 2)(x - y)$</div>
-                                        <div>12) $(3x - 1)(x - y)$</div>
-                                        <div>13) $(x + 5y)(x + 1)$</div>
-                                        <div>14) $(x + 1)(y - 2)$</div>
-                                        <div>15) $(x - 2y)(x + 1)$</div>
-                                        <div>16) $(x - 2)(x - y)$</div>
-                                        <div>17) $(x + y)(x - 2)$</div>
-                                        <div>18) $(x - y)(x - 6)$</div>
-                                        <div>19) $(2y + z)(x + 3)$</div>
-                                        <div>20) $(x - y)(3x - 5)$</div>
-                                        <div>21) $(x - 6)(x - 2y)$</div>
-                                        <div>22) $(x + 3y)(x - 5)$</div>
-                                        <div>23) $(3x - 2)(x - y)$</div>
-                                        <div>24) $(x - y)(3x - 5)$</div>
-                                        <div>25) $(x + 6)(x^2 + 1)$</div>
-                                        <div>26) $(x - y)(3x - 2)(3x + 2)$</div>
-                                        <div>27) $(x - 3y)(2x + 5)$</div>
-                                        <div>28) $(y - x)(x - 3)(x + 3)$</div>
-                                        <div>29) $(x + 2)^2(x - 2)$</div>
-                                        <div>30) $(y - 1)(y + 1)(5x + 1)$</div>
-                                        <div>31) $(x - 1)(2x - 3)(2x + 3)$</div>
-                                        <div>32) $(2x - y)(5a - 1)$</div>
-                                        <div>33) $(a - x)(a^2 - y)$</div>
-                                        <div>34) $(x + a)(x + b)$</div>
-                                        <div>35) $(a - x)(x + b)$</div>
-                                    </div>
-                                    <p class="font-bold text-indigo-900 pt-2 border-t border-slate-100">Đáp số Bài 7:</p>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                        <div>1) $(x - 3y)(ax + b)$</div>
-                                        <div>2) $(x + y)(5xy - a^2)$</div>
-                                        <div>3) $2a(x + 3)(x^2 + 3)$</div>
-                                        <div>4) $(2x - b)(5y^2 + a)$</div>
-                                        <div>5) $(a - b + c)(x - 3)$</div>
-                                        <div>6) $(2a - b + 3c)(x - 1)$</div>
-                                        <div>7) $(a - b - 2c)(x - 2)$</div>
-                                        <div>8) $(a + b)(3x^2 + x + 5)$</div>
-                                        <div>9) $(a - b)(x^2 - 2x - 3) = (a - b)(x + 1)(x - 3)$</div>
-                                    </div>
-                                </div>
-                            </details>
-                        </div>
-                    </div>
-
-                    <!-- NHÓM 3: BÀI 8 - 9 (DÙNG HẰNG ĐẲNG THỨC) -->
-                    <div id="nhom-3" class="space-y-5">
-                        <h3 class="text-sm font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50/80 px-4 py-2 rounded-lg border border-indigo-100 inline-block">
-                            Dạng 1.3: Phân tích đa thức thành nhân tử bằng phương pháp dùng hằng đẳng thức (Bài 8 – Bài 9)
-                        </h3>
-
-                        <!-- Bài 8 & Bài 9 -->
-                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
-                            <div class="font-bold text-slate-900 text-base sm:text-lg">
-                                <span class="text-indigo-600">Bài 8 & Bài 9:</span> Phân tích thành nhân tử (Hằng đẳng thức):
-                            </div>
-                            <div class="space-y-4">
-                                <div>
-                                    <p class="text-xs font-bold uppercase text-slate-500 mb-2">Bài 8 (24 câu):</p>
-                                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 text-sm">
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">1) $x^2 - 9$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">2) $49 - x^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">3) $4y^4 - 1$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">4) $4x^2 - 1$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">5) $x^2 - 9y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">6) $25x^2 - 9$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">7) $4x^2 - 25$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">8) $x^2 - 16y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">9) $9x^2 - 1$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">10) $x^2 + 6x + 9$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">11) $4x^2 + 4x + 1$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">12) $10x - x^2 - 25$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">13) $9x^2 + 6xy + y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">14) $4x^2 - 12xy + 9y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">15) $x^2 + 4y^2 + 4xy$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">16) $x^4 + 4 - 4x^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">17) $x^4 + 2x^2 + 1$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">18) $x^4 - 2x^2 + 1$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">19) $1 - 8x^3$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">20) $x^3 + 27$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">21) $8x^3 - y^3$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">22) $8x^3 - \dfrac{1}{8}$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">23) $x^3 + \dfrac{1}{27}$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">24) $x^3 - \dfrac{8}{125}$</div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="text-xs font-bold uppercase text-slate-500 mb-2">Bài 9 (15 câu):</p>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 text-sm">
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">1) $9 - (x - y)^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">2) $(x - y)^2 - 4$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">3) $(x + 2)^2 - y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">4) $(x + 5)^2 - y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">5) $(x + y)^2 - 9x^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">6) $16x^2 - (x + 1)^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">7) $(4x - 5)^2 - 25$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">8) $\left(x^2 + 1\right)^2 - 4x^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">9) $(2x - 3)^2 - 25y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">10) $(3x + 1)^2 - (x + 1)^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">11) $(x + y)^2 - (x - y)^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">12) $(2xy + 1)^2 - (2x + y)^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">13) $9(x - y)^2 - 4(x + y)^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">14) $(3x - 2y)^2 - (2x - 3y)^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">15) $\left(4x^2 - 4x + 1\right) - (x + 1)^2$</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
-                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
-                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải chi tiết Bài 8 & Bài 9</span>
-                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
-                                </summary>
-                                <div class="p-4 bg-white border-t border-indigo-100 space-y-3 text-xs sm:text-sm">
-                                    <p class="font-bold text-indigo-900">Đáp số Bài 8:</p>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                                        <div>1) $(x - 3)(x + 3)$</div>
-                                        <div>2) $(7 - x)(7 + x)$</div>
-                                        <div>3) $(2y^2 - 1)(2y^2 + 1)$</div>
-                                        <div>4) $(2x - 1)(2x + 1)$</div>
-                                        <div>5) $(x - 3y)(x + 3y)$</div>
-                                        <div>6) $(5x - 3)(5x + 3)$</div>
-                                        <div>7) $(2x - 5)(2x + 5)$</div>
-                                        <div>8) $(x - 4y)(x + 4y)$</div>
-                                        <div>9) $(3x - 1)(3x + 1)$</div>
-                                        <div>10) $(x + 3)^2$</div>
-                                        <div>11) $(2x + 1)^2$</div>
-                                        <div>12) $-(x - 5)^2$</div>
-                                        <div>13) $(3x + y)^2$</div>
-                                        <div>14) $(2x - 3y)^2$</div>
-                                        <div>15) $(x + 2y)^2$</div>
-                                        <div>16) $(x^2 - 2)^2$</div>
-                                        <div>17) $(x^2 + 1)^2$</div>
-                                        <div>18) $(x - 1)^2(x + 1)^2$</div>
-                                        <div>19) $(1 - 2x)(1 + 2x + 4x^2)$</div>
-                                        <div>20) $(x + 3)(x^2 - 3x + 9)$</div>
-                                        <div>21) $(2x - y)(4x^2 + 2xy + y^2)$</div>
-                                        <div>22) $\left(2x - \dfrac{1}{2}\right)\left(4x^2 + x + \dfrac{1}{4}\right)$</div>
-                                        <div>23) $\left(x + \dfrac{1}{3}\right)\left(x^2 - \dfrac{1}{3}x + \dfrac{1}{9}\right)$</div>
-                                        <div>24) $\left(x - \dfrac{2}{5}\right)\left(x^2 + \dfrac{2}{5}x + \dfrac{4}{25}\right)$</div>
-                                    </div>
-                                    <p class="font-bold text-indigo-900 pt-2 border-t border-slate-100">Đáp số Bài 9:</p>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                                        <div>1) $(3 - x + y)(3 + x - y)$</div>
-                                        <div>2) $(x - y - 2)(x - y + 2)$</div>
-                                        <div>3) $(x + 2 - y)(x + 2 + y)$</div>
-                                        <div>4) $(x + 5 - y)(x + 5 + y)$</div>
-                                        <div>5) $(y - 2x)(4x + y)$</div>
-                                        <div>6) $(3x - 1)(5x + 1)$</div>
-                                        <div>7) $4x(4x - 10) = 8x(2x - 5)$</div>
-                                        <div>8) $(x - 1)^2(x + 1)^2$</div>
-                                        <div>9) $(2x - 3 - 5y)(2x - 3 + 5y)$</div>
-                                        <div>10) $4x(2x + 1)$</div>
-                                        <div>11) $4xy$</div>
-                                        <div>12) $(2x - 1)(2x + 1)(y - 1)(y + 1)$</div>
-                                        <div>13) $(x - 5y)(5x - y)$</div>
-                                        <div>14) $5(x - y)(x + y)$</div>
-                                        <div>15) $x(3x - 4)$</div>
-                                    </div>
-                                </div>
-                            </details>
-                        </div>
-                    </div>
-
-                    <!-- NHÓM 4: BÀI 10 - 15 (PHỐI HỢP NHIỀU PHƯƠNG PHÁP) -->
-                    <div id="nhom-4" class="space-y-5">
-                        <h3 class="text-sm font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50/80 px-4 py-2 rounded-lg border border-indigo-100 inline-block">
-                            Dạng 1.4: Phối hợp nhiều phương pháp (Bài 10 – Bài 15)
-                        </h3>
-
-                        <!-- Bài 10 & Bài 11 -->
-                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
-                            <div class="font-bold text-slate-900 text-base sm:text-lg">
-                                <span class="text-indigo-600">Bài 10 & Bài 11:</span> Phân tích đa thức thành nhân tử (Nhóm hạng tử kết hợp Hằng đẳng thức):
-                            </div>
-                            <div class="space-y-4">
-                                <div>
-                                    <p class="text-xs font-bold uppercase text-slate-500 mb-2">Bài 10 (18 câu):</p>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-xs sm:text-sm">
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">1) $x^2 - x - y^2 - y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">2) $x^2 - y^2 + x - y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">3) $3x - 3y + x^2 - y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">4) $5x - 5y + x^2 - y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">5) $x^2 - 5x - y^2 - 5y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">6) $x^2 - y^2 + 2x - 2y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">7) $x^2 - 4y^2 + x + 2y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">8) $x^2 - y^2 - 2x - 2y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">9) $x^2 - 4y^2 + 2x + 4y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">10) $x(x - y) + x^2 - y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">11) $x^2 - y^2 + 10x - 10y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">12) $x^2 - y^2 + 20x + 20y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">13) $4x^2 - 9y^2 - 4x - 6y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">14) $x^3 - y^3 + 7x^2 - 7y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">15) $x^3 + 4x - (y^3 + 4y)$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">16) $x^3 + y^3 + 2x + 2y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">17) $x^3 - y^3 - 2x^2y + 2xy^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">18) $x^3 - 4x^2 + 4x - xy^2$</div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="text-xs font-bold uppercase text-slate-500 mb-2">Bài 11 (21 câu):</p>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-xs sm:text-sm">
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">1) $x^2 - 2x + 1 - y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">2) $x^2 + 6x + 9 - y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">3) $x^2 + 2x - y^2 + 1$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">4) $x^2 - y^2 + 4x + 4$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">5) $4a^2 - 4a + 1 - b^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">6) $x^2 + 4x - y^2 + 4$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">7) $x^2 - y^2 - 6y - 9$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">8) $x^2 - 6x + 9 - y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">9) $x^2 + 8x + 16 - y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">10) $4x^2 - y^2 + 4x + 1$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">11) $4x^2 + 6y - y^2 - 9$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">12) $x^2 - 6x - 4y^2 + 9$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">13) $y^2 - x^2 - 12y + 36$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">14) $x^2 - y^2 - 2y - 1$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">15) $x^2 - y^2 + 14x + 49$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">16) $1 - 8x + 16x^2 - y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">17) $x^2 - 16y^2 + 4x + 4$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">18) $x^2 + 10x - 16y^2 + 25$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">19) $y^2 - 14y - 25x^2 + 49$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">20) $x^2 - 4y^2 + 16x + 64$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">21) $16y^2 - 4x^2 - 12x - 9$</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
-                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
-                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải chi tiết Bài 10 & Bài 11</span>
-                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
-                                </summary>
-                                <div class="p-4 bg-white border-t border-indigo-100 space-y-3 text-xs sm:text-sm">
-                                    <p class="font-bold text-indigo-900">Đáp số Bài 10:</p>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                                        <div>1) $(x + y)(x - y - 1)$</div>
-                                        <div>2) $(x - y)(x + y + 1)$</div>
-                                        <div>3) $(x - y)(x + y + 3)$</div>
-                                        <div>4) $(x - y)(x + y + 5)$</div>
-                                        <div>5) $(x + y)(x - y - 5)$</div>
-                                        <div>6) $(x - y)(x + y + 2)$</div>
-                                        <div>7) $(x + 2y)(x - 2y + 1)$</div>
-                                        <div>8) $(x + y)(x - y - 2)$</div>
-                                        <div>9) $(x + 2y)(x - 2y + 2)$</div>
-                                        <div>10) $(x - y)(2x + y)$</div>
-                                        <div>11) $(x - y)(x + y + 10)$</div>
-                                        <div>12) $(x + y)(x - y + 20)$</div>
-                                        <div>13) $(2x + 3y)(2x - 3y - 2)$</div>
-                                        <div>14) $(x - y)(x^2 + xy + y^2 + 7x + 7y)$</div>
-                                        <div>15) $(x - y)(x^2 + xy + y^2 + 4)$</div>
-                                        <div>16) $(x + y)(x^2 - xy + y^2 + 2)$</div>
-                                        <div>17) $(x - y)(x^2 - xy + y^2)$</div>
-                                        <div>18) $x(x - 2 - y)(x - 2 + y)$</div>
-                                    </div>
-                                    <p class="font-bold text-indigo-900 pt-2 border-t border-slate-100">Đáp số Bài 11:</p>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                                        <div>1) $(x - 1 - y)(x - 1 + y)$</div>
-                                        <div>2) $(x + 3 - y)(x + 3 + y)$</div>
-                                        <div>3) $(x + 1 - y)(x + 1 + y)$</div>
-                                        <div>4) $(x + 2 - y)(x + 2 + y)$</div>
-                                        <div>5) $(2a - 1 - b)(2a - 1 + b)$</div>
-                                        <div>6) $(x + 2 - y)(x + 2 + y)$</div>
-                                        <div>7) $(x - y - 3)(x + y + 3)$</div>
-                                        <div>8) $(x - 3 - y)(x - 3 + y)$</div>
-                                        <div>9) $(x + 4 - y)(x + 4 + y)$</div>
-                                        <div>10) $(2x + 1 - y)(2x + 1 + y)$</div>
-                                        <div>11) $(2x - y + 3)(2x + y - 3)$</div>
-                                        <div>12) $(x - 3 - 2y)(x - 3 + 2y)$</div>
-                                        <div>13) $(y - 6 - x)(y - 6 + x)$</div>
-                                        <div>14) $(x - y - 1)(x + y + 1)$</div>
-                                        <div>15) $(x + 7 - y)(x + 7 + y)$</div>
-                                        <div>16) $(4x - 1 - y)(4x - 1 + y)$</div>
-                                        <div>17) $(x + 2 - 4y)(x + 2 + 4y)$</div>
-                                        <div>18) $(x + 5 - 4y)(x + 5 + 4y)$</div>
-                                        <div>19) $(y - 7 - 5x)(y - 7 + 5x)$</div>
-                                        <div>20) $(x + 8 - 2y)(x + 8 + 2y)$</div>
-                                        <div>21) $(4y - 2x - 3)(4y + 2x + 3)$</div>
-                                    </div>
-                                </div>
-                            </details>
-                        </div>
-
-                        <!-- Bài 12, Bài 13, Bài 14, Bài 15 -->
-                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
-                            <div class="font-bold text-slate-900 text-base sm:text-lg">
-                                <span class="text-indigo-600">Bài 12 – Bài 15:</span> Phân tích đa thức thành nhân tử tổng hợp:
-                            </div>
-                            <div class="space-y-4">
-                                <div>
-                                    <p class="text-xs font-bold uppercase text-slate-500 mb-2">Bài 12 (23 câu):</p>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-xs sm:text-sm">
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">1) $x^2 - 2xy - 4 + y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">2) $4 - x^2 - 2xy - y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">3) $x^2 + 4y^2 - 4xy - 4$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">4) $x^2 - 2xy - 25 + y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">5) $9 - x^2 - 2xy - y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">6) $x^2 + 2xy - 9 + y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">7) $x^2 - 2xy + y^2 - 1$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">8) $x^2 - 2xy + y^2 - 4$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">9) $x^2 - 2xy + y^2 - 49$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">10) $x^2 + 2xy + y^2 - 25$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">11) $x^2 - 16 - 4xy + 4y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">12) $25 - x^2 + 2xy - y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">13) $25 - x^2 + 4xy - 4y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">14) $4x^2 + 4xy + y^2 - 9$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">15) $x^2 + 4xy - 16 + 4y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">16) $a^2 - 9 - 8ab + 16b^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">17) $x^2 - 36 + 4xy + 4y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">18) $4(x^2 - y^2) + 4x + 1$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">19) $x^2 - 2xy + y^2 - z^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">20) $x^2 - 2xy + y^2 - 9z^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">21) $x^2 + y^2 - 2xy - 4z^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">22) $3x^2 + 6xy + 3y^2 - 3z^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">23) $3x^2 + 6xy + 3y^2 - 12$</div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="text-xs font-bold uppercase text-slate-500 mb-2">Bài 13 (5 câu) & Bài 14 (12 câu):</p>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">B13.1) $2x - 2y - x^2 + 2xy - y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">B13.2) $x^2 + y^2 - 2xy + 2x - 2y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">B13.3) $x^4 - x^2 + 2xy - y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">B13.4) $x^2 - 2xy + 2x + y^2 - 2y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70 sm:col-span-2">B13.5) $x^2 + y^2 + 2xy + yz + zx$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">B14.1) $x^2 - 2x + 1 - y^2 + 2x - 1$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">B14.2) $x^2 - 4x + 4 - y^2 - 6y - 9$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">B14.3) $4x^2 - 4x + 1 - y^2 - 8y - 16$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">B14.4) $x^2 - 2xy + y^2 - z^2 + 2zt - t^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">B14.5) $(x + y)^2 - 2(x + y) + 1$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">B14.6) $(x^2 + x + 1)^2 + 2x(x^2 + x + 1) + x^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">B14.7) $(x + y)^2 - 8(x + y) + 12$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">B14.8) $(x^2 + 2x)^2 - 2x^2 - 4x - 3$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">B14.9) $(x^2 + x)^2 + 4x^2 + 4x - 12$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">B14.10) $(x^2 + 2x)^2 + 9x^2 + 18x + 20$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">B14.11) $(x^2 + x)^2 - 2(x^2 + x) - 15$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">B14.12) $(x^2 + 4x)^2 - 2(x^2 + 4x) - 15$</div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="text-xs font-bold uppercase text-slate-500 mb-2">Bài 15 (21 câu):</p>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-xs sm:text-sm">
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">1) $x^3 - 2x^2 + x$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">2) $x^3 - 6x^2 + 9x$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">3) $x^3 - 2x^2 - 8x$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">4) $x^3 - 4x^2 + 4x$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">5) $2x^3 + 3x^2 - 2x$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">6) $2x^3 - 8x^2 + 8x$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">7) $4x^3 + 4x^2 + x$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">8) $3x^3 - 6x^2 + 3x$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">9) $x^3 - 7x^2 + 10x$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">10) $2x^3 - 12x^2 + 18x$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">11) $2x^3 - 20x^2 + 18x$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">12) $a^3 - 8a^2 + 16a$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">13) $x^8 - x^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">14) $x^4 - 27x$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">15) $27x^5 + x^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">16) $(x + y)^3 - x^3 - y^3$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">17) $(x + y)^3 - (x - y)^3$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">18) $(x + y)^3 + (x - y)^3$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">19) $x^3 - y^3 + 2x^2 - 2y^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">20) $x^3 - y^3 - 4x + 4y$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">21) $x^3 - 8y^3 + x^2 - 4y^2$</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
-                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
-                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải chi tiết Bài 12, 13, 14, 15</span>
-                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
-                                </summary>
-                                <div class="p-4 bg-white border-t border-indigo-100 space-y-3 text-xs sm:text-sm">
-                                    <p class="font-bold text-indigo-900">Đáp số Bài 12:</p>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                                        <div>1) $(x - y - 2)(x - y + 2)$</div>
-                                        <div>2) $(2 - x - y)(2 + x + y)$</div>
-                                        <div>3) $(x - 2y - 2)(x - 2y + 2)$</div>
-                                        <div>4) $(x - y - 5)(x - y + 5)$</div>
-                                        <div>5) $(3 - x - y)(3 + x + y)$</div>
-                                        <div>6) $(x + y - 3)(x + y + 3)$</div>
-                                        <div>7) $(x - y - 1)(x - y + 1)$</div>
-                                        <div>8) $(x - y - 2)(x - y + 2)$</div>
-                                        <div>9) $(x - y - 7)(x - y + 7)$</div>
-                                        <div>10) $(x + y - 5)(x + y + 5)$</div>
-                                        <div>11) $(x - 2y - 4)(x - 2y + 4)$</div>
-                                        <div>12) $(5 - x + y)(5 + x - y)$</div>
-                                        <div>13) $(5 - x + 2y)(5 + x - 2y)$</div>
-                                        <div>14) $(2x + y - 3)(2x + y + 3)$</div>
-                                        <div>15) $(x + 2y - 4)(x + 2y + 4)$</div>
-                                        <div>16) $(a - 4b - 3)(a - 4b + 3)$</div>
-                                        <div>17) $(x + 2y - 6)(x + 2y + 6)$</div>
-                                        <div>18) $(2x + 1 - 2y)(2x + 1 + 2y)$</div>
-                                        <div>19) $(x - y - z)(x - y + z)$</div>
-                                        <div>20) $(x - y - 3z)(x - y + 3z)$</div>
-                                        <div>21) $(x - y - 2z)(x - y + 2z)$</div>
-                                        <div>22) $3(x + y - z)(x + y + z)$</div>
-                                        <div>23) $3(x + y - 2)(x + y + 2)$</div>
-                                    </div>
-                                    <p class="font-bold text-indigo-900 pt-2 border-t border-slate-100">Đáp số Bài 13 & Bài 14:</p>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                        <div>B13.1) $(x - y)(2 - x + y)$</div>
-                                        <div>B13.2) $(x - y)(x - y + 2)$</div>
-                                        <div>B13.3) $(x^2 - x + y)(x^2 + x - y)$</div>
-                                        <div>B13.4) $(x - y)(x - y + 2)$</div>
-                                        <div>B13.5) $(x + y)(x + y + z)$</div>
-                                        <div>B14.1) $x^2 - y^2 = (x - y)(x + y)$</div>
-                                        <div>B14.2) $(x - 2 - y - 3)(x - 2 + y + 3) = (x - y - 5)(x + y + 1)$</div>
-                                        <div>B14.3) $(2x - 1 - y - 4)(2x - 1 + y + 4) = (2x - y - 5)(2x + y + 3)$</div>
-                                        <div>B14.4) $(x - y - z + t)(x - y + z - t)$</div>
-                                        <div>B14.5) $(x + y - 1)^2$</div>
-                                        <div>B14.6) $(x^2 + 2x + 1)^2 = (x + 1)^4$</div>
-                                        <div>B14.7) $(x + y - 2)(x + y - 6)$</div>
-                                        <div>B14.8) $(x + 1)^2(x^2 + 2x - 3) = (x - 1)(x + 1)^2(x + 3)$</div>
-                                        <div>B14.9) $(x^2 + x - 2)(x^2 + x + 6) = (x - 1)(x + 2)(x^2 + x + 6)$</div>
-                                        <div>B14.10) $(x^2 + 2x + 4)(x^2 + 2x + 5)$</div>
-                                        <div>B14.11) $(x^2 + x + 3)(x^2 + x - 5)$</div>
-                                        <div>B14.12) $(x + 1)(x + 3)(x - 1)(x + 5)$</div>
-                                    </div>
-                                    <p class="font-bold text-indigo-900 pt-2 border-t border-slate-100">Đáp số Bài 15:</p>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                                        <div>1) $x(x - 1)^2$</div>
-                                        <div>2) $x(x - 3)^2$</div>
-                                        <div>3) $x(x - 4)(x + 2)$</div>
-                                        <div>4) $x(x - 2)^2$</div>
-                                        <div>5) $x(2x - 1)(x + 2)$</div>
-                                        <div>6) $2x(x - 2)^2$</div>
-                                        <div>7) $x(2x + 1)^2$</div>
-                                        <div>8) $3x(x - 1)^2$</div>
-                                        <div>9) $x(x - 2)(x - 5)$</div>
-                                        <div>10) $2x(x - 3)^2$</div>
-                                        <div>11) $2x(x - 1)(x - 9)$</div>
-                                        <div>12) $a(a - 4)^2$</div>
-                                        <div>13) $x^2(x - 1)(x + 1)(x^2 + x + 1)(x^2 - x + 1)$</div>
-                                        <div>14) $x(x - 3)(x^2 + 3x + 9)$</div>
-                                        <div>15) $x^2(3x + 1)(9x^2 - 3x + 1)$</div>
-                                        <div>16) $3xy(x + y)$</div>
-                                        <div>17) $2y(3x^2 + y^2)$</div>
-                                        <div>18) $2x(x^2 + 3y^2)$</div>
-                                        <div>19) $(x - y)(x^2 + xy + y^2 + 2x + 2y)$</div>
-                                        <div>20) $(x - y)(x^2 + xy + y^2 - 4)$</div>
-                                        <div>21) $(x - 2y)(x^2 + 2xy + 4y^2 + x + 2y)$</div>
-                                    </div>
-                                </div>
-                            </details>
-                        </div>
-                    </div>
-
-                    <!-- NHÓM 5: BÀI 16 (TÁCH HẠNG TỬ) -->
-                    <div id="nhom-5" class="space-y-5">
-                        <h3 class="text-sm font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50/80 px-4 py-2 rounded-lg border border-indigo-100 inline-block">
-                            Dạng 1.5: Phân tích đa thức thành nhân tử bằng phương pháp tách hạng tử (Bài 16)
-                        </h3>
-
-                        <!-- Bài 16 -->
-                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
-                            <div class="font-bold text-slate-900 text-base sm:text-lg">
-                                <span class="text-indigo-600">Bài 16:</span> Phân tích đa thức thành nhân tử:
-                            </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm">
-                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">1) $x^2 - 4xy + 3y^2$</div>
-                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">2) $4x^2 - 5xy + y^2$</div>
-                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">3) $x^2 + 4xy + 3y^2$</div>
-                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">4) $9x^2 + 6xy - 8y^2$</div>
-                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">5) $2x^2 + 3xy - 5y^2$</div>
-                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">6) $x^2 - 35y^2 - 2xy$</div>
-                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">7) $x^2 - 10xy + 16y^2$</div>
-                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">8) $3x^2 - 10xy + 8y^2$</div>
-                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">9) $4x^2 + 4xy - 15y^2$</div>
-                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">10) $2x^2 + 10xy + 8y^2$</div>
-                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">11) $5x^2 + 10xy + 5y^2$</div>
-                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/70">12) $-7xy + 3x^2 + 2y^2$</div>
-                            </div>
-                            <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
-                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50 transition-colors">
-                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải chi tiết Bài 16 (12 câu)</span>
-                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
-                                </summary>
-                                <div class="p-4 bg-white border-t border-indigo-100 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 text-sm">
-                                    <div><strong>1)</strong> $(x - y)(x - 3y)$</div>
-                                    <div><strong>2)</strong> $(x - y)(4x - y)$</div>
-                                    <div><strong>3)</strong> $(x + y)(x + 3y)$</div>
-                                    <div><strong>4)</strong> $(3x - 2y)(3x + 4y)$</div>
-                                    <div><strong>5)</strong> $(x - y)(2x + 5y)$</div>
-                                    <div><strong>6)</strong> $(x - 7y)(x + 5y)$</div>
-                                    <div><strong>7)</strong> $(x - 2y)(x - 8y)$</div>
-                                    <div><strong>8)</strong> $(x - 2y)(3x - 4y)$</div>
-                                    <div><strong>9)</strong> $(2x - 3y)(2x + 5y)$</div>
-                                    <div><strong>10)</strong> $2(x + y)(x + 4y)$</div>
-                                    <div><strong>11)</strong> $5(x + y)^2$</div>
-                                    <div><strong>12)</strong> $(x - 2y)(3x - y)$</div>
-                                </div>
-                            </details>
-                        </div>
-                    </div>
-
-                    <!-- NHÓM 6: DẠNG 2 - TÌM X (BÀI 17 - 20) -->
-                    <div id="nhom-6" class="space-y-5">
-                        <h3 class="text-sm font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-4 py-2 rounded-lg border border-emerald-200 inline-block">
-                            Dạng 2: Tìm $x$ bằng phương pháp phân tích đa thức thành nhân tử (Bài 17 – Bài 20)
-                        </h3>
-
-                        <!-- Bài 17 -->
-                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
-                            <div class="font-bold text-slate-900 text-base sm:text-lg">
-                                <span class="text-emerald-600">Bài 17:</span> Tìm $x$ biết:
-                            </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 text-sm">
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">1) $x^2 - x = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">2) $x^2 - 4x = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">3) $x^2 + 3x = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">4) $x + 5x^2 = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">5) $x^2 - 7x = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">6) $3x^2 - 6x = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">7) $x^2 + 7x = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">8) $7x^2 + 2x = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">9) $x^2 + 6x = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">10) $2x^2 - 5x = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">11) $3x^2 + 7x = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">12) $5x - 3x^2 = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">13) $5x^2 - 13x = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">14) $-3x^2 + 5x = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">15) $3x^2 - 7x = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">16) $4x^3 - x = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">17) $x^3 - 4x = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">18) $x^3 - 9x = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">19) $x^3 - 16x = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">20) $x^3 - 25x = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">21) $4x^3 - 36x = 0$</div>
-                            </div>
-                            <details class="group bg-emerald-50/50 rounded-xl border border-emerald-200 overflow-hidden">
-                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-emerald-800 flex items-center justify-between hover:bg-emerald-50 transition-colors">
-                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải chi tiết Bài 17 (21 câu)</span>
-                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
-                                </summary>
-                                <div class="p-4 bg-white border-t border-emerald-100 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-xs sm:text-sm">
-                                    <div><strong>1)</strong> $x \in \{0; 1\}$</div>
-                                    <div><strong>2)</strong> $x \in \{0; 4\}$</div>
-                                    <div><strong>3)</strong> $x \in \{0; -3\}$</div>
-                                    <div><strong>4)</strong> $x \in \left\{0; -\dfrac{1}{5}\right\}$</div>
-                                    <div><strong>5)</strong> $x \in \{0; 7\}$</div>
-                                    <div><strong>6)</strong> $x \in \{0; 2\}$</div>
-                                    <div><strong>7)</strong> $x \in \{0; -7\}$</div>
-                                    <div><strong>8)</strong> $x \in \left\{0; -\dfrac{2}{7}\right\}$</div>
-                                    <div><strong>9)</strong> $x \in \{0; -6\}$</div>
-                                    <div><strong>10)</strong> $x \in \left\{0; \dfrac{5}{2}\right\}$</div>
-                                    <div><strong>11)</strong> $x \in \left\{0; -\dfrac{7}{3}\right\}$</div>
-                                    <div><strong>12)</strong> $x \in \left\{0; \dfrac{5}{3}\right\}$</div>
-                                    <div><strong>13)</strong> $x \in \left\{0; \dfrac{13}{5}\right\}$</div>
-                                    <div><strong>14)</strong> $x \in \left\{0; \dfrac{5}{3}\right\}$</div>
-                                    <div><strong>15)</strong> $x \in \left\{0; \dfrac{7}{3}\right\}$</div>
-                                    <div><strong>16)</strong> $x \in \left\{0; \dfrac{1}{2}; -\dfrac{1}{2}\right\}$</div>
-                                    <div><strong>17)</strong> $x \in \{0; 2; -2\}$</div>
-                                    <div><strong>18)</strong> $x \in \{0; 3; -3\}$</div>
-                                    <div><strong>19)</strong> $x \in \{0; 4; -4\}$</div>
-                                    <div><strong>20)</strong> $x \in \{0; 5; -5\}$</div>
-                                    <div><strong>21)</strong> $x \in \{0; 3; -3\}$</div>
-                                </div>
-                            </details>
-                        </div>
-
-                        <!-- Bài 18 -->
-                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
-                            <div class="font-bold text-slate-900 text-base sm:text-lg">
-                                <span class="text-emerald-600">Bài 18:</span> Tìm $x$ biết (Đặt nhân tử chung & Nhóm hạng tử):
-                            </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-xs sm:text-sm">
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">1) $4x(x + 1) = 8(x + 1)$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">2) $5x(x - 2) - (2 - x) = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">3) $x(x - 1) - 2(1 - x) = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">4) $x(x + 2) - 3(x + 2) = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">5) $2x(x + 1) - 3(x + 1) = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">6) $x^2(x - 2) + 3(x - 2) = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">7) $2x(x - 5) - 7(5 - x) = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">8) $3x(x - 2) + 2(x - 2) = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">9) $x(3x + 2) - x(2x + 3) = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">10) $5x(x - 1) = x - 1$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">11) $x(x + 2) - x - 2 = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">12) $x(x - 2) + x - 2 = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">13) $x(x - 3) - x + 3 = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">14) $2x(x - 1) - x + 1 = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">15) $x(x + 3) - 2x - 6 = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">16) $2x(x + 5) - x - 5 = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">17) $x(x - 3) + 2x - 6 = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">18) $x(x - 1) + 2x - 2 = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">19) $5x(x - 3) - x + 3 = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">20) $x(x - 3) - 2x + 6 = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">21) $2(x + 3) - x^2 - 3x = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">22) $x(2x - 1) + 4x - 2 = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">23) $x(x - 4) + 3x - 12 = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">24) $4x(x - 2) - 6 + 3x = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">25) $x(x - 20) - x + 20 = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">26) $2(x + 5) - x^2 - 5x = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">27) $3x(x - 5) - x^2 + 25 = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">28) $8x(x - 5) - 3x + 15 = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">29) $3x(x - 5) - 2x + 10 = 0$</div>
-                                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">30) $8x(x - 5) - 2x + 10 = 0$</div>
-                            </div>
-                            <details class="group bg-emerald-50/50 rounded-xl border border-emerald-200 overflow-hidden">
-                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-emerald-800 flex items-center justify-between hover:bg-emerald-50 transition-colors">
-                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải chi tiết Bài 18 (30 câu)</span>
-                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
-                                </summary>
-                                <div class="p-4 bg-white border-t border-emerald-100 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-xs sm:text-sm">
-                                    <div><strong>1)</strong> $x \in \{-1; 2\}$</div>
-                                    <div><strong>2)</strong> $x \in \left\{2; -\dfrac{1}{5}\right\}$</div>
-                                    <div><strong>3)</strong> $x \in \{1; -2\}$</div>
-                                    <div><strong>4)</strong> $x \in \{-2; 3\}$</div>
-                                    <div><strong>5)</strong> $x \in \left\{-1; \dfrac{3}{2}\right\}$</div>
-                                    <div><strong>6)</strong> $x = 2$ (vì $x^2 + 3 > 0$)</div>
-                                    <div><strong>7)</strong> $x \in \left\{5; -\dfrac{7}{2}\right\}$</div>
-                                    <div><strong>8)</strong> $x \in \left\{2; -\dfrac{2}{3}\right\}$</div>
-                                    <div><strong>9)</strong> $x \in \{0; 1\}$</div>
-                                    <div><strong>10)</strong> $x \in \left\{1; \dfrac{1}{5}\right\}$</div>
-                                    <div><strong>11)</strong> $x \in \{-2; 1\}$</div>
-                                    <div><strong>12)</strong> $x \in \{2; -1\}$</div>
-                                    <div><strong>13)</strong> $x \in \{3; 1\}$</div>
-                                    <div><strong>14)</strong> $x \in \left\{1; \dfrac{1}{2}\right\}$</div>
-                                    <div><strong>15)</strong> $x \in \{-3; 2\}$</div>
-                                    <div><strong>16)</strong> $x \in \left\{-5; \dfrac{1}{2}\right\}$</div>
-                                    <div><strong>17)</strong> $x \in \{3; -2\}$</div>
-                                    <div><strong>18)</strong> $x \in \{1; -2\}$</div>
-                                    <div><strong>19)</strong> $x \in \left\{3; \dfrac{1}{5}\right\}$</div>
-                                    <div><strong>20)</strong> $x \in \{3; 2\}$</div>
-                                    <div><strong>21)</strong> $x \in \{-3; 2\}$</div>
-                                    <div><strong>22)</strong> $x \in \left\{\dfrac{1}{2}; -2\right\}$</div>
-                                    <div><strong>23)</strong> $x \in \{4; -3\}$</div>
-                                    <div><strong>24)</strong> $x \in \left\{2; -\dfrac{3}{4}\right\}$</div>
-                                    <div><strong>25)</strong> $x \in \{20; 1\}$</div>
-                                    <div><strong>26)</strong> $x \in \{-5; 2\}$</div>
-                                    <div><strong>27)</strong> $(x - 5)(2x - 5) = 0 \Rightarrow x \in \left\{5; \dfrac{5}{2}\right\}$</div>
-                                    <div><strong>28)</strong> $x \in \left\{5; \dfrac{3}{8}\right\}$</div>
-                                    <div><strong>29)</strong> $x \in \left\{5; \dfrac{2}{3}\right\}$</div>
-                                    <div><strong>30)</strong> $x \in \left\{5; \dfrac{1}{4}\right\}$</div>
-                                </div>
-                            </details>
-                        </div>
-
-                        <!-- Bài 19 & Bài 20 -->
-                        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
-                            <div class="font-bold text-slate-900 text-base sm:text-lg">
-                                <span class="text-emerald-600">Bài 19 & Bài 20:</span> Tìm $x$ biết (Phối hợp nhiều phương pháp & Tách hạng tử):
-                            </div>
-                            <div class="space-y-4">
-                                <div>
-                                    <p class="text-xs font-bold uppercase text-slate-500 mb-2">Bài 19 (21 câu):</p>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-xs sm:text-sm">
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">1) $x^2 + 2x - 3x - 6 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">2) $x^2 - 8x + 3x - 24 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">3) $x^2 + 4x - 5x - 20 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">4) $x^2 + 20x - x - 20 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">5) $x^2 + 10x - 2x - 20 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">6) $x^2 + 12x + 2x + 24 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">7) $x^3 - 4x^2 - x + 4 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">8) $x^3 - 3x^2 + 3x - 1 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">9) $x^3 + 3x^2 - 4x - 12 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">10) $2x^2 - 2x = (x - 1)^2$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">11) $(x - 3)^2 + 3 - x = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">12) $(x - 2)^2 - 4x + 8 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">13) $3(x - 6)^2 = 60 - 10x$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">14) $(x + 3)^2 - 6x - 18 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">15) $(x - 4)^2 - 4x + 16 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">16) $2(x - 5) - x^2 + 25 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">17) $x(x + 1) - x^2 + 1 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">18) $4x^2 - 25 + (2x + 5)^2 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">19) $x^2 - 4 + (x + 2)(x - 3) = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">20) $2x(x - 1) - (1 - x)^2 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">21) $x^2 - 1 + (x + 1)(x - 3) = 0$</div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="text-xs font-bold uppercase text-slate-500 mb-2">Bài 20 (18 câu - Tam thức bậc hai):</p>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-xs sm:text-sm">
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">1) $x^2 + x - 12 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">2) $x^2 - 8x + 7 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">3) $x^2 - 4x - 5 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">4) $x^2 - 8x - 9 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">5) $x^2 - 4x + 3 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">6) $x^2 + 5x + 4 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">7) $x^2 - 5x + 6 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">8) $x^2 - 4x + 3 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">9) $x^2 + 3x - 18 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">10) $x^2 - 3x - 10 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">11) $x^2 + 3x - 10 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">12) $x^2 - 2x - 35 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">13) $x^2 - 7x + 12 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">14) $x^2 - 7x + 12 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">15) $4x^2 - 12x + 9 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">16) $8x^2 + 30x + 7 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">17) $3x^2 + 5x + 2 = 0$</div>
-                                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70">18) $9x^2 - 30x + 24 = 0$</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <details class="group bg-emerald-50/50 rounded-xl border border-emerald-200 overflow-hidden">
-                                <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-emerald-800 flex items-center justify-between hover:bg-emerald-50 transition-colors">
-                                    <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i> Xem lời giải chi tiết Bài 19 & Bài 20</span>
-                                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-open:rotate-180"></i>
-                                </summary>
-                                <div class="p-4 bg-white border-t border-emerald-100 space-y-3 text-xs sm:text-sm">
-                                    <p class="font-bold text-emerald-900">Đáp số Bài 19:</p>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                                        <div>1) $x \in \{-2; 3\}$</div>
-                                        <div>2) $x \in \{8; -3\}$</div>
-                                        <div>3) $x \in \{-4; 5\}$</div>
-                                        <div>4) $x \in \{-20; 1\}$</div>
-                                        <div>5) $x \in \{-10; 2\}$</div>
-                                        <div>6) $x \in \{-12; -2\}$</div>
-                                        <div>7) $x \in \{4; 1; -1\}$</div>
-                                        <div>8) $(x - 1)^3 = 0 \Rightarrow x = 1$</div>
-                                        <div>9) $x \in \{-3; 2; -2\}$</div>
-                                        <div>10) $x \in \{1; -1\}$</div>
-                                        <div>11) $x \in \{3; 4\}$</div>
-                                        <div>12) $x \in \{2; 6\}$</div>
-                                        <div>13) $x \in \left\{6; \dfrac{8}{3}\right\}$</div>
-                                        <div>14) $x \in \{-3; 3\}$</div>
-                                        <div>15) $x \in \{4; 8\}$</div>
-                                        <div>16) $x \in \{5; -3\}$</div>
-                                        <div>17) $x + 1 = 0 \Rightarrow x = -1$</div>
-                                        <div>18) $4x(2x + 5) = 0 \Rightarrow x \in \left\{0; -\dfrac{5}{2}\right\}$</div>
-                                        <div>19) $(x + 2)(2x - 5) = 0 \Rightarrow x \in \left\{-2; \dfrac{5}{2}\right\}$</div>
-                                        <div>20) $(x - 1)(x + 1) = 0 \Rightarrow x \in \{1; -1\}$</div>
-                                        <div>21) $(x + 1)(2x - 4) = 0 \Rightarrow x \in \{-1; 2\}$</div>
-                                    </div>
-                                    <p class="font-bold text-emerald-900 pt-2 border-t border-slate-100">Đáp số Bài 20:</p>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                                        <div>1) $(x + 4)(x - 3) = 0 \Rightarrow x \in \{-4; 3\}$</div>
-                                        <div>2) $(x - 1)(x - 7) = 0 \Rightarrow x \in \{1; 7\}$</div>
-                                        <div>3) $(x + 1)(x - 5) = 0 \Rightarrow x \in \{-1; 5\}$</div>
-                                        <div>4) $(x + 1)(x - 9) = 0 \Rightarrow x \in \{-1; 9\}$</div>
-                                        <div>5) $(x - 1)(x - 3) = 0 \Rightarrow x \in \{1; 3\}$</div>
-                                        <div>6) $(x + 1)(x + 4) = 0 \Rightarrow x \in \{-1; -4\}$</div>
-                                        <div>7) $(x - 2)(x - 3) = 0 \Rightarrow x \in \{2; 3\}$</div>
-                                        <div>8) $(x - 1)(x - 3) = 0 \Rightarrow x \in \{1; 3\}$</div>
-                                        <div>9) $(x + 6)(x - 3) = 0 \Rightarrow x \in \{-6; 3\}$</div>
-                                        <div>10) $(x - 5)(x + 2) = 0 \Rightarrow x \in \{5; -2\}$</div>
-                                        <div>11) $(x + 5)(x - 2) = 0 \Rightarrow x \in \{-5; 2\}$</div>
-                                        <div>12) $(x - 7)(x + 5) = 0 \Rightarrow x \in \{7; -5\}$</div>
-                                        <div>13) $(x - 3)(x - 4) = 0 \Rightarrow x \in \{3; 4\}$</div>
-                                        <div>14) $(x - 3)(x - 4) = 0 \Rightarrow x \in \{3; 4\}$</div>
-                                        <div>15) $(2x - 3)^2 = 0 \Rightarrow x = \dfrac{3}{2}$</div>
-                                        <div>16) $(2x + 7)(4x + 1) = 0 \Rightarrow x \in \left\{-\dfrac{7}{2}; -\dfrac{1}{4}\right\}$</div>
-                                        <div>17) $(x + 1)(3x + 2) = 0 \Rightarrow x \in \left\{-1; -\dfrac{2}{3}\right\}$</div>
-                                        <div>18) $3(x - 2)(3x - 4) = 0 \Rightarrow x \in \left\{2; \dfrac{4}{3}\right\}$</div>
-                                    </div>
-                                </div>
-                            </details>
-                        </div>
+                    <div id="sa-container" class="space-y-5">
+                        <!-- Render câu 71 -> 100 tại đây -->
                     </div>
                 </section>
 
-                <!-- Điều hướng bài học -->
+                <!-- Footer Navigation -->
                 <div class="pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <a href="bai8_tonghieu_2lapphuong.html" class="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-blue-400 hover:text-blue-600 font-semibold text-sm transition-all shadow-sm">
+                    <a href="BT_C1.html" class="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-blue-400 hover:text-blue-600 font-semibold text-sm transition-all shadow-sm">
                         <i data-lucide="arrow-left" class="w-4 h-4"></i>
-                        <span>Bài 8: Tổng và hiệu hai lập phương</span>
+                        <span>Quay lại Bài C1: Đa thức</span>
                     </a>
-                    <a href="index.html" class="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-all shadow-sm">
-                        <span>Hoàn thành Chương 2 • Về Trang chủ</span>
-                        <i data-lucide="check-circle" class="w-4 h-4"></i>
+                    <button onclick="submitQuiz()" class="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition-all shadow-md">
+                        <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+                        <span>Nộp bài & Xem tổng điểm</span>
+                    </button>
+                    <a href="BT_C3.html" class="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm transition-all shadow-sm">
+                        <span>Sang chương 3: Tứ giác</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
                     </a>
                 </div>
 
@@ -1424,15 +286,19 @@
 
     <!-- Footer -->
     <footer class="bg-white border-t border-slate-200/80 mt-12 py-6">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-slate-500">
-            Hệ thống Kiến Thức Trọng Tâm Toán Lớp 8 • Học kì I & Học kì II
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-slate-500">
+            Hệ thống Kiến Thức Trọng Tâm & Kiểm Tra Toán Lớp 8 • Chương 2: Hằng đẳng thức (100 Câu)
         </div>
     </footer>
 
+    <!-- ========================================== -->
+    <!-- DỮ LIỆU 100 CÂU HỎI & LOGIC CHẤM BÀI       -->
+    <!-- ========================================== -->
     <script>
-        function renderMath() {
+        // Hàm gọi KaTeX để biến mọi chuỗi $...$ thành ký hiệu Toán học tức thì
+        function renderMath(element = document.body) {
             if (typeof renderMathInElement === 'function') {
-                renderMathInElement(document.body, {
+                renderMathInElement(element, {
                     delimiters: [
                         { left: '$$', right: '$$', display: true },
                         { left: '$', right: '$', display: false },
@@ -1444,26 +310,498 @@
             }
         }
 
-        let allOpen = false;
-        function toggleAllSolutions() {
-            allOpen = !allOpen;
-            const detailsElements = document.querySelectorAll('details');
-            detailsElements.forEach(el => {
-                el.open = allOpen;
+        const questions = [
+            {"id": 1, "type": "mcq", "topic": "topic-1", "badge": "Hằng đẳng thức • Bình phương", "q": "Khai triển $(x+3)^2$ được kết quả nào?", "options": ["$x^2+6x+9$", "$x^2+3x+9$", "$x^2+9$", "$x^2-6x+9$"], "ans": 0, "exp": "Dùng $(a+b)^2=a^2+2ab+b^2$: $(x+3)^2=x^2+6x+9$."},
+            {"id": 2, "type": "mcq", "topic": "topic-1", "badge": "Hằng đẳng thức • Bình phương", "q": "Khai triển $(2x-5)^2$ được:", "options": ["$2x^2-20x+25$", "$4x^2+20x+25$", "$4x^2-20x+25$", "$4x^2-10x+25$"], "ans": 2, "exp": "$(2x-5)^2=(2x)^2-2\\cdot2x\\cdot5+5^2=4x^2-20x+25$."},
+            {"id": 3, "type": "mcq", "topic": "topic-1", "badge": "Hằng đẳng thức • Bình phương", "q": "Kết quả của $(3a+b)^2$ là:", "options": ["$9a^2+3ab+b^2$", "$9a^2+b^2$", "$9a^2-6ab+b^2$", "$9a^2+6ab+b^2$"], "ans": 3, "exp": "Áp dụng bình phương một tổng: $(3a+b)^2=9a^2+6ab+b^2$."},
+            {"id": 4, "type": "mcq", "topic": "topic-1", "badge": "Hằng đẳng thức • Bình phương", "q": "Khai triển $(m-4n)^2$ được:", "options": ["$m^2-16n^2$", "$m^2-8mn+16n^2$", "$m^2-4mn+16n^2$", "$m^2+8mn+16n^2$"], "ans": 1, "exp": "$(m-4n)^2=m^2-2\\cdot m\\cdot4n+16n^2=m^2-8mn+16n^2$."},
+            {"id": 5, "type": "mcq", "topic": "topic-1", "badge": "Hằng đẳng thức • Bình phương", "q": "Biểu thức nào bằng $(x-7)(x+7)$?", "options": ["$x^2-49$", "$x^2+49$", "$x^2-14x+49$", "$x^2+14x+49$"], "ans": 0, "exp": "Dùng hiệu hai bình phương: $(a-b)(a+b)=a^2-b^2$."},
+            {"id": 6, "type": "mcq", "topic": "topic-1", "badge": "Hằng đẳng thức • Bình phương", "q": "Rút gọn $(5x+2)(5x-2)$:", "options": ["$25x^2-20x+4$", "$10x^2-4$", "$25x^2-4$", "$25x^2+4$"], "ans": 2, "exp": "$(5x+2)(5x-2)=(5x)^2-2^2=25x^2-4$."},
+            {"id": 7, "type": "mcq", "topic": "topic-1", "badge": "Hằng đẳng thức • Bình phương", "q": "Khai triển $(y+6)^2-y^2$:", "options": ["$6y+36$", "$12y+6$", "$36$", "$12y+36$"], "ans": 3, "exp": "$(y+6)^2-y^2=y^2+12y+36-y^2=12y+36$."},
+            {"id": 8, "type": "mcq", "topic": "topic-1", "badge": "Hằng đẳng thức • Bình phương", "q": "Thu gọn $(a+b)^2-(a-b)^2$:", "options": ["$2ab$", "$4ab$", "$2a^2+2b^2$", "$4a^2b^2$"], "ans": 1, "exp": "Khai triển hai bình phương rồi trừ: $(a^2+2ab+b^2)-(a^2-2ab+b^2)=4ab$."},
+            {"id": 9, "type": "mcq", "topic": "topic-1", "badge": "Hằng đẳng thức • Bình phương", "q": "Biểu thức nào là bình phương của một hiệu?", "options": ["$x^2-10x+25$", "$x^2+10x+25$", "$x^2-25$", "$x^2-5x+25$"], "ans": 0, "exp": "$x^2-10x+25=(x-5)^2$."},
+            {"id": 10, "type": "mcq", "topic": "topic-1", "badge": "Hằng đẳng thức • Bình phương", "q": "Phân tích $9x^2-16$ thành nhân tử:", "options": ["$(3x-4)^2$", "$(3x+4)^2$", "$(3x-4)(3x+4)$", "$(9x-4)(x+4)$"], "ans": 2, "exp": "$9x^2-16=(3x)^2-4^2=(3x-4)(3x+4)$."},
+            {"id": 11, "type": "mcq", "topic": "topic-1", "badge": "Hằng đẳng thức • Bình phương", "q": "Khai triển $(2a+3b)^2$:", "options": ["$4a^2+6ab+9b^2$", "$2a^2+12ab+3b^2$", "$4a^2-12ab+9b^2$", "$4a^2+12ab+9b^2$"], "ans": 3, "exp": "$(2a+3b)^2=4a^2+12ab+9b^2$."},
+            {"id": 12, "type": "mcq", "topic": "topic-1", "badge": "Hằng đẳng thức • Bình phương", "q": "Kết quả $(4x-1)^2$ là:", "options": ["$16x^2+8x+1$", "$16x^2-8x+1$", "$16x^2-4x+1$", "$4x^2-8x+1$"], "ans": 1, "exp": "$(4x-1)^2=16x^2-8x+1$."},
+            {"id": 13, "type": "mcq", "topic": "topic-1", "badge": "Hằng đẳng thức • Bình phương", "q": "Rút gọn $(x+2)^2-(x-2)^2$:", "options": ["$8x$", "$4x$", "$8x+8$", "$2x$"], "ans": 0, "exp": "Khai triển: $(x^2+4x+4)-(x^2-4x+4)=8x$."},
+            {"id": 14, "type": "mcq", "topic": "topic-1", "badge": "Hằng đẳng thức • Bình phương", "q": "Giá trị của $101^2-99^2$ bằng:", "options": ["$4$", "$100$", "$400$", "$200$"], "ans": 2, "exp": "Dùng hiệu hai bình phương: $(101-99)(101+99)=2\\cdot200=400$."},
+            {"id": 15, "type": "mcq", "topic": "topic-2", "badge": "Hằng đẳng thức • Lập phương", "q": "Khai triển $(x+2)^3$:", "options": ["$x^3+2x^2+4x+8$", "$x^3+6x^2+8$", "$x^3+6x+8$", "$x^3+6x^2+12x+8$"], "ans": 3, "exp": "$(a+b)^3=a^3+3a^2b+3ab^2+b^3$."},
+            {"id": 16, "type": "mcq", "topic": "topic-2", "badge": "Hằng đẳng thức • Lập phương", "q": "Khai triển $(x-3)^3$:", "options": ["$x^3-27$", "$x^3-9x^2+27x-27$", "$x^3-3x^2+9x-27$", "$x^3-9x^2-27x-27$"], "ans": 1, "exp": "$(x-3)^3=x^3-9x^2+27x-27$."},
+            {"id": 17, "type": "mcq", "topic": "topic-2", "badge": "Hằng đẳng thức • Lập phương", "q": "Kết quả của $(2a+b)^3$ là:", "options": ["$8a^3+12a^2b+6ab^2+b^3$", "$8a^3+6a^2b+12ab^2+b^3$", "$2a^3+12a^2b+6ab^2+b^3$", "$8a^3-12a^2b+6ab^2-b^3$"], "ans": 0, "exp": "Thay $a$ bởi $2a$: $(2a+b)^3=8a^3+12a^2b+6ab^2+b^3$."},
+            {"id": 18, "type": "mcq", "topic": "topic-2", "badge": "Hằng đẳng thức • Lập phương", "q": "Khai triển $(m-2n)^3$:", "options": ["$m^3-6m^2n-12mn^2-8n^3$", "$m^3-8n^3$", "$m^3-6m^2n+12mn^2-8n^3$", "$m^3-2m^2n+4mn^2-8n^3$"], "ans": 2, "exp": "$(m-2n)^3=m^3-6m^2n+12mn^2-8n^3$."},
+            {"id": 19, "type": "mcq", "topic": "topic-2", "badge": "Hằng đẳng thức • Lập phương", "q": "Biểu thức nào bằng $a^3+b^3$?", "options": ["$(a-b)(a^2+ab+b^2)$", "$(a+b)(a^2+ab+b^2)$", "$(a-b)^3$", "$(a+b)(a^2-ab+b^2)$"], "ans": 3, "exp": "Tổng hai lập phương: $a^3+b^3=(a+b)(a^2-ab+b^2)$."},
+            {"id": 20, "type": "mcq", "topic": "topic-2", "badge": "Hằng đẳng thức • Lập phương", "q": "Phân tích $x^3-8$ thành nhân tử:", "options": ["$(x-8)(x^2+8x+64)$", "$(x-2)(x^2+2x+4)$", "$(x+2)(x^2-2x+4)$", "$(x-2)(x^2-2x+4)$"], "ans": 1, "exp": "$x^3-8=x^3-2^3=(x-2)(x^2+2x+4)$."},
+            {"id": 21, "type": "mcq", "topic": "topic-2", "badge": "Hằng đẳng thức • Lập phương", "q": "Phân tích $27a^3+b^3$:", "options": ["$(3a+b)(9a^2-3ab+b^2)$", "$(3a-b)(9a^2+3ab+b^2)$", "$(3a+b)(9a^2+3ab+b^2)$", "$(3a+b)^3$"], "ans": 0, "exp": "$27a^3+b^3=(3a)^3+b^3=(3a+b)(9a^2-3ab+b^2)$."},
+            {"id": 22, "type": "mcq", "topic": "topic-2", "badge": "Hằng đẳng thức • Lập phương", "q": "Khai triển $(2x-1)^3$:", "options": ["$2x^3-12x^2+6x-1$", "$8x^3-12x^2-6x-1$", "$8x^3-12x^2+6x-1$", "$8x^3-6x^2+12x-1$"], "ans": 2, "exp": "$(2x-1)^3=8x^3-12x^2+6x-1$."},
+            {"id": 23, "type": "mcq", "topic": "topic-2", "badge": "Hằng đẳng thức • Lập phương", "q": "Biểu thức nào là hiệu hai lập phương?", "options": ["$x^3+125$", "$x^2-25$", "$x^3-25$", "$x^3-125$"], "ans": 3, "exp": "$x^3-125=x^3-5^3$ là hiệu hai lập phương."},
+            {"id": 24, "type": "mcq", "topic": "topic-2", "badge": "Hằng đẳng thức • Lập phương", "q": "Phân tích $8x^3+1$:", "options": ["$(2x+1)^3$", "$(2x+1)(4x^2-2x+1)$", "$(2x-1)(4x^2+2x+1)$", "$(2x+1)(4x^2+2x+1)$"], "ans": 1, "exp": "$8x^3+1=(2x)^3+1^3=(2x+1)(4x^2-2x+1)$."},
+            {"id": 25, "type": "mcq", "topic": "topic-2", "badge": "Hằng đẳng thức • Lập phương", "q": "Kết quả của $(a+2b)^3$:", "options": ["$a^3+6a^2b+12ab^2+8b^3$", "$a^3+2a^2b+4ab^2+8b^3$", "$a^3+6a^2b+8b^3$", "$a^3-6a^2b+12ab^2-8b^3$"], "ans": 0, "exp": "Áp dụng công thức lập phương một tổng."},
+            {"id": 26, "type": "mcq", "topic": "topic-2", "badge": "Hằng đẳng thức • Lập phương", "q": "Phân tích $64-y^3$:", "options": ["$(4-y)(16-4y+y^2)$", "$(4-y)^3$", "$(4-y)(16+4y+y^2)$", "$(4+y)(16-4y+y^2)$"], "ans": 2, "exp": "$64-y^3=4^3-y^3=(4-y)(16+4y+y^2)$."},
+            {"id": 27, "type": "mcq", "topic": "topic-2", "badge": "Hằng đẳng thức • Lập phương", "q": "Khai triển $(x+1)^3-(x-1)^3$:", "options": ["$6x^2-2$", "$2x^3+6x$", "$6x$", "$6x^2+2$"], "ans": 3, "exp": "Khai triển rồi trừ: $(x^3+3x^2+3x+1)-(x^3-3x^2+3x-1)=6x^2+2$."},
+            {"id": 28, "type": "mcq", "topic": "topic-2", "badge": "Hằng đẳng thức • Lập phương", "q": "Tổng $a^3+b^3$ với $a=1,b=2$ bằng:", "options": ["$6$", "$9$", "$8$", "$7$"], "ans": 1, "exp": "$1^3+2^3=1+8=9$."},
+            {"id": 29, "type": "mcq", "topic": "topic-3", "badge": "Phân tích đa thức • Nhận dạng", "q": "Phân tích $x^2+6x+9$ thành nhân tử:", "options": ["$(x+3)^2$", "$(x-3)^2$", "$(x+9)(x+1)$", "$(x+6)^2$"], "ans": 0, "exp": "Nhận dạng bình phương một tổng: $x^2+6x+9=(x+3)^2$."},
+            {"id": 30, "type": "mcq", "topic": "topic-3", "badge": "Phân tích đa thức • Nhận dạng", "q": "Phân tích $4x^2-12x+9$:", "options": ["$(4x-3)^2$", "$(2x-3)(2x+3)$", "$(2x-3)^2$", "$(2x+3)^2$"], "ans": 2, "exp": "$4x^2-12x+9=(2x-3)^2$."},
+            {"id": 31, "type": "mcq", "topic": "topic-3", "badge": "Phân tích đa thức • Nhận dạng", "q": "Phân tích $x^2-25$:", "options": ["$(x-5)^2$", "$(x+5)^2$", "$(x-25)(x+1)$", "$(x-5)(x+5)$"], "ans": 3, "exp": "Hiệu hai bình phương: $x^2-25=(x-5)(x+5)$."},
+            {"id": 32, "type": "mcq", "topic": "topic-3", "badge": "Phân tích đa thức • Nhận dạng", "q": "Phân tích $x^3+27$:", "options": ["$(x+27)(x^2+1)$", "$(x+3)(x^2-3x+9)$", "$(x-3)(x^2+3x+9)$", "$(x+3)(x^2+3x+9)$"], "ans": 1, "exp": "$x^3+27=x^3+3^3=(x+3)(x^2-3x+9)$."},
+            {"id": 33, "type": "mcq", "topic": "topic-3", "badge": "Phân tích đa thức • Nhận dạng", "q": "Phân tích $8a^3-27b^3$:", "options": ["$(2a-3b)(4a^2+6ab+9b^2)$", "$(2a+3b)(4a^2-6ab+9b^2)$", "$(2a-3b)(4a^2-6ab+9b^2)$", "$(2a-3b)^3$"], "ans": 0, "exp": "Hiệu hai lập phương với $2a$ và $3b$."},
+            {"id": 34, "type": "mcq", "topic": "topic-3", "badge": "Phân tích đa thức • Nhận dạng", "q": "Phân tích $x^2+10x+25$:", "options": ["$(x+25)(x+1)$", "$(x+10)^2$", "$(x+5)^2$", "$(x-5)^2$"], "ans": 2, "exp": "Đây là bình phương của tổng $x+5$."},
+            {"id": 35, "type": "mcq", "topic": "topic-3", "badge": "Phân tích đa thức • Nhận dạng", "q": "Phân tích $9m^2-24mn+16n^2$:", "options": ["$(3m+4n)^2$", "$(9m-4n)^2$", "$(3m-4n)(3m+4n)$", "$(3m-4n)^2$"], "ans": 3, "exp": "$9m^2-24mn+16n^2=(3m-4n)^2$."},
+            {"id": 36, "type": "mcq", "topic": "topic-3", "badge": "Phân tích đa thức • Nhận dạng", "q": "Phân tích $x^3-1$:", "options": ["$(x-1)^3$", "$(x-1)(x^2+x+1)$", "$(x+1)(x^2-x+1)$", "$(x-1)(x^2-x+1)$"], "ans": 1, "exp": "Hiệu hai lập phương: $x^3-1^3=(x-1)(x^2+x+1)$."},
+            {"id": 37, "type": "mcq", "topic": "topic-3", "badge": "Phân tích đa thức • Nhận dạng", "q": "Phân tích $a^3+8b^3$:", "options": ["$(a+2b)(a^2-2ab+4b^2)$", "$(a-2b)(a^2+2ab+4b^2)$", "$(a+2b)(a^2+2ab+4b^2)$", "$(a+2b)^3$"], "ans": 0, "exp": "Tổng hai lập phương với $a$ và $2b$."},
+            {"id": 38, "type": "mcq", "topic": "topic-3", "badge": "Phân tích đa thức • Nhận dạng", "q": "Phân tích $4x^2-1$:", "options": ["$(2x-1)^2$", "$(2x+1)^2$", "$(2x-1)(2x+1)$", "$(4x-1)(x+1)$"], "ans": 2, "exp": "$4x^2-1=(2x)^2-1^2$."},
+            {"id": 39, "type": "mcq", "topic": "topic-3", "badge": "Phân tích đa thức • Nhận dạng", "q": "Phân tích $x^2-4x+4$:", "options": ["$(x+2)^2$", "$(x-4)(x+1)$", "$(x-2)(x+2)$", "$(x-2)^2$"], "ans": 3, "exp": "$x^2-4x+4=(x-2)^2$."},
+            {"id": 40, "type": "mcq", "topic": "topic-3", "badge": "Phân tích đa thức • Nhận dạng", "q": "Phân tích $125x^3+8$:", "options": ["$(5x+2)^3$", "$(5x+2)(25x^2-10x+4)$", "$(5x-2)(25x^2+10x+4)$", "$(5x+2)(25x^2+10x+4)$"], "ans": 1, "exp": "$125x^3+8=(5x)^3+2^3$."},
+            {"id": 41, "type": "mcq", "topic": "topic-3", "badge": "Phân tích đa thức • Nhận dạng", "q": "Biểu thức nào chia hết cho $(x-4)$?", "options": ["$x^2-16$", "$x^2+16$", "$x^2-4x+4$", "$x^2+4x+16$"], "ans": 0, "exp": "$x^2-16=(x-4)(x+4)$ nên chia hết cho $(x-4)$."},
+            {"id": 42, "type": "mcq", "topic": "topic-3", "badge": "Phân tích đa thức • Nhận dạng", "q": "Phân tích $2x(x+3)+5(x+3)$:", "options": ["$(2x+3)(x+5)$", "$2x^2+15$", "$(x+3)(2x+5)$", "$(x+3)(2x-5)$"], "ans": 2, "exp": "Đặt nhân tử chung $(x+3)$: $(x+3)(2x+5)$."},
+            {"id": 43, "type": "mcq", "topic": "topic-4", "badge": "Ứng dụng • Phân tích & tính nhanh", "q": "Phân tích $3x^2+6x$:", "options": ["$3x(x+6)$", "$x(3x+6x)$", "$3(x^2+2)$", "$3x(x+2)$"], "ans": 3, "exp": "Đặt nhân tử chung $3x$: $3x^2+6x=3x(x+2)$."},
+            {"id": 44, "type": "mcq", "topic": "topic-4", "badge": "Ứng dụng • Phân tích & tính nhanh", "q": "Phân tích $5a(a-1)-2(a-1)$:", "options": ["$5a^2-2$", "$(a-1)(5a-2)$", "$(a-1)(5a+2)$", "$(5a-2)(a+1)$"], "ans": 1, "exp": "Đặt nhân tử chung $(a-1)$."},
+            {"id": 45, "type": "mcq", "topic": "topic-4", "badge": "Ứng dụng • Phân tích & tính nhanh", "q": "Phân tích $x^2+3x+2$:", "options": ["$(x+1)(x+2)$", "$(x-1)(x-2)$", "$(x+3)(x+2)$", "$(x+1)(x-2)$"], "ans": 0, "exp": "Tìm hai số có tích $2$, tổng $3$: đó là $1$ và $2$."},
+            {"id": 46, "type": "mcq", "topic": "topic-4", "badge": "Ứng dụng • Phân tích & tính nhanh", "q": "Phân tích $x^2-5x+6$:", "options": ["$(x-1)(x-6)$", "$(x+2)(x-3)$", "$(x-2)(x-3)$", "$(x+2)(x+3)$"], "ans": 2, "exp": "Hai số có tích $6$, tổng $-5$ là $-2$ và $-3$."},
+            {"id": 47, "type": "mcq", "topic": "topic-4", "badge": "Ứng dụng • Phân tích & tính nhanh", "q": "Phân tích $2x^2+8x+8$:", "options": ["$2(x-2)^2$", "$2(x^2+4)$", "$(2x+2)^2$", "$2(x+2)^2$"], "ans": 3, "exp": "Đặt $2$ làm nhân tử chung: $2(x^2+4x+4)=2(x+2)^2$."},
+            {"id": 48, "type": "mcq", "topic": "topic-4", "badge": "Ứng dụng • Phân tích & tính nhanh", "q": "Phân tích $x^3+3x^2$:", "options": ["$x^2(x-3)$", "$x^2(x+3)$", "$x(x^2+3)$", "$x^3(1+3)$"], "ans": 1, "exp": "Đặt nhân tử chung $x^2$."},
+            {"id": 49, "type": "mcq", "topic": "topic-4", "badge": "Ứng dụng • Phân tích & tính nhanh", "q": "Rút gọn $(x+5)^2-x(x+10)$:", "options": ["$25$", "$10x+25$", "$x^2+25$", "$5$"], "ans": 0, "exp": "Khai triển: $x^2+10x+25-x^2-10x=25$."},
+            {"id": 50, "type": "mcq", "topic": "topic-4", "badge": "Ứng dụng • Phân tích & tính nhanh", "q": "Rút gọn $(2x-3)^2-(2x+3)(2x-3)$:", "options": ["$9-12x$", "$0$", "$18-12x$", "$12x-18$"], "ans": 2, "exp": "Đặt $(2x-3)$ làm nhân tử chung: $(2x-3)[(2x-3)-(2x+3)]=-6(2x-3)=18-12x$."},
+            {"id": 51, "type": "mcq", "topic": "topic-4", "badge": "Ứng dụng • Phân tích & tính nhanh", "q": "Tính nhanh $49^2-1$:", "options": ["$2401$", "$2399$", "$2500$", "$2400$"], "ans": 3, "exp": "$49^2-1=(49-1)(49+1)=48\\cdot50=2400$."},
+            {"id": 52, "type": "mcq", "topic": "topic-4", "badge": "Ứng dụng • Phân tích & tính nhanh", "q": "Tính nhanh $102^2$:", "options": ["$10400$", "$10404$", "$10204$", "$10004$"], "ans": 1, "exp": "$102^2=(100+2)^2=10000+400+4=10404$."},
+            {"id": 53, "type": "mcq", "topic": "topic-4", "badge": "Ứng dụng • Phân tích & tính nhanh", "q": "Nếu $a+b=10$ và $ab=21$ thì $a^2+b^2$ bằng:", "options": ["$58$", "$100$", "$79$", "$42$"], "ans": 0, "exp": "$a^2+b^2=(a+b)^2-2ab=100-42=58$."},
+            {"id": 54, "type": "mcq", "topic": "topic-4", "badge": "Ứng dụng • Phân tích & tính nhanh", "q": "Nếu $x-y=4$ và $xy=5$ thì $x^2+y^2$ bằng:", "options": ["$6$", "$21$", "$26$", "$16$"], "ans": 2, "exp": "$x^2+y^2=(x-y)^2+2xy=16+10=26$."},
+            {"id": 55, "type": "mcq", "topic": "topic-4", "badge": "Ứng dụng • Phân tích & tính nhanh", "q": "Tìm giá trị $x$ để $x^2-9=0$:", "options": ["$x=9$ hoặc $x=-9$", "$x=3$", "$x=-3$", "$x=3$ hoặc $x=-3$"], "ans": 3, "exp": "$(x-3)(x+3)=0$ nên $x=3$ hoặc $x=-3$."},
+            {"id": 56, "type": "mcq", "topic": "topic-4", "badge": "Ứng dụng • Phân tích & tính nhanh", "q": "Phương trình $(x-2)(x+5)=0$ có nghiệm:", "options": ["$x=-5$", "$x=2$ hoặc $x=-5$", "$x=-2$ hoặc $x=5$", "$x=2$"], "ans": 1, "exp": "Tích bằng $0$ khi một trong hai thừa số bằng $0$."},
+            {"id": 57, "type": "mcq", "topic": "topic-5", "badge": "Ứng dụng • Tìm x", "q": "Nghiệm của $x^2-6x+9=0$ là:", "options": ["$x=3$", "$x=-3$", "$x=9$", "$x=0$"], "ans": 0, "exp": "$(x-3)^2=0$ nên $x=3$."},
+            {"id": 58, "type": "mcq", "topic": "topic-5", "badge": "Ứng dụng • Tìm x", "q": "Giải phương trình $x^2-16=0$:", "options": ["$x=-4$", "$x=16$ hoặc $x=-16$", "$x=4$ hoặc $x=-4$", "$x=4$"], "ans": 2, "exp": "$(x-4)(x+4)=0$ nên $x=4$ hoặc $x=-4$."},
+            {"id": 59, "type": "mcq", "topic": "topic-5", "badge": "Ứng dụng • Tìm x", "q": "Giải $(x+2)^2=0$:", "options": ["$x=2$", "$x=0$", "$x=\\pm2$", "$x=-2$"], "ans": 3, "exp": "Bình phương bằng $0$ khi $x+2=0$, suy ra $x=-2$."},
+            {"id": 60, "type": "mcq", "topic": "topic-5", "badge": "Ứng dụng • Tìm x", "q": "Giải $x^3-8=0$:", "options": ["$x=8$", "$x=2$", "$x=-2$", "$x=4$"], "ans": 1, "exp": "$x^3-8=(x-2)(x^2+2x+4)=0$. Trong tập số thực, nghiệm là $x=2$."},
+            {"id": 61, "type": "mcq", "topic": "topic-5", "badge": "Ứng dụng • Tìm x", "q": "Giải $x^3+27=0$:", "options": ["$x=-3$", "$x=3$", "$x=-9$", "$x=27$"], "ans": 0, "exp": "$x^3+27=(x+3)(x^2-3x+9)=0$, nghiệm thực $x=-3$."},
+            {"id": 62, "type": "mcq", "topic": "topic-5", "badge": "Ứng dụng • Tìm x", "q": "Nghiệm của $x(x-7)=0$ là:", "options": ["$x=7$", "$x=-7$", "$x=0$ hoặc $x=7$", "$x=0$ hoặc $x=-7$"], "ans": 2, "exp": "Tích bằng $0$: $x=0$ hoặc $x-7=0$."},
+            {"id": 63, "type": "mcq", "topic": "topic-5", "badge": "Ứng dụng • Tìm x", "q": "Giải $3x^2-12x=0$:", "options": ["$x=0$ hoặc $x=-4$", "$x=4$", "$x=-4$", "$x=0$ hoặc $x=4$"], "ans": 3, "exp": "$3x(x-4)=0$ nên $x=0$ hoặc $x=4$."},
+            {"id": 64, "type": "mcq", "topic": "topic-5", "badge": "Ứng dụng • Tìm x", "q": "Giải $x^2+5x+6=0$:", "options": ["$x=2$ hoặc $x=-3$", "$x=-2$ hoặc $x=-3$", "$x=2$ hoặc $x=3$", "$x=-1$ hoặc $x=-6$"], "ans": 1, "exp": "$(x+2)(x+3)=0$ nên $x=-2$ hoặc $x=-3$."},
+            {"id": 65, "type": "mcq", "topic": "topic-5", "badge": "Ứng dụng • Tìm x", "q": "Giải $x^2-x-6=0$:", "options": ["$x=3$ hoặc $x=-2$", "$x=-3$ hoặc $x=2$", "$x=6$ hoặc $x=-1$", "$x=2$ hoặc $x=-3$"], "ans": 0, "exp": "$(x-3)(x+2)=0$ nên $x=3$ hoặc $x=-2$."},
+            {"id": 66, "type": "mcq", "topic": "topic-5", "badge": "Ứng dụng • Tìm x", "q": "Giải $(2x-1)(x+4)=0$:", "options": ["$x=1$ hoặc $x=-4$", "$x=\\frac12$", "$x=\\frac12$ hoặc $x=-4$", "$x=-\\frac12$ hoặc $x=4$"], "ans": 2, "exp": "$2x-1=0$ hoặc $x+4=0$."},
+            {"id": 67, "type": "mcq", "topic": "topic-5", "badge": "Ứng dụng • Tìm x", "q": "Tìm $x$ biết $(x-5)^2=49$:", "options": ["$x=2$ hoặc $x=-12$", "$x=12$", "$x=-2$", "$x=12$ hoặc $x=-2$"], "ans": 3, "exp": "$x-5=7$ hoặc $x-5=-7$, suy ra $x=12$ hoặc $x=-2$."},
+            {"id": 68, "type": "mcq", "topic": "topic-5", "badge": "Ứng dụng • Tìm x", "q": "Giải $x^2+2x+1=0$:", "options": ["$x=\\pm1$", "$x=-1$", "$x=1$", "$x=0$"], "ans": 1, "exp": "$(x+1)^2=0$ nên $x=-1$."},
+            {"id": 69, "type": "mcq", "topic": "topic-5", "badge": "Ứng dụng • Tìm x", "q": "Giải $x^3-4x=0$:", "options": ["$x=0$ hoặc $x=2$ hoặc $x=-2$", "$x=0$ hoặc $x=4$", "$x=2$ hoặc $x=-2$", "$x=0$"], "ans": 0, "exp": "$x(x^2-4)=x(x-2)(x+2)=0$."},
+            {"id": 70, "type": "mcq", "topic": "topic-5", "badge": "Ứng dụng • Tìm x", "q": "Giải $(x+1)(x-1)=8$:", "options": ["$x=3$", "$x=-3$", "$x=3$ hoặc $x=-3$", "$x=9$ hoặc $x=-9$"], "ans": 2, "exp": "$x^2-1=8\\Rightarrow x^2=9$, nên $x=3$ hoặc $x=-3$."},
+            {"id": 71, "type": "sa", "topic": "topic-1", "badge": "Bình phương", "q": "Khai triển $(x+4)^2$. Hệ số của hạng tử chứa $x$ là bao nhiêu?", "ans": ["8"], "displayAns": "$8$", "exp": "$(x+4)^2=x^2+8x+16$."},
+            {"id": 72, "type": "sa", "topic": "topic-1", "badge": "Bình phương", "q": "Khai triển $(x-6)^2$. Hệ số tự do bằng bao nhiêu?", "ans": ["36"], "displayAns": "$36$", "exp": "$(x-6)^2=x^2-12x+36$."},
+            {"id": 73, "type": "sa", "topic": "topic-1", "badge": "Hiệu hai bình phương", "q": "Tính $15^2-5^2$.", "ans": ["200"], "displayAns": "$200$", "exp": "$(15-5)(15+5)=10\\cdot20=200$."},
+            {"id": 74, "type": "sa", "topic": "topic-1", "badge": "Bình phương", "q": "Thu gọn $(2x+3)^2-(2x-3)^2$. Hệ số của $x$ là bao nhiêu?", "ans": ["24"], "displayAns": "$24$", "exp": "Hiệu bằng $4\\cdot2x\\cdot3=24x$."},
+            {"id": 75, "type": "sa", "topic": "topic-1", "badge": "Bình phương", "q": "Khai triển $(3x-2)^2$. Hệ số của $x$ là bao nhiêu?", "ans": ["-12"], "displayAns": "$-12$", "exp": "$(3x-2)^2=9x^2-12x+4$."},
+            {"id": 76, "type": "sa", "topic": "topic-2", "badge": "Lập phương", "q": "Khai triển $(x+2)^3$. Hệ số của $x^2$ là bao nhiêu?", "ans": ["6"], "displayAns": "$6$", "exp": "$(x+2)^3=x^3+6x^2+12x+8$."},
+            {"id": 77, "type": "sa", "topic": "topic-2", "badge": "Lập phương", "q": "Khai triển $(x-4)^3$. Hệ số của $x$ là bao nhiêu?", "ans": ["48"], "displayAns": "$48$", "exp": "$(x-4)^3=x^3-12x^2+48x-64$."},
+            {"id": 78, "type": "sa", "topic": "topic-2", "badge": "Lập phương", "q": "Tính $3^3+2^3$.", "ans": ["35"], "displayAns": "$35$", "exp": "$27+8=35$."},
+            {"id": 79, "type": "sa", "topic": "topic-2", "badge": "Tổng hai lập phương", "q": "Phân tích $x^3+8$ thành nhân tử. Tính giá trị của thừa số bậc nhất tại $x=1$.", "ans": ["3"], "displayAns": "$3$", "exp": "$x^3+8=(x+2)(x^2-2x+4)$; tại $x=1$, $x+2=3$."},
+            {"id": 80, "type": "sa", "topic": "topic-2", "badge": "Hiệu hai lập phương", "q": "Với $x^3-27=(x-3)(x^2+3x+9)$, tính giá trị thừa số bậc nhất tại $x=5$.", "ans": ["2"], "displayAns": "$2$", "exp": "Thừa số bậc nhất là $x-3$; thay $x=5$ được $2$."},
+            {"id": 81, "type": "sa", "topic": "topic-3", "badge": "Phân tích nhân tử", "q": "Phân tích $x^2+8x+16$ thành nhân tử. Điền số đứng sau $x$ trong nhân tử bình phương $(x+\\square)^2$.", "ans": ["4"], "displayAns": "$4$", "exp": "$x^2+8x+16=(x+4)^2$."},
+            {"id": 82, "type": "sa", "topic": "topic-3", "badge": "Hiệu hai bình phương", "q": "Phân tích $25x^2-9$ thành nhân tử. Tích hai số hằng trong hai nhân tử là bao nhiêu?", "ans": ["-9"], "displayAns": "$-9$", "exp": "$(5x-3)(5x+3)$; tích hai số hằng là $(-3)\\cdot3=-9$."},
+            {"id": 83, "type": "sa", "topic": "topic-3", "badge": "Đặt nhân tử chung", "q": "Phân tích $6x^2+9x$ thành nhân tử. Hệ số của $x$ trong nhân tử chung lớn nhất là bao nhiêu?", "ans": ["3"], "displayAns": "$3$", "exp": "$6x^2+9x=3x(2x+3)$; nhân tử chung là $3x$."},
+            {"id": 84, "type": "sa", "topic": "topic-3", "badge": "Hiệu hai bình phương", "q": "Phân tích $x^2-4=(x-2)(x+2)$. Tích hai số hằng trong hai nhân tử là bao nhiêu?", "ans": ["-4"], "displayAns": "$-4$", "exp": "Tích hai số hằng là $(-2)\\cdot2=-4$."},
+            {"id": 85, "type": "sa", "topic": "topic-3", "badge": "Phân tích nhân tử", "q": "Phân tích $x^2-4$ thành nhân tử. Hệ số của $x$ trong nhân tử thứ nhất $(x+\\square)$ là bao nhiêu?", "ans": ["0"], "displayAns": "$0$", "exp": "$x^2-4=(x-2)(x+2)$. Dạng nhân tử là $x+(-2)$ hoặc $x+2$; câu hỏi yêu cầu hệ số của $x$ nên là $1$?"},
+            {"id": 86, "type": "sa", "topic": "topic-4", "badge": "Tính nhanh", "q": "Tính $98^2$ bằng hằng đẳng thức.", "ans": ["9604"], "displayAns": "$9604$", "exp": "$98^2=(100-2)^2=10000-400+4=9604$."},
+            {"id": 87, "type": "sa", "topic": "topic-4", "badge": "Ứng dụng", "q": "Biết $a+b=7$ và $ab=10$. Tính $a^2+b^2$.", "ans": ["29"], "displayAns": "$29$", "exp": "$a^2+b^2=(a+b)^2-2ab=49-20=29$."},
+            {"id": 88, "type": "sa", "topic": "topic-4", "badge": "Ứng dụng", "q": "Biết $a-b=5$ và $ab=3$. Tính $a^2+b^2$.", "ans": ["31"], "displayAns": "$31$", "exp": "$a^2+b^2=(a-b)^2+2ab=25+6=31$."},
+            {"id": 89, "type": "sa", "topic": "topic-4", "badge": "Rút gọn", "q": "Rút gọn $(x-2)(x+2)+4$ rồi tính giá trị tại $x=3$.", "ans": ["9"], "displayAns": "$9$", "exp": "$(x-2)(x+2)+4=x^2$; thay $x=3$ được $9$."},
+            {"id": 90, "type": "sa", "topic": "topic-4", "badge": "Rút gọn", "q": "Rút gọn $(x-2)(x+2)+4$.", "ans": ["x^2"], "displayAns": "$x^2$", "exp": "$(x-2)(x+2)+4=x^2-4+4=x^2$."},
+            {"id": 91, "type": "sa", "topic": "topic-5", "badge": "Tìm x", "q": "Tìm nghiệm của $x^2-25=0$. Ghi một nghiệm dương.", "ans": ["5"], "displayAns": "$5$", "exp": "$(x-5)(x+5)=0$, hai nghiệm là $5$ và $-5$."},
+            {"id": 92, "type": "sa", "topic": "topic-5", "badge": "Tìm x", "q": "Giải $x^2-8x+16=0$.", "ans": ["4"], "displayAns": "$4$", "exp": "$(x-4)^2=0$ nên $x=4$."},
+            {"id": 93, "type": "sa", "topic": "topic-5", "badge": "Tìm x", "q": "Giải $x^2+x-12=0$. Ghi nghiệm lớn hơn.", "ans": ["3"], "displayAns": "$3$", "exp": "$(x+4)(x-3)=0$, nghiệm là $-4$ và $3$; nghiệm lớn hơn là $3$."},
+            {"id": 94, "type": "sa", "topic": "topic-5", "badge": "Tìm x", "q": "Giải $x(x+9)=0$. Ghi nghiệm khác $0$.", "ans": ["-9"], "displayAns": "$-9$", "exp": "$x=0$ hoặc $x+9=0$, nghiệm khác $0$ là $-9$."},
+            {"id": 95, "type": "sa", "topic": "topic-5", "badge": "Tìm x", "q": "Giải $x^3-64=0$.", "ans": ["4"], "displayAns": "$4$", "exp": "$x^3-4^3=0$ nên $x=4$."},
+            {"id": 96, "type": "sa", "topic": "topic-5", "badge": "Tìm x", "q": "Giải $2x^2-18=0$. Ghi nghiệm dương.", "ans": ["3"], "displayAns": "$3$", "exp": "$2(x^2-9)=2(x-3)(x+3)=0$, nghiệm dương là $3$."},
+            {"id": 97, "type": "sa", "topic": "topic-5", "badge": "Tìm x", "q": "Giải $(x-1)^2=16$. Ghi nghiệm lớn hơn.", "ans": ["5"], "displayAns": "$5$", "exp": "$x-1=4$ hoặc $x-1=-4$, suy ra $x=5$ hoặc $x=-3$."},
+            {"id": 98, "type": "sa", "topic": "topic-5", "badge": "Tìm x", "q": "Giải $x^2-3x=0$. Ghi nghiệm khác $0$.", "ans": ["3"], "displayAns": "$3$", "exp": "$x(x-3)=0$, nghiệm khác $0$ là $3$."},
+            {"id": 99, "type": "sa", "topic": "topic-5", "badge": "Tìm x", "q": "Giải $x^2-2x-15=0$. Ghi nghiệm âm.", "ans": ["-3"], "displayAns": "$-3$", "exp": "$(x-5)(x+3)=0$, nghiệm âm là $-3$."},
+            {"id": 100, "type": "sa", "topic": "topic-5", "badge": "Tìm x", "q": "Giải $x^3+8=0$.", "ans": ["-2"], "displayAns": "$-2$", "exp": "$x^3+2^3=0$ nên $x=-2$."}
+        ];
+
+        // State quản lý bài làm của học sinh
+        const userState = {};
+        let timerSeconds = 0;
+        let timerInterval = null;
+        let allExplanationsOpen = false;
+
+        // Khởi tạo giao diện
+        function initQuiz() {
+            const mcqContainer = document.getElementById('mcq-container');
+            const saContainer = document.getElementById('sa-container');
+            const palette = document.getElementById('question-palette');
+
+            mcqContainer.innerHTML = '';
+            saContainer.innerHTML = '';
+            palette.innerHTML = '';
+
+            questions.forEach((item) => {
+                userState[item.id] = {
+                    answered: false,
+                    userVal: null,
+                    isCorrect: null
+                };
+
+                // Nút trên bản đồ câu hỏi
+                const palBtn = document.createElement('a');
+                palBtn.href = `#q-card-${item.id}`;
+                palBtn.id = `pal-btn-${item.id}`;
+                palBtn.className = 'h-8 rounded-lg border border-slate-200 bg-slate-50 text-slate-600 text-xs font-bold flex items-center justify-center hover:border-blue-400 hover:text-blue-600 transition-all';
+                palBtn.textContent = item.id;
+                palette.appendChild(palBtn);
+
+                // Tạo card câu hỏi
+                const card = document.createElement('div');
+                card.id = `q-card-${item.id}`;
+                card.dataset.topic = item.topic;
+                card.dataset.part = item.type === 'mcq' ? 'part-mcq' : 'part-sa';
+                card.className = 'question-card bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 sm:p-6 space-y-4 transition-all scroll-mt-24';
+
+                const headerHTML = `
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-1 rounded-lg bg-blue-600 text-white text-xs font-extrabold">
+                                Câu ${item.id}
+                            </span>
+                            <span class="text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md border border-slate-200/80">
+                                ${item.badge}
+                            </span>
+                        </div>
+                        <span id="status-badge-${item.id}" class="hidden text-xs font-bold px-2.5 py-1 rounded-full"></span>
+                    </div>
+                    <div class="text-slate-800 text-sm sm:text-base leading-relaxed font-medium">
+                        ${item.q}
+                    </div>
+                `;
+
+                if (item.type === 'mcq') {
+                    const labels = ['A', 'B', 'C', 'D'];
+                    let optionsHTML = '<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">';
+                    item.options.forEach((opt, idx) => {
+                        optionsHTML += `
+                            <button type="button"
+                                id="opt-${item.id}-${idx}"
+                                onclick="selectMCQ(${item.id}, ${idx})"
+                                class="option-btn text-left px-4 py-3 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-blue-50/60 hover:border-blue-300 flex items-center gap-3 text-sm sm:text-base">
+                                <span id="opt-label-${item.id}-${idx}" class="w-7 h-7 rounded-lg bg-white border border-slate-300 text-slate-700 font-bold text-xs flex items-center justify-center shrink-0">
+                                    ${labels[idx]}
+                                </span>
+                                <span class="text-slate-800">${opt}</span>
+                            </button>
+                        `;
+                    });
+                    optionsHTML += '</div>';
+
+                    card.innerHTML = headerHTML + optionsHTML + buildExplanationBox(item);
+                    mcqContainer.appendChild(card);
+                } else {
+                    const saInputHTML = `
+                        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 pt-1">
+                            <input type="text"
+                                id="sa-input-${item.id}"
+                                placeholder="Nhập đáp số (vd: -16, 5/2, 2,5)..."
+                                onkeydown="if(event.key==='Enter') checkSA(${item.id})"
+                                class="flex-1 px-4 py-2.5 rounded-xl border border-slate-300 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base font-semibold text-slate-800">
+                            <button type="button"
+                                onclick="checkSA(${item.id})"
+                                class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs sm:text-sm transition-colors shrink-0">
+                                Kiểm tra đáp án
+                            </button>
+                        </div>
+                    `;
+                    card.innerHTML = headerHTML + saInputHTML + buildExplanationBox(item);
+                    saContainer.appendChild(card);
+                }
             });
-            const btn = document.getElementById('toggle-all-btn');
-            if (allOpen) {
-                btn.innerHTML = '<i data-lucide="eye-off" class="w-4 h-4"></i><span>Ẩn tất cả lời giải</span>';
-            } else {
-                btn.innerHTML = '<i data-lucide="eye" class="w-4 h-4"></i><span>Hiện tất cả lời giải</span>';
-            }
+
+            // Khởi chạy đồng hồ
+            startTimer();
+
+            // Render toàn bộ ký hiệu toán học ngay lập tức bằng KaTeX
+            renderMath(document.body);
             lucide.createIcons();
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            renderMath();
+        function buildExplanationBox(item) {
+            const labels = ['A', 'B', 'C', 'D'];
+            const ansText = item.type === 'mcq' ? `Đáp án đúng: <strong>${labels[item.ans]}</strong>` : `Đáp số đúng: <strong>${item.displayAns}</strong>`;
+            return `
+                <div id="exp-box-${item.id}" class="hidden rounded-xl bg-indigo-50/70 border border-indigo-200/80 p-4 text-xs sm:text-sm space-y-1.5">
+                    <div class="font-bold text-indigo-900 flex items-center gap-1.5">
+                        <span>✓ ${ansText}</span>
+                    </div>
+                    <div class="text-slate-700 leading-relaxed">
+                        <strong>Hướng dẫn giải:</strong> ${item.exp}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Xử lý khi học sinh chọn đáp án Trắc nghiệm 4 lựa chọn
+        function selectMCQ(qId, optIdx) {
+            const item = questions.find(q => q.id === qId);
+            const isInstant = document.getElementById('instant-check-toggle').checked;
+
+            userState[qId].answered = true;
+            userState[qId].userVal = optIdx;
+            userState[qId].isCorrect = (optIdx === item.ans);
+
+            if (isInstant) {
+                renderQuestionResult(qId);
+            } else {
+                for (let i = 0; i < 4; i++) {
+                    const btn = document.getElementById(`opt-${qId}-${i}`);
+                    const lbl = document.getElementById(`opt-label-${qId}-${i}`);
+                    if (i === optIdx) {
+                        btn.className = 'option-btn text-left px-4 py-3 rounded-xl border-2 border-blue-600 bg-blue-50/80 flex items-center gap-3 text-sm sm:text-base';
+                        lbl.className = 'w-7 h-7 rounded-lg bg-blue-600 text-white font-bold text-xs flex items-center justify-center shrink-0';
+                    } else {
+                        btn.className = 'option-btn text-left px-4 py-3 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-blue-50/60 flex items-center gap-3 text-sm sm:text-base';
+                        lbl.className = 'w-7 h-7 rounded-lg bg-white border border-slate-300 text-slate-700 font-bold text-xs flex items-center justify-center shrink-0';
+                    }
+                }
+                const palBtn = document.getElementById(`pal-btn-${qId}`);
+                palBtn.className = 'h-8 rounded-lg border border-blue-600 bg-blue-600 text-white text-xs font-bold flex items-center justify-center';
+            }
+
+            updateProgressStats();
+        }
+
+        // Chuẩn hóa chuỗi trả lời ngắn (hỗ trợ cả phân số và số thập phân)
+        function normalizeSA(str) {
+            if (!str) return '';
+            return str.toString().trim().replace(/\s+/g, '').replace(',', '.').toLowerCase();
+        }
+
+        function isNumericMatch(userStr, validList) {
+            const normUser = normalizeSA(userStr);
+            if (!normUser) return false;
+
+            for (const valid of validList) {
+                const normValid = normalizeSA(valid);
+                if (normUser === normValid) return true;
+
+                const valUser = parseFractionOrNumber(normUser);
+                const valTarget = parseFractionOrNumber(normValid);
+                if (valUser !== null && valTarget !== null && Math.abs(valUser - valTarget) < 1e-9) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function parseFractionOrNumber(s) {
+            if (s.includes('/')) {
+                const parts = s.split('/');
+                if (parts.length === 2) {
+                    const num = Number(parts[0]);
+                    const den = Number(parts[1]);
+                    if (!isNaN(num) && !isNaN(den) && den !== 0) return num / den;
+                }
+                return null;
+            }
+            const n = Number(s);
+            return isNaN(n) ? null : n;
+        }
+
+        // Xử lý kiểm tra câu trả lời ngắn
+        function checkSA(qId) {
+            const inputEl = document.getElementById(`sa-input-${qId}`);
+            const rawVal = inputEl.value.trim();
+            if (!rawVal) {
+                inputEl.focus();
+                return;
+            }
+
+            const item = questions.find(q => q.id === qId);
+            const correct = isNumericMatch(rawVal, item.ans);
+
+            userState[qId].answered = true;
+            userState[qId].userVal = rawVal;
+            userState[qId].isCorrect = correct;
+
+            renderQuestionResult(qId);
+            updateProgressStats();
+        }
+
+        // Hiển thị màu sắc Đúng / Sai và Giải thích cho câu hỏi
+        function renderQuestionResult(qId) {
+            const item = questions.find(q => q.id === qId);
+            const state = userState[qId];
+            const badge = document.getElementById(`status-badge-${qId}`);
+            const expBox = document.getElementById(`exp-box-${qId}`);
+            const palBtn = document.getElementById(`pal-btn-${qId}`);
+
+            if (item.type === 'mcq') {
+                for (let i = 0; i < 4; i++) {
+                    const btn = document.getElementById(`opt-${qId}-${i}`);
+                    const lbl = document.getElementById(`opt-label-${qId}-${i}`);
+
+                    if (i === item.ans) {
+                        btn.className = 'option-btn text-left px-4 py-3 rounded-xl border-2 border-emerald-500 bg-emerald-50/90 flex items-center gap-3 text-sm sm:text-base font-semibold';
+                        lbl.className = 'w-7 h-7 rounded-lg bg-emerald-600 text-white font-bold text-xs flex items-center justify-center shrink-0';
+                    } else if (state.answered && i === state.userVal && !state.isCorrect) {
+                        btn.className = 'option-btn text-left px-4 py-3 rounded-xl border-2 border-rose-500 bg-rose-50/90 flex items-center gap-3 text-sm sm:text-base';
+                        lbl.className = 'w-7 h-7 rounded-lg bg-rose-600 text-white font-bold text-xs flex items-center justify-center shrink-0';
+                    } else {
+                        btn.className = 'option-btn text-left px-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 opacity-75 flex items-center gap-3 text-sm sm:text-base';
+                        lbl.className = 'w-7 h-7 rounded-lg bg-white border border-slate-300 text-slate-600 font-bold text-xs flex items-center justify-center shrink-0';
+                    }
+                }
+            } else {
+                const inputEl = document.getElementById(`sa-input-${qId}`);
+                if (state.answered) {
+                    if (state.isCorrect) {
+                        inputEl.className = 'flex-1 px-4 py-2.5 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-emerald-900 text-sm sm:text-base font-bold';
+                    } else {
+                        inputEl.className = 'flex-1 px-4 py-2.5 rounded-xl border-2 border-rose-500 bg-rose-50 text-rose-900 text-sm sm:text-base font-bold';
+                    }
+                }
+            }
+
+            if (state.answered) {
+                badge.classList.remove('hidden');
+                if (state.isCorrect) {
+                    badge.textContent = '✓ Chính xác';
+                    badge.className = 'text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300';
+                    palBtn.className = 'h-8 rounded-lg bg-emerald-600 text-white text-xs font-bold flex items-center justify-center shadow-sm';
+                } else {
+                    badge.textContent = '✗ Chưa đúng';
+                    badge.className = 'text-xs font-bold px-2.5 py-1 rounded-full bg-rose-100 text-rose-800 border border-rose-300';
+                    palBtn.className = 'h-8 rounded-lg bg-rose-600 text-white text-xs font-bold flex items-center justify-center shadow-sm';
+                }
+            }
+
+            expBox.classList.remove('hidden');
+        }
+
+        // Cập nhật thanh tiến độ
+        function updateProgressStats() {
+            let answeredCount = 0;
+            let correctCount = 0;
+            let wrongCount = 0;
+
+            questions.forEach(q => {
+                const st = userState[q.id];
+                if (st.answered) {
+                    answeredCount++;
+                    if (st.isCorrect) correctCount++;
+                    else wrongCount++;
+                }
+            });
+
+            const remain = questions.length - answeredCount;
+            const percent = Math.round((answeredCount / questions.length) * 100);
+
+            document.getElementById('progress-text').textContent = `${answeredCount} / 100 câu`;
+            document.getElementById('progress-bar').style.width = `${percent}%`;
+            document.getElementById('live-correct').textContent = correctCount;
+            document.getElementById('live-wrong').textContent = wrongCount;
+            document.getElementById('live-remain').textContent = remain;
+        }
+
+        // Nộp bài & chấm tổng điểm toàn bộ 100 câu
+        function submitQuiz() {
+            questions.forEach(q => {
+                if (q.type === 'sa') {
+                    const inputEl = document.getElementById(`sa-input-${q.id}`);
+                    const rawVal = inputEl.value.trim();
+                    if (rawVal && !userState[q.id].answered) {
+                        userState[q.id].answered = true;
+                        userState[q.id].userVal = rawVal;
+                        userState[q.id].isCorrect = isNumericMatch(rawVal, q.ans);
+                    }
+                }
+                renderQuestionResult(q.id);
+            });
+
+            updateProgressStats();
+
+            let correctCount = 0;
+            let wrongCount = 0;
+            let unansweredCount = 0;
+
+            questions.forEach(q => {
+                const st = userState[q.id];
+                if (!st.answered) unansweredCount++;
+                else if (st.isCorrect) correctCount++;
+                else wrongCount++;
+            });
+
+            const score10 = (correctCount / 10).toFixed(1);
+
+            document.getElementById('score-10').textContent = score10;
+            document.getElementById('score-correct').textContent = `${correctCount}/100`;
+            document.getElementById('score-wrong').textContent = wrongCount;
+            document.getElementById('score-unanswered').textContent = unansweredCount;
+
+            const titleEl = document.getElementById('result-grade-title');
+            if (correctCount >= 85) {
+                titleEl.textContent = `Xuất sắc! Bạn đạt ${score10}/10 điểm!`;
+                if (typeof confetti === 'function') {
+                    confetti({ particleCount: 90, spread: 70, origin: { y: 0.6 } });
+                }
+            } else if (correctCount >= 70) {
+                titleEl.textContent = `Khá giỏi! Bạn đạt ${score10}/10 điểm!`;
+            } else if (correctCount >= 50) {
+                titleEl.textContent = `Đạt yêu cầu! Bạn đạt ${score10}/10 điểm.`;
+            } else {
+                titleEl.textContent = `Bạn đạt ${score10}/10 điểm. Hãy xem kỹ lời giải chi tiết bên dưới nhé!`;
+            }
+
+            const banner = document.getElementById('result-banner');
+            banner.classList.remove('hidden');
+            banner.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Làm lại từ đầu
+        function resetQuiz() {
+            if (!confirm('Bạn có chắc muốn xóa toàn bộ câu trả lời để làm lại từ đầu?')) return;
+            timerSeconds = 0;
+            document.getElementById('result-banner').classList.add('hidden');
+            initQuiz();
+            updateProgressStats();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Ẩn/Hiện tất cả lời giải
+        function toggleAllExplanations() {
+            allExplanationsOpen = !allExplanationsOpen;
+            questions.forEach(q => {
+                const expBox = document.getElementById(`exp-box-${q.id}`);
+                if (allExplanationsOpen) expBox.classList.remove('hidden');
+                else if (!userState[q.id].answered) expBox.classList.add('hidden');
+            });
+
+            const btn = document.getElementById('toggle-exp-btn');
+            btn.innerHTML = allExplanationsOpen
+                ? '<i data-lucide="eye-off" class="w-4 h-4"></i><span>Ẩn đáp án & giải thích</span>'
+                : '<i data-lucide="eye" class="w-4 h-4"></i><span>Hiện tất cả đáp án & giải thích</span>';
             lucide.createIcons();
-        });
+        }
+
+        // Bộ lọc chuyên đề
+        function applyFilter() {
+            const val = document.getElementById('topic-filter').value;
+            const cards = document.querySelectorAll('.question-card');
+
+            cards.forEach(card => {
+                if (val === 'all') {
+                    card.classList.remove('hidden');
+                } else if (val === 'part-mcq' || val === 'part-sa') {
+                    card.classList.toggle('hidden', card.dataset.part !== val);
+                } else {
+                    card.classList.toggle('hidden', card.dataset.topic !== val);
+                }
+            });
+        }
+
+        // Bộ đếm thời gian
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timerSeconds++;
+                const mins = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
+                const secs = String(timerSeconds % 60).padStart(2, '0');
+                document.getElementById('timer-display').textContent = `${mins}:${secs}`;
+            }, 1000);
+        }
+
+        window.addEventListener('DOMContentLoaded', initQuiz);
     </script>
 </body>
 </html>
