@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ôn tập Chương 3: Sơ đồ tư duy & 150 Bài tập Tứ giác - Toán 8</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+:root{--ink:#1e293b;--blue:#2563eb;--line:#cbd5e1}
+html{scroll-behavior:smooth}body{font-family:Inter,sans-serif;background:#f8fafc;color:var(--ink)}
+.katex{font-size:1.03em}.katex-display{margin:.45rem 0;overflow-x:auto;overflow-y:hidden}
+.mm-node{transition:transform .18s ease, filter .18s ease;transform-box:fill-box;transform-origin:center}
+.mm-node:hover{transform:scale(1.03)}
+.q-svg{width:100%;max-width:250px;height:auto;margin:.6rem auto;display:block;background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:6px}
+.opt-btn{transition:all .15s ease}
+.opt-btn:hover:not(:disabled){border-color:#3b82f6;background:#eff6ff}
+.pair-chip{transition:all .15s ease}
+.pill-active{background:#2563eb!important;color:#fff!important;border-color:#2563eb!important}
+@media print{header,.no-print{display:none!important}body{background:#fff}.shadow-sm{box-shadow:none!important}.bg-white{break-inside:avoid}}
+</style>
+</head>
+<body class="antialiased selection:bg-blue-600 selection:text-white">
+
+<!-- STICKY HEADER -->
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-sm no-print">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
+    <div class="flex items-center gap-2">
+      <a href="index.html" class="flex items-center gap-1.5 text-slate-600 hover:text-blue-600 bg-slate-100 hover:bg-blue-50 px-3 py-2 rounded-xl text-sm font-medium">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i><span class="hidden sm:inline">Trang chủ Toán 8</span>
+      </a>
+      <a href="#so-do-tu-duy" class="hidden md:inline-flex items-center gap-1 text-xs font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-2 rounded-xl">
+        <i data-lucide="network" class="w-3.5 h-3.5"></i>Sơ đồ tư duy
+      </a>
+      <a href="#luyen-tap-150" class="hidden md:inline-flex items-center gap-1 text-xs font-semibold text-violet-700 bg-violet-50 hover:bg-violet-100 px-3 py-2 rounded-xl">
+        <i data-lucide="list-checks" class="w-3.5 h-3.5"></i>150 Bài tập
+      </a>
+    </div>
+    <div class="flex items-center gap-2">
+      <div id="header-progress" class="hidden sm:flex items-center gap-2 text-xs font-semibold bg-slate-100 text-slate-700 px-3 py-1.5 rounded-xl">
+        <span>Tiến độ: <b id="hdr-done" class="text-blue-600">0</b>/150</span>
+        <span class="text-slate-300">|</span>
+        <span>Đúng: <b id="hdr-correct" class="text-emerald-600">0</b></span>
+      </div>
+      <button id="sound-btn" onclick="toggleSound()" title="Bật/tắt âm thanh" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600">
+        <i data-lucide="volume-2" class="w-4 h-4"></i>
+      </button>
+      <button onclick="window.print()" class="flex items-center gap-1.5 text-xs font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 px-3 py-2 rounded-xl">
+        <i data-lucide="printer" class="w-4 h-4"></i><span class="hidden sm:inline">In trang</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-10 sm:py-12 border-b border-blue-900/20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-wrap items-center gap-2 mb-3">
+      <span class="bg-white/15 text-xs font-semibold px-3 py-1 rounded-full border border-white/20">Tổng ôn Chương 3 • Bài 10 → Bài 14</span>
+      <span class="text-blue-100 text-sm">Hình học 8 • GDPT 2018</span>
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">SƠ ĐỒ TƯ DUY &amp; 150 BÀI TẬP CHƯƠNG 3: TỨ GIÁC</h1>
+    <p class="mt-3 text-blue-100 text-sm sm:text-base max-w-3xl">Hệ thống hóa toàn bộ kiến thức từ Tứ giác, Hình thang cân, Hình bình hành, Hình chữ nhật đến Hình thoi &amp; Hình vuông kèm 150 bài tập tự chấm với 4 hình thức: Trắc nghiệm 4 lựa chọn, Đúng/Sai 4 mệnh đề, Trả lời ngắn và Ghép cặp tương tác.</p>
+    <div class="mt-5 flex flex-wrap gap-2 text-xs font-semibold">
+      <a href="bai10_tugiac.html" class="bg-white/15 hover:bg-white/25 border border-white/20 px-3 py-1.5 rounded-lg">Bài 10: Tứ giác</a>
+      <a href="bai11_hinhthangcan.html" class="bg-white/15 hover:bg-white/25 border border-white/20 px-3 py-1.5 rounded-lg">Bài 11: Hình thang cân</a>
+      <a href="bai12_hinhbinhhanh.html" class="bg-white/15 hover:bg-white/25 border border-white/20 px-3 py-1.5 rounded-lg">Bài 12: Hình bình hành</a>
+      <a href="bai13_hinhchunhat.html" class="bg-white/15 hover:bg-white/25 border border-white/20 px-3 py-1.5 rounded-lg">Bài 13: Hình chữ nhật</a>
+      <a href="bai14_hinhthoi_hinhvuong.html" class="bg-white/15 hover:bg-white/25 border border-white/20 px-3 py-1.5 rounded-lg">Bài 14: Hình thoi &amp; Hình vuông</a>
+    </div>
+  </div>
+</section>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-12">
+
+<!-- ==================== PHẦN 1: SƠ ĐỒ TƯ DUY ==================== -->
+<section id="so-do-tu-duy" class="space-y-6">
+  <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-3">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold shadow-sm">I</div>
+      <div>
+        <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight">SƠ ĐỒ TƯ DUY CHƯƠNG 3 (BÀI 10 – BÀI 14)</h2>
+        <p class="text-xs text-slate-500">Nhấn trực tiếp vào từng khối hình trên sơ đồ để xem tóm tắt kiến thức trọng tâm hoặc lọc bài tập tương ứng</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Visual Hierarchy SVG -->
+  <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-4 sm:p-6 overflow-x-auto">
+    <svg id="mindmap-svg" class="w-full h-auto max-w-4xl mx-auto block select-none" viewBox="0 0 900 475" role="img" aria-label="Sơ đồ tư duy quan hệ các loại tứ giác Chương 3 Toán 8">
+<defs>
+  <marker id="arr" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#64748b"/>
+  </marker>
+  <marker id="arr-b" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#2563eb"/>
+  </marker>
+  <filter id="sh" x="-8%" y="-8%" width="116%" height="122%">
+    <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.08"/>
+  </filter>
+</defs>
+
+<!-- Connecting Arrows -->
+<!-- Tứ giác -> Hình thang -->
+<path d="M 380 54 C 290 54, 215 72, 215 112" stroke="#64748b" stroke-width="1.8" fill="none" marker-end="url(#arr)"/>
+<rect x="200" y="64" width="142" height="22" rx="11" fill="#f1f5f9" stroke="#cbd5e1"/>
+<text x="271" y="75" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" fill="#334155">2 cạnh đối song song</text>
+
+<!-- Tứ giác -> Hình bình hành (trực tiếp) -->
+<path d="M 520 54 C 605 54, 660 72, 660 112" stroke="#64748b" stroke-width="1.8" fill="none" marker-end="url(#arr)"/>
+<rect x="548" y="64" width="154" height="22" rx="11" fill="#f1f5f9" stroke="#cbd5e1"/>
+<text x="625" y="75" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" fill="#334155">Các cạnh đối song song</text>
+
+<!-- Hình thang -> Hình thang cân -->
+<path d="M 165 170 L 145 232" stroke="#2563eb" stroke-width="1.8" fill="none" marker-end="url(#arr-b)"/>
+<rect x="28" y="188" width="166" height="32" rx="10" fill="#eff6ff" stroke="#bfdbfe"/>
+<text x="111" y="199" text-anchor="middle" dominant-baseline="central" font-size="10.5" font-weight="600" fill="#1d4ed8">2 góc kề đáy bằng nhau</text>
+<text x="111" y="212" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#3b82f6">hoặc 2 đường chéo bằng nhau</text>
+
+<!-- Hình thang -> Hình bình hành -->
+<path d="M 310 141 L 555 141" stroke="#64748b" stroke-width="1.6" stroke-dasharray="5 3" fill="none" marker-end="url(#arr)"/>
+<rect x="342" y="129" width="182" height="23" rx="11" fill="#f8fafc" stroke="#cbd5e1"/>
+<text x="433" y="140.5" text-anchor="middle" dominant-baseline="central" font-size="10.5" font-weight="600" fill="#475569">+ 2 cạnh bên // hoặc 2 đáy =</text>
+
+<!-- Hình thang cân -> Hình chữ nhật -->
+<path d="M 235 268 L 352 268" stroke="#2563eb" stroke-width="1.8" fill="none" marker-end="url(#arr-b)"/>
+<rect x="247" y="246" width="92" height="20" rx="10" fill="#eef2ff" stroke="#c7d2fe"/>
+<text x="293" y="256" text-anchor="middle" dominant-baseline="central" font-size="10.5" font-weight="600" fill="#4338ca">+ 1 góc vuông</text>
+
+<!-- Hình bình hành -> Hình chữ nhật -->
+<path d="M 605 170 C 560 202, 505 212, 475 232" stroke="#2563eb" stroke-width="1.8" fill="none" marker-end="url(#arr-b)"/>
+<rect x="444" y="183" width="152" height="32" rx="10" fill="#eef2ff" stroke="#c7d2fe"/>
+<text x="520" y="194" text-anchor="middle" dominant-baseline="central" font-size="10.5" font-weight="600" fill="#4338ca">+ 1 góc vuông</text>
+<text x="520" y="207" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#6366f1">hoặc 2 đường chéo = nhau</text>
+
+<!-- Hình bình hành -> Hình thoi -->
+<path d="M 705 170 C 730 196, 745 212, 750 232" stroke="#7c3aed" stroke-width="1.8" fill="none" marker-end="url(#arr-b)"/>
+<rect x="656" y="183" width="184" height="32" rx="10" fill="#f5f3ff" stroke="#ddd6fe"/>
+<text x="748" y="194" text-anchor="middle" dominant-baseline="central" font-size="10.5" font-weight="600" fill="#6d28d9">+ 2 cạnh kề = hoặc 2 đ.chéo ⊥</text>
+<text x="748" y="207" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#7c3aed">hoặc 1 đ.chéo là phân giác</text>
+
+<!-- Hình chữ nhật -> Hình vuông -->
+<path d="M 465 304 C 495 340, 530 356, 558 378" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#arr-b)"/>
+<rect x="374" y="328" width="184" height="32" rx="10" fill="#ecfdf5" stroke="#a7f3d0"/>
+<text x="466" y="339" text-anchor="middle" dominant-baseline="central" font-size="10.5" font-weight="600" fill="#047857">+ 2 cạnh kề = hoặc 2 đ.chéo ⊥</text>
+<text x="466" y="352" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#059669">hoặc 1 đ.chéo là phân giác</text>
+
+<!-- Hình thoi -> Hình vuông -->
+<path d="M 735 304 C 705 340, 670 356, 642 378" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#arr-b)"/>
+<rect x="648" y="328" width="164" height="32" rx="10" fill="#ecfdf5" stroke="#a7f3d0"/>
+<text x="730" y="339" text-anchor="middle" dominant-baseline="central" font-size="10.5" font-weight="600" fill="#047857">+ 1 góc vuông</text>
+<text x="730" y="352" text-anchor="middle" dominant-baseline="central" font-size="10" fill="#059669">hoặc 2 đường chéo = nhau</text>
+
+<!-- NODES -->
+<!-- Node 10: TỨ GIÁC -->
+<g class="mm-node cursor-pointer" data-lesson="10" onclick="selectMindNode(10)" filter="url(#sh)">
+  <rect x="355" y="14" width="190" height="62" rx="16" fill="#1d4ed8"/>
+  <text x="450" y="36" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="800" fill="#ffffff">TỨ GIÁC (Bài 10)</text>
+  <text x="450" y="56" text-anchor="middle" dominant-baseline="central" font-size="11.5" fill="#dbeafe">Tổng 4 góc = 360° • 4 cạnh, 2 đ.chéo</text>
+</g>
+
+<!-- Node: HÌNH THANG -->
+<g class="mm-node cursor-pointer" data-lesson="11" onclick="selectMindNode(11)" filter="url(#sh)">
+  <rect x="120" y="114" width="190" height="54" rx="14" fill="#ffffff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="215" y="133" text-anchor="middle" dominant-baseline="central" font-size="13.5" font-weight="700" fill="#1e40af">HÌNH THANG</text>
+  <text x="215" y="152" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#475569">2 đáy song song (AB ∥ CD)</text>
+</g>
+
+<!-- Node 11: HÌNH THANG CÂN -->
+<g class="mm-node cursor-pointer" data-lesson="11" onclick="selectMindNode(11)" filter="url(#sh)">
+  <rect x="42" y="236" width="192" height="64" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="2.2"/>
+  <text x="138" y="257" text-anchor="middle" dominant-baseline="central" font-size="13.5" font-weight="800" fill="#1d4ed8">HÌNH THANG CÂN (Bài 11)</text>
+  <text x="138" y="275" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#334155">2 góc kề đáy = • 2 cạnh bên =</text>
+  <text x="138" y="289" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#334155">2 đường chéo bằng nhau</text>
+</g>
+
+<!-- Node 12: HÌNH BÌNH HÀNH -->
+<g class="mm-node cursor-pointer" data-lesson="12" onclick="selectMindNode(12)" filter="url(#sh)">
+  <rect x="558" y="114" width="204" height="56" rx="14" fill="#eef2ff" stroke="#4f46e5" stroke-width="2.2"/>
+  <text x="660" y="134" text-anchor="middle" dominant-baseline="central" font-size="13.5" font-weight="800" fill="#3730a3">HÌNH BÌNH HÀNH (Bài 12)</text>
+  <text x="660" y="153" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#334155">Cạnh đối // &amp; = • Góc đối = • Đ.chéo cắt tại TĐ</text>
+</g>
+
+<!-- Node 13: HÌNH CHỮ NHẬT -->
+<g class="mm-node cursor-pointer" data-lesson="13" onclick="selectMindNode(13)" filter="url(#sh)">
+  <rect x="356" y="236" width="202" height="66" rx="14" fill="#e0e7ff" stroke="#4338ca" stroke-width="2.2"/>
+  <text x="457" y="256" text-anchor="middle" dominant-baseline="central" font-size="13.5" font-weight="800" fill="#312e81">HÌNH CHỮ NHẬT (Bài 13)</text>
+  <text x="457" y="274" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#334155">4 góc vuông • 2 đ.chéo = &amp; cắt tại TĐ</text>
+  <text x="457" y="289" text-anchor="middle" dominant-baseline="central" font-size="10.5" fill="#4338ca">△ vuông: trung tuyến = ½ cạnh huyền</text>
+</g>
+
+<!-- Node 14a: HÌNH THOI -->
+<g class="mm-node cursor-pointer" data-lesson="14" onclick="selectMindNode(14)" filter="url(#sh)">
+  <rect x="646" y="236" width="212" height="66" rx="14" fill="#f3e8ff" stroke="#7c3aed" stroke-width="2.2"/>
+  <text x="752" y="256" text-anchor="middle" dominant-baseline="central" font-size="13.5" font-weight="800" fill="#5b21b6">HÌNH THOI (Bài 14)</text>
+  <text x="752" y="274" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#334155">4 cạnh bằng nhau • 2 đ.chéo ⊥ tại TĐ</text>
+  <text x="752" y="289" text-anchor="middle" dominant-baseline="central" font-size="10.5" fill="#6d28d9">2 đ.chéo là phân giác các góc</text>
+</g>
+
+<!-- Node 14b: HÌNH VUÔNG -->
+<g class="mm-node cursor-pointer" data-lesson="14" onclick="selectMindNode(14)" filter="url(#sh)">
+  <rect x="485" y="382" width="230" height="72" rx="16" fill="#059669"/>
+  <text x="600" y="404" text-anchor="middle" dominant-baseline="central" font-size="14.5" font-weight="800" fill="#ffffff">HÌNH VUÔNG (Bài 14)</text>
+  <text x="600" y="424" text-anchor="middle" dominant-baseline="central" font-size="11.5" fill="#d1fae5">4 góc vuông + 4 cạnh bằng nhau</text>
+  <text x="600" y="440" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#a7f3d0">2 đ.chéo = nhau, ⊥ tại TĐ, phân giác 45°</text>
+</g>
+</svg>
+  </div>
+
+  <!-- Interactive Lesson Mind Map Detail Tabs -->
+  <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+    <div class="bg-slate-50 border-b border-slate-200 px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-2">
+      <div class="flex flex-wrap gap-1.5" id="mm-tabs">
+        <button onclick="selectMindNode(10)" data-mmtab="10" class="mm-tab px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold border border-slate-200 bg-white text-slate-700 hover:bg-blue-50">Bài 10: Tứ giác</button>
+        <button onclick="selectMindNode(11)" data-mmtab="11" class="mm-tab px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold border border-slate-200 bg-white text-slate-700 hover:bg-blue-50">Bài 11: Hình thang cân</button>
+        <button onclick="selectMindNode(12)" data-mmtab="12" class="mm-tab px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold border border-slate-200 bg-white text-slate-700 hover:bg-blue-50">Bài 12: Hình bình hành</button>
+        <button onclick="selectMindNode(13)" data-mmtab="13" class="mm-tab px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold border border-slate-200 bg-white text-slate-700 hover:bg-blue-50">Bài 13: Hình chữ nhật</button>
+        <button onclick="selectMindNode(14)" data-mmtab="14" class="mm-tab px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold border border-slate-200 bg-white text-slate-700 hover:bg-blue-50">Bài 14: Hình thoi &amp; Hình vuông</button>
+      </div>
+      <button onclick="jumpToLessonQuiz()" class="text-xs font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 px-3 py-1.5 rounded-lg flex items-center gap-1 no-print">
+        <i data-lucide="play" class="w-3.5 h-3.5"></i>Luyện 30 câu bài này
+      </button>
+    </div>
+    <div id="mm-detail" class="p-5 sm:p-6"></div>
+  </div>
+
+  <!-- Quick Comparison Table -->
+  <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+    <div class="bg-slate-50 border-b border-slate-200 px-6 py-3.5 flex items-center justify-between">
+      <h3 class="font-bold text-base text-slate-800 flex items-center gap-2"><i data-lucide="table-2" class="w-4 h-4 text-indigo-600"></i>Bảng so sánh nhanh 5 loại tứ giác đặc biệt</h3>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-xs sm:text-sm text-left border-collapse">
+        <thead>
+          <tr class="bg-slate-100/80 text-slate-700 border-b border-slate-200">
+            <th class="py-3 px-4 font-bold">Loại tứ giác</th>
+            <th class="py-3 px-4 font-bold">Cạnh</th>
+            <th class="py-3 px-4 font-bold">Góc</th>
+            <th class="py-3 px-4 font-bold">Hai đường chéo</th>
+            <th class="py-3 px-4 font-bold">Công thức hay dùng</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          <tr class="hover:bg-blue-50/40">
+            <td class="py-3 px-4 font-bold text-blue-700">Hình thang cân</td>
+            <td class="py-3 px-4">Hai đáy $\parallel$; hai cạnh bên bằng nhau</td>
+            <td class="py-3 px-4">Hai góc kề một đáy bằng nhau; hai góc đối bù nhau</td>
+            <td class="py-3 px-4">Bằng nhau ($AC = BD$)</td>
+            <td class="py-3 px-4">$KC = \dfrac{CD-AB}{2}$; $S = \dfrac{(a+b)h}{2}$</td>
+          </tr>
+          <tr class="hover:bg-indigo-50/40">
+            <td class="py-3 px-4 font-bold text-indigo-700">Hình bình hành</td>
+            <td class="py-3 px-4">Các cạnh đối song song và bằng nhau</td>
+            <td class="py-3 px-4">Các góc đối bằng nhau; hai góc kề bù nhau</td>
+            <td class="py-3 px-4">Cắt nhau tại trung điểm mỗi đường</td>
+            <td class="py-3 px-4">$P = 2(a+b)$; $S = a\cdot h$</td>
+          </tr>
+          <tr class="hover:bg-indigo-50/40">
+            <td class="py-3 px-4 font-bold text-indigo-800">Hình chữ nhật</td>
+            <td class="py-3 px-4">Các cạnh đối $\parallel$ và bằng nhau</td>
+            <td class="py-3 px-4">Bốn góc vuông ($90^\circ$)</td>
+            <td class="py-3 px-4">Bằng nhau và cắt nhau tại trung điểm</td>
+            <td class="py-3 px-4">$d = \sqrt{a^2+b^2}$; $AM = \dfrac{1}{2}BC$ ($\triangle$ vuông)</td>
+          </tr>
+          <tr class="hover:bg-violet-50/40">
+            <td class="py-3 px-4 font-bold text-violet-700">Hình thoi</td>
+            <td class="py-3 px-4">Bốn cạnh bằng nhau; cạnh đối $\parallel$</td>
+            <td class="py-3 px-4">Các góc đối bằng nhau</td>
+            <td class="py-3 px-4">Vuông góc tại trung điểm; là phân giác các góc</td>
+            <td class="py-3 px-4">$S = \dfrac{1}{2}d_1 d_2$; $a = \sqrt{\left(\dfrac{d_1}{2}\right)^2+\left(\dfrac{d_2}{2}\right)^2}$</td>
+          </tr>
+          <tr class="hover:bg-emerald-50/40">
+            <td class="py-3 px-4 font-bold text-emerald-700">Hình vuông</td>
+            <td class="py-3 px-4">Bốn cạnh bằng nhau; cạnh đối $\parallel$</td>
+            <td class="py-3 px-4">Bốn góc vuông ($90^\circ$)</td>
+            <td class="py-3 px-4">Bằng nhau, $\perp$ tại trung điểm, phân giác $45^\circ$</td>
+            <td class="py-3 px-4">$d = a\sqrt{2}$; $S = a^2 = \dfrac{d^2}{2}$</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PHẦN 2: 150 BÀI TẬP TƯƠNG TÁC ==================== -->
+<section id="luyen-tap-150" class="space-y-6">
+  <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-3">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold shadow-sm">II</div>
+      <div>
+        <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight">NGÂN HÀNG 150 BÀI TẬP CHƯƠNG 3</h2>
+        <p class="text-xs text-slate-500">75 Trắc nghiệm 4 lựa chọn • 20 Đúng/Sai (80 mệnh đề) • 40 Trả lời ngắn • 15 Ghép cặp tương tác</p>
+      </div>
+    </div>
+    <div class="flex flex-wrap items-center gap-2 no-print">
+      <button id="btn-mode-practice" onclick="setMode('practice')" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-blue-600 bg-blue-600 text-white flex items-center gap-1.5">
+        <i data-lucide="book-open-check" class="w-4 h-4"></i>Luyện tập (150 câu)
+      </button>
+      <button id="btn-mode-exam" onclick="startMiniExam()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 flex items-center gap-1.5">
+        <i data-lucide="timer" class="w-4 h-4"></i>Đề thi nhanh 20 câu (20 phút)
+      </button>
+      <button onclick="openScoreModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 flex items-center gap-1.5">
+        <i data-lucide="bar-chart-3" class="w-4 h-4"></i>Thống kê kết quả
+      </button>
+      <button onclick="resetAllProgress()" class="px-3 py-2 rounded-xl text-xs font-semibold border border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100 flex items-center gap-1">
+        <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>Làm lại
+      </button>
+    </div>
+  </div>
+
+  <!-- MINI EXAM BANNER (Hidden in Practice Mode) -->
+  <div id="exam-bar" class="hidden bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-2xl p-4 sm:p-5 shadow-sm flex flex-wrap items-center justify-between gap-4 no-print">
+    <div class="flex items-center gap-3">
+      <div class="w-11 h-11 rounded-xl bg-white/15 flex items-center justify-center"><i data-lucide="clock" class="w-6 h-6"></i></div>
+      <div>
+        <div class="text-xs uppercase tracking-wider text-indigo-100 font-semibold">Chế độ Thi thử ngẫu nhiên • 4 câu mỗi bài (Bài 10 → 14)</div>
+        <div class="text-xl font-extrabold flex items-center gap-3">
+          <span id="exam-timer">20:00</span>
+          <span class="text-sm font-medium bg-white/15 px-2.5 py-0.5 rounded-lg">Đã trả lời: <span id="exam-answered">0</span>/20</span>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <button id="exam-submit-btn" onclick="submitMiniExam()" class="px-4 py-2.5 rounded-xl bg-white text-indigo-700 hover:bg-indigo-50 font-bold text-sm shadow-sm">Nộp bài &amp; Chấm điểm</button>
+      <button onclick="setMode('practice')" class="px-3.5 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white font-semibold text-xs">Thoát đề thi</button>
+    </div>
+  </div>
+
+  <!-- SCOREBOARD & FILTERS (Practice Mode) -->
+  <div id="practice-controls" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-4 sm:p-5 space-y-4 no-print">
+    <!-- Overall Progress Bar -->
+    <div class="space-y-1.5">
+      <div class="flex flex-wrap items-center justify-between text-xs sm:text-sm">
+        <span class="font-semibold text-slate-700">Tiến độ hoàn thành: <span id="stat-done" class="text-blue-600 font-bold">0</span>/150 câu (<span id="stat-pct">0</span>%)</span>
+        <span class="font-semibold text-slate-600">Đúng: <span id="stat-correct" class="text-emerald-600 font-bold">0</span> • Sai: <span id="stat-wrong" class="text-rose-600 font-bold">0</span></span>
+      </div>
+      <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden flex">
+        <div id="bar-correct" class="bg-emerald-500 h-full transition-all duration-300" style="width:0%"></div>
+        <div id="bar-wrong" class="bg-rose-400 h-full transition-all duration-300" style="width:0%"></div>
+      </div>
+    </div>
+
+    <!-- Filter Rows -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 pt-2 border-t border-slate-100">
+      <div class="space-y-1.5">
+        <div class="text-xs font-bold uppercase tracking-wider text-slate-400">Lọc theo bài học</div>
+        <div class="flex flex-wrap gap-1.5" id="filter-lesson">
+          <button onclick="setFilter('lesson','all')" data-fl="all" class="pill-active px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-white text-slate-700">Tất cả (150)</button>
+          <button onclick="setFilter('lesson','10')" data-fl="10" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-white text-slate-700">Bài 10 (30)</button>
+          <button onclick="setFilter('lesson','11')" data-fl="11" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-white text-slate-700">Bài 11 (30)</button>
+          <button onclick="setFilter('lesson','12')" data-fl="12" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-white text-slate-700">Bài 12 (30)</button>
+          <button onclick="setFilter('lesson','13')" data-fl="13" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-white text-slate-700">Bài 13 (30)</button>
+          <button onclick="setFilter('lesson','14')" data-fl="14" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-white text-slate-700">Bài 14 (30)</button>
+        </div>
+      </div>
+      <div class="space-y-1.5">
+        <div class="text-xs font-bold uppercase tracking-wider text-slate-400">Lọc theo hình thức câu hỏi</div>
+        <div class="flex flex-wrap gap-1.5" id="filter-type">
+          <button onclick="setFilter('type','all')" data-ft="all" class="pill-active px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-white text-slate-700">Tất cả</button>
+          <button onclick="setFilter('type','mcq')" data-ft="mcq" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-white text-slate-700">Trắc nghiệm (75)</button>
+          <button onclick="setFilter('type','tf')" data-ft="tf" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-white text-slate-700">Đúng / Sai (20)</button>
+          <button onclick="setFilter('type','short')" data-ft="short" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-white text-slate-700">Trả lời ngắn (40)</button>
+          <button onclick="setFilter('type','match')" data-ft="match" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-white text-slate-700">Ghép cặp (15)</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-100">
+      <div class="flex flex-wrap items-center gap-2">
+        <select id="sel-level" onchange="setFilter('level', this.value)" class="text-xs font-semibold bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-slate-700">
+          <option value="all">Mọi mức độ</option>
+          <option value="NB">Nhận biết (40)</option>
+          <option value="TH">Thông hiểu (57)</option>
+          <option value="VD">Vận dụng (43)</option>
+          <option value="VDC">Vận dụng cao (10)</option>
+        </select>
+        <select id="sel-status" onchange="setFilter('status', this.value)" class="text-xs font-semibold bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-slate-700">
+          <option value="all">Mọi trạng thái</option>
+          <option value="unanswered">Chưa làm</option>
+          <option value="wrong">Đang làm sai</option>
+          <option value="correct">Đã làm đúng</option>
+        </select>
+        <select id="sel-pagesize" onchange="setPageSize(Number(this.value))" class="text-xs font-semibold bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-slate-700">
+          <option value="15" selected>15 câu / trang</option>
+          <option value="30">30 câu / trang</option>
+          <option value="150">Hiện tất cả</option>
+        </select>
+      </div>
+      <div id="filter-count" class="text-xs font-semibold text-slate-500">Đang hiển thị 15 / 150 câu</div>
+    </div>
+  </div>
+
+  <!-- QUESTION LIST CONTAINER -->
+  <div id="questions-container" class="space-y-5"></div>
+
+  <!-- PAGINATION -->
+  <div id="pagination-bar" class="flex flex-wrap items-center justify-center gap-1.5 pt-2 no-print"></div>
+</section>
+
+<!-- BOTTOM NAV -->
+<div class="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-slate-200 pt-6 no-print">
+  <a href="bai14_hinhthoi_hinhvuong.html" class="w-full sm:w-auto px-5 py-3 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-blue-400 hover:text-blue-600 font-semibold text-sm text-center">← Quay lại Bài 14: Hình thoi và hình vuông</a>
+  <a href="index.html" class="w-full sm:w-auto px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm text-center">Về trang chủ Toán 8 →</a>
+</div>
+
+</main>
+
+<!-- STATS / REPORT MODAL -->
+<div id="score-modal" class="fixed inset-0 z-50 hidden bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4 no-print">
+  <div class="bg-white rounded-2xl max-w-2xl w-full shadow-2xl border border-slate-200 overflow-hidden max-h-[90vh] flex flex-col">
+    <div class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white px-6 py-4 flex items-center justify-between">
+      <h3 id="modal-title" class="font-extrabold text-lg">Bảng thống kê kết quả Chương 3</h3>
+      <button onclick="closeScoreModal()" class="p-1.5 rounded-lg hover:bg-white/15"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <div id="modal-body" class="p-6 overflow-y-auto space-y-5 text-sm"></div>
+    <div class="bg-slate-50 border-t border-slate-200 px-6 py-3 flex justify-end gap-2">
+      <button onclick="closeScoreModal()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm">Đóng</button>
+    </div>
+  </div>
+</div>
+
+<footer class="bg-white border-t border-slate-200/80 mt-12 py-6">
+  <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500">Hệ thống Kiến thức Toán 8 • Tổng ôn Chương 3: Tứ giác (Bài 10 → Bài 14) • 150 bài tập tự chấm</div>
+</footer>
+
+<script>
+// ==================== DATA ====================
+const QUESTIONS = [{"lesson": 10, "level": "NB", "q": "Tổng số đo bốn góc trong một tứ giác bằng bao nhiêu độ?", "opts": ["$180^\\circ$", "$270^\\circ$", "$360^\\circ$", "$540^\\circ$"], "ans": 2, "exp": "Định lí tổng các góc của một tứ giác: $\\widehat{A}+\\widehat{B}+\\widehat{C}+\\widehat{D}=360^\\circ$.", "type": "mcq", "id": 1}, {"lesson": 10, "level": "NB", "q": "Tứ giác lồi $ABCD$ là tứ giác luôn nằm trong một nửa mặt phẳng có bờ là đường thẳng chứa:", "opts": ["một đường chéo bất kì của tứ giác", "bất kì cạnh nào của tứ giác", "hai cạnh đối nhau của tứ giác", "đường thẳng đi qua hai đỉnh đối nhau"], "ans": 1, "exp": "Theo định nghĩa, tứ giác lồi là tứ giác luôn nằm về một phía của đường thẳng chứa bất kì cạnh nào của tứ giác đó.", "type": "mcq", "id": 2}, {"lesson": 10, "level": "NB", "q": "Trong tứ giác $ABCD$, hai đường chéo là hai đoạn thẳng nào sau đây?", "opts": ["$AB$ và $CD$", "$AD$ và $BC$", "$AC$ và $BD$", "$AB$ và $BC$"], "ans": 2, "exp": "Hai đường chéo của tứ giác $ABCD$ nối hai đỉnh đối nhau, đó là $AC$ và $BD$.", "type": "mcq", "id": 3}, {"lesson": 10, "level": "NB", "q": "Trong tứ giác $MNPQ$, hai góc nào sau đây là hai góc đối nhau?", "opts": ["$\\widehat{M}$ và $\\widehat{N}$", "$\\widehat{M}$ và $\\widehat{P}$", "$\\widehat{N}$ và $\\widehat{P}$", "$\\widehat{P}$ và $\\widehat{Q}$"], "ans": 1, "exp": "Trong tứ giác $MNPQ$, hai cặp góc đối nhau là $(\\widehat{M}, \\widehat{P})$ và $(\\widehat{N}, \\widehat{Q})$.", "type": "mcq", "id": 4}, {"lesson": 10, "level": "TH", "svg": "quad1", "q": "Quan sát hình vẽ tứ giác $ABCD$ có $\\widehat{A}=80^\\circ, \\widehat{B}=115^\\circ, \\widehat{D}=75^\\circ$. Số đo góc $x$ (góc $\\widehat{C}$) là:", "opts": ["$80^\\circ$", "$85^\\circ$", "$90^\\circ$", "$95^\\circ$"], "ans": 2, "exp": "$x = 360^\\circ - (80^\\circ + 115^\\circ + 75^\\circ) = 360^\\circ - 270^\\circ = 90^\\circ$.", "type": "mcq", "id": 5}, {"lesson": 10, "level": "TH", "svg": "quad2", "q": "Cho tứ giác $ABCD$ như hình vẽ có $\\widehat{A}=90^\\circ, \\widehat{B}=120^\\circ, \\widehat{D}=80^\\circ$. Giá trị của $x$ bằng:", "opts": ["$60^\\circ$", "$70^\\circ$", "$75^\\circ$", "$80^\\circ$"], "ans": 1, "exp": "$x = 360^\\circ - (90^\\circ + 120^\\circ + 80^\\circ) = 360^\\circ - 290^\\circ = 70^\\circ$.", "type": "mcq", "id": 6}, {"lesson": 10, "level": "TH", "svg": "quad3", "q": "Cho tứ giác $ABCD$ có $\\widehat{B}=\\widehat{D}=90^\\circ$ và $\\widehat{A}=70^\\circ$. Số đo $\\widehat{C}$ bằng:", "opts": ["$100^\\circ$", "$105^\\circ$", "$110^\\circ$", "$120^\\circ$"], "ans": 2, "exp": "Vì $\\widehat{B}+\\widehat{D}=180^\\circ$ nên $\\widehat{A}+\\widehat{C}=180^\\circ \\Rightarrow \\widehat{C}=180^\\circ-70^\\circ=110^\\circ$.", "type": "mcq", "id": 7}, {"lesson": 10, "level": "TH", "q": "Một tứ giác có thể có nhiều nhất bao nhiêu góc nhọn?", "opts": ["$1$", "$2$", "$3$", "$4$"], "ans": 2, "exp": "Nếu cả $4$ góc đều nhọn ($<90^\\circ$) thì tổng $4$ góc $<360^\\circ$ (vô lí). Vậy một tứ giác có nhiều nhất $3$ góc nhọn.", "type": "mcq", "id": 8}, {"lesson": 10, "level": "TH", "q": "Một tứ giác có thể có nhiều nhất bao nhiêu góc tù?", "opts": ["$1$", "$2$", "$3$", "$4$"], "ans": 2, "exp": "Nếu cả $4$ góc đều tù ($>90^\\circ$) thì tổng $4$ góc $>360^\\circ$ (vô lí). Vậy có nhiều nhất $3$ góc tù (ví dụ: $100^\\circ, 100^\\circ, 100^\\circ, 60^\\circ$).", "type": "mcq", "id": 9}, {"lesson": 10, "level": "TH", "q": "Tứ giác $ABCD$ có $\\widehat{A}=x$, $\\widehat{B}=2x$, $\\widehat{C}=3x$, $\\widehat{D}=4x$. Giá trị của $x$ là:", "opts": ["$30^\\circ$", "$36^\\circ$", "$40^\\circ$", "$45^\\circ$"], "ans": 1, "exp": "$x+2x+3x+4x=360^\\circ \\Rightarrow 10x=360^\\circ \\Rightarrow x=36^\\circ$.", "type": "mcq", "id": 10}, {"lesson": 10, "level": "TH", "q": "Tổng số đo bốn góc ngoài tại bốn đỉnh (mỗi đỉnh lấy một góc ngoài) của một tứ giác lồi bằng:", "opts": ["$180^\\circ$", "$270^\\circ$", "$360^\\circ$", "$720^\\circ$"], "ans": 2, "exp": "Tổng $4$ cặp góc trong – ngoài kề bù là $4\\cdot 180^\\circ = 720^\\circ$. Trừ tổng $4$ góc trong ($360^\\circ$) còn $720^\\circ-360^\\circ=360^\\circ$.", "type": "mcq", "id": 11}, {"lesson": 10, "level": "VD", "q": "Cho tứ giác $ABCD$ có $\\widehat{A}=65^\\circ, \\widehat{B}=115^\\circ, \\widehat{C}=85^\\circ$. Số đo góc ngoài tại đỉnh $D$ là:", "opts": ["$85^\\circ$", "$95^\\circ$", "$105^\\circ$", "$75^\\circ$"], "ans": 0, "exp": "$\\widehat{D}=360^\\circ-(65^\\circ+115^\\circ+85^\\circ)=95^\\circ$. Góc ngoài tại $D$ bằng $180^\\circ-95^\\circ=85^\\circ$.", "type": "mcq", "id": 12}, {"lesson": 10, "level": "VD", "q": "Tứ giác $ABCD$ có $\\widehat{A}=70^\\circ, \\widehat{D}=80^\\circ$. Hai tia phân giác của $\\widehat{B}$ và $\\widehat{C}$ cắt nhau tại $I$. Số đo $\\widehat{BIC}$ là:", "opts": ["$70^\\circ$", "$75^\\circ$", "$80^\\circ$", "$105^\\circ$"], "ans": 1, "exp": "$\\widehat{B}+\\widehat{C}=360^\\circ-70^\\circ-80^\\circ=210^\\circ \\Rightarrow \\widehat{BIC}=180^\\circ-\\frac{1}{2}(\\widehat{B}+\\widehat{C})=180^\\circ-105^\\circ=75^\\circ$.", "type": "mcq", "id": 13}, {"lesson": 10, "level": "VD", "q": "Tứ giác $ABCD$ có hai tia phân giác của $\\widehat{C}$ và $\\widehat{D}$ cắt nhau tại $I$ và $\\widehat{CID}=90^\\circ$. Tổng $\\widehat{A}+\\widehat{B}$ bằng:", "opts": ["$90^\\circ$", "$120^\\circ$", "$180^\\circ$", "$270^\\circ$"], "ans": 2, "exp": "Trong $\\triangle CID$: $\\frac{1}{2}(\\widehat{C}+\\widehat{D})=180^\\circ-90^\\circ=90^\\circ \\Rightarrow \\widehat{C}+\\widehat{D}=180^\\circ \\Rightarrow \\widehat{A}+\\widehat{B}=360^\\circ-180^\\circ=180^\\circ$.", "type": "mcq", "id": 14}, {"lesson": 10, "level": "VDC", "q": "Tứ giác $ABCD$ có $AB=2\\text{ cm}, BC=3\\text{ cm}, CD=4\\text{ cm}, DA=5\\text{ cm}$. Độ dài đường chéo $AC$ có thể nhận giá trị nguyên nào sau đây?", "opts": ["$1\\text{ cm}$", "$4\\text{ cm}$", "$5\\text{ cm}$", "$6\\text{ cm}$"], "ans": 1, "exp": "Bất đẳng thức tam giác: trong $\\triangle ABC$ có $1<AC<5$; trong $\\triangle ADC$ có $1<AC<9$. Giao hai khoảng là $1<AC<5$, nên giá trị thỏa mãn trong các đáp án là $4\\text{ cm}$.", "type": "mcq", "id": 15}, {"lesson": 11, "level": "NB", "q": "Hình thang là tứ giác có:", "opts": ["hai cạnh đối bằng nhau", "hai cạnh đối song song", "hai cạnh kề vuông góc", "hai đường chéo bằng nhau"], "ans": 1, "exp": "Định nghĩa: Hình thang là tứ giác có hai cạnh đối song song.", "type": "mcq", "id": 16}, {"lesson": 11, "level": "NB", "q": "Hình thang cân là hình thang có:", "opts": ["hai góc đối bằng nhau", "hai cạnh bên bằng nhau", "hai góc kề một đáy bằng nhau", "hai đường chéo vuông góc"], "ans": 2, "exp": "Định nghĩa: Hình thang cân là hình thang có hai góc kề một đáy bằng nhau. (Lưu ý: hình thang có hai cạnh bên bằng nhau có thể là hình bình hành!)", "type": "mcq", "id": 17}, {"lesson": 11, "level": "NB", "q": "Khẳng định nào sau đây là SAI khi nói về hình thang cân $ABCD$ ($AB \\parallel CD$)?", "opts": ["$AD = BC$", "$AC = BD$", "$\\widehat{C} = \\widehat{D}$", "$AB = CD$"], "ans": 3, "exp": "Trong hình thang cân $ABCD$ ($AB \\parallel CD$), hai đáy $AB$ và $CD$ không nhất thiết bằng nhau.", "type": "mcq", "id": 18}, {"lesson": 11, "level": "NB", "q": "Dấu hiệu nào sau đây KHÔNG đủ để kết luận một hình thang là hình thang cân?", "opts": ["Có hai góc kề một đáy bằng nhau", "Có hai đường chéo bằng nhau", "Có hai cạnh bên bằng nhau", "Có hai góc đối bù nhau"], "ans": 2, "exp": "Hình bình hành cũng là một hình thang có hai cạnh bên bằng nhau nhưng không phải hình thang cân (trừ hình chữ nhật). Còn hình thang có hai góc đối bù nhau suy ra hai góc kề đáy bằng nhau nên là hình thang cân.", "type": "mcq", "id": 19}, {"lesson": 11, "level": "TH", "svg": "trap1", "q": "Cho hình thang cân $ABCD$ ($AB \\parallel CD$) có $\\widehat{D}=65^\\circ$ như hình vẽ. Số đo góc $x$ ($\\widehat{A}$) là:", "opts": ["$65^\\circ$", "$105^\\circ$", "$115^\\circ$", "$125^\\circ$"], "ans": 2, "exp": "Vì $AB \\parallel CD$ nên $\\widehat{A}+\\widehat{D}=180^\\circ$ (trong cùng phía) $\\Rightarrow x = 180^\\circ - 65^\\circ = 115^\\circ$.", "type": "mcq", "id": 20}, {"lesson": 11, "level": "TH", "svg": "trap2", "q": "Cho hình thang cân $ABCD$ ($AB \\parallel CD$) có $\\widehat{C}=72^\\circ$. Số đo góc $x$ ($\\widehat{D}$) và $\\widehat{B}$ lần lượt là:", "opts": ["$72^\\circ$ và $108^\\circ$", "$108^\\circ$ và $72^\\circ$", "$72^\\circ$ và $72^\\circ$", "$108^\\circ$ và $108^\\circ$"], "ans": 0, "exp": "Hình thang cân có $\\widehat{D}=\\widehat{C}=72^\\circ$, còn $\\widehat{B}=180^\\circ-\\widehat{C}=108^\\circ$.", "type": "mcq", "id": 21}, {"lesson": 11, "level": "TH", "q": "Cho hình thang $ABCD$ ($AB \\parallel CD$) có $\\widehat{A}=110^\\circ, \\widehat{C}=70^\\circ$. Khẳng định nào đúng?", "opts": ["$ABCD$ là hình thang vuông", "$ABCD$ là hình thang cân", "$ABCD$ là hình chữ nhật", "$ABCD$ là hình thoi"], "ans": 1, "exp": "Ta có $\\widehat{D}=180^\\circ-\\widehat{A}=70^\\circ=\\widehat{C}$. Hình thang có hai góc kề đáy $CD$ bằng nhau nên là hình thang cân.", "type": "mcq", "id": 22}, {"lesson": 11, "level": "TH", "q": "Hình thang cân $ABCD$ ($AB \\parallel CD$) có $AC = 12\\text{ cm}, AD = 5\\text{ cm}$. Tổng độ dài $BD + BC$ bằng:", "opts": ["$12\\text{ cm}$", "$15\\text{ cm}$", "$17\\text{ cm}$", "$24\\text{ cm}$"], "ans": 2, "exp": "Trong hình thang cân: $BD = AC = 12\\text{ cm}$ và $BC = AD = 5\\text{ cm} \\Rightarrow BD+BC=17\\text{ cm}$.", "type": "mcq", "id": 23}, {"lesson": 11, "level": "TH", "q": "Cho hình thang $ABCD$ ($AB \\parallel CD$) có $\\widehat{A}=3\\widehat{D}$. Số đo góc $\\widehat{D}$ là:", "opts": ["$30^\\circ$", "$45^\\circ$", "$60^\\circ$", "$135^\\circ$"], "ans": 1, "exp": "Vì $AB \\parallel CD$ nên $\\widehat{A}+\\widehat{D}=180^\\circ \\Rightarrow 3\\widehat{D}+\\widehat{D}=180^\\circ \\Rightarrow 4\\widehat{D}=180^\\circ \\Rightarrow \\widehat{D}=45^\\circ$.", "type": "mcq", "id": 24}, {"lesson": 11, "level": "TH", "q": "Hình thang cân có một góc vuông thì hình thang cân đó là:", "opts": ["Hình bình hành thường", "Hình thoi", "Hình chữ nhật", "Hình vuông"], "ans": 2, "exp": "Hình thang cân có một góc $90^\\circ$ thì góc kề đáy đó cũng bằng $90^\\circ$, và hai góc còn lại bù với $90^\\circ$ nên cả $4$ góc đều bằng $90^\\circ$, tức là hình chữ nhật.", "type": "mcq", "id": 25}, {"lesson": 11, "level": "VD", "q": "Cho hình thang cân $ABCD$ ($AB \\parallel CD, AB < CD$) có $AB = 6\\text{ cm}, CD = 14\\text{ cm}$. Kẻ hai đường cao $AH, BK$. Độ dài đoạn $KC$ là:", "opts": ["$3\\text{ cm}$", "$4\\text{ cm}$", "$6\\text{ cm}$", "$8\\text{ cm}$"], "ans": 1, "exp": "Ta có $KC = \\frac{CD - AB}{2} = \\frac{14 - 6}{2} = 4\\text{ cm}$.", "type": "mcq", "id": 26}, {"lesson": 11, "level": "VD", "q": "Cho hình thang cân $ABCD$ ($AB \\parallel CD$) có $AB = AD = BC = 5\\text{ cm}$ và $\\widehat{D}=60^\\circ$. Độ dài cạnh đáy $CD$ bằng:", "opts": ["$7{,}5\\text{ cm}$", "$8\\text{ cm}$", "$10\\text{ cm}$", "$12\\text{ cm}$"], "ans": 2, "exp": "Hạ $AH, BK \\perp CD$. Trong $\\triangle AHD$ vuông tại $H$ có $\\widehat{D}=60^\\circ$ nên $DH = \\frac{1}{2}AD = 2{,}5\\text{ cm} = KC$. Suy ra $CD = AB + 2DH = 5 + 5 = 10\\text{ cm}$.", "type": "mcq", "id": 27}, {"lesson": 11, "level": "VD", "q": "Cho $\\triangle ABC$ cân tại $A$, hai đường trung tuyến $BD$ và $CE$. Tứ giác $BCDE$ là hình gì?", "opts": ["Hình thang thường", "Hình thang cân", "Hình bình hành", "Hình chữ nhật"], "ans": 1, "exp": "$AE = AD \\Rightarrow \\triangle AED$ cân tại $A \\Rightarrow \\widehat{AED}=\\widehat{ABC} \\Rightarrow ED \\parallel BC$. Lại có $\\widehat{B}=\\widehat{C}$ nên $BCDE$ là hình thang cân.", "type": "mcq", "id": 28}, {"lesson": 11, "level": "VD", "q": "Hình thang cân $ABCD$ ($AB \\parallel CD$) có $\\widehat{A} - \\widehat{D} = 40^\\circ$. Số đo góc $\\widehat{B}$ là:", "opts": ["$70^\\circ$", "$100^\\circ$", "$110^\\circ$", "$140^\\circ$"], "ans": 2, "exp": "Ta có $\\widehat{A}+\\widehat{D}=180^\\circ$ và $\\widehat{A}-\\widehat{D}=40^\\circ \\Rightarrow \\widehat{A}=\\frac{180^\\circ+40^\\circ}{2}=110^\\circ$. Do $ABCD$ cân nên $\\widehat{B}=\\widehat{A}=110^\\circ$.", "type": "mcq", "id": 29}, {"lesson": 11, "level": "VDC", "q": "Cho hình thang cân $ABCD$ ($AB \\parallel CD, AB<CD$) có $AB = 5\\text{ cm}, CD = 11\\text{ cm}$ và đường cao $AH = 4\\text{ cm}$. Chu vi hình thang cân $ABCD$ là:", "opts": ["$24\\text{ cm}$", "$26\\text{ cm}$", "$28\\text{ cm}$", "$30\\text{ cm}$"], "ans": 1, "exp": "$DH = \\frac{11-5}{2}=3\\text{ cm}$. Theo định lí Pythagore trong $\\triangle AHD$ vuông tại $H$: $AD = \\sqrt{3^2+4^2}=5\\text{ cm}=BC$. Chu vi $= 5+11+5+5=26\\text{ cm}$.", "type": "mcq", "id": 30}, {"lesson": 12, "level": "NB", "q": "Hình bình hành là tứ giác có:", "opts": ["hai cạnh đối song song", "các cạnh đối song song", "bốn cạnh bằng nhau", "bốn góc bằng nhau"], "ans": 1, "exp": "Định nghĩa: Hình bình hành là tứ giác có các cạnh đối song song.", "type": "mcq", "id": 31}, {"lesson": 12, "level": "NB", "q": "Trong hình bình hành $ABCD$, khẳng định nào sau đây là SAI?", "opts": ["$AB = CD$ và $AD = BC$", "$\\widehat{A} = \\widehat{C}$ và $\\widehat{B} = \\widehat{D}$", "$AC = BD$", "$AC$ và $BD$ cắt nhau tại trung điểm của mỗi đường"], "ans": 2, "exp": "Hình bình hành nói chung không có hai đường chéo bằng nhau (chỉ hình chữ nhật và hình vuông mới có).", "type": "mcq", "id": 32}, {"lesson": 12, "level": "NB", "q": "Tứ giác $ABCD$ là hình bình hành nếu có điều kiện nào sau đây?", "opts": ["$AB \\parallel CD$ và $AD = BC$", "$AB = CD$ và $BC = DA$", "$\\widehat{A} + \\widehat{C} = 180^\\circ$", "$AC \\perp BD$"], "ans": 1, "exp": "Dấu hiệu nhận biết: Tứ giác có các cạnh đối bằng nhau là hình bình hành. (Chú ý $AB\\parallel CD, AD=BC$ có thể là hình thang cân.)", "type": "mcq", "id": 33}, {"lesson": 12, "level": "NB", "q": "Cho hình bình hành $ABCD$ có hai đường chéo $AC, BD$ cắt nhau tại $O$. Biết $OA = 4\\text{ cm}, OB = 3\\text{ cm}$. Độ dài $AC + BD$ bằng:", "opts": ["$7\\text{ cm}$", "$12\\text{ cm}$", "$14\\text{ cm}$", "$16\\text{ cm}$"], "ans": 2, "exp": "Vì $O$ là trung điểm $AC$ và $BD$ nên $AC = 2OA = 8\\text{ cm}, BD = 2OB = 6\\text{ cm} \\Rightarrow AC+BD=14\\text{ cm}$.", "type": "mcq", "id": 34}, {"lesson": 12, "level": "TH", "svg": "para1", "q": "Cho hình bình hành $ABCD$ có $\\widehat{D}=65^\\circ$ như hình vẽ. Số đo góc $x$ ($\\widehat{B}$) bằng:", "opts": ["$55^\\circ$", "$65^\\circ$", "$115^\\circ$", "$125^\\circ$"], "ans": 1, "exp": "Trong hình bình hành, hai góc đối bằng nhau nên $\\widehat{B}=\\widehat{D}=65^\\circ$.", "type": "mcq", "id": 35}, {"lesson": 12, "level": "TH", "svg": "para2", "q": "Cho hình bình hành $ABCD$ có $\\widehat{D}=70^\\circ$. Số đo góc $x$ ($\\widehat{A}$) bằng:", "opts": ["$70^\\circ$", "$100^\\circ$", "$110^\\circ$", "$120^\\circ$"], "ans": 2, "exp": "Vì $AB \\parallel CD$ nên $\\widehat{A}+\\widehat{D}=180^\\circ \\Rightarrow x = 180^\\circ - 70^\\circ = 110^\\circ$.", "type": "mcq", "id": 36}, {"lesson": 12, "level": "TH", "q": "Hình bình hành $ABCD$ có chu vi bằng $36\\text{ cm}$ và $AB = 10\\text{ cm}$. Độ dài cạnh $BC$ là:", "opts": ["$6\\text{ cm}$", "$8\\text{ cm}$", "$10\\text{ cm}$", "$16\\text{ cm}$"], "ans": 1, "exp": "Nửa chu vi hình bình hành là $AB + BC = \\frac{36}{2}=18\\text{ cm} \\Rightarrow BC = 18 - 10 = 8\\text{ cm}$.", "type": "mcq", "id": 37}, {"lesson": 12, "level": "TH", "q": "Cho tứ giác $ABCD$ có $\\widehat{A}=105^\\circ, \\widehat{B}=75^\\circ, \\widehat{C}=105^\\circ$. Tứ giác $ABCD$ là hình gì?", "opts": ["Hình thang cân", "Hình bình hành", "Hình chữ nhật", "Hình thoi"], "ans": 1, "exp": "$\\widehat{D}=360^\\circ-(105^\\circ+75^\\circ+105^\\circ)=75^\\circ=\\widehat{B}$. Tứ giác có các góc đối bằng nhau nên là hình bình hành.", "type": "mcq", "id": 38}, {"lesson": 12, "level": "TH", "q": "Cho hình bình hành $ABCD$ có $\\widehat{A} - \\widehat{B} = 20^\\circ$. Số đo $\\widehat{C}$ bằng:", "opts": ["$80^\\circ$", "$90^\\circ$", "$100^\\circ$", "$110^\\circ$"], "ans": 2, "exp": "$\\widehat{A}+\\widehat{B}=180^\\circ$ và $\\widehat{A}-\\widehat{B}=20^\\circ \\Rightarrow \\widehat{A}=100^\\circ$. Suy ra $\\widehat{C}=\\widehat{A}=100^\\circ$.", "type": "mcq", "id": 39}, {"lesson": 12, "level": "TH", "q": "Cho hình bình hành $ABCD$, gọi $M, N, P, Q$ lần lượt là trung điểm bốn cạnh $AB, BC, CD, DA$. Tứ giác $MNPQ$ luôn là:", "opts": ["Hình thang cân", "Hình bình hành", "Hình chữ nhật", "Hình thoi"], "ans": 1, "exp": "Ta chứng minh được $\\triangle MBN = \\triangle PDQ$ và $\\triangle MAQ = \\triangle PCN$ (c–g–c) $\\Rightarrow MN=PQ, MQ=NP \\Rightarrow MNPQ$ là hình bình hành.", "type": "mcq", "id": 40}, {"lesson": 12, "level": "VD", "q": "Cho $\\triangle ABC$ cân tại $A$ có $AB = AC = 9\\text{ cm}$. Lấy điểm $D$ trên cạnh $BC$, kẻ $DM \\parallel AC$ ($M \\in AB$) và $DN \\parallel AB$ ($N \\in AC$). Giá trị của $DM + DN$ bằng:", "opts": ["$4{,}5\\text{ cm}$", "$9\\text{ cm}$", "$13{,}5\\text{ cm}$", "$18\\text{ cm}$"], "ans": 1, "exp": "$AMDN$ là hình bình hành nên $DN = AM$. $\\triangle BDM$ cân tại $M$ nên $DM = BM$. Vậy $DM + DN = BM + AM = AB = 9\\text{ cm}$.", "type": "mcq", "id": 41}, {"lesson": 12, "level": "VD", "q": "Cho hình bình hành $ABCD$ ($AB < AD$). Tia phân giác $\\widehat{B}$ cắt $AD$ tại $M$. Biết $AB = 5\\text{ cm}, AD = 8\\text{ cm}$. Độ dài $MD$ bằng:", "opts": ["$2\\text{ cm}$", "$3\\text{ cm}$", "$4\\text{ cm}$", "$5\\text{ cm}$"], "ans": 1, "exp": "Vì $BC \\parallel AD$ và $BM$ là phân giác $\\widehat{B}$ nên $\\widehat{AMB}=\\widehat{CBM}=\\widehat{ABM} \\Rightarrow \\triangle ABM$ cân tại $A \\Rightarrow AM=AB=5\\text{ cm} \\Rightarrow MD = 8 - 5 = 3\\text{ cm}$.", "type": "mcq", "id": 42}, {"lesson": 12, "level": "VD", "q": "Cho hình bình hành $ABCD$, gọi $E, K$ lần lượt là trung điểm $CD, AB$. Đường chéo $BD$ cắt $AE, CK$ tại $N, M$. Biết $BD = 18\\text{ cm}$. Độ dài đoạn $MN$ bằng:", "opts": ["$4\\text{ cm}$", "$6\\text{ cm}$", "$9\\text{ cm}$", "$12\\text{ cm}$"], "ans": 1, "exp": "Như Bài 7 phần Tự luyện Bài 12, $N, M$ chia ba đường chéo $BD$: $DN = NM = MB = \\frac{18}{3} = 6\\text{ cm}$.", "type": "mcq", "id": 43}, {"lesson": 12, "level": "VD", "q": "Cho $\\triangle ABC$ nhọn, hai đường cao $BD, CE$ cắt nhau tại $H$. Đường vuông góc với $AB$ tại $B$ và đường vuông góc với $AC$ tại $C$ cắt nhau tại $K$. Tứ giác $BHCK$ là:", "opts": ["Hình thang cân", "Hình bình hành", "Hình chữ nhật", "Hình thoi"], "ans": 1, "exp": "Ta có $BH \\parallel CK$ (cùng $\\perp AC$) và $CH \\parallel BK$ (cùng $\\perp AB$) nên $BHCK$ là hình bình hành.", "type": "mcq", "id": 44}, {"lesson": 12, "level": "VDC", "q": "Cho hình bình hành $ABCD$, $E$ và $K$ là trung điểm của $CD$ và $AB$. Đường chéo $BD$ cắt $CK$ tại $M$. Biết $AE = 15\\text{ cm}$, độ dài $KM$ bằng:", "opts": ["$3\\text{ cm}$", "$5\\text{ cm}$", "$7{,}5\\text{ cm}$", "$10\\text{ cm}$"], "ans": 1, "exp": "$AECK$ là hình bình hành nên $CK = AE = 15\\text{ cm}$. $M$ là trọng tâm $\\triangle ABC$ nên $KM = \\frac{1}{3}CK = \\frac{15}{3} = 5\\text{ cm}$.", "type": "mcq", "id": 45}, {"lesson": 13, "level": "NB", "q": "Hình chữ nhật là tứ giác có:", "opts": ["bốn cạnh bằng nhau", "bốn góc vuông", "hai đường chéo vuông góc", "hai cạnh đối song song"], "ans": 1, "exp": "Định nghĩa: Hình chữ nhật là tứ giác có bốn góc vuông.", "type": "mcq", "id": 46}, {"lesson": 13, "level": "NB", "q": "Dấu hiệu nào sau đây ĐÚNG để nhận biết một hình chữ nhật?", "opts": ["Tứ giác có hai góc vuông", "Hình thang có hai đường chéo bằng nhau", "Hình bình hành có hai đường chéo bằng nhau", "Hình bình hành có hai cạnh kề bằng nhau"], "ans": 2, "exp": "Hình bình hành có hai đường chéo bằng nhau (hoặc có một góc vuông) là hình chữ nhật. (Hình thang có hai đường chéo bằng nhau chỉ là hình thang cân.)", "type": "mcq", "id": 47}, {"lesson": 13, "level": "NB", "q": "Trong một tam giác vuông, đường trung tuyến ứng với cạnh huyền có độ dài bằng:", "opts": ["cạnh huyền", "nửa cạnh huyền", "một phần ba cạnh huyền", "tổng hai cạnh góc vuông"], "ans": 1, "exp": "Định lí áp dụng hình chữ nhật vào tam giác vuông: Đường trung tuyến ứng với cạnh huyền bằng nửa cạnh huyền.", "type": "mcq", "id": 48}, {"lesson": 13, "level": "NB", "q": "Nếu một tam giác có một đường trung tuyến bằng nửa cạnh tương ứng thì tam giác đó là:", "opts": ["Tam giác cân", "Tam giác đều", "Tam giác vuông", "Tam giác tù"], "ans": 2, "exp": "Định lí đảo: Nếu một tam giác có một đường trung tuyến bằng nửa cạnh tương ứng thì tam giác đó là tam giác vuông.", "type": "mcq", "id": 49}, {"lesson": 13, "level": "TH", "svg": "tri1", "q": "Cho $\\triangle ABC$ vuông tại $A$ có cạnh huyền $BC = 10\\text{ cm}$, trung tuyến $AM$. Độ dài đoạn $AM$ là:", "opts": ["$4\\text{ cm}$", "$5\\text{ cm}$", "$6\\text{ cm}$", "$8\\text{ cm}$"], "ans": 1, "exp": "Trong $\\triangle ABC$ vuông tại $A$, $AM = \\frac{1}{2}BC = \\frac{10}{2} = 5\\text{ cm}$.", "type": "mcq", "id": 50}, {"lesson": 13, "level": "TH", "svg": "rect1", "q": "Cho hình chữ nhật $ABCD$ có $AB = 8\\text{ cm}, BC = 6\\text{ cm}$, hai đường chéo cắt nhau tại $O$. Độ dài $AC$ và $OA$ lần lượt là:", "opts": ["$10\\text{ cm}$ và $5\\text{ cm}$", "$14\\text{ cm}$ và $7\\text{ cm}$", "$10\\text{ cm}$ và $4\\text{ cm}$", "$12\\text{ cm}$ và $6\\text{ cm}$"], "ans": 0, "exp": "Theo Pythagore trong $\\triangle ABC$ vuông tại $B$: $AC = \\sqrt{8^2+6^2}=10\\text{ cm}$. Do $O$ là trung điểm $AC$ nên $OA = 5\\text{ cm}$.", "type": "mcq", "id": 51}, {"lesson": 13, "level": "TH", "q": "Cho $\\triangle ABC$ vuông tại $A$ có $AB = 6\\text{ cm}, AC = 8\\text{ cm}$. Độ dài đường trung tuyến ứng với cạnh huyền $BC$ là:", "opts": ["$4\\text{ cm}$", "$5\\text{ cm}$", "$6\\text{ cm}$", "$7\\text{ cm}$"], "ans": 1, "exp": "Cạnh huyền $BC = \\sqrt{6^2+8^2}=10\\text{ cm} \\Rightarrow$ trung tuyến $AM = \\frac{1}{2}BC = 5\\text{ cm}$.", "type": "mcq", "id": 52}, {"lesson": 13, "level": "TH", "q": "Cho hình chữ nhật $ABCD$ có hai đường chéo cắt nhau tại $O$ và $\\widehat{AOB}=60^\\circ$. Khẳng định nào sau đây ĐÚNG?", "opts": ["$\\triangle OAB$ vuông tại $O$", "$\\triangle OAB$ đều", "$AB = AC$", "$BC = BD$"], "ans": 1, "exp": "Hình chữ nhật có $OA = OB$ nên $\\triangle OAB$ cân tại $O$; lại có $\\widehat{AOB}=60^\\circ$ nên $\\triangle OAB$ đều.", "type": "mcq", "id": 53}, {"lesson": 13, "level": "TH", "q": "Cho $\\triangle ABC$ vuông tại $A$, đường cao $AH$. Gọi $D, E$ lần lượt là hình chiếu của $H$ trên $AB, AC$. Biết $AH = 6\\text{ cm}$, độ dài đoạn $DE$ là:", "opts": ["$3\\text{ cm}$", "$6\\text{ cm}$", "$9\\text{ cm}$", "$12\\text{ cm}$"], "ans": 1, "exp": "Tứ giác $ADHE$ có ba góc vuông nên là hình chữ nhật $\\Rightarrow$ hai đường chéo $DE = AH = 6\\text{ cm}$.", "type": "mcq", "id": 54}, {"lesson": 13, "level": "TH", "q": "Cho $\\triangle ABC$ có trung tuyến $AM = 7{,}5\\text{ cm}$ và $BC = 15\\text{ cm}$. Số đo góc $\\widehat{BAC}$ bằng:", "opts": ["$45^\\circ$", "$60^\\circ$", "$90^\\circ$", "$120^\\circ$"], "ans": 2, "exp": "Vì $AM = 7{,}5 = \\frac{1}{2}\\cdot 15 = \\frac{1}{2}BC$ nên $\\triangle ABC$ vuông tại $A$, tức $\\widehat{BAC}=90^\\circ$.", "type": "mcq", "id": 55}, {"lesson": 13, "level": "VD", "q": "Cho hình chữ nhật $ABCD$ có $AC = 13\\text{ cm}$ và $AB = 5\\text{ cm}$. Diện tích hình chữ nhật $ABCD$ là:", "opts": ["$30\\text{ cm}^2$", "$60\\text{ cm}^2$", "$65\\text{ cm}^2$", "$120\\text{ cm}^2$"], "ans": 1, "exp": "$BC = \\sqrt{13^2-5^2}=\\sqrt{144}=12\\text{ cm}$. Diện tích $S = AB\\cdot BC = 5\\cdot 12 = 60\\text{ cm}^2$.", "type": "mcq", "id": 56}, {"lesson": 13, "level": "VD", "q": "Cho $\\triangle ABC$ vuông tại $A$ có đường cao $AH$, lấy $D$ bất kì trên $BC$. Hạ $DM \\perp AB, DN \\perp AC$. Số đo $\\widehat{MHN}$ luôn bằng:", "opts": ["$45^\\circ$", "$60^\\circ$", "$90^\\circ$", "$120^\\circ$"], "ans": 2, "exp": "$AMDN$ là hình chữ nhật có tâm $I$. Trong $\\triangle AHD$ vuông tại $H$, trung tuyến $HI=\\frac{1}{2}AD=\\frac{1}{2}MN \\Rightarrow \\triangle MHN$ vuông tại $H \\Rightarrow \\widehat{MHN}=90^\\circ$.", "type": "mcq", "id": 57}, {"lesson": 13, "level": "VD", "q": "Cho $\\triangle ABC$ vuông tại $A$, $M$ là trung điểm $BC$. Kẻ $ME \\perp AB, MF \\perp AC$. Biết $BC = 16\\text{ cm}$, độ dài $EF$ là:", "opts": ["$4\\text{ cm}$", "$8\\text{ cm}$", "$12\\text{ cm}$", "$16\\text{ cm}$"], "ans": 1, "exp": "$AEMF$ là hình chữ nhật nên $EF = AM = \\frac{1}{2}BC = 8\\text{ cm}$.", "type": "mcq", "id": 58}, {"lesson": 13, "level": "VD", "q": "Cho $\\triangle ABC$ vuông tại $A$, $M$ trung điểm $BC$. Gọi $D, E$ là hình chiếu của $M$ trên $AB, AC$; $I, K$ là trung điểm $MB, MC$. Tứ giác $DIKE$ là hình chữ nhật khi $\\triangle ABC$:", "opts": ["có $\\widehat{B}=30^\\circ$", "có $\\widehat{B}=60^\\circ$", "vuông cân tại $A$", "có $AC = 2AB$"], "ans": 2, "exp": "$DIKE$ là hình bình hành; để là hình chữ nhật cần $DI \\perp BM \\Leftrightarrow \\triangle BDM$ vuông cân tại $D \\Leftrightarrow \\widehat{B}=45^\\circ \\Leftrightarrow \\triangle ABC$ vuông cân tại $A$.", "type": "mcq", "id": 59}, {"lesson": 13, "level": "VDC", "q": "Cho $\\triangle ABC$ vuông tại $A$ ($AB<AC$), đường cao $AH$, $HM \\perp AB, HN \\perp AC$. Gọi $I$ là trung điểm $HC$, $K$ đối xứng $A$ qua $I$, $MN \\cap AH = O$, $CO \\cap AK = D$. Biết $AD = 4\\text{ cm}$, độ dài $AK$ bằng:", "opts": ["$8\\text{ cm}$", "$10\\text{ cm}$", "$12\\text{ cm}$", "$16\\text{ cm}$"], "ans": 2, "exp": "$D$ là trọng tâm $\\triangle AHC$ nên $AD = \\frac{2}{3}AI = \\frac{2}{3}\\cdot\\frac{1}{2}AK = \\frac{1}{3}AK \\Rightarrow AK = 3AD = 12\\text{ cm}$.", "type": "mcq", "id": 60}, {"lesson": 14, "level": "NB", "q": "Hình thoi là tứ giác có:", "opts": ["bốn góc bằng nhau", "bốn cạnh bằng nhau", "hai đường chéo bằng nhau", "hai cạnh đối song song"], "ans": 1, "exp": "Định nghĩa: Hình thoi là tứ giác có bốn cạnh bằng nhau.", "type": "mcq", "id": 61}, {"lesson": 14, "level": "NB", "q": "Trong các khẳng định sau, khẳng định nào là tính chất RIÊNG của hình thoi mà hình bình hành thường không có?", "opts": ["Các cạnh đối bằng nhau", "Các góc đối bằng nhau", "Hai đường chéo vuông góc và là đường phân giác các góc", "Hai đường chéo cắt nhau tại trung điểm mỗi đường"], "ans": 2, "exp": "Tính chất đặc trưng của hình thoi: hai đường chéo vuông góc với nhau và là các đường phân giác của các góc hình thoi.", "type": "mcq", "id": 62}, {"lesson": 14, "level": "NB", "q": "Hình vuông vừa là hình chữ nhật, vừa là:", "opts": ["hình thang vuông", "hình thoi", "tam giác đều", "tứ giác lõm"], "ans": 1, "exp": "Hình vuông có $4$ góc vuông (là hình chữ nhật) và $4$ cạnh bằng nhau (là hình thoi).", "type": "mcq", "id": 63}, {"lesson": 14, "level": "NB", "q": "Dấu hiệu nào sau đây KHÔNG đúng để nhận biết hình vuông?", "opts": ["Hình chữ nhật có hai cạnh kề bằng nhau", "Hình chữ nhật có hai đường chéo vuông góc", "Hình thoi có hai đường chéo bằng nhau", "Hình bình hành có hai đường chéo vuông góc"], "ans": 3, "exp": "Hình bình hành có hai đường chéo vuông góc chỉ mới là hình thoi, chưa chắc là hình vuông.", "type": "mcq", "id": 64}, {"lesson": 14, "level": "TH", "svg": "rhomb1", "q": "Cho hình thoi $ABCD$ có hai đường chéo $AC = 16\\text{ cm}, BD = 12\\text{ cm}$. Độ dài cạnh $a$ của hình thoi là:", "opts": ["$8\\text{ cm}$", "$10\\text{ cm}$", "$14\\text{ cm}$", "$20\\text{ cm}$"], "ans": 1, "exp": "$OA = 8\\text{ cm}, OB = 6\\text{ cm}$ và $AC \\perp BD$ nên $a = AB = \\sqrt{8^2+6^2}=10\\text{ cm}$.", "type": "mcq", "id": 65}, {"lesson": 14, "level": "TH", "svg": "rhomb2", "q": "Cho hình thoi $ABCD$ có $AC = 10\\text{ cm}, BD = 24\\text{ cm}$. Chu vi của hình thoi $ABCD$ là:", "opts": ["$26\\text{ cm}$", "$34\\text{ cm}$", "$52\\text{ cm}$", "$68\\text{ cm}$"], "ans": 2, "exp": "$OA = 5, OB = 12 \\Rightarrow AB = \\sqrt{5^2+12^2}=13\\text{ cm}$. Chu vi $= 4\\cdot 13 = 52\\text{ cm}$.", "type": "mcq", "id": 66}, {"lesson": 14, "level": "TH", "q": "Một hình vuông có cạnh bằng $6\\text{ cm}$. Độ dài đường chéo của hình vuông đó là:", "opts": ["$6\\text{ cm}$", "$6\\sqrt{2}\\text{ cm}$", "$12\\text{ cm}$", "$3\\sqrt{2}\\text{ cm}$"], "ans": 1, "exp": "Theo Pythagore, đường chéo hình vuông cạnh $a$ bằng $a\\sqrt{2} = 6\\sqrt{2}\\text{ cm}$.", "type": "mcq", "id": 67}, {"lesson": 14, "level": "TH", "q": "Hình thoi $ABCD$ có $\\widehat{A}=60^\\circ$ và cạnh $AB = 7\\text{ cm}$. Độ dài đường chéo ngắn $BD$ bằng:", "opts": ["$3{,}5\\text{ cm}$", "$7\\text{ cm}$", "$7\\sqrt{3}\\text{ cm}$", "$14\\text{ cm}$"], "ans": 1, "exp": "$\\triangle ABD$ cân tại $A$ ($AB=AD=7$) có $\\widehat{A}=60^\\circ$ nên là tam giác đều $\\Rightarrow BD = 7\\text{ cm}$.", "type": "mcq", "id": 68}, {"lesson": 14, "level": "TH", "q": "Một hình vuông có đường chéo bằng $8\\text{ cm}$. Diện tích của hình vuông đó bằng:", "opts": ["$16\\text{ cm}^2$", "$32\\text{ cm}^2$", "$64\\text{ cm}^2$", "$128\\text{ cm}^2$"], "ans": 1, "exp": "Diện tích hình vuông (cũng là hình thoi) bằng nửa tích hai đường chéo: $S = \\frac{1}{2}d^2 = \\frac{1}{2}\\cdot 8^2 = 32\\text{ cm}^2$.", "type": "mcq", "id": 69}, {"lesson": 14, "level": "TH", "q": "Cho hình chữ nhật $ABCD$. Các tia phân giác của bốn góc $A, B, C, D$ cắt nhau tạo thành một tứ giác (khi $AB \\neq BC$). Tứ giác đó là:", "opts": ["Hình thang cân", "Hình bình hành thường", "Hình thoi không phải hình vuông", "Hình vuông"], "ans": 3, "exp": "Theo Bài 6 phần Tự luyện Bài 14, giao điểm bốn tia phân giác của hình chữ nhật tạo thành một hình vuông.", "type": "mcq", "id": 70}, {"lesson": 14, "level": "VD", "q": "Cho $\\triangle ABC$ vuông tại $A$, trung tuyến $AM$. Gọi $I$ là trung điểm $AC$, lấy $K$ đối xứng $M$ qua $I$. Tứ giác $AMCK$ luôn là hình gì?", "opts": ["Hình chữ nhật", "Hình thoi", "Hình vuông", "Hình thang cân"], "ans": 1, "exp": "$AMCK$ có hai đường chéo $AC, MK$ cắt nhau tại trung điểm $I$ nên là hình bình hành; lại có $AM = MC$ (trung tuyến ứng cạnh huyền) nên là hình thoi.", "type": "mcq", "id": 71}, {"lesson": 14, "level": "VD", "q": "Cho hình vuông $ABCD$, trên cạnh $AB, BC, CD, DA$ lấy $M, N, P, Q$ sao cho $AM=BN=CP=DQ=3\\text{ cm}$, biết cạnh hình vuông bằng $7\\text{ cm}$. Diện tích hình vuông $MNPQ$ là:", "opts": ["$16\\text{ cm}^2$", "$25\\text{ cm}^2$", "$34\\text{ cm}^2$", "$49\\text{ cm}^2$"], "ans": 1, "exp": "$QA = 7-3=4\\text{ cm}$. Trong $\\triangle QAM$ vuông tại $A$: $QM^2 = 3^2+4^2 = 25 \\Rightarrow S_{MNPQ} = QM^2 = 25\\text{ cm}^2$.", "type": "mcq", "id": 72}, {"lesson": 14, "level": "VD", "q": "Cho hình vuông $ABCD$. Lấy $M \\in BC, K \\in CD$ sao cho $\\widehat{AMB}=\\widehat{AMK}$. Số đo góc $\\widehat{MAK}$ bằng:", "opts": ["$30^\\circ$", "$45^\\circ$", "$60^\\circ$", "$75^\\circ$"], "ans": 1, "exp": "Theo Bài 13 phần Tự luyện Bài 14, hạ $AH \\perp MK$ ta chứng minh được $\\widehat{MAK}=\\frac{1}{2}\\widehat{BAD}=45^\\circ$.", "type": "mcq", "id": 73}, {"lesson": 14, "level": "VD", "q": "Cho $\\triangle ABC$ đều, $M$ bất kì trên $BC$. Kẻ $ME \\perp AB, MF \\perp AC$. Gọi $I, D$ lần lượt là trung điểm $AM, BC$. Số đo $\\widehat{DIE}$ và loại tứ giác $DEIF$ lần lượt là:", "opts": ["$60^\\circ$ và hình thoi", "$90^\\circ$ và hình vuông", "$60^\\circ$ và hình chữ nhật", "$120^\\circ$ và hình thoi"], "ans": 0, "exp": "Theo Bài 19 phần Tự luyện Bài 14: $ID=IE=IF=\\frac{1}{2}AM$, $\\widehat{DIE}=\\widehat{DIF}=60^\\circ \\Rightarrow DE=EI=IF=FD \\Rightarrow DEIF$ là hình thoi.", "type": "mcq", "id": 74}, {"lesson": 14, "level": "VDC", "q": "Cho $\\triangle ABC$ vuông tại $A$ ($AB<AC$), trung tuyến $AM$. Kẻ $MO \\perp AC$, lấy $N$ đối xứng $M$ qua $O$. Gọi $I$ là trung điểm $MC$, lấy $D$ đối xứng $N$ qua $I$. Để $M$ là trực tâm $\\triangle BND$ thì số đo $\\widehat{ACB}$ bằng:", "opts": ["$15^\\circ$", "$30^\\circ$", "$45^\\circ$", "$60^\\circ$"], "ans": 1, "exp": "Theo Bài 16d phần Tự luyện Bài 14: $M$ là trực tâm $\\triangle BND \\Leftrightarrow MC \\perp ND \\Leftrightarrow \\triangle MNC$ đều $\\Leftrightarrow \\widehat{MCN}=60^\\circ \\Leftrightarrow \\widehat{ACB}=30^\\circ$.", "type": "mcq", "id": 75}, {"lesson": 10, "level": "NB", "q": "Xét các khẳng định về khái niệm tứ giác lồi và các yếu tố của tứ giác $ABCD$:", "items": [{"t": "Trong tứ giác $ABCD$, không có hai đoạn thẳng nào cùng nằm trên một đường thẳng.", "a": true}, {"t": "Hai cạnh $AB$ và $CD$ được gọi là hai cạnh kề nhau.", "a": false}, {"t": "Tứ giác lồi luôn nằm về một phía của đường thẳng chứa bất kì cạnh nào của nó.", "a": true}, {"t": "Đường chéo của tứ giác lồi luôn cắt nhau tại một điểm nằm bên trong tứ giác.", "a": true}], "exp": "a) Đúng theo định nghĩa. b) Sai: $AB$ và $CD$ là hai cạnh đối nhau. c) Đúng. d) Đúng với mọi tứ giác lồi.", "type": "tf", "id": 76}, {"lesson": 10, "level": "TH", "q": "Cho tứ giác $ABCD$ có $\\widehat{A}=85^\\circ, \\widehat{B}=95^\\circ, \\widehat{C}=110^\\circ$. Xét các mệnh đề sau:", "items": [{"t": "Số đo góc $\\widehat{D}$ bằng $70^\\circ$.", "a": true}, {"t": "Tứ giác $ABCD$ có hai góc nhọn và hai góc tù.", "a": true}, {"t": "Số đo góc ngoài tại đỉnh $C$ bằng $80^\\circ$.", "a": false}, {"t": "Tổng hai góc đối $\\widehat{A}+\\widehat{C}$ bằng $195^\\circ$.", "a": true}], "exp": "$\\widehat{D}=360^\\circ-(85^\\circ+95^\\circ+110^\\circ)=70^\\circ$. Các góc nhọn: $A, D$; tù: $B, C$. Góc ngoài tại $C$ là $180^\\circ-110^\\circ=70^\\circ$ (nên c sai). $\\widehat{A}+\\widehat{C}=85^\\circ+110^\\circ=195^\\circ$.", "type": "tf", "id": 77}, {"lesson": 10, "level": "TH", "q": "Xét khả năng tồn tại các loại góc trong một tứ giác lồi:", "items": [{"t": "Có thể có một tứ giác có cả bốn góc đều là góc vuông.", "a": true}, {"t": "Có thể có một tứ giác có cả bốn góc đều là góc nhọn.", "a": false}, {"t": "Có thể có một tứ giác có đúng ba góc nhọn và một góc tù.", "a": true}, {"t": "Có thể có một tứ giác có đúng ba góc vuông và một góc nhọn.", "a": false}], "exp": "a) Đúng (hình chữ nhật). b) Sai vì tổng $<360^\\circ$. c) Đúng (vd $80^\\circ, 80^\\circ, 80^\\circ, 120^\\circ$). d) Sai vì nếu $3$ góc bằng $90^\\circ$ thì góc thứ tư bắt buộc bằng $360^\\circ-270^\\circ=90^\\circ$.", "type": "tf", "id": 78}, {"lesson": 10, "level": "VD", "q": "Cho tứ giác $ABCD$ có $\\widehat{A}=64^\\circ, \\widehat{D}=76^\\circ$. Hai tia phân giác của $\\widehat{B}$ và $\\widehat{C}$ cắt nhau tại $M$. Xét các khẳng định:", "items": [{"t": "Tổng $\\widehat{B}+\\widehat{C}=220^\\circ$.", "a": true}, {"t": "Tổng $\\widehat{MBC}+\\widehat{MCB}=110^\\circ$.", "a": true}, {"t": "Số đo góc $\\widehat{BMC}=80^\\circ$.", "a": false}, {"t": "Số đo góc $\\widehat{BMC}$ bằng nửa tổng hai góc $\\widehat{A}$ và $\\widehat{D}$.", "a": true}], "exp": "$\\widehat{B}+\\widehat{C}=360^\\circ-(64^\\circ+76^\\circ)=220^\\circ$. $\\widehat{MBC}+\\widehat{MCB}=110^\\circ \\Rightarrow \\widehat{BMC}=180^\\circ-110^\\circ=70^\\circ = \\frac{64^\\circ+76^\\circ}{2}$. Nên c) sai, d) đúng.", "type": "tf", "id": 79}, {"lesson": 11, "level": "NB", "q": "Xét các tính chất và dấu hiệu nhận biết của hình thang cân $ABCD$ ($AB \\parallel CD$):", "items": [{"t": "Hai cạnh bên $AD$ và $BC$ bằng nhau.", "a": true}, {"t": "Hai đường chéo $AC$ và $BD$ cắt nhau tại trung điểm của mỗi đường.", "a": false}, {"t": "Hai đường chéo $AC$ và $BD$ bằng nhau.", "a": true}, {"t": "Tổng hai góc đối $\\widehat{A}+\\widehat{C}=180^\\circ$.", "a": true}], "exp": "Hình thang cân có hai cạnh bên bằng nhau, hai đường chéo bằng nhau, và $\\widehat{A}+\\widehat{C}=\\widehat{A}+\\widehat{D}=180^\\circ$. Hai đường chéo KHÔNG cắt nhau tại trung điểm mỗi đường (trừ hình chữ nhật).", "type": "tf", "id": 80}, {"lesson": 11, "level": "TH", "q": "Cho hình thang cân $ABCD$ ($AB \\parallel CD$) có $\\widehat{D}=55^\\circ$. Xét các mệnh đề:", "items": [{"t": "$\\widehat{C}=55^\\circ$.", "a": true}, {"t": "$\\widehat{A}=125^\\circ$.", "a": true}, {"t": "$\\widehat{B}=115^\\circ$.", "a": false}, {"t": "$\\widehat{A}+\\widehat{B}=250^\\circ$.", "a": true}], "exp": "$\\widehat{C}=\\widehat{D}=55^\\circ$; $\\widehat{A}=\\widehat{B}=180^\\circ-55^\\circ=125^\\circ$; $\\widehat{A}+\\widehat{B}=250^\\circ$.", "type": "tf", "id": 81}, {"lesson": 11, "level": "VD", "q": "Cho hình thang cân $ABCD$ ($AB \\parallel CD, AB<CD$), kẻ hai đường cao $AH, BK$. Biết $AB=8\\text{ cm}, CD=16\\text{ cm}, AD=5\\text{ cm}$.", "items": [{"t": "$\\triangle AHD = \\triangle BKC$.", "a": true}, {"t": "$DH = KC = 4\\text{ cm}$.", "a": true}, {"t": "Đường cao $AH = 4\\text{ cm}$.", "a": false}, {"t": "Diện tích hình thang cân $ABCD$ bằng $36\\text{ cm}^2$.", "a": true}], "exp": "$DH = KC = \\frac{16-8}{2}=4\\text{ cm}$. Theo Pythagore: $AH = \\sqrt{5^2-4^2}=3\\text{ cm}$ (nên c sai). Diện tích $S = \\frac{(8+16)\\cdot 3}{2}=36\\text{ cm}^2$.", "type": "tf", "id": 82}, {"lesson": 11, "level": "VD", "q": "Cho hình thang cân $ABCD$ ($AB \\parallel CD, AB<CD$). Gọi $O$ là giao điểm của $AD$ và $BC$, $E$ là giao điểm của $AC$ và $BD$, $M$ là trung điểm $DC$.", "items": [{"t": "$\\triangle OAB$ cân tại $O$.", "a": true}, {"t": "$EA = ED$.", "a": false}, {"t": "$EC = ED$.", "a": true}, {"t": "Ba điểm $O, E, M$ thẳng hàng.", "a": true}], "exp": "Theo Bài 5 phần Tự luyện Bài 11: $\\triangle OAB$ cân tại $O$; $\\triangle EDC$ cân tại $E$ ($EC=ED$); $O, E, M$ cùng thuộc đường trung trực của $DC$ nên thẳng hàng. Còn $EA = EB \\neq ED$.", "type": "tf", "id": 83}, {"lesson": 12, "level": "NB", "q": "Xét các dấu hiệu nhận biết hình bình hành cho tứ giác $ABCD$:", "items": [{"t": "Nếu $AB \\parallel CD$ và $AB = CD$ thì $ABCD$ là hình bình hành.", "a": true}, {"t": "Nếu $AB \\parallel CD$ và $AD = BC$ thì $ABCD$ chắc chắn là hình bình hành.", "a": false}, {"t": "Nếu $\\widehat{A}=\\widehat{C}$ và $\\widehat{B}=\\widehat{D}$ thì $ABCD$ là hình bình hành.", "a": true}, {"t": "Nếu $AC$ và $BD$ cắt nhau tại trung điểm $O$ của mỗi đường thì $ABCD$ là hình bình hành.", "a": true}], "exp": "b) Sai vì $AB \\parallel CD$ và $AD = BC$ có thể là hình thang cân. Ba dấu hiệu còn lại đều đúng.", "type": "tf", "id": 84}, {"lesson": 12, "level": "TH", "q": "Cho hình bình hành $ABCD$ có $\\widehat{A}=115^\\circ$, $AB=7\\text{ cm}, BC=5\\text{ cm}$, hai đường chéo cắt nhau tại $O$.", "items": [{"t": "$\\widehat{C}=115^\\circ$ và $\\widehat{B}=65^\\circ$.", "a": true}, {"t": "Chu vi hình bình hành $ABCD$ bằng $24\\text{ cm}$.", "a": true}, {"t": "Hai đường chéo $AC$ và $BD$ bằng nhau.", "a": false}, {"t": "$O$ là trung điểm của cả $AC$ và $BD$.", "a": true}], "exp": "$\\widehat{C}=\\widehat{A}=115^\\circ, \\widehat{B}=180^\\circ-115^\\circ=65^\\circ$. Chu vi $= 2(7+5)=24\\text{ cm}$. Vì $\\widehat{A}\\neq 90^\\circ$ nên $AC \\neq BD$.", "type": "tf", "id": 85}, {"lesson": 12, "level": "VD", "q": "Cho hình bình hành $ABCD$ ($AB < AD$). Tia phân giác của $\\widehat{B}$ cắt $AD$ tại $M$, tia phân giác của $\\widehat{D}$ cắt $BC$ tại $N$.", "items": [{"t": "$\\triangle ABM$ là tam giác cân tại $A$.", "a": true}, {"t": "$BM \\parallel DN$.", "a": true}, {"t": "Tứ giác $BMDN$ là hình bình hành.", "a": true}, {"t": "Tứ giác $BMDN$ luôn là hình chữ nhật.", "a": false}], "exp": "Theo Bài 3 Luyện tập Bài 12: $\\triangle ABM$ cân tại $A$, $BM \\parallel DN$, $BMDN$ là hình bình hành, nhưng góc $\\widehat{BMD}$ nói chung không bằng $90^\\circ$.", "type": "tf", "id": 86}, {"lesson": 12, "level": "VD", "q": "Cho $\\triangle ABC$ nhọn, các đường trung tuyến $AM, BN$ cắt nhau tại $G$. Lấy $E$ trên tia $BN$ sao cho $NE=NG$, lấy $F$ trên tia $AM$ sao cho $AG=GF$.", "items": [{"t": "Tứ giác $AGCE$ là hình bình hành.", "a": true}, {"t": "$M$ là trung điểm của đoạn thẳng $GF$.", "a": true}, {"t": "$BF \\parallel AE$ và $BF = AE$.", "a": true}, {"t": "$AECF$ là hình thang cân khi và chỉ khi $\\triangle ABC$ vuông tại $A$.", "a": false}], "exp": "Theo Bài 12 Tự luyện Bài 12: a, b, c đúng; d) Sai vì $AECF$ là hình thang cân $\\Leftrightarrow AC = EF = AB \\Leftrightarrow \\triangle ABC$ cân tại $A$.", "type": "tf", "id": 87}, {"lesson": 13, "level": "NB", "q": "Xét các khẳng định về hình chữ nhật $ABCD$:", "items": [{"t": "Hình chữ nhật có đầy đủ mọi tính chất của hình bình hành và hình thang cân.", "a": true}, {"t": "Trong hình chữ nhật, hai đường chéo vuông góc với nhau.", "a": false}, {"t": "Tứ giác có ba góc vuông là hình chữ nhật.", "a": true}, {"t": "Hình bình hành có hai đường chéo bằng nhau là hình chữ nhật.", "a": true}], "exp": "Hai đường chéo hình chữ nhật nói chung không vuông góc (chỉ vuông góc khi là hình vuông). Các câu a, c, d đều đúng.", "type": "tf", "id": 88}, {"lesson": 13, "level": "TH", "q": "Cho $\\triangle ABC$ vuông tại $A$ có $AB = 9\\text{ cm}, AC = 12\\text{ cm}$, trung tuyến $AM$.", "items": [{"t": "Độ dài cạnh huyền $BC = 15\\text{ cm}$.", "a": true}, {"t": "Độ dài đường trung tuyến $AM = 7{,}5\\text{ cm}$.", "a": true}, {"t": "$\\triangle MAB$ và $\\triangle MAC$ đều là các tam giác cân tại $M$.", "a": true}, {"t": "$AM$ vuông góc với $BC$.", "a": false}], "exp": "$BC = \\sqrt{9^2+12^2}=15\\text{ cm} \\Rightarrow AM = MB = MC = 7{,}5\\text{ cm}$. Vì $AB \\neq AC$ nên $AM$ không vuông góc với $BC$.", "type": "tf", "id": 89}, {"lesson": 13, "level": "VD", "q": "Cho $\\triangle ABC$ vuông tại $A$ ($AB<AC$), đường cao $AH$, trung tuyến $AM$. Kẻ $HD \\perp AB, HP \\perp AC$. Gọi $O = AH \\cap DP$, $N = AM \\cap DP$.", "items": [{"t": "Tứ giác $ADHP$ là hình chữ nhật.", "a": true}, {"t": "$AH = DP$ và $O$ là trung điểm của cả $AH$ và $DP$.", "a": true}, {"t": "$\\triangle APN$ vuông tại $N$.", "a": true}, {"t": "$DP \\parallel BC$.", "a": false}], "exp": "Theo Bài 1 Luyện tập Bài 13: $ADHP$ là hình chữ nhật, $AH=DP$, $AM \\perp DP$ tại $N$. Còn $DP$ không song song với $BC$ (vì $AB \\neq AC$).", "type": "tf", "id": 90}, {"lesson": 13, "level": "VD", "q": "Cho $\\triangle ABC$ vuông tại $A$ ($AB<AC$), $M$ là trung điểm $BC$. Kẻ $ME \\perp AB, MF \\perp AC$. Gọi $AK$ là đường cao $\\triangle ABC$.", "items": [{"t": "$E, F$ lần lượt là trung điểm của $AB, AC$.", "a": true}, {"t": "$EF = \\dfrac{1}{2}BC$.", "a": true}, {"t": "Tứ giác $KMFE$ là hình thang cân.", "a": true}, {"t": "Tứ giác $AEMF$ là hình vuông.", "a": false}], "exp": "Theo Bài 5 Tự luyện Bài 13: a, b, c đúng. Vì $AB < AC \\Rightarrow AE < AF$ nên $AEMF$ là hình chữ nhật nhưng không phải hình vuông.", "type": "tf", "id": 91}, {"lesson": 14, "level": "NB", "q": "Xét các khẳng định về hình thoi và hình vuông:", "items": [{"t": "Mọi hình vuông đều là hình thoi.", "a": true}, {"t": "Mọi hình thoi đều là hình chữ nhật.", "a": false}, {"t": "Hình chữ nhật có hai đường chéo vuông góc là hình vuông.", "a": true}, {"t": "Hình thoi có hai đường chéo bằng nhau là hình vuông.", "a": true}], "exp": "Hình vuông vừa là hình thoi vừa là hình chữ nhật; ngược lại hình thoi nói chung không có góc vuông nên không phải hình chữ nhật.", "type": "tf", "id": 92}, {"lesson": 14, "level": "TH", "q": "Cho hình thoi $ABCD$ có hai đường chéo $AC = 12\\text{ cm}, BD = 16\\text{ cm}$ cắt nhau tại $O$.", "items": [{"t": "$OA = 6\\text{ cm}$ và $OB = 8\\text{ cm}$.", "a": true}, {"t": "Cạnh của hình thoi bằng $10\\text{ cm}$.", "a": true}, {"t": "Diện tích hình thoi bằng $192\\text{ cm}^2$.", "a": false}, {"t": "Chu vi hình thoi bằng $40\\text{ cm}$.", "a": true}], "exp": "$OA=6, OB=8 \\Rightarrow AB=\\sqrt{6^2+8^2}=10\\text{ cm}$, chu vi $=40\\text{ cm}$. Diện tích $S=\\frac{1}{2}\\cdot 12\\cdot 16 = 96\\text{ cm}^2$ (không phải $192$).", "type": "tf", "id": 93}, {"lesson": 14, "level": "VD", "q": "Cho hình vuông $ABCD$ có cạnh bằng $a$, tâm $O$ (giao điểm hai đường chéo).", "items": [{"t": "Bốn tam giác $OAB, OBC, OCD, ODA$ là các tam giác vuông cân bằng nhau.", "a": true}, {"t": "Góc $\\widehat{BAC} = 45^\\circ$.", "a": true}, {"t": "Nếu $a = 5\\text{ cm}$ thì $AC = 10\\text{ cm}$.", "a": false}, {"t": "Hai đường thẳng bất kì vuông góc với nhau tại $O$ cắt bốn cạnh hình vuông tại $P, Q, R, S$ thì $PRQS$ là hình vuông.", "a": true}], "exp": "a, b đúng theo tính chất hình vuông. c) Sai vì $AC = 5\\sqrt{2}\\text{ cm} \\neq 10\\text{ cm}$. d) Đúng theo Bài 15 Tự luyện Bài 14.", "type": "tf", "id": 94}, {"lesson": 14, "level": "VD", "q": "Cho hình bình hành $ABCD$ có $\\widehat{BAD}=60^\\circ$ và $AD = 2AB$. Gọi $M, N$ lần lượt là trung điểm $BC, AD$.", "items": [{"t": "Tứ giác $MCDN$ là hình thoi.", "a": true}, {"t": "Tứ giác $ABMN$ cũng là hình thoi.", "a": true}, {"t": "Tứ giác $ABMD$ là hình thang cân.", "a": true}, {"t": "$AM$ vuông góc với $BD$.", "a": false}], "exp": "Theo Bài 17 Tự luyện Bài 14: $MCDN, ABMN$ là hình thoi; $ABMD$ là hình thang cân nên $AM=BD$. Góc giữa $AM$ và $BD$: $\\widehat{MAD}=30^\\circ, \\widehat{BDA}=30^\\circ$ nên góc giao nhau là $120^\\circ \\neq 90^\\circ$.", "type": "tf", "id": 95}, {"lesson": 10, "level": "NB", "q": "Tứ giác $ABCD$ có $\\widehat{A}=60^\\circ, \\widehat{B}=135^\\circ, \\widehat{D}=29^\\circ$. Tính số đo $\\widehat{C}$ (đơn vị: độ).", "unit": "°", "ans_display": "136", "accept": ["136"], "exp": "$\\widehat{C} = 360^\\circ - (60^\\circ + 135^\\circ + 29^\\circ) = 360^\\circ - 224^\\circ = 136^\\circ$.", "type": "short", "id": 96}, {"lesson": 10, "level": "NB", "q": "Tứ giác $EFGH$ có $\\widehat{E}=90^\\circ, \\widehat{G}=88^\\circ, \\widehat{H}=67^\\circ$. Tính số đo $\\widehat{F}$ (đơn vị: độ).", "unit": "°", "ans_display": "115", "accept": ["115"], "exp": "$\\widehat{F} = 360^\\circ - (90^\\circ + 88^\\circ + 67^\\circ) = 360^\\circ - 245^\\circ = 115^\\circ$.", "type": "short", "id": 97}, {"lesson": 10, "level": "TH", "q": "Tứ giác $MNPQ$ có $\\widehat{M}=\\widehat{Q}=108^\\circ$ và $\\widehat{N}=\\widehat{P}=x$. Tìm $x$ (đơn vị: độ).", "unit": "°", "ans_display": "72", "accept": ["72"], "exp": "$2x + 2\\cdot 108^\\circ = 360^\\circ \\Rightarrow 2x = 144^\\circ \\Rightarrow x = 72^\\circ$.", "type": "short", "id": 98}, {"lesson": 10, "level": "TH", "q": "Tứ giác $ABCD$ có $\\widehat{A}=\\widehat{B}=2x$ và $\\widehat{C}=\\widehat{D}=x$. Tìm $x$ (đơn vị: độ).", "unit": "°", "ans_display": "60", "accept": ["60"], "exp": "$2x + 2x + x + x = 360^\\circ \\Rightarrow 6x = 360^\\circ \\Rightarrow x = 60^\\circ$.", "type": "short", "id": 99}, {"lesson": 10, "level": "TH", "q": "Cho tứ giác $ABCD$ có $AC$ là tia phân giác của $\\widehat{BAD}$, $\\widehat{DAC}=40^\\circ$ và $\\widehat{B}=\\widehat{D}=90^\\circ$. Tính số đo $\\widehat{BCD}$ (đơn vị: độ).", "unit": "°", "ans_display": "100", "accept": ["100"], "exp": "$\\widehat{BAD}=2\\cdot 40^\\circ = 80^\\circ \\Rightarrow \\widehat{BCD} = 360^\\circ - (80^\\circ + 90^\\circ + 90^\\circ) = 100^\\circ$.", "type": "short", "id": 100}, {"lesson": 10, "level": "VD", "q": "Cho tứ giác $ABCD$ có $\\widehat{A}=72^\\circ, \\widehat{D}=68^\\circ$. Hai tia phân giác của $\\widehat{B}$ và $\\widehat{C}$ cắt nhau tại $M$. Tính số đo $\\widehat{BMC}$ (đơn vị: độ).", "unit": "°", "ans_display": "70", "accept": ["70"], "exp": "$\\widehat{B}+\\widehat{C}=360^\\circ-140^\\circ=220^\\circ \\Rightarrow \\widehat{BMC}=180^\\circ-\\frac{220^\\circ}{2}=70^\\circ$.", "type": "short", "id": 101}, {"lesson": 10, "level": "VD", "q": "Cho tứ giác $ABCD$ có các góc tỉ lệ với $1 : 2 : 3 : 3$. Tính số đo góc lớn nhất của tứ giác đó (đơn vị: độ).", "unit": "°", "ans_display": "120", "accept": ["120"], "exp": "Đặt các góc là $k, 2k, 3k, 3k \\Rightarrow 9k = 360^\\circ \\Rightarrow k = 40^\\circ$. Góc lớn nhất bằng $3k = 120^\\circ$.", "type": "short", "id": 102}, {"lesson": 10, "level": "VDC", "q": "Cho tứ giác $ABCD$ có $\\widehat{A}=100^\\circ$, góc ngoài tại đỉnh $B$ bằng $70^\\circ$, $\\widehat{C}=85^\\circ$. Tính số đo góc ngoài tại đỉnh $D$ (đơn vị: độ).", "unit": "°", "ans_display": "115", "accept": ["115"], "exp": "Góc ngoài tại $A$ là $80^\\circ$, tại $B$ là $70^\\circ$, tại $C$ là $95^\\circ$. Tổng $4$ góc ngoài bằng $360^\\circ \\Rightarrow$ góc ngoài tại $D$ bằng $360^\\circ-(80^\\circ+70^\\circ+95^\\circ)=115^\\circ$.", "type": "short", "id": 103}, {"lesson": 11, "level": "NB", "q": "Cho hình thang cân $ABCD$ ($AB \\parallel CD$) có $\\widehat{D}=65^\\circ$. Tính số đo góc $\\widehat{A}$ (đơn vị: độ).", "unit": "°", "ans_display": "115", "accept": ["115"], "exp": "Vì $AB \\parallel CD$ nên $\\widehat{A} = 180^\\circ - \\widehat{D} = 180^\\circ - 65^\\circ = 115^\\circ$.", "type": "short", "id": 104}, {"lesson": 11, "level": "NB", "q": "Cho hình thang cân $ABCD$ ($AB \\parallel CD$) có $AB = 5\\text{ cm}, CD = 9\\text{ cm}, AD = 4\\text{ cm}$. Tính chu vi hình thang cân $ABCD$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "22", "accept": ["22"], "exp": "$BC = AD = 4\\text{ cm}$. Chu vi $= 5 + 9 + 4 + 4 = 22\\text{ cm}$.", "type": "short", "id": 105}, {"lesson": 11, "level": "TH", "q": "Cho hình thang $ABCD$ ($AB \\parallel CD$) có $\\widehat{A} = 2\\widehat{D}$ và $\\widehat{B} = \\widehat{C} + 30^\\circ$. Tính số đo góc $\\widehat{C}$ (đơn vị: độ).", "unit": "°", "ans_display": "75", "accept": ["75"], "exp": "Vì $AB \\parallel CD$ nên $\\widehat{B}+\\widehat{C}=180^\\circ$. Thay $\\widehat{B}=\\widehat{C}+30^\\circ \\Rightarrow 2\\widehat{C}=150^\\circ \\Rightarrow \\widehat{C}=75^\\circ$.", "type": "short", "id": 106}, {"lesson": 11, "level": "TH", "q": "Hình thang cân $ABCD$ ($AB \\parallel CD, AB<CD$) có hai đường cao $AH, BK$. Biết $AB = 7\\text{ cm}$ và $KC = 3{,}5\\text{ cm}$. Tính độ dài đáy lớn $CD$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "14", "accept": ["14"], "exp": "$CD = AB + 2KC = 7 + 2\\cdot 3{,}5 = 14\\text{ cm}$.", "type": "short", "id": 107}, {"lesson": 11, "level": "TH", "q": "Cho $\\triangle ABC$ có hai tia phân giác góc $\\widehat{B}, \\widehat{C}$ cắt nhau tại $O$. Qua $O$ kẻ $MN \\parallel BC$ ($M \\in AB, N \\in AC$). Biết $MB = 4\\text{ cm}, NC = 5{,}5\\text{ cm}$. Tính độ dài $MN$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "9.5", "accept": ["9.5", "9,5", "19/2"], "exp": "Theo Bài 4 Luyện tập Bài 11: $MN = MB + NC = 4 + 5{,}5 = 9{,}5\\text{ cm}$.", "type": "short", "id": 108}, {"lesson": 11, "level": "VD", "q": "Cho hình thang cân $ABCD$ ($AB \\parallel CD, AB<CD$) có $AB = 10\\text{ cm}, CD = 22\\text{ cm}$ và cạnh bên $AD = 10\\text{ cm}$. Tính độ dài đường cao $AH$ của hình thang (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "8", "accept": ["8"], "exp": "$DH = \\frac{22-10}{2} = 6\\text{ cm}$. Theo Pythagore: $AH = \\sqrt{10^2 - 6^2} = \\sqrt{64} = 8\\text{ cm}$.", "type": "short", "id": 109}, {"lesson": 11, "level": "VD", "q": "Cho hình thang cân $ABCD$ ($AB \\parallel CD, AB<CD$) có $AB = 6\\text{ cm}, CD = 12\\text{ cm}$ và đường cao $AH = 4\\text{ cm}$. Tính diện tích hình thang cân $ABCD$ (đơn vị: $\\text{cm}^2$).", "unit": "cm²", "ans_display": "36", "accept": ["36"], "exp": "$S = \\frac{(AB + CD)\\cdot AH}{2} = \\frac{(6 + 12)\\cdot 4}{2} = 36\\text{ cm}^2$.", "type": "short", "id": 110}, {"lesson": 11, "level": "VDC", "q": "Cho hình thang cân $ABCD$ ($AB \\parallel CD$) có hai đường chéo vuông góc với nhau và đường cao $AH = 9\\text{ cm}$. Tính tổng độ dài hai đáy $AB + CD$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "18", "accept": ["18"], "exp": "Qua $B$ kẻ $BE \\parallel AC$ ($E \\in CD$). Khi đó $ABEC$ là hình bình hành nên $CE=AB$, $BE=AC=BD$ và $BE \\perp BD \\Rightarrow \\triangle BDE$ vuông cân tại $B$. Đường cao $BK = AH = 9\\text{ cm}$ bằng nửa cạnh huyền $DE = CD+AB \\Rightarrow AB+CD = 2\\cdot 9 = 18\\text{ cm}$.", "type": "short", "id": 111}, {"lesson": 12, "level": "NB", "q": "Cho hình bình hành $ABCD$ có $\\widehat{BAD}=125^\\circ$. Tính số đo $\\widehat{ADC}$ (đơn vị: độ).", "unit": "°", "ans_display": "55", "accept": ["55"], "exp": "$\\widehat{ADC} = 180^\\circ - \\widehat{BAD} = 180^\\circ - 125^\\circ = 55^\\circ$.", "type": "short", "id": 112}, {"lesson": 12, "level": "NB", "q": "Cho hình bình hành $ABCD$ có hai đường chéo cắt nhau tại $O$. Biết $AC = 14\\text{ cm}$ và $OB = 4{,}5\\text{ cm}$. Tính tổng $OA + BD$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "16", "accept": ["16"], "exp": "$OA = \\frac{14}{2} = 7\\text{ cm}$, $BD = 2\\cdot 4{,}5 = 9\\text{ cm} \\Rightarrow OA + BD = 7 + 9 = 16\\text{ cm}$.", "type": "short", "id": 113}, {"lesson": 12, "level": "TH", "q": "Hình bình hành $ABCD$ có chu vi bằng $42\\text{ cm}$ và $AB = 2BC$. Tính độ dài cạnh $AB$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "14", "accept": ["14"], "exp": "$AB + BC = 21\\text{ cm} \\Rightarrow 2BC + BC = 21 \\Rightarrow BC = 7\\text{ cm} \\Rightarrow AB = 14\\text{ cm}$.", "type": "short", "id": 114}, {"lesson": 12, "level": "TH", "q": "Cho hình bình hành $ABCD$ có $\\widehat{A} = 3\\widehat{B}$. Tính số đo $\\widehat{C}$ (đơn vị: độ).", "unit": "°", "ans_display": "135", "accept": ["135"], "exp": "$\\widehat{A}+\\widehat{B}=180^\\circ \\Rightarrow 4\\widehat{B}=180^\\circ \\Rightarrow \\widehat{B}=45^\\circ \\Rightarrow \\widehat{C}=\\widehat{A}=135^\\circ$.", "type": "short", "id": 115}, {"lesson": 12, "level": "TH", "q": "Cho hình bình hành $ABCD$ có $AB = 6\\text{ cm}, AD = 11\\text{ cm}$. Tia phân giác $\\widehat{A}$ cắt $BC$ tại $E$. Tính độ dài $EC$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "5", "accept": ["5"], "exp": "$AD \\parallel BC \\Rightarrow \\widehat{AEB}=\\widehat{DAE}=\\widehat{BAE} \\Rightarrow \\triangle ABE$ cân tại $B \\Rightarrow BE = AB = 6\\text{ cm} \\Rightarrow EC = 11 - 6 = 5\\text{ cm}$.", "type": "short", "id": 116}, {"lesson": 12, "level": "VD", "q": "Cho hình bình hành $ABCD$, gọi $M, N$ là trung điểm $AB, CD$. Hai đoạn $AN, CM$ cắt $BD$ tại $E, F$. Biết $BF = 5{,}5\\text{ cm}$. Tính độ dài đường chéo $BD$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "16.5", "accept": ["16.5", "16,5", "33/2"], "exp": "Theo Bài 6 Tự luyện Bài 12: $BF = FE = ED \\Rightarrow BD = 3BF = 3\\cdot 5{,}5 = 16{,}5\\text{ cm}$.", "type": "short", "id": 117}, {"lesson": 12, "level": "VD", "q": "Cho hình bình hành $ABCD$, $M$ và $N$ lần lượt là trung điểm $OD$ và $OB$ ($O = AC \\cap BD$). $AM$ cắt $CD$ tại $E$, $CN$ cắt $AB$ tại $F$. Biết $DE = 3\\text{ cm}, CD = 10\\text{ cm}$. Tính độ dài $AF$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "7", "accept": ["7"], "exp": "Theo Bài 8 Tự luyện Bài 12: $BF = DE = 3\\text{ cm}$, $AB = CD = 10\\text{ cm} \\Rightarrow AF = 10 - 3 = 7\\text{ cm}$.", "type": "short", "id": 118}, {"lesson": 12, "level": "VDC", "q": "Cho $\\triangle ABC$ cân tại $A$ có $AB = AC = 12\\text{ cm}$. Lấy điểm $D$ trên $BC$, kẻ $DM \\parallel AC$ ($M \\in AB$) và $DN \\parallel AB$ ($N \\in AC$). Tính chu vi hình bình hành $AMDN$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "24", "accept": ["24"], "exp": "Theo Bài 2 Luyện tập Bài 12: $DM + DN = AB = 12\\text{ cm}$. Chu vi hình bình hành $AMDN$ bằng $2(DM + DN) = 24\\text{ cm}$.", "type": "short", "id": 119}, {"lesson": 13, "level": "NB", "q": "Cho $\\triangle ABC$ vuông tại $A$ có cạnh huyền $BC = 13\\text{ cm}$. Tính độ dài đường trung tuyến $AM$ ứng với cạnh huyền (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "6.5", "accept": ["6.5", "6,5", "13/2"], "exp": "$AM = \\frac{BC}{2} = \\frac{13}{2} = 6{,}5\\text{ cm}$.", "type": "short", "id": 120}, {"lesson": 13, "level": "NB", "q": "Cho hình chữ nhật $ABCD$ có $AB = 12\\text{ cm}, BC = 5\\text{ cm}$. Tính độ dài đường chéo $BD$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "13", "accept": ["13"], "exp": "$BD = AC = \\sqrt{12^2 + 5^2} = \\sqrt{169} = 13\\text{ cm}$.", "type": "short", "id": 121}, {"lesson": 13, "level": "TH", "q": "Cho hình chữ nhật $ABCD$ có hai đường chéo cắt nhau tại $O$. Biết $OA = 5\\text{ cm}$ và $AB = 6\\text{ cm}$. Tính độ dài cạnh $BC$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "8", "accept": ["8"], "exp": "$AC = 2OA = 10\\text{ cm} \\Rightarrow BC = \\sqrt{10^2 - 6^2} = 8\\text{ cm}$.", "type": "short", "id": 122}, {"lesson": 13, "level": "TH", "q": "Cho hình chữ nhật $ABCD$ có hai đường chéo cắt nhau tại $O$ và $\\widehat{AOD} = 120^\\circ$. Tính số đo góc $\\widehat{OAB}$ (đơn vị: độ).", "unit": "°", "ans_display": "60", "accept": ["60"], "exp": "$\\widehat{AOB} = 180^\\circ - 120^\\circ = 60^\\circ$. Vì $OA = OB$ nên $\\triangle OAB$ đều $\\Rightarrow \\widehat{OAB} = 60^\\circ$.", "type": "short", "id": 123}, {"lesson": 13, "level": "TH", "q": "Cho $\\triangle ABC$ vuông tại $A$ có $AB = 8\\text{ cm}, AC = 15\\text{ cm}$. Tính độ dài đường trung tuyến $AM$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "8.5", "accept": ["8.5", "8,5", "17/2"], "exp": "$BC = \\sqrt{8^2 + 15^2} = \\sqrt{289} = 17\\text{ cm} \\Rightarrow AM = \\frac{17}{2} = 8{,}5\\text{ cm}$.", "type": "short", "id": 124}, {"lesson": 13, "level": "VD", "q": "Cho $\\triangle ABC$ vuông tại $A$, $M$ là trung điểm $BC$. Lấy $D$ đối xứng $A$ qua $M$, lấy $E$ sao cho $B$ là trung điểm $AE$. $EM$ cắt $BD$ tại $K$. Biết $EM = 12\\text{ cm}$, tính độ dài $EK$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "8", "accept": ["8"], "exp": "Theo Bài 2 Luyện tập Bài 13: $K$ là trọng tâm $\\triangle AED$ nên $EK = \\frac{2}{3}EM = \\frac{2}{3}\\cdot 12 = 8\\text{ cm}$.", "type": "short", "id": 125}, {"lesson": 13, "level": "VD", "q": "Cho hình chữ nhật $ABCD$ có chu vi bằng $28\\text{ cm}$ và đường chéo $AC = 10\\text{ cm}$. Tính diện tích hình chữ nhật $ABCD$ (đơn vị: $\\text{cm}^2$).", "unit": "cm²", "ans_display": "48", "accept": ["48"], "exp": "Đặt $a, b$ là hai kích thước: $a + b = 14$ và $a^2 + b^2 = 10^2 = 100$. Ta có $S = ab = \\frac{(a+b)^2 - (a^2+b^2)}{2} = \\frac{196 - 100}{2} = 48\\text{ cm}^2$.", "type": "short", "id": 126}, {"lesson": 13, "level": "VDC", "q": "Cho $\\triangle ABC$ vuông tại $A$ có $AB = 6\\text{ cm}, AC = 8\\text{ cm}$, đường cao $AH$. Kẻ $HP \\perp AB, HQ \\perp AC$. Tính độ dài đoạn $PQ$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "4.8", "accept": ["4.8", "4,8", "24/5"], "exp": "$BC = \\sqrt{6^2+8^2}=10\\text{ cm}$. Diện tích $\\triangle ABC$: $AH\\cdot BC = AB\\cdot AC \\Rightarrow AH = \\frac{6\\cdot 8}{10} = 4{,}8\\text{ cm}$. Vì $APHQ$ là hình chữ nhật nên $PQ = AH = 4{,}8\\text{ cm}$.", "type": "short", "id": 127}, {"lesson": 14, "level": "NB", "q": "Tính diện tích hình thoi có độ dài hai đường chéo bằng $10\\text{ cm}$ và $14\\text{ cm}$ (đơn vị: $\\text{cm}^2$).", "unit": "cm²", "ans_display": "70", "accept": ["70"], "exp": "$S = \\frac{1}{2}\\cdot 10\\cdot 14 = 70\\text{ cm}^2$.", "type": "short", "id": 128}, {"lesson": 14, "level": "NB", "q": "Một hình vuông có chu vi bằng $36\\text{ cm}$. Tính diện tích của hình vuông đó (đơn vị: $\\text{cm}^2$).", "unit": "cm²", "ans_display": "81", "accept": ["81"], "exp": "Cạnh hình vuông $a = \\frac{36}{4} = 9\\text{ cm} \\Rightarrow S = 9^2 = 81\\text{ cm}^2$.", "type": "short", "id": 129}, {"lesson": 14, "level": "TH", "q": "Cho hình thoi $ABCD$ có cạnh bằng $13\\text{ cm}$ và đường chéo $BD = 10\\text{ cm}$. Tính độ dài đường chéo $AC$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "24", "accept": ["24"], "exp": "$OB = 5\\text{ cm} \\Rightarrow OA = \\sqrt{13^2 - 5^2} = 12\\text{ cm} \\Rightarrow AC = 24\\text{ cm}$.", "type": "short", "id": 130}, {"lesson": 14, "level": "TH", "q": "Cho hình thoi $ABCD$ có $\\widehat{BAD} = 110^\\circ$. Tính số đo góc $\\widehat{ABD}$ (đơn vị: độ).", "unit": "°", "ans_display": "35", "accept": ["35"], "exp": "$\\triangle ABD$ cân tại $A$ ($AB=AD$) nên $\\widehat{ABD} = \\frac{180^\\circ - 110^\\circ}{2} = 35^\\circ$.", "type": "short", "id": 131}, {"lesson": 14, "level": "TH", "q": "Một hình vuông có diện tích bằng $50\\text{ cm}^2$. Tính độ dài đường chéo của hình vuông đó (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "10", "accept": ["10"], "exp": "Ta có $S = \\frac{d^2}{2} = 50 \\Rightarrow d^2 = 100 \\Rightarrow d = 10\\text{ cm}$.", "type": "short", "id": 132}, {"lesson": 14, "level": "VD", "q": "Cho hình chữ nhật $ABCD$ có $AB = 2BC = 12\\text{ cm}$. Gọi $I, K$ là trung điểm $AB, DC$; $S, R$ là tâm hai hình vuông $AIKD$ và $BIKC$. Tính diện tích hình vuông $ISKR$ (đơn vị: $\\text{cm}^2$).", "unit": "cm²", "ans_display": "18", "accept": ["18"], "exp": "Theo Bài 7 Tự luyện Bài 14: $ISKR$ là hình vuông có hai đường chéo $IK = SR = BC = 6\\text{ cm} \\Rightarrow S_{ISKR} = \\frac{6^2}{2} = 18\\text{ cm}^2$.", "type": "short", "id": 133}, {"lesson": 14, "level": "VD", "q": "Cho $\\triangle ABC$ vuông cân tại $A$ có cạnh huyền $BC = 12\\text{ cm}$. Lấy $H, G$ trên $BC$ sao cho $BH=HG=GC$. Kẻ $HE \\perp BC$ ($E\\in AB$), $GF \\perp BC$ ($F\\in AC$). Tính diện tích hình vuông $EFGH$ (đơn vị: $\\text{cm}^2$).", "unit": "cm²", "ans_display": "16", "accept": ["16"], "exp": "Theo Bài 2 Luyện tập Bài 14: $EFGH$ là hình vuông cạnh $HG = \\frac{BC}{3} = 4\\text{ cm} \\Rightarrow S_{EFGH} = 4^2 = 16\\text{ cm}^2$.", "type": "short", "id": 134}, {"lesson": 14, "level": "VDC", "q": "Cho hình thoi $ABCD$ có diện tích bằng $96\\text{ cm}^2$ và chu vi bằng $40\\text{ cm}$. Tính khoảng cách giữa hai cạnh đối $AB$ và $CD$ (tức độ dài đường cao hình thoi, đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "9.6", "accept": ["9.6", "9,6", "48/5"], "exp": "Cạnh hình thoi $a = \\frac{40}{4} = 10\\text{ cm}$. Vì hình thoi cũng là hình bình hành nên $S = a\\cdot h \\Rightarrow h = \\frac{96}{10} = 9{,}6\\text{ cm}$.", "type": "short", "id": 135}, {"lesson": 10, "level": "NB", "q": "Ghép mỗi yếu tố của tứ giác lồi $ABCD$ ở cột trái với tên gọi đúng ở cột phải:", "pairs": [{"l": "$AC$ và $BD$", "r": "Hai đường chéo"}, {"l": "$AB$ và $CD$", "r": "Hai cạnh đối nhau"}, {"l": "$AB$ và $BC$", "r": "Hai cạnh kề nhau"}, {"l": "$\\widehat{A}$ và $\\widehat{C}$", "r": "Hai góc đối nhau"}], "exp": "Trong tứ giác $ABCD$: $AC, BD$ là đường chéo; $AB, CD$ là cạnh đối; $AB, BC$ là cạnh kề; $\\widehat{A}, \\widehat{C}$ là góc đối.", "type": "match", "id": 136}, {"lesson": 10, "level": "TH", "q": "Cho tứ giác $ABCD$, ghép số đo ba góc đã biết với số đo góc thứ tư tương ứng:", "pairs": [{"l": "$80^\\circ;\\ 100^\\circ;\\ 90^\\circ$", "r": "$90^\\circ$"}, {"l": "$75^\\circ;\\ 115^\\circ;\\ 85^\\circ$", "r": "$85^\\circ$"}, {"l": "$120^\\circ;\\ 60^\\circ;\\ 110^\\circ$", "r": "$70^\\circ$"}, {"l": "$95^\\circ;\\ 85^\\circ;\\ 65^\\circ$", "r": "$115^\\circ$"}], "exp": "Dùng tổng $4$ góc bằng $360^\\circ$: $360-270=90$; $360-275=85$; $360-290=70$; $360-245=115$.", "type": "match", "id": 137}, {"lesson": 10, "level": "VD", "q": "Ghép mỗi giả thiết về tứ giác $ABCD$ với kết luận đúng về tổng hoặc số đo góc:", "pairs": [{"l": "Tổng bốn góc trong của tứ giác", "r": "$360^\\circ$"}, {"l": "$\\widehat{A}=\\widehat{B}=\\widehat{C}=\\widehat{D}$", "r": "Mỗi góc bằng $90^\\circ$"}, {"l": "$\\widehat{A}=x, \\widehat{B}=2x, \\widehat{C}=3x, \\widehat{D}=4x$", "r": "$x = 36^\\circ$"}, {"l": "$\\widehat{A}+\\widehat{D}=160^\\circ$, phân giác $\\widehat{B}, \\widehat{C}$ cắt tại $I$", "r": "$\\widehat{BIC}=80^\\circ$"}], "exp": "Tổng $4$ góc $=360^\\circ$; $4$ góc bằng nhau $\\Rightarrow 90^\\circ$; $10x=360^\\circ\\Rightarrow x=36^\\circ$; $\\widehat{BIC}=\\frac{\\widehat{A}+\\widehat{D}}{2}=80^\\circ$.", "type": "match", "id": 138}, {"lesson": 11, "level": "NB", "q": "Ghép mỗi thành phần của hình thang $ABCD$ ($AB \\parallel CD$, đường cao $BH$) với tên gọi đúng:", "pairs": [{"l": "$AB$ và $CD$", "r": "Hai cạnh đáy"}, {"l": "$AD$ và $BC$", "r": "Hai cạnh bên"}, {"l": "$BH \\perp CD$", "r": "Đường cao"}, {"l": "$\\widehat{D}=\\widehat{C}$", "r": "Điều kiện hình thang cân"}], "exp": "Trong hình thang $ABCD$ ($AB \\parallel CD$): $AB, CD$ là hai đáy; $AD, BC$ là hai cạnh bên; $BH$ là đường cao; $\\widehat{D}=\\widehat{C}$ là định nghĩa hình thang cân.", "type": "match", "id": 139}, {"lesson": 11, "level": "TH", "q": "Cho hình thang cân $ABCD$ ($AB \\parallel CD$), ghép số đo $\\widehat{D}$ với số đo góc $\\widehat{A}$ tương ứng:", "pairs": [{"l": "$\\widehat{D}=50^\\circ$", "r": "$\\widehat{A}=130^\\circ$"}, {"l": "$\\widehat{D}=65^\\circ$", "r": "$\\widehat{A}=115^\\circ$"}, {"l": "$\\widehat{D}=72^\\circ$", "r": "$\\widehat{A}=108^\\circ$"}, {"l": "$\\widehat{D}=80^\\circ$", "r": "$\\widehat{A}=100^\\circ$"}], "exp": "Vì $AB \\parallel CD$ nên $\\widehat{A} = 180^\\circ - \\widehat{D}$ (hai góc trong cùng phía).", "type": "match", "id": 140}, {"lesson": 11, "level": "VD", "q": "Cho hình thang cân $ABCD$ ($AB \\parallel CD, AB<CD$), hai đường cao $AH, BK$. Ghép kích thước hai đáy với độ dài đoạn $KC = \\frac{CD-AB}{2}$:", "pairs": [{"l": "$AB = 6\\text{ cm},\\ CD = 10\\text{ cm}$", "r": "$KC = 2\\text{ cm}$"}, {"l": "$AB = 5\\text{ cm},\\ CD = 11\\text{ cm}$", "r": "$KC = 3\\text{ cm}$"}, {"l": "$AB = 8\\text{ cm},\\ CD = 16\\text{ cm}$", "r": "$KC = 4\\text{ cm}$"}, {"l": "$AB = 9\\text{ cm},\\ CD = 19\\text{ cm}$", "r": "$KC = 5\\text{ cm}$"}], "exp": "Áp dụng công thức $KC = \\frac{CD-AB}{2}$ lần lượt thu được $2; 3; 4; 5\\text{ cm}$.", "type": "match", "id": 141}, {"lesson": 12, "level": "NB", "q": "Ghép mỗi điều kiện của tứ giác $ABCD$ với tên dấu hiệu nhận biết hình bình hành tương ứng:", "pairs": [{"l": "$AB \\parallel CD$ và $AD \\parallel BC$", "r": "Các cạnh đối song song"}, {"l": "$AB = CD$ và $AD = BC$", "r": "Các cạnh đối bằng nhau"}, {"l": "$\\widehat{A}=\\widehat{C}$ và $\\widehat{B}=\\widehat{D}$", "r": "Các góc đối bằng nhau"}, {"l": "$OA=OC$ và $OB=OD$", "r": "Hai đường chéo cắt nhau tại trung điểm"}], "exp": "Đây là $4$ trong $5$ dấu hiệu nhận biết hình bình hành (cùng với dấu hiệu một cặp cạnh đối song song và bằng nhau).", "type": "match", "id": 142}, {"lesson": 12, "level": "TH", "q": "Cho hình bình hành $ABCD$, ghép mỗi cặp cạnh kề với chu vi tương ứng:", "pairs": [{"l": "$AB = 5\\text{ cm},\\ BC = 3\\text{ cm}$", "r": "Chu vi $= 16\\text{ cm}$"}, {"l": "$AB = 7\\text{ cm},\\ BC = 4\\text{ cm}$", "r": "Chu vi $= 22\\text{ cm}$"}, {"l": "$AB = 8\\text{ cm},\\ BC = 6\\text{ cm}$", "r": "Chu vi $= 28\\text{ cm}$"}, {"l": "$AB = 11\\text{ cm},\\ BC = 7\\text{ cm}$", "r": "Chu vi $= 36\\text{ cm}$"}], "exp": "Chu vi hình bình hành $P = 2(AB + BC)$: $2(5+3)=16$; $2(7+4)=22$; $2(8+6)=28$; $2(11+7)=36\\text{ cm}$.", "type": "match", "id": 143}, {"lesson": 12, "level": "VD", "q": "Ghép mỗi mô hình hình học quen thuộc ở Bài 12 với tính chất/kết luận đúng:", "pairs": [{"l": "Trung điểm bốn cạnh hình bình hành", "r": "Tạo thành hình bình hành $MNPQ$"}, {"l": "Hai tia phân giác góc đối $\\widehat{B}, \\widehat{D}$ cắt $AD, BC$", "r": "Tạo thành hình bình hành $BMDN$"}, {"l": "Trực tâm $H$ và $BK \\perp AB, CK \\perp AC$", "r": "$BHCK$ là hình bình hành"}, {"l": "Nối $A, C$ với trung điểm $CD, AB$ cắt $BD$ tại $N, M$", "r": "$DN = NM = MB$"}], "exp": "Đây là $4$ mô hình bài tập kinh điển trong Bài 12 (Hình bình hành).", "type": "match", "id": 144}, {"lesson": 13, "level": "NB", "q": "Ghép mỗi hình đã cho với điều kiện bổ sung tối thiểu để trở thành HÌNH CHỮ NHẬT:", "pairs": [{"l": "Tứ giác bất kì", "r": "Có ba góc vuông"}, {"l": "Hình thang cân", "r": "Có một góc vuông"}, {"l": "Hình bình hành", "r": "Có hai đường chéo bằng nhau"}, {"l": "Tam giác có trung tuyến $AM = \\frac{1}{2}BC$", "r": "Tam giác vuông tại $A$"}], "exp": "Ôn tập dấu hiệu nhận biết hình chữ nhật và định lí đảo đường trung tuyến trong tam giác vuông.", "type": "match", "id": 145}, {"lesson": 13, "level": "TH", "q": "Cho $\\triangle ABC$ vuông tại $A$, ghép hai cạnh góc vuông với độ dài đường trung tuyến $AM$ ứng với cạnh huyền:", "pairs": [{"l": "$AB = 3\\text{ cm},\\ AC = 4\\text{ cm}$", "r": "$AM = 2{,}5\\text{ cm}$"}, {"l": "$AB = 6\\text{ cm},\\ AC = 8\\text{ cm}$", "r": "$AM = 5\\text{ cm}$"}, {"l": "$AB = 5\\text{ cm},\\ AC = 12\\text{ cm}$", "r": "$AM = 6{,}5\\text{ cm}$"}, {"l": "$AB = 9\\text{ cm},\\ AC = 12\\text{ cm}$", "r": "$AM = 7{,}5\\text{ cm}$"}], "exp": "Tính cạnh huyền bằng Pythagore ($5; 10; 13; 15\\text{ cm}$) rồi chia đôi để được $AM$.", "type": "match", "id": 146}, {"lesson": 13, "level": "VD", "q": "Ghép kích thước hình chữ nhật $ABCD$ với độ dài đường chéo $AC$ tương ứng:", "pairs": [{"l": "$AB = 4\\text{ cm},\\ BC = 3\\text{ cm}$", "r": "$AC = 5\\text{ cm}$"}, {"l": "$AB = 8\\text{ cm},\\ BC = 6\\text{ cm}$", "r": "$AC = 10\\text{ cm}$"}, {"l": "$AB = 15\\text{ cm},\\ BC = 8\\text{ cm}$", "r": "$AC = 17\\text{ cm}$"}, {"l": "$AB = 24\\text{ cm},\\ BC = 7\\text{ cm}$", "r": "$AC = 25\\text{ cm}$"}], "exp": "Các bộ ba số Pythagore quen thuộc: $(3,4,5)$; $(6,8,10)$; $(8,15,17)$; $(7,24,25)$.", "type": "match", "id": 147}, {"lesson": 14, "level": "NB", "q": "Ghép mỗi điều kiện biến đổi tứ giác với loại hình thu được chính xác nhất:", "pairs": [{"l": "Hình bình hành có hai đường chéo vuông góc", "r": "Hình thoi"}, {"l": "Hình bình hành có một góc vuông", "r": "Hình chữ nhật"}, {"l": "Hình chữ nhật có hai cạnh kề bằng nhau", "r": "Hình vuông"}, {"l": "Hình thang có hai đường chéo bằng nhau", "r": "Hình thang cân"}], "exp": "Đây là sơ đồ cốt lõi phân loại các tứ giác đặc biệt trong Chương 3.", "type": "match", "id": 148}, {"lesson": 14, "level": "TH", "q": "Ghép độ dài hai đường chéo $d_1, d_2$ của hình thoi với diện tích và độ dài cạnh tương ứng:", "pairs": [{"l": "$d_1 = 6\\text{ cm},\\ d_2 = 8\\text{ cm}$", "r": "$S = 24\\text{ cm}^2,\\ a = 5\\text{ cm}$"}, {"l": "$d_1 = 12\\text{ cm},\\ d_2 = 16\\text{ cm}$", "r": "$S = 96\\text{ cm}^2,\\ a = 10\\text{ cm}$"}, {"l": "$d_1 = 10\\text{ cm},\\ d_2 = 24\\text{ cm}$", "r": "$S = 120\\text{ cm}^2,\\ a = 13\\text{ cm}$"}, {"l": "$d_1 = 16\\text{ cm},\\ d_2 = 30\\text{ cm}$", "r": "$S = 240\\text{ cm}^2,\\ a = 17\\text{ cm}$"}], "exp": "$S = \\frac{1}{2}d_1 d_2$ và cạnh $a = \\sqrt{(d_1/2)^2 + (d_2/2)^2}$.", "type": "match", "id": 149}, {"lesson": 14, "level": "VD", "q": "Ghép mỗi tính chất đặc trưng về hai đường chéo với loại tứ giác ĐẦY ĐỦ nhất sở hữu đúng bộ tính chất đó:", "pairs": [{"l": "Cắt nhau tại trung điểm mỗi đường", "r": "Hình bình hành"}, {"l": "Bằng nhau và cắt nhau tại trung điểm mỗi đường", "r": "Hình chữ nhật"}, {"l": "Vuông góc và cắt nhau tại trung điểm mỗi đường", "r": "Hình thoi"}, {"l": "Bằng nhau, vuông góc và cắt nhau tại trung điểm", "r": "Hình vuông"}], "exp": "So sánh hệ thống tính chất hai đường chéo giúp nhận diện nhanh bốn loại tứ giác đặc biệt.", "type": "match", "id": 150}];
+const Q_SVGS = {"quad1": "<svg class=\"q-svg\" viewBox=\"0 0 220 150\"><path stroke=\"#334155\" stroke-width=\"1.6\" fill=\"#f8fafc\" stroke-linejoin=\"round\" d=\"M26 118 L43.1 21.2 L194 126.8 L191.6 118 Z\"/><path stroke=\"#2563eb\" stroke-width=\"1.2\" fill=\"none\" d=\"M39 118 A13 13 0 0 0 28.3 105.2\"/><text x=\"16.8\" y=\"125.7\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">A<\/text><text x=\"45.2\" y=\"101.9\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">80°<\/text><path stroke=\"#2563eb\" stroke-width=\"1.2\" fill=\"none\" d=\"M40.8 34 A13 13 0 0 0 53.7 28.6\"/><text x=\"38.5\" y=\"10.1\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">B<\/text><text x=\"52.6\" y=\"44.3\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">115°<\/text><path stroke=\"#2563eb\" stroke-width=\"1.2\" fill=\"none\" d=\"M183.4 119.4 A13 13 0 0 1 190.6 114.3\"/><text x=\"200.9\" y=\"136.7\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">C<\/text><text x=\"179.7\" y=\"106.4\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">x<\/text><path stroke=\"#2563eb\" stroke-width=\"1.2\" fill=\"none\" d=\"M195 130.6 A13 13 0 0 1 178.6 118\"/><text x=\"198.9\" y=\"108.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">D<\/text><text x=\"176.4\" y=\"137.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">75°<\/text><\/svg>", "quad2": "<svg class=\"q-svg\" viewBox=\"0 0 220 150\"><path stroke=\"#334155\" stroke-width=\"1.6\" fill=\"#f8fafc\" stroke-linejoin=\"round\" d=\"M26 123.9 L26 24.1 L193.5 120.8 L194 123.9 Z\"/><path stroke=\"#2563eb\" stroke-width=\"1.3\" fill=\"none\" d=\"M35 123.9 L35 114.9 L26 114.9\"/><text x=\"17.5\" y=\"132.4\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">A<\/text><path stroke=\"#2563eb\" stroke-width=\"1.2\" fill=\"none\" d=\"M26 37.1 A13 13 0 0 0 37.3 30.6\"/><text x=\"20\" y=\"13.7\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">B<\/text><text x=\"38.5\" y=\"45.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">120°<\/text><path stroke=\"#2563eb\" stroke-width=\"1.2\" fill=\"none\" d=\"M182.2 114.3 A13 13 0 0 0 195.7 133.6\"/><text x=\"203.3\" y=\"113.9\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">C<\/text><text x=\"173\" y=\"135.1\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">x<\/text><path stroke=\"#2563eb\" stroke-width=\"1.2\" fill=\"none\" d=\"M191.7 111.1 A13 13 0 0 0 181 123.9\"/><text x=\"203.2\" y=\"131.6\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">D<\/text><text x=\"174.8\" y=\"107.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">80°<\/text><\/svg>", "quad3": "<svg class=\"q-svg\" viewBox=\"0 0 220 150\"><path stroke=\"#334155\" stroke-width=\"1.6\" fill=\"#f8fafc\" stroke-linejoin=\"round\" d=\"M26 120.9 L60.1 27.1 L194 75.9 L194 120.9 Z\"/><path stroke=\"#2563eb\" stroke-width=\"1.2\" fill=\"none\" d=\"M39 120.9 A13 13 0 0 0 30.4 108.7\"/><text x=\"16.2\" y=\"127.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">A<\/text><text x=\"46.5\" y=\"106.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">70°<\/text><path stroke=\"#2563eb\" stroke-width=\"1.3\" fill=\"none\" d=\"M57 35.6 L65.5 38.7 L68.6 30.2\"/><text x=\"55\" y=\"16.3\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">B<\/text><path stroke=\"#2563eb\" stroke-width=\"1.2\" fill=\"none\" d=\"M181.8 71.4 A13 13 0 0 0 194 88.9\"/><text x=\"203.8\" y=\"69\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">C<\/text><text x=\"173.5\" y=\"90.2\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">x<\/text><path stroke=\"#2563eb\" stroke-width=\"1.3\" fill=\"none\" d=\"M194 111.9 L185 111.9 L185 120.9\"/><text x=\"202.5\" y=\"129.4\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">D<\/text><\/svg>", "trap1": "<svg class=\"q-svg\" viewBox=\"0 0 220 140\"><path stroke=\"#334155\" stroke-width=\"1.6\" fill=\"#f8fafc\" stroke-linejoin=\"round\" d=\"M67.3 24.7 L152.7 24.7 L194 113.3 L26 113.3 Z\"/><path stroke=\"#2563eb\" stroke-width=\"1.2\" fill=\"none\" d=\"M61.4 37.4 A14 14 0 0 0 81.3 24.7\"/><text x=\"81.9\" y=\"47.4\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">x<\/text><text x=\"60.9\" y=\"14.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">A<\/text><text x=\"159.1\" y=\"14.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">B<\/text><text x=\"204.1\" y=\"119.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">C<\/text><path stroke=\"#2563eb\" stroke-width=\"1.2\" fill=\"none\" d=\"M40 113.3 A14 14 0 0 0 31.9 100.6\"/><text x=\"48.8\" y=\"98.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">65°<\/text><text x=\"15.9\" y=\"119.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">D<\/text><\/svg>", "trap2": "<svg class=\"q-svg\" viewBox=\"0 0 220 140\"><path stroke=\"#334155\" stroke-width=\"1.6\" fill=\"#f8fafc\" stroke-linejoin=\"round\" d=\"M54.8 24.7 L165.2 24.7 L194 113.3 L26 113.3 Z\"/><text x=\"47.8\" y=\"15\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">A<\/text><text x=\"172.2\" y=\"15\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">B<\/text><path stroke=\"#2563eb\" stroke-width=\"1.2\" fill=\"none\" d=\"M189.7 100 A14 14 0 0 0 180 113.3\"/><text x=\"172.2\" y=\"97.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">72°<\/text><text x=\"203.7\" y=\"120.4\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">C<\/text><path stroke=\"#2563eb\" stroke-width=\"1.2\" fill=\"none\" d=\"M40 113.3 A14 14 0 0 0 30.3 100\"/><text x=\"47.8\" y=\"97.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">x<\/text><text x=\"16.3\" y=\"120.4\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">D<\/text><\/svg>", "para1": "<svg class=\"q-svg\" viewBox=\"0 0 225 140\"><path stroke=\"#334155\" stroke-width=\"1.6\" fill=\"#f8fafc\" stroke-linejoin=\"round\" d=\"M60.2 32.3 L199 32.3 L164.8 105.7 L26 105.7 Z\"/><text x=\"53.8\" y=\"22.2\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">A<\/text><path stroke=\"#2563eb\" stroke-width=\"1.2\" fill=\"none\" d=\"M185 32.3 A14 14 0 0 0 193.1 45\"/><text x=\"176.2\" y=\"46.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">x<\/text><text x=\"209.1\" y=\"25.9\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">B<\/text><text x=\"171.2\" y=\"115.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">C<\/text><path stroke=\"#2563eb\" stroke-width=\"1.2\" fill=\"none\" d=\"M40 105.7 A14 14 0 0 0 31.9 93\"/><text x=\"48.8\" y=\"91.2\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">65°<\/text><text x=\"15.9\" y=\"112.1\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">D<\/text><\/svg>", "para2": "<svg class=\"q-svg\" viewBox=\"0 0 225 140\"><path stroke=\"#334155\" stroke-width=\"1.6\" fill=\"#f8fafc\" stroke-linejoin=\"round\" d=\"M54.8 29.5 L199 29.5 L170.2 108.5 L26 108.5 Z\"/><path stroke=\"#64748b\" stroke-width=\"1.3\" fill=\"none\" d=\"M54.8 29.5 L170.2 108.5\"/><path stroke=\"#64748b\" stroke-width=\"1.3\" fill=\"none\" d=\"M199 29.5 L26 108.5\"/><text x=\"112.5\" y=\"83\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">O<\/text><path stroke=\"#2563eb\" stroke-width=\"1.2\" fill=\"none\" d=\"M50 42.6 A14 14 0 0 0 68.8 29.5\"/><text x=\"70.3\" y=\"51.6\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">x<\/text><text x=\"47.9\" y=\"19.6\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">A<\/text><text x=\"208.8\" y=\"22.6\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">B<\/text><text x=\"177.1\" y=\"118.4\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">C<\/text><path stroke=\"#2563eb\" stroke-width=\"1.2\" fill=\"none\" d=\"M40 108.5 A14 14 0 0 0 30.8 95.4\"/><text x=\"48.1\" y=\"93\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">70°<\/text><text x=\"16.2\" y=\"115.4\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">D<\/text><\/svg>", "rect1": "<svg class=\"q-svg\" viewBox=\"0 0 225 140\"><path stroke=\"#334155\" stroke-width=\"1.6\" fill=\"#f8fafc\" stroke-linejoin=\"round\" d=\"M29.7 22 L195.3 22 L195.3 116 L29.7 116 Z\"/><path stroke=\"#2563eb\" stroke-width=\"1.3\" fill=\"none\" d=\"M29.7 30 L37.7 30 L37.7 22\"/><path stroke=\"#2563eb\" stroke-width=\"1.3\" fill=\"none\" d=\"M187.3 22 L187.3 30 L195.3 30\"/><path stroke=\"#2563eb\" stroke-width=\"1.3\" fill=\"none\" d=\"M195.3 108 L187.3 108 L187.3 116\"/><path stroke=\"#2563eb\" stroke-width=\"1.3\" fill=\"none\" d=\"M37.7 116 L37.7 108 L29.7 108\"/><path stroke=\"#64748b\" stroke-width=\"1.3\" fill=\"none\" d=\"M29.7 22 L195.3 116\"/><path stroke=\"#64748b\" stroke-width=\"1.3\" fill=\"none\" d=\"M195.3 22 L29.7 116\"/><text x=\"112.5\" y=\"83\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">O<\/text><text x=\"21.2\" y=\"13.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">A<\/text><text x=\"203.8\" y=\"13.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">B<\/text><text x=\"203.8\" y=\"124.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">C<\/text><text x=\"21.2\" y=\"124.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">D<\/text><text x=\"112.5\" y=\"12\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">8 cm<\/text><text x=\"211.3\" y=\"69\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">6 cm<\/text><\/svg>", "tri1": "<svg class=\"q-svg\" viewBox=\"0 0 230 145\"><path stroke=\"#334155\" stroke-width=\"1.6\" fill=\"#f8fafc\" stroke-linejoin=\"round\" d=\"M81.7 29.2 L26 111.8 L204 111.8 Z\"/><path stroke=\"#2563eb\" stroke-width=\"1.3\" fill=\"none\" d=\"M81.7 29.2 L115 111.8\"/><path stroke=\"#2563eb\" stroke-width=\"1.3\" fill=\"none\" d=\"M77.2 35.9 L83.8 40.3 L88.3 33.7\"/><path stroke=\"#334155\" stroke-width=\"1.4\" d=\"M70.5 108.3 L70.5 115.3\"/><path stroke=\"#334155\" stroke-width=\"1.4\" d=\"M159.5 108.3 L159.5 115.3\"/><text x=\"81.7\" y=\"17.2\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">A<\/text><text x=\"14\" y=\"116.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">B<\/text><text x=\"216\" y=\"116.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">C<\/text><text x=\"115\" y=\"124.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">M<\/text><text x=\"157\" y=\"124.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"10\" fill=\"#2563eb\" font-weight=\"700\">BC = 10 cm<\/text><text x=\"112.3\" y=\"70.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"10\" fill=\"#2563eb\" font-weight=\"700\">AM = ?<\/text><\/svg>", "rhomb1": "<svg class=\"q-svg\" viewBox=\"0 0 225 145\"><path stroke=\"#334155\" stroke-width=\"1.6\" fill=\"#f8fafc\" stroke-linejoin=\"round\" d=\"M28 71.5 L112.5 20.8 L197 71.5 L112.5 122.2 Z\"/><path stroke=\"#64748b\" stroke-width=\"1.3\" fill=\"none\" d=\"M28 71.5 L197 71.5\"/><path stroke=\"#64748b\" stroke-width=\"1.3\" fill=\"none\" d=\"M112.5 20.8 L112.5 122.2\"/><path stroke=\"#2563eb\" stroke-width=\"1.3\" fill=\"none\" d=\"M112.5 63.5 L120.5 63.5 L120.5 71.5\"/><text x=\"16\" y=\"71.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">A<\/text><text x=\"112.5\" y=\"8.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">B<\/text><text x=\"209\" y=\"71.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">C<\/text><text x=\"112.5\" y=\"134.2\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">D<\/text><text x=\"102.5\" y=\"82.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#64748b\" font-weight=\"700\">O<\/text><text x=\"146.5\" y=\"82.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"10\" fill=\"#2563eb\" font-weight=\"700\">AC = 16<\/text><text x=\"96.5\" y=\"49.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"10\" fill=\"#2563eb\" font-weight=\"700\">BD = 12<\/text><text x=\"56.2\" y=\"39.2\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"10\" fill=\"#2563eb\" font-weight=\"700\">a = ?<\/text><\/svg>", "rhomb2": "<svg class=\"q-svg\" viewBox=\"0 0 225 145\"><path stroke=\"#334155\" stroke-width=\"1.6\" fill=\"#f8fafc\" stroke-linejoin=\"round\" d=\"M28 71.5 L112.5 20.8 L197 71.5 L112.5 122.2 Z\"/><path stroke=\"#64748b\" stroke-width=\"1.3\" fill=\"none\" d=\"M28 71.5 L197 71.5\"/><path stroke=\"#64748b\" stroke-width=\"1.3\" fill=\"none\" d=\"M112.5 20.8 L112.5 122.2\"/><path stroke=\"#2563eb\" stroke-width=\"1.3\" fill=\"none\" d=\"M112.5 63.5 L120.5 63.5 L120.5 71.5\"/><text x=\"16\" y=\"71.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">A<\/text><text x=\"112.5\" y=\"8.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">B<\/text><text x=\"209\" y=\"71.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">C<\/text><text x=\"112.5\" y=\"134.2\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">D<\/text><text x=\"102.5\" y=\"82.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#64748b\" font-weight=\"700\">O<\/text><text x=\"146.5\" y=\"82.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"10\" fill=\"#2563eb\" font-weight=\"700\">AC = 10<\/text><text x=\"96.5\" y=\"49.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"10\" fill=\"#2563eb\" font-weight=\"700\">BD = 24<\/text><\/svg>"};
+
+const LESSON_NAMES = {
+  10: 'Bài 10: Tứ giác',
+  11: 'Bài 11: Hình thang cân',
+  12: 'Bài 12: Hình bình hành',
+  13: 'Bài 13: Hình chữ nhật',
+  14: 'Bài 14: Hình thoi & Hình vuông'
+};
+
+const LESSON_LINKS = {
+  10: 'bai10_tugiac.html',
+  11: 'bai11_hinhthangcan.html',
+  12: 'bai12_hinhbinhhanh.html',
+  13: 'bai13_hinhchunhat.html',
+  14: 'bai14_hinhthoi_hinhvuong.html'
+};
+
+const MINDMAP_DATA = {
+  10: {
+    title: 'Bài 10: Tứ giác',
+    color: 'blue',
+    def: 'Tứ giác $ABCD$ là hình gồm $4$ đoạn thẳng $AB, BC, CD, DA$ trong đó không có hai đoạn thẳng nào cùng nằm trên một đường thẳng. <b>Tứ giác lồi</b> luôn nằm về một phía của đường thẳng chứa bất kì cạnh nào của nó.',
+    props: [
+      'Tổng bốn góc trong của một tứ giác bằng $360^\\circ$: $\\widehat{A}+\\widehat{B}+\\widehat{C}+\\widehat{D}=360^\\circ$.',
+      'Tổng bốn góc ngoài tại bốn đỉnh (mỗi đỉnh lấy một góc ngoài) bằng $360^\\circ$.',
+      'Hai đường chéo $AC, BD$ của tứ giác lồi luôn cắt nhau tại một điểm nằm trong tứ giác.'
+    ],
+    signs: [
+      'Mẹo tính góc nhanh: nếu biết hai góc $\\widehat{A}, \\widehat{D}$ và hai phân giác $\\widehat{B}, \\widehat{C}$ cắt nhau tại $I$ thì $\\widehat{BIC} = \\dfrac{\\widehat{A}+\\widehat{D}}{2}$.',
+      'Một tứ giác có tối đa $3$ góc nhọn và tối đa $3$ góc tù; nếu có $3$ góc vuông thì góc thứ tư cũng vuông.'
+    ]
+  },
+  11: {
+    title: 'Bài 11: Hình thang cân',
+    color: 'blue',
+    def: '<b>Hình thang</b> là tứ giác có hai cạnh đối song song (hai cạnh đáy). <b>Hình thang cân</b> là hình thang có hai góc kề một đáy bằng nhau.',
+    props: [
+      'Hai góc kề một đáy bằng nhau ($\\widehat{D}=\\widehat{C}$ và $\\widehat{A}=\\widehat{B}$); hai góc đối bù nhau ($\\widehat{A}+\\widehat{C}=180^\\circ$).',
+      'Hai cạnh bên bằng nhau ($AD = BC$).',
+      'Hai đường chéo bằng nhau ($AC = BD$).'
+    ],
+    signs: [
+      'Hình thang có <b>hai góc kề một đáy bằng nhau</b> là hình thang cân.',
+      'Hình thang có <b>hai đường chéo bằng nhau</b> là hình thang cân.',
+      '<i>Cẩn thận bẫy:</i> Hình thang có hai cạnh bên bằng nhau CHƯA CHẮC là hình thang cân (có thể là hình bình hành)!',
+      'Công thức đường cao $AH, BK$: $DH = KC = \\dfrac{CD - AB}{2}$.'
+    ]
+  },
+  12: {
+    title: 'Bài 12: Hình bình hành',
+    color: 'indigo',
+    def: '<b>Hình bình hành</b> là tứ giác có các cạnh đối song song ($AB \\parallel CD$ và $AD \\parallel BC$).',
+    props: [
+      'Các cạnh đối song song và bằng nhau ($AB = CD, AD = BC$).',
+      'Các góc đối bằng nhau ($\\widehat{A}=\\widehat{C}, \\widehat{B}=\\widehat{D}$); hai góc kề một cạnh bù nhau.',
+      'Hai đường chéo cắt nhau tại trung điểm của mỗi đường ($OA = OC, OB = OD$).'
+    ],
+    signs: [
+      '1) Tứ giác có các cạnh đối song song.',
+      '2) Tứ giác có các cạnh đối bằng nhau.',
+      '3) Tứ giác có một cặp cạnh đối song song và bằng nhau.',
+      '4) Tứ giác có các góc đối bằng nhau.',
+      '5) Tứ giác có hai đường chéo cắt nhau tại trung điểm của mỗi đường.'
+    ]
+  },
+  13: {
+    title: 'Bài 13: Hình chữ nhật',
+    color: 'indigo',
+    def: '<b>Hình chữ nhật</b> là tứ giác có bốn góc vuông. Hình chữ nhật vừa là hình bình hành vừa là hình thang cân.',
+    props: [
+      'Có đầy đủ tính chất của hình bình hành và hình thang cân.',
+      'Hai đường chéo bằng nhau và cắt nhau tại trung điểm mỗi đường ($OA = OB = OC = OD$).',
+      '<b>Áp dụng tam giác vuông:</b> Trong tam giác vuông, đường trung tuyến ứng với cạnh huyền bằng nửa cạnh huyền ($AM = \\dfrac{1}{2}BC$).'
+    ],
+    signs: [
+      '1) Tứ giác có ba góc vuông.',
+      '2) Hình thang cân có một góc vuông.',
+      '3) Hình bình hành có một góc vuông.',
+      '4) Hình bình hành có hai đường chéo bằng nhau.',
+      '<b>Định lí đảo $\\triangle$ vuông:</b> Tam giác có trung tuyến bằng nửa cạnh tương ứng là tam giác vuông.'
+    ]
+  },
+  14: {
+    title: 'Bài 14: Hình thoi & Hình vuông',
+    color: 'violet',
+    def: '<b>Hình thoi</b> là tứ giác có $4$ cạnh bằng nhau. <b>Hình vuông</b> là tứ giác có $4$ góc vuông và $4$ cạnh bằng nhau (vừa là hình chữ nhật, vừa là hình thoi).',
+    props: [
+      '<b>Hình thoi:</b> hai đường chéo vuông góc tại trung điểm và là đường phân giác các góc; diện tích $S = \\dfrac{1}{2}d_1 d_2$.',
+      '<b>Hình vuông:</b> hai đường chéo bằng nhau, vuông góc tại trung điểm, là phân giác các góc ($45^\\circ$); $d = a\\sqrt{2}$; $S = a^2 = \\dfrac{d^2}{2}$.'
+    ],
+    signs: [
+      '<b>Dấu hiệu hình thoi:</b> Tứ giác có $4$ cạnh bằng nhau; HBH có $2$ cạnh kề bằng nhau / $2$ đường chéo $\\perp$ / $1$ đường chéo là phân giác.',
+      '<b>Dấu hiệu hình vuông:</b> HCN có $2$ cạnh kề bằng nhau / $2$ đường chéo $\\perp$ / $1$ đường chéo là phân giác; Hình thoi có $1$ góc vuông / $2$ đường chéo bằng nhau.'
+    ]
+  }
+};
+
+// ==================== STATE ====================
+const STORAGE_KEY = 'toan8_bt_c3_v1';
+let state = {
+  mode: 'practice', // 'practice' | 'exam'
+  activeMindLesson: 10,
+  soundOn: true,
+  filters: { lesson: 'all', type: 'all', level: 'all', status: 'all' },
+  page: 1,
+  pageSize: 15,
+  answers: {}, // practice answers keyed by q.id
+  // exam state
+  examIds: [],
+  examAnswers: {},
+  examSubmitted: false,
+  examSecondsLeft: 1200,
+  examTimerRef: null
+};
+
+// Deterministic shuffle for matching right-side options per question ID
+const MATCH_RIGHT_ORDER = {};
+QUESTIONS.forEach(q => {
+  if (q.type === 'match') {
+    const arr = [0, 1, 2, 3];
+    // Deterministic permutation based on q.id
+    let seed = q.id * 9301 + 49297;
+    for (let i = arr.length - 1; i > 0; i--) {
+      seed = (seed * 9301 + 49297) % 233280;
+      const j = seed % (i + 1);
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    if (arr.every((v, idx) => v === idx)) [arr[0], arr[1]] = [arr[1], arr[0]];
+    MATCH_RIGHT_ORDER[q.id] = arr;
+  }
+});
+
+// ==================== WEB AUDIO API SOUND ====================
+let audioCtx = null;
+function playTone(ok) {
+  if (!state.soundOn) return;
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain); gain.connect(audioCtx.destination);
+    const now = audioCtx.currentTime;
+    if (ok) {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(587.33, now);
+      osc.frequency.setValueAtTime(880, now + 0.08);
+      gain.gain.setValueAtTime(0.11, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+      osc.start(now); osc.stop(now + 0.26);
+    } else {
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(220, now);
+      osc.frequency.linearRampToValueAtTime(160, now + 0.18);
+      gain.gain.setValueAtTime(0.12, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+      osc.start(now); osc.stop(now + 0.23);
+    }
+  } catch (e) {}
+}
+
+function toggleSound() {
+  state.soundOn = !state.soundOn;
+  const btn = document.getElementById('sound-btn');
+  btn.innerHTML = `<i data-lucide="${state.soundOn ? 'volume-2' : 'volume-x'}" class="w-4 h-4"></i>`;
+  if (window.lucide) lucide.createIcons();
+}
+
+// ==================== STORAGE ====================
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === 'object') state.answers = parsed;
+    }
+  } catch (e) {}
+}
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state.answers)); } catch (e) {}
+}
+
+// ==================== MATH RENDER HELPER ====================
+function renderKatexIn(el) {
+  if (typeof renderMathInElement === 'function' && el) {
+    renderMathInElement(el, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      throwOnError: false,
+      ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    });
+  }
+}
+
+// ==================== MIND MAP ====================
+function selectMindNode(lesson) {
+  state.activeMindLesson = lesson;
+  document.querySelectorAll('.mm-tab').forEach(btn => {
+    const active = Number(btn.dataset.mmtab) === lesson;
+    btn.classList.toggle('pill-active', active);
+  });
+  const d = MINDMAP_DATA[lesson];
+  const detailEl = document.getElementById('mm-detail');
+  detailEl.innerHTML = `
+    <div class="space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <h3 class="text-lg font-extrabold text-slate-800">${d.title}</h3>
+        <a href="${LESSON_LINKS[lesson]}" class="text-xs font-semibold text-indigo-600 hover:underline flex items-center gap-1">Xem bài giảng đầy đủ <i data-lucide="external-link" class="w-3.5 h-3.5"></i></a>
+      </div>
+      <div class="bg-blue-50/70 border-l-4 border-blue-600 rounded-r-xl p-3.5 text-sm leading-relaxed">${d.def}</div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-slate-50 rounded-xl border border-slate-200/80 p-4 space-y-2">
+          <div class="text-xs font-bold uppercase tracking-wider text-indigo-700">Tính chất trọng tâm</div>
+          <ul class="list-disc pl-5 space-y-1.5 text-sm text-slate-700">${d.props.map(p => `<li>${p}</li>`).join('')}</ul>
+        </div>
+        <div class="bg-emerald-50/60 rounded-xl border border-emerald-200/80 p-4 space-y-2">
+          <div class="text-xs font-bold uppercase tracking-wider text-emerald-800">Dấu hiệu nhận biết &amp; Lưu ý</div>
+          <ul class="list-disc pl-5 space-y-1.5 text-sm text-slate-700">${d.signs.map(s => `<li>${s}</li>`).join('')}</ul>
+        </div>
+      </div>
+    </div>`;
+  renderKatexIn(detailEl);
+  if (window.lucide) lucide.createIcons();
+}
+
+function jumpToLessonQuiz() {
+  setMode('practice');
+  setFilter('lesson', String(state.activeMindLesson));
+  setFilter('type', 'all');
+  document.getElementById('luyen-tap-150').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ==================== EVALUATION LOGIC ====================
+function normalizeShort(str) {
+  return String(str || '').trim().toLowerCase()
+    .replace(/\s+/g, '')
+    .replace(/độ|°|cm²|cm2|cm/g, '')
+    .replace(/,/g, '.');
+}
+
+function evaluateQuestion(q, ansObj) {
+  if (!ansObj || !ansObj.checked) return { status: 'unanswered', correct: false, score: 0 };
+  if (q.type === 'mcq') {
+    const ok = ansObj.val === q.ans;
+    return { status: ok ? 'correct' : 'wrong', correct: ok, score: ok ? 1 : 0 };
+  }
+  if (q.type === 'tf') {
+    const vals = ansObj.vals || {};
+    let rightCnt = 0;
+    for (let i = 0; i < 4; i++) {
+      if (vals[i] === q.items[i].a) rightCnt++;
+    }
+    const ok = rightCnt === 4;
+    // GDPT 2018 scoring scale: 1 right=0.1, 2=0.25, 3=0.5, 4=1.0
+    const sc = [0, 0.1, 0.25, 0.5, 1.0][rightCnt];
+    return { status: ok ? 'correct' : 'wrong', correct: ok, rightCnt, score: sc };
+  }
+  if (q.type === 'short') {
+    const norm = normalizeShort(ansObj.val);
+    const ok = q.accept.some(a => normalizeShort(a) === norm);
+    return { status: ok ? 'correct' : 'wrong', correct: ok, score: ok ? 1 : 0 };
+  }
+  if (q.type === 'match') {
+    const pairs = ansObj.pairs || {};
+    let rightCnt = 0;
+    for (let i = 0; i < 4; i++) {
+      if (Number(pairs[i]) === i) rightCnt++;
+    }
+    const ok = rightCnt === 4;
+    return { status: ok ? 'correct' : 'wrong', correct: ok, rightCnt, score: rightCnt / 4 };
+  }
+  return { status: 'unanswered', correct: false, score: 0 };
+}
+
+function getAnsStore() {
+  return state.mode === 'exam' ? state.examAnswers : state.answers;
+}
+
+// ==================== FILTERS & PAGINATION ====================
+function setFilter(key, val) {
+  state.filters[key] = val;
+  state.page = 1;
+  if (key === 'lesson') {
+    document.querySelectorAll('#filter-lesson button').forEach(b => b.classList.toggle('pill-active', b.dataset.fl === val));
+  }
+  if (key === 'type') {
+    document.querySelectorAll('#filter-type button').forEach(b => b.classList.toggle('pill-active', b.dataset.ft === val));
+  }
+  renderQuestions();
+}
+
+function setPageSize(sz) {
+  state.pageSize = sz;
+  state.page = 1;
+  renderQuestions();
+}
+
+function getFilteredQuestions() {
+  if (state.mode === 'exam') {
+    return state.examIds.map(id => QUESTIONS.find(q => q.id === id));
+  }
+  const f = state.filters;
+  return QUESTIONS.filter(q => {
+    if (f.lesson !== 'all' && String(q.lesson) !== f.lesson) return false;
+    if (f.type !== 'all' && q.type !== f.type) return false;
+    if (f.level !== 'all' && q.level !== f.level) return false;
+    if (f.status !== 'all') {
+      const ev = evaluateQuestion(q, state.answers[q.id]);
+      if (ev.status !== f.status) return false;
+    }
+    return true;
+  });
+}
+
+// ==================== RENDER QUESTIONS ====================
+const TYPE_META = {
+  mcq: { label: 'Trắc nghiệm', cls: 'bg-blue-50 text-blue-700 border-blue-200' },
+  tf: { label: 'Đúng / Sai (4 ý)', cls: 'bg-amber-50 text-amber-800 border-amber-200' },
+  short: { label: 'Trả lời ngắn', cls: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
+  match: { label: 'Ghép cặp', cls: 'bg-violet-50 text-violet-700 border-violet-200' }
+};
+const LEVEL_META = {
+  NB: { label: 'Nhận biết', cls: 'bg-slate-100 text-slate-600' },
+  TH: { label: 'Thông hiểu', cls: 'bg-sky-50 text-sky-700' },
+  VD: { label: 'Vận dụng', cls: 'bg-indigo-50 text-indigo-700' },
+  VDC: { label: 'Vận dụng cao', cls: 'bg-rose-50 text-rose-700' }
+};
+const PAIR_COLORS = [
+  'bg-blue-100 text-blue-800 border-blue-300',
+  'bg-emerald-100 text-emerald-800 border-emerald-300',
+  'bg-amber-100 text-amber-800 border-amber-300',
+  'bg-violet-100 text-violet-800 border-violet-300'
+];
+
+function renderQuestionCard(q, displayNum) {
+  const store = getAnsStore();
+  const ansObj = store[q.id] || {};
+  const isRevealed = state.mode === 'practice' ? !!ansObj.checked : state.examSubmitted;
+  const ev = evaluateQuestion(q, isRevealed ? { ...ansObj, checked: true } : null);
+  const tm = TYPE_META[q.type];
+  const lm = LEVEL_META[q.level];
+
+  let statusBadge = '';
+  if (isRevealed) {
+    statusBadge = ev.correct
+      ? `<span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700 flex items-center gap-1"><i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>Chính xác</span>`
+      : `<span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-100 text-rose-700 flex items-center gap-1"><i data-lucide="x-circle" class="w-3.5 h-3.5"></i>${ev.rightCnt !== undefined ? `Đúng ${ev.rightCnt}/4 ý` : 'Chưa đúng'}</span>`;
+  }
+
+  let bodyHtml = '';
+
+  // --- MCQ ---
+  if (q.type === 'mcq') {
+    const letters = ['A', 'B', 'C', 'D'];
+    bodyHtml = `<div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mt-3">`;
+    q.opts.forEach((opt, i) => {
+      const selected = ansObj.val === i;
+      let cls = 'border-slate-200 bg-white text-slate-700';
+      if (isRevealed) {
+        if (i === q.ans) cls = 'border-emerald-500 bg-emerald-50 text-emerald-900 font-semibold';
+        else if (selected && i !== q.ans) cls = 'border-rose-400 bg-rose-50 text-rose-800';
+        else cls = 'border-slate-200 bg-slate-50/50 text-slate-400';
+      } else if (selected) {
+        cls = 'border-blue-500 bg-blue-50 text-blue-900 font-semibold';
+      }
+      bodyHtml += `<button onclick="answerMCQ(${q.id}, ${i})" ${isRevealed && state.mode === 'exam' ? 'disabled' : ''} class="opt-btn text-left px-3.5 py-2.5 rounded-xl border ${cls} flex items-start gap-2.5 text-sm">
+        <span class="w-6 h-6 shrink-0 rounded-lg border ${selected || (isRevealed && i === q.ans) ? 'bg-blue-600 text-white border-blue-600' : 'bg-slate-100 text-slate-600 border-slate-200'} ${isRevealed && i === q.ans ? '!bg-emerald-600 !border-emerald-600 !text-white' : ''} ${isRevealed && selected && i !== q.ans ? '!bg-rose-500 !border-rose-500 !text-white' : ''} flex items-center justify-center text-xs font-bold">${letters[i]}</span>
+        <span class="pt-0.5">${opt}</span>
+      </button>`;
+    });
+    bodyHtml += `</div>`;
+  }
+
+  // --- TRUE / FALSE (4 sub-statements) ---
+  else if (q.type === 'tf') {
+    const letters = ['a', 'b', 'c', 'd'];
+    const vals = ansObj.vals || {};
+    bodyHtml = `<div class="mt-3 divide-y divide-slate-100 border border-slate-200 rounded-xl overflow-hidden">`;
+    q.items.forEach((it, i) => {
+      const v = vals[i];
+      let rowBg = 'bg-white';
+      if (isRevealed) {
+        rowBg = v === it.a ? 'bg-emerald-50/60' : 'bg-rose-50/60';
+      }
+      bodyHtml += `<div class="${rowBg} px-3.5 py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-sm">
+        <div class="flex items-start gap-2">
+          <span class="font-bold text-indigo-700 shrink-0">${letters[i]})</span>
+          <span>${it.t}</span>
+        </div>
+        <div class="flex items-center gap-1.5 shrink-0">
+          <button onclick="selectTF(${q.id}, ${i}, true)" ${isRevealed && state.mode==='exam'?'disabled':''} class="px-3 py-1 rounded-lg text-xs font-bold border ${v===true ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-slate-600 border-slate-200 hover:bg-blue-50'}">Đúng</button>
+          <button onclick="selectTF(${q.id}, ${i}, false)" ${isRevealed && state.mode==='exam'?'disabled':''} class="px-3 py-1 rounded-lg text-xs font-bold border ${v===false ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-slate-600 border-slate-200 hover:bg-blue-50'}">Sai</button>
+          ${isRevealed ? `<span class="ml-1 text-xs font-bold ${v===it.a?'text-emerald-700':'text-rose-600'}">(${it.a?'Đ':'S'})</span>` : ''}
+        </div>
+      </div>`;
+    });
+    bodyHtml += `</div>`;
+    if (state.mode === 'practice') {
+      bodyHtml += `<div class="mt-3 flex items-center gap-2">
+        <button onclick="checkComposite(${q.id})" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold">Kiểm tra 4 mệnh đề</button>
+      </div>`;
+    }
+  }
+
+  // --- SHORT ANSWER ---
+  else if (q.type === 'short') {
+    const val = ansObj.val || '';
+    const borderCls = isRevealed ? (ev.correct ? 'border-emerald-500 bg-emerald-50/40' : 'border-rose-400 bg-rose-50/40') : 'border-slate-300 bg-white';
+    bodyHtml = `<div class="mt-3 flex flex-wrap items-center gap-2">
+      <div class="flex items-center border ${borderCls} rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-blue-500">
+        <input id="short-inp-${q.id}" type="text" value="${val.replace(/"/g, '&quot;')}" ${isRevealed && state.mode==='exam'?'disabled':''}
+          oninput="updateShortDraft(${q.id}, this.value)"
+          onkeydown="if(event.key==='Enter'){${state.mode==='practice' ? `checkShort(${q.id})` : ''}}"
+          placeholder="Nhập đáp số..." class="px-3.5 py-2 text-sm font-semibold w-44 outline-none bg-transparent"/>
+        <span class="px-3 py-2 bg-slate-100 text-slate-600 text-xs font-bold border-l border-slate-200">${q.unit}</span>
+      </div>
+      ${state.mode === 'practice' ? `<button onclick="checkShort(${q.id})" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold">Kiểm tra</button>` : ''}
+      ${isRevealed && !ev.correct ? `<span class="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-lg">Đáp số đúng: ${q.ans_display} ${q.unit}</span>` : ''}
+    </div>`;
+  }
+
+  // --- MATCHING (4 pairs, interactive select) ---
+  else if (q.type === 'match') {
+    const rOrder = MATCH_RIGHT_ORDER[q.id];
+    const pairs = ansObj.pairs || {};
+    const numTags = ['1', '2', '3', '4'];
+    bodyHtml = `<div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+      <div class="space-y-2">
+        <div class="text-xs font-bold uppercase tracking-wider text-slate-400">Cột A (Chọn số tương ứng ở Cột B)</div>`;
+    q.pairs.forEach((pr, i) => {
+      const chosenOrig = pairs[i];
+      const isPairOk = isRevealed && Number(chosenOrig) === i;
+      const isPairBad = isRevealed && Number(chosenOrig) !== i;
+      bodyHtml += `<div class="p-2.5 rounded-xl border ${isPairOk ? 'border-emerald-400 bg-emerald-50/50' : isPairBad ? 'border-rose-300 bg-rose-50/50' : 'border-slate-200 bg-slate-50/60'} flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2"><span class="w-5 h-5 shrink-0 rounded-md ${PAIR_COLORS[i]} border text-[11px] font-bold flex items-center justify-center">${['A','B','C','D'][i]}</span><span>${pr.l}</span></div>
+        <select onchange="selectMatch(${q.id}, ${i}, this.value)" ${isRevealed && state.mode==='exam'?'disabled':''} class="text-xs font-bold rounded-lg border border-slate-300 bg-white px-2 py-1 text-slate-700 shrink-0">
+          <option value="">-- Chọn --</option>
+          ${rOrder.map((origIdx, dispIdx) => `<option value="${origIdx}" ${String(chosenOrig)===String(origIdx)?'selected':''}>Ghép (${numTags[dispIdx]})</option>`).join('')}
+        </select>
+      </div>`;
+    });
+    bodyHtml += `</div><div class="space-y-2"><div class="text-xs font-bold uppercase tracking-wider text-slate-400">Cột B</div>`;
+    rOrder.forEach((origIdx, dispIdx) => {
+      bodyHtml += `<div class="p-2.5 rounded-xl border border-slate-200 bg-white flex items-center gap-2">
+        <span class="w-5 h-5 shrink-0 rounded-md bg-slate-100 border border-slate-300 text-slate-700 text-[11px] font-bold flex items-center justify-center">${numTags[dispIdx]}</span>
+        <span>${q.pairs[origIdx].r}</span>
+      </div>`;
+    });
+    bodyHtml += `</div></div>`;
+    if (isRevealed && !ev.correct) {
+      const keyStr = q.pairs.map((_, i) => `${['A','B','C','D'][i]}→(${rOrder.indexOf(i)+1})`).join(' • ');
+      bodyHtml += `<div class="mt-2 text-xs font-bold text-emerald-700">Đáp án ghép đúng: ${keyStr}</div>`;
+    }
+    if (state.mode === 'practice') {
+      bodyHtml += `<div class="mt-3"><button onclick="checkComposite(${q.id})" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold">Kiểm tra ghép cặp</button></div>`;
+    }
+  }
+
+  const svgHtml = q.svg && Q_SVGS[q.svg] ? Q_SVGS[q.svg] : '';
+  const expHtml = isRevealed ? `<div class="mt-3.5 p-3.5 rounded-xl bg-slate-50 border border-slate-200/90 text-xs sm:text-sm text-slate-700 leading-relaxed"><b class="text-blue-700">Lời giải / Giải thích:</b> ${q.exp}</div>` : '';
+
+  return `<article id="q-card-${q.id}" class="bg-white rounded-2xl border ${isRevealed ? (ev.correct ? 'border-emerald-200' : 'border-rose-200') : 'border-slate-200/80'} shadow-sm p-4 sm:p-5">
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-2.5">
+      <div class="flex flex-wrap items-center gap-1.5">
+        <span class="px-2.5 py-0.5 rounded-lg bg-slate-800 text-white text-xs font-extrabold">Câu ${displayNum}</span>
+        <span class="px-2 py-0.5 rounded-lg bg-slate-100 text-slate-700 text-xs font-semibold">Bài ${q.lesson}</span>
+        <span class="px-2 py-0.5 rounded-lg border text-xs font-semibold ${tm.cls}">${tm.label}</span>
+        <span class="px-2 py-0.5 rounded-lg text-xs font-semibold ${lm.cls}">${lm.label}</span>
+      </div>
+      <div>${statusBadge}</div>
+    </div>
+    <div class="text-sm sm:text-base font-medium text-slate-800 leading-relaxed">${q.q}</div>
+    ${svgHtml}
+    ${bodyHtml}
+    ${expHtml}
+  </article>`;
+}
+
+function renderQuestions() {
+  const list = getFilteredQuestions();
+  const total = list.length;
+  const pageSize = state.mode === 'exam' ? 20 : state.pageSize;
+  const totalPages = Math.max(1, Math.ceil(total / pageSize));
+  if (state.page > totalPages) state.page = totalPages;
+  const start = (state.page - 1) * pageSize;
+  const slice = list.slice(start, start + pageSize);
+
+  const container = document.getElementById('questions-container');
+  if (slice.length === 0) {
+    container.innerHTML = `<div class="bg-white rounded-2xl border border-slate-200 p-10 text-center text-slate-500 text-sm">Không có câu hỏi nào khớp với bộ lọc hiện tại.</div>`;
+  } else {
+    container.innerHTML = slice.map((q, idx) => renderQuestionCard(q, state.mode === 'exam' ? (idx + 1) : q.id)).join('');
+  }
+
+  // Update count text
+  const countEl = document.getElementById('filter-count');
+  if (countEl) countEl.textContent = total === 0 ? '0 câu khớp bộ lọc' : `Hiển thị ${start + 1}–${Math.min(start + pageSize, total)} / ${total} câu`;
+
+  // Pagination
+  const pBar = document.getElementById('pagination-bar');
+  if (state.mode === 'exam' || totalPages <= 1) {
+    pBar.innerHTML = '';
+  } else {
+    let pHtml = `<button onclick="goPage(${Math.max(1, state.page - 1)})" ${state.page===1?'disabled':''} class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-semibold disabled:opacity-40 hover:bg-slate-50">← Trước</button>`;
+    for (let p = 1; p <= totalPages; p++) {
+      pHtml += `<button onclick="goPage(${p})" class="w-8 h-8 rounded-lg border text-xs font-bold ${p===state.page ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-slate-700 border-slate-200 hover:bg-blue-50'}">${p}</button>`;
+    }
+    pHtml += `<button onclick="goPage(${Math.min(totalPages, state.page + 1)})" ${state.page===totalPages?'disabled':''} class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-semibold disabled:opacity-40 hover:bg-slate-50">Sau →</button>`;
+    pBar.innerHTML = pHtml;
+  }
+
+  renderKatexIn(container);
+  if (window.lucide) lucide.createIcons();
+  updateStats();
+}
+
+function goPage(p) {
+  state.page = p;
+  renderQuestions();
+  document.getElementById('luyen-tap-150').scrollIntoView({ behavior: 'smooth' });
+}
+
+function rerenderSingleCard(qid) {
+  const q = QUESTIONS.find(x => x.id === qid);
+  const el = document.getElementById(`q-card-${qid}`);
+  if (!q || !el) return;
+  const dispNum = state.mode === 'exam' ? (state.examIds.indexOf(qid) + 1) : q.id;
+  const tmp = document.createElement('div');
+  tmp.innerHTML = renderQuestionCard(q, dispNum);
+  const newCard = tmp.firstElementChild;
+  el.replaceWith(newCard);
+  renderKatexIn(newCard);
+  if (window.lucide) lucide.createIcons();
+  updateStats();
+}
+
+// ==================== USER INTERACTIONS ====================
+function answerMCQ(qid, optIdx) {
+  const store = getAnsStore();
+  const q = QUESTIONS.find(x => x.id === qid);
+  if (state.mode === 'practice') {
+    store[qid] = { val: optIdx, checked: true };
+    saveState();
+    playTone(optIdx === q.ans);
+  } else {
+    if (state.examSubmitted) return;
+    store[qid] = { val: optIdx, checked: false };
+  }
+  rerenderSingleCard(qid);
+}
+
+function selectTF(qid, idx, boolVal) {
+  const store = getAnsStore();
+  if (state.mode === 'exam' && state.examSubmitted) return;
+  const cur = store[qid] || { vals: {}, checked: false };
+  cur.vals = { ...(cur.vals || {}), [idx]: boolVal };
+  if (state.mode === 'practice') cur.checked = false;
+  store[qid] = cur;
+  if (state.mode === 'practice') saveState();
+  rerenderSingleCard(qid);
+}
+
+function updateShortDraft(qid, txtVal) {
+  const store = getAnsStore();
+  const cur = store[qid] || {};
+  store[qid] = { ...cur, val: txtVal, checked: false };
+  if (state.mode === 'practice') saveState();
+  updateStats();
+}
+
+function checkShort(qid) {
+  const inp = document.getElementById(`short-inp-${qid}`);
+  const val = inp ? inp.value : '';
+  if (!val.trim()) { inp && inp.focus(); return; }
+  const q = QUESTIONS.find(x => x.id === qid);
+  state.answers[qid] = { val, checked: true };
+  saveState();
+  const ev = evaluateQuestion(q, state.answers[qid]);
+  playTone(ev.correct);
+  rerenderSingleCard(qid);
+}
+
+function selectMatch(qid, leftIdx, rightOrigVal) {
+  const store = getAnsStore();
+  if (state.mode === 'exam' && state.examSubmitted) return;
+  const cur = store[qid] || { pairs: {}, checked: false };
+  cur.pairs = { ...(cur.pairs || {}) };
+  if (rightOrigVal === '') delete cur.pairs[leftIdx];
+  else cur.pairs[leftIdx] = Number(rightOrigVal);
+  if (state.mode === 'practice') cur.checked = false;
+  store[qid] = cur;
+  if (state.mode === 'practice') saveState();
+  updateStats();
+}
+
+function checkComposite(qid) {
+  const q = QUESTIONS.find(x => x.id === qid);
+  const cur = state.answers[qid] || {};
+  if (q.type === 'tf') {
+    const vals = cur.vals || {};
+    if (Object.keys(vals).length < 4) {
+      alert('Hãy chọn Đúng hoặc Sai cho cả 4 mệnh đề (a, b, c, d) trước khi kiểm tra!');
+      return;
+    }
+  }
+  if (q.type === 'match') {
+    const pairs = cur.pairs || {};
+    if (Object.keys(pairs).length < 4) {
+      alert('Hãy ghép đủ cả 4 cặp (A, B, C, D) trước khi kiểm tra!');
+      return;
+    }
+  }
+  state.answers[qid] = { ...cur, checked: true };
+  saveState();
+  const ev = evaluateQuestion(q, state.answers[qid]);
+  playTone(ev.correct);
+  rerenderSingleCard(qid);
+}
+
+// ==================== STATS & PROGRESS ====================
+function updateStats() {
+  if (state.mode === 'practice') {
+    let done = 0, correct = 0, wrong = 0;
+    QUESTIONS.forEach(q => {
+      const ev = evaluateQuestion(q, state.answers[q.id]);
+      if (ev.status !== 'unanswered') {
+        done++;
+        if (ev.correct) correct++; else wrong++;
+      }
+    });
+    document.getElementById('hdr-done').textContent = done;
+    document.getElementById('hdr-correct').textContent = correct;
+    document.getElementById('stat-done').textContent = done;
+    document.getElementById('stat-pct').textContent = Math.round((done / 150) * 100);
+    document.getElementById('stat-correct').textContent = correct;
+    document.getElementById('stat-wrong').textContent = wrong;
+    document.getElementById('bar-correct').style.width = `${(correct / 150) * 100}%`;
+    document.getElementById('bar-wrong').style.width = `${(wrong / 150) * 100}%`;
+  } else {
+    let answered = 0;
+    state.examIds.forEach(id => {
+      const q = QUESTIONS.find(x => x.id === id);
+      const a = state.examAnswers[id];
+      if (!a) return;
+      if (q.type === 'mcq' && a.val !== undefined) answered++;
+      else if (q.type === 'short' && String(a.val || '').trim() !== '') answered++;
+      else if (q.type === 'tf' && a.vals && Object.keys(a.vals).length === 4) answered++;
+      else if (q.type === 'match' && a.pairs && Object.keys(a.pairs).length === 4) answered++;
+    });
+    document.getElementById('exam-answered').textContent = answered;
+  }
+}
+
+// ==================== MINI EXAM (20 Qs, 20 min) ====================
+function setMode(mode) {
+  if (state.examTimerRef) { clearInterval(state.examTimerRef); state.examTimerRef = null; }
+  state.mode = mode;
+  document.getElementById('exam-bar').classList.toggle('hidden', mode !== 'exam');
+  document.getElementById('practice-controls').classList.toggle('hidden', mode === 'exam');
+  const bP = document.getElementById('btn-mode-practice');
+  const bE = document.getElementById('btn-mode-exam');
+  if (mode === 'practice') {
+    bP.className = 'px-3.5 py-2 rounded-xl text-xs font-bold border border-blue-600 bg-blue-600 text-white flex items-center gap-1.5';
+    bE.className = 'px-3.5 py-2 rounded-xl text-xs font-bold border border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 flex items-center gap-1.5';
+  } else {
+    bE.className = 'px-3.5 py-2 rounded-xl text-xs font-bold border border-indigo-600 bg-indigo-600 text-white flex items-center gap-1.5';
+    bP.className = 'px-3.5 py-2 rounded-xl text-xs font-bold border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 flex items-center gap-1.5';
+  }
+  renderQuestions();
+}
+
+function startMiniExam() {
+  // Pick 4 balanced questions per lesson (2 MCQ, 1 Short, 1 TF or Match) -> 20 questions!
+  const pickRand = (arr, n) => [...arr].sort(() => Math.random() - 0.5).slice(0, n);
+  const chosen = [];
+  for (let l = 10; l <= 14; l++) {
+    const lq = QUESTIONS.filter(q => q.lesson === l);
+    chosen.push(...pickRand(lq.filter(q => q.type === 'mcq'), 2));
+    chosen.push(...pickRand(lq.filter(q => q.type === 'short'), 1));
+    chosen.push(...pickRand(lq.filter(q => q.type === 'tf' || q.type === 'match'), 1));
+  }
+  state.examIds = chosen.map(q => q.id);
+  state.examAnswers = {};
+  state.examSubmitted = false;
+  state.examSecondsLeft = 20 * 60;
+  document.getElementById('exam-submit-btn').disabled = false;
+  document.getElementById('exam-submit-btn').textContent = 'Nộp bài & Chấm điểm';
+  setMode('exam');
+  updateTimerDisplay();
+  state.examTimerRef = setInterval(() => {
+    state.examSecondsLeft--;
+    updateTimerDisplay();
+    if (state.examSecondsLeft <= 0) {
+      clearInterval(state.examTimerRef);
+      submitMiniExam();
+    }
+  }, 1000);
+  document.getElementById('luyen-tap-150').scrollIntoView({ behavior: 'smooth' });
+}
+
+function updateTimerDisplay() {
+  const m = Math.floor(Math.max(0, state.examSecondsLeft) / 60);
+  const s = Math.max(0, state.examSecondsLeft) % 60;
+  document.getElementById('exam-timer').textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+}
+
+function submitMiniExam() {
+  if (state.examTimerRef) { clearInterval(state.examTimerRef); state.examTimerRef = null; }
+  state.examSubmitted = true;
+  document.getElementById('exam-submit-btn').disabled = true;
+  document.getElementById('exam-submit-btn').textContent = 'Đã nộp bài';
+  renderQuestions();
+  openScoreModal(true);
+}
+
+// ==================== STATS MODAL ====================
+function openScoreModal(isExamReport = false) {
+  const list = isExamReport ? state.examIds.map(id => QUESTIONS.find(q => q.id === id)) : QUESTIONS;
+  const store = isExamReport ? state.examAnswers : state.answers;
+  let totalScore = 0, fullRight = 0, attempted = 0;
+  const byLesson = { 10:{t:0,c:0,d:0}, 11:{t:0,c:0,d:0}, 12:{t:0,c:0,d:0}, 13:{t:0,c:0,d:0}, 14:{t:0,c:0,d:0} };
+  const byType = { mcq:{t:0,c:0}, tf:{t:0,c:0}, short:{t:0,c:0}, match:{t:0,c:0} };
+
+  list.forEach(q => {
+    const a = isExamReport ? { ...(store[q.id] || {}), checked: true } : store[q.id];
+    const ev = evaluateQuestion(q, a);
+    byLesson[q.lesson].t++;
+    byType[q.type].t++;
+    if (ev.status !== 'unanswered') {
+      attempted++;
+      byLesson[q.lesson].d++;
+      totalScore += ev.score;
+      if (ev.correct) { fullRight++; byLesson[q.lesson].c++; byType[q.type].c++; }
+    }
+  });
+
+  const score10 = ((totalScore / list.length) * 10).toFixed(2);
+  document.getElementById('modal-title').textContent = isExamReport ? 'Kết quả Đề thi nhanh 20 câu' : 'Thống kê tiến độ 150 bài tập Chương 3';
+  document.getElementById('modal-body').innerHTML = `
+    <div class="grid grid-cols-3 gap-3 text-center">
+      <div class="bg-blue-50 border border-blue-200 rounded-xl p-3">
+        <div class="text-xs text-blue-600 font-semibold">Điểm quy đổi (thang 10)</div>
+        <div class="text-2xl font-extrabold text-blue-800 mt-1">${score10}</div>
+      </div>
+      <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3">
+        <div class="text-xs text-emerald-600 font-semibold">Đúng trọn vẹn</div>
+        <div class="text-2xl font-extrabold text-emerald-800 mt-1">${fullRight}/${list.length}</div>
+      </div>
+      <div class="bg-slate-50 border border-slate-200 rounded-xl p-3">
+        <div class="text-xs text-slate-600 font-semibold">Đã làm</div>
+        <div class="text-2xl font-extrabold text-slate-800 mt-1">${attempted}/${list.length}</div>
+      </div>
+    </div>
+    <div class="space-y-2">
+      <div class="font-bold text-slate-800">Chi tiết theo từng bài học:</div>
+      ${[10,11,12,13,14].map(l => {
+        const s = byLesson[l];
+        const pct = s.t ? Math.round((s.c / s.t) * 100) : 0;
+        return `<div class="space-y-1">
+          <div class="flex justify-between text-xs font-semibold"><span>${LESSON_NAMES[l]}</span><span>Đúng ${s.c}/${s.t} (${pct}%)</span></div>
+          <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden"><div class="bg-blue-600 h-full" style="width:${pct}%"></div></div>
+        </div>`;
+      }).join('')}
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-slate-100 text-center text-xs">
+      ${Object.entries(byType).map(([k, v]) => `<div class="bg-slate-50 rounded-xl p-2.5 border border-slate-200"><div class="font-bold text-slate-700">${TYPE_META[k].label}</div><div class="text-blue-700 font-extrabold mt-0.5">${v.c}/${v.t}</div></div>`).join('')}
+    </div>`;
+  document.getElementById('score-modal').classList.remove('hidden');
+  if (window.lucide) lucide.createIcons();
+}
+
+function closeScoreModal() {
+  document.getElementById('score-modal').classList.add('hidden');
+}
+
+function resetAllProgress() {
+  if (!confirm('Bạn có chắc muốn xóa toàn bộ kết quả đã làm để luyện lại từ đầu không?')) return;
+  state.answers = {};
+  saveState();
+  setMode('practice');
+}
+
+// ==================== INIT ====================
+window.addEventListener('load', () => {
+  loadState();
+  selectMindNode(10);
+  renderKatexIn(document.getElementById('so-do-tu-duy'));
+  renderQuestions();
+  if (window.lucide) lucide.createIcons();
+});
+</script>
+</body></html>
