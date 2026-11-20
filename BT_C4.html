@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ôn tập Chương 4: Sơ đồ tư duy & 100 Bài tập Định lí Thalès - Toán 8</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+:root{--ink:#1e293b;--blue:#2563eb;--line:#cbd5e1}
+html{scroll-behavior:smooth}body{font-family:Inter,sans-serif;background:#f8fafc;color:var(--ink)}
+.katex{font-size:1.03em}.katex-display{margin:.45rem 0;overflow-x:auto;overflow-y:hidden}
+.mm-node{transition:transform .18s ease;transform-box:fill-box;transform-origin:center}
+.mm-node:hover{transform:scale(1.02)}
+.q-svg{width:100%;max-width:255px;height:auto;margin:.6rem auto;display:block;background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:6px}
+.opt-btn{transition:all .15s ease}
+.opt-btn:hover:not(:disabled){border-color:#3b82f6;background:#eff6ff}
+.pill-active{background:#2563eb!important;color:#fff!important;border-color:#2563eb!important}
+.cloze-slot{display:inline-flex;align-items:center;padding:1px 8px;border-radius:8px;font-weight:700;border:1.5px dashed #94a3b8;background:#f8fafc;color:#1d4ed8;margin:0 2px;vertical-align:baseline}
+.cloze-slot.filled{border-style:solid;border-color:#3b82f6;background:#eff6ff}
+.cloze-slot.ok{border-style:solid;border-color:#10b981;background:#ecfdf5;color:#047857}
+.cloze-slot.bad{border-style:solid;border-color:#f43f5e;background:#fff1f2;color:#be123c}
+@media print{header,.no-print{display:none!important}body{background:#fff}.shadow-sm{box-shadow:none!important}.bg-white{break-inside:avoid}}
+</style>
+</head>
+<body class="antialiased selection:bg-blue-600 selection:text-white">
+
+<!-- STICKY HEADER -->
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-sm no-print">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
+    <div class="flex items-center gap-2">
+      <a href="index.html" class="flex items-center gap-1.5 text-slate-600 hover:text-blue-600 bg-slate-100 hover:bg-blue-50 px-3 py-2 rounded-xl text-sm font-medium">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i><span class="hidden sm:inline">Trang chủ Toán 8</span>
+      </a>
+      <a href="#tong-hop-kien-thuc" class="hidden md:inline-flex items-center gap-1 text-xs font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-2 rounded-xl">
+        <i data-lucide="network" class="w-3.5 h-3.5"></i>Tổng hợp kiến thức
+      </a>
+      <a href="#kho-bai-100" class="hidden md:inline-flex items-center gap-1 text-xs font-semibold text-violet-700 bg-violet-50 hover:bg-violet-100 px-3 py-2 rounded-xl">
+        <i data-lucide="list-checks" class="w-3.5 h-3.5"></i>Kho 100 bài tập
+      </a>
+    </div>
+    <div class="flex items-center gap-2">
+      <div class="hidden sm:flex items-center gap-2 text-xs font-semibold bg-slate-100 text-slate-700 px-3 py-1.5 rounded-xl">
+        <span>Tiến độ: <b id="hdr-done" class="text-blue-600">0</b>/100</span>
+        <span class="text-slate-300">|</span>
+        <span>Đúng: <b id="hdr-correct" class="text-emerald-600">0</b></span>
+      </div>
+      <button id="sound-btn" onclick="toggleSound()" title="Bật/tắt âm thanh" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600">
+        <i data-lucide="volume-2" class="w-4 h-4"></i>
+      </button>
+      <button onclick="window.print()" class="flex items-center gap-1.5 text-xs font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 px-3 py-2 rounded-xl">
+        <i data-lucide="printer" class="w-4 h-4"></i><span class="hidden sm:inline">In trang</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-10 sm:py-12 border-b border-blue-900/20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-wrap items-center gap-2 mb-3">
+      <span class="bg-white/15 text-xs font-semibold px-3 py-1 rounded-full border border-white/20">Tổng ôn Chương 4 • Bài 15 → Bài 17</span>
+      <span class="text-blue-100 text-sm">Hình học 8 • GDPT 2018</span>
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">TỔNG HỢP KIẾN THỨC &amp; 100 BÀI TẬP CHƯƠNG 4: ĐỊNH LÍ THALÈS</h1>
+    <p class="mt-3 text-blue-100 text-sm sm:text-base max-w-3xl">Hệ thống hóa trọn bộ Định lí Thalès, Đường trung bình của tam giác và Tính chất đường phân giác kèm kho 100 bài tập tự chấm theo <b>6 hình thức tương tác</b>: Trắc nghiệm 4 lựa chọn, Đúng/Sai 4 ý, Trả lời ngắn, Ghép cặp, Điền khuyết chứng minh và Sắp xếp bước chứng minh.</p>
+    <div class="mt-5 flex flex-wrap gap-2 text-xs font-semibold">
+      <a href="bai15_Thales.html" class="bg-white/15 hover:bg-white/25 border border-white/20 px-3 py-1.5 rounded-lg">Bài 15: Định lí Thalès</a>
+      <a href="bai16_duongtrungbinh.html" class="bg-white/15 hover:bg-white/25 border border-white/20 px-3 py-1.5 rounded-lg">Bài 16: Đường trung bình của tam giác</a>
+      <a href="bai17_tinhchat_phangiac.html" class="bg-white/15 hover:bg-white/25 border border-white/20 px-3 py-1.5 rounded-lg">Bài 17: Tính chất đường phân giác</a>
+    </div>
+  </div>
+</section>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-12">
+
+<!-- ==================== PHẦN I: TỔNG HỢP KIẾN THỨC & SƠ ĐỒ TƯ DUY ==================== -->
+<section id="tong-hop-kien-thuc" class="space-y-6">
+  <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-3">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold shadow-sm">I</div>
+      <div>
+        <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight">TỔNG HỢP KIẾN THỨC &amp; SƠ ĐỒ TƯ DUY CHƯƠNG 4 (BÀI 15 – 17)</h2>
+        <p class="text-xs text-slate-500">Nhấn vào từng nhánh trên sơ đồ để xem công thức chi tiết, phương pháp giải nhanh và luyện ngay bài tập của bài đó</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Visual Mind Map SVG -->
+  <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-4 sm:p-6 overflow-x-auto">
+    <svg id="mindmap-svg" class="w-full h-auto max-w-4xl mx-auto block select-none" viewBox="0 0 900 415" role="img" aria-label="Sơ đồ tư duy Chương 4: Định lí Thalès, Đường trung bình và Tính chất đường phân giác">
+<defs>
+  <marker id="arr" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#64748b"/>
+  </marker>
+  <marker id="arr-b" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#2563eb"/>
+  </marker>
+  <marker id="arr-v" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#7c3aed"/>
+  </marker>
+  <filter id="sh" x="-8%" y="-8%" width="116%" height="122%">
+    <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.08"/>
+  </filter>
+</defs>
+
+<!-- Main Root -> 3 Pillars -->
+<path d="M 355 58 C 240 62, 155 82, 155 118" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#arr-b)"/>
+<path d="M 450 76 L 450 118" stroke="#4f46e5" stroke-width="2" fill="none" marker-end="url(#arr-b)"/>
+<path d="M 545 58 C 660 62, 745 82, 745 118" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#arr-v)"/>
+
+<!-- Sub-branches down -->
+<path d="M 155 186 L 155 218" stroke="#3b82f6" stroke-width="1.6" fill="none" marker-end="url(#arr-b)"/>
+<path d="M 450 186 L 450 218" stroke="#6366f1" stroke-width="1.6" fill="none" marker-end="url(#arr-b)"/>
+<path d="M 745 186 L 745 218" stroke="#8b5cf6" stroke-width="1.6" fill="none" marker-end="url(#arr-v)"/>
+
+<!-- Cross-relationship dashed links -->
+<path d="M 284 154 L 316 154" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#arr)"/>
+<path d="M 584 154 L 616 154" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-start="url(#arr)" marker-end="url(#arr)"/>
+
+<!-- Bottom synthesis bar -->
+<path d="M 155 344 C 155 374, 280 378, 342 378" stroke="#059669" stroke-width="1.7" fill="none" marker-end="url(#arr)"/>
+<path d="M 450 344 L 450 356" stroke="#059669" stroke-width="1.7" fill="none" marker-end="url(#arr)"/>
+<path d="M 745 344 C 745 374, 620 378, 558 378" stroke="#059669" stroke-width="1.7" fill="none" marker-end="url(#arr)"/>
+
+<!-- ROOT NODE -->
+<g filter="url(#sh)">
+  <rect x="278" y="14" width="344" height="62" rx="16" fill="#1d4ed8"/>
+  <text x="450" y="36" text-anchor="middle" dominant-baseline="central" font-size="14.5" font-weight="800" fill="#ffffff">CHƯƠNG 4: ĐỊNH LÍ THALÈS (BÀI 15 – 17)</text>
+  <text x="450" y="56" text-anchor="middle" dominant-baseline="central" font-size="11.5" fill="#dbeafe">Tỉ số đoạn thẳng • Song song • Trung điểm • Phân giác</text>
+</g>
+
+<!-- NODE 15 -->
+<g class="mm-node cursor-pointer" data-lesson="15" onclick="selectMindNode(15)" filter="url(#sh)">
+  <rect x="26" y="122" width="258" height="64" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="2.2"/>
+  <text x="155" y="143" text-anchor="middle" dominant-baseline="central" font-size="13.5" font-weight="800" fill="#1d4ed8">BÀI 15: ĐỊNH LÍ THALÈS</text>
+  <text x="155" y="162" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#334155">Đoạn thẳng tỉ lệ • Thalès thuận &amp; đảo</text>
+  <text x="155" y="176" text-anchor="middle" dominant-baseline="central" font-size="10.5" fill="#2563eb">Nhấn để xem chi tiết &amp; 34 bài tập</text>
+</g>
+<g class="mm-node cursor-pointer" data-lesson="15" onclick="selectMindNode(15)" filter="url(#sh)">
+  <rect x="26" y="222" width="258" height="122" rx="14" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.6"/>
+  <text x="42" y="244" font-size="11.5" font-weight="700" fill="#1e40af">• Tỉ số &amp; đoạn thẳng tỉ lệ:</text>
+  <text x="50" y="261" font-size="11" fill="#475569">AB/CD = A'B'/C'D' (cùng đơn vị đo)</text>
+  <text x="42" y="283" font-size="11.5" font-weight="700" fill="#1e40af">• Thalès thuận (MN ∥ BC):</text>
+  <text x="50" y="300" font-size="11" fill="#475569">AM/AB = AN/AC ; AM/MB = AN/NC</text>
+  <text x="42" y="322" font-size="11.5" font-weight="700" fill="#1e40af">• Thalès đảo:</text>
+  <text x="50" y="336" font-size="11" fill="#475569">Tỉ lệ tương ứng ⇒ MN ∥ BC</text>
+</g>
+
+<!-- NODE 16 -->
+<g class="mm-node cursor-pointer" data-lesson="16" onclick="selectMindNode(16)" filter="url(#sh)">
+  <rect x="321" y="122" width="258" height="64" rx="14" fill="#eef2ff" stroke="#4f46e5" stroke-width="2.2"/>
+  <text x="450" y="143" text-anchor="middle" dominant-baseline="central" font-size="13.5" font-weight="800" fill="#3730a3">BÀI 16: ĐƯỜNG TRUNG BÌNH</text>
+  <text x="450" y="162" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#334155">Trường hợp đặc biệt (tỉ số 1/2)</text>
+  <text x="450" y="176" text-anchor="middle" dominant-baseline="central" font-size="10.5" fill="#4338ca">Nhấn để xem chi tiết &amp; 33 bài tập</text>
+</g>
+<g class="mm-node cursor-pointer" data-lesson="16" onclick="selectMindNode(16)" filter="url(#sh)">
+  <rect x="321" y="222" width="258" height="122" rx="14" fill="#ffffff" stroke="#c7d2fe" stroke-width="1.6"/>
+  <text x="337" y="244" font-size="11.5" font-weight="700" fill="#3730a3">• Định nghĩa:</text>
+  <text x="345" y="261" font-size="11" fill="#475569">Nối trung điểm 2 cạnh của tam giác</text>
+  <text x="337" y="283" font-size="11.5" font-weight="700" fill="#3730a3">• Tính chất (M, N là trung điểm):</text>
+  <text x="345" y="300" font-size="11" fill="#475569">MN ∥ BC và MN = ½ BC</text>
+  <text x="337" y="322" font-size="11.5" font-weight="700" fill="#3730a3">• Nhận biết trung điểm:</text>
+  <text x="345" y="336" font-size="11" fill="#475569">Qua TĐ cạnh 1 &amp; ∥ cạnh 2 ⇒ qua TĐ cạnh 3</text>
+</g>
+
+<!-- NODE 17 -->
+<g class="mm-node cursor-pointer" data-lesson="17" onclick="selectMindNode(17)" filter="url(#sh)">
+  <rect x="616" y="122" width="258" height="64" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2.2"/>
+  <text x="745" y="143" text-anchor="middle" dominant-baseline="central" font-size="13.5" font-weight="800" fill="#5b21b6">BÀI 17: ĐƯỜNG PHÂN GIÁC</text>
+  <text x="745" y="162" text-anchor="middle" dominant-baseline="central" font-size="11" fill="#334155">Phân giác trong, đảo &amp; phân giác ngoài</text>
+  <text x="745" y="176" text-anchor="middle" dominant-baseline="central" font-size="10.5" fill="#7c3aed">Nhấn để xem chi tiết &amp; 33 bài tập</text>
+</g>
+<g class="mm-node cursor-pointer" data-lesson="17" onclick="selectMindNode(17)" filter="url(#sh)">
+  <rect x="616" y="222" width="258" height="122" rx="14" fill="#ffffff" stroke="#ddd6fe" stroke-width="1.6"/>
+  <text x="632" y="244" font-size="11.5" font-weight="700" fill="#6d28d9">• Phân giác trong AD (D ∈ BC):</text>
+  <text x="640" y="261" font-size="11" fill="#475569">DB / DC = AB / AC</text>
+  <text x="632" y="283" font-size="11.5" font-weight="700" fill="#6d28d9">• Định lí đảo:</text>
+  <text x="640" y="300" font-size="11" fill="#475569">DB/DC = AB/AC ⇒ AD là phân giác Â</text>
+  <text x="632" y="322" font-size="11.5" font-weight="700" fill="#6d28d9">• Phân giác ngoài AE (AB ≠ AC):</text>
+  <text x="640" y="336" font-size="11" fill="#475569">EB / EC = AB / AC (E ∈ đường thẳng BC)</text>
+</g>
+
+<!-- BOTTOM SYNTHESIS BADGE -->
+<g filter="url(#sh)">
+  <rect x="348" y="358" width="204" height="44" rx="13" fill="#059669"/>
+  <text x="450" y="375" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="800" fill="#ffffff">ỨNG DỤNG TỔNG HỢP</text>
+  <text x="450" y="391" text-anchor="middle" dominant-baseline="central" font-size="10.5" fill="#d1fae5">Tính độ dài • C/m song song • Tỉ số</text>
+</g>
+</svg>
+  </div>
+
+  <!-- Interactive Knowledge Tabs -->
+  <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+    <div class="bg-slate-50 border-b border-slate-200 px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-2">
+      <div class="flex flex-wrap gap-1.5" id="mm-tabs">
+        <button onclick="selectMindNode(15)" data-mmtab="15" class="mm-tab px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold border border-slate-200 bg-white text-slate-700 hover:bg-blue-50">Bài 15: Định lí Thalès</button>
+        <button onclick="selectMindNode(16)" data-mmtab="16" class="mm-tab px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold border border-slate-200 bg-white text-slate-700 hover:bg-blue-50">Bài 16: Đường trung bình</button>
+        <button onclick="selectMindNode(17)" data-mmtab="17" class="mm-tab px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold border border-slate-200 bg-white text-slate-700 hover:bg-blue-50">Bài 17: Đường phân giác</button>
+      </div>
+      <button onclick="jumpToLessonQuiz()" class="text-xs font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 px-3 py-1.5 rounded-lg flex items-center gap-1 no-print">
+        <i data-lucide="play" class="w-3.5 h-3.5"></i>Luyện bài tập bài này
+      </button>
+    </div>
+    <div id="mm-detail" class="p-5 sm:p-6"></div>
+  </div>
+
+  <!-- Quick Tool-Selection Table -->
+  <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+    <div class="bg-slate-50 border-b border-slate-200 px-6 py-3.5">
+      <h3 class="font-bold text-base text-slate-800 flex items-center gap-2"><i data-lucide="compass" class="w-4 h-4 text-indigo-600"></i>Bảng nhận diện nhanh: Khi nào dùng công cụ nào trong Chương 4?</h3>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-xs sm:text-sm text-left border-collapse">
+        <thead>
+          <tr class="bg-slate-100/80 text-slate-700 border-b border-slate-200">
+            <th class="py-3 px-4 font-bold">Kiến thức / Định lí</th>
+            <th class="py-3 px-4 font-bold">Dấu hiệu giả thiết</th>
+            <th class="py-3 px-4 font-bold">Hệ thức / Kết luận cốt lõi</th>
+            <th class="py-3 px-4 font-bold">Dạng toán ứng dụng chính</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          <tr class="hover:bg-blue-50/40">
+            <td class="py-3 px-4 font-bold text-blue-700">Thalès thuận (Bài 15)</td>
+            <td class="py-3 px-4">Có $MN \parallel BC$ ($M \in AB, N \in AC$)</td>
+            <td class="py-3 px-4">$\dfrac{AM}{AB}=\dfrac{AN}{AC}$ ; $\dfrac{AM}{MB}=\dfrac{AN}{NC}$ ; $\dfrac{MB}{AB}=\dfrac{NC}{AC}$</td>
+            <td class="py-3 px-4">Tính độ dài đoạn thẳng $x$, lập cầu nối tỉ số</td>
+          </tr>
+          <tr class="hover:bg-blue-50/40">
+            <td class="py-3 px-4 font-bold text-blue-800">Thalès đảo (Bài 15)</td>
+            <td class="py-3 px-4">Có $\dfrac{AM}{MB}=\dfrac{AN}{NC}$ hoặc $\dfrac{AM}{AB}=\dfrac{AN}{AC}$</td>
+            <td class="py-3 px-4">Suy ra $MN \parallel BC$</td>
+            <td class="py-3 px-4">Chứng minh hai đường thẳng song song</td>
+          </tr>
+          <tr class="hover:bg-indigo-50/40">
+            <td class="py-3 px-4 font-bold text-indigo-700">Đường trung bình (Bài 16)</td>
+            <td class="py-3 px-4">$M, N$ là trung điểm $AB, AC$ (hoặc qua 1 TĐ và $\parallel$)</td>
+            <td class="py-3 px-4">$MN \parallel BC$ và $MN = \dfrac{1}{2}BC$</td>
+            <td class="py-3 px-4">Chứng minh song song, trung điểm, đoạn gấp đôi, hình bình hành/thoi/vuông</td>
+          </tr>
+          <tr class="hover:bg-violet-50/40">
+            <td class="py-3 px-4 font-bold text-violet-700">Phân giác trong &amp; đảo (Bài 17)</td>
+            <td class="py-3 px-4">$AD$ là tia phân giác $\widehat{BAC}$ ($D \in BC$)</td>
+            <td class="py-3 px-4">$\dfrac{DB}{DC}=\dfrac{AB}{AC}$ (và chiều đảo $\Rightarrow$ phân giác)</td>
+            <td class="py-3 px-4">Tính $BD, DC$ khi biết 3 cạnh; chứng minh tia phân giác</td>
+          </tr>
+          <tr class="hover:bg-violet-50/40">
+            <td class="py-3 px-4 font-bold text-purple-700">Phân giác ngoài (Bài 17)</td>
+            <td class="py-3 px-4">$AE$ là phân giác ngoài tại $A$ ($AB \neq AC$)</td>
+            <td class="py-3 px-4">$\dfrac{EB}{EC}=\dfrac{AB}{AC}$ ($E \in$ đường thẳng $BC$)</td>
+            <td class="py-3 px-4">Tính khoảng cách ngoài tam giác, kết hợp phân giác trong tính $DE$</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PHẦN II: KHO 100 BÀI TẬP 6 HÌNH THỨC ==================== -->
+<section id="kho-bai-100" class="space-y-6">
+  <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-3">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold shadow-sm">II</div>
+      <div>
+        <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight">KHO 100 BÀI TẬP CHƯƠNG 4 (6 HÌNH THỨC TƯƠNG TÁC)</h2>
+        <p class="text-xs text-slate-500">45 Trắc nghiệm • 15 Đúng/Sai (60 ý) • 21 Trả lời ngắn • 9 Ghép cặp • 5 Điền khuyết chứng minh • 5 Sắp xếp bước chứng minh</p>
+      </div>
+    </div>
+    <div class="flex flex-wrap items-center gap-2 no-print">
+      <button id="btn-mode-practice" onclick="setMode('practice')" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-blue-600 bg-blue-600 text-white flex items-center gap-1.5">
+        <i data-lucide="book-open-check" class="w-4 h-4"></i>Luyện tập (100 câu)
+      </button>
+      <button id="btn-mode-exam" onclick="startMiniExam()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 flex items-center gap-1.5">
+        <i data-lucide="timer" class="w-4 h-4"></i>Đề thi nhanh 18 câu (20 phút)
+      </button>
+      <button onclick="openScoreModal(false)" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 flex items-center gap-1.5">
+        <i data-lucide="bar-chart-3" class="w-4 h-4"></i>Thống kê kết quả
+      </button>
+      <button onclick="resetAllProgress()" class="px-3 py-2 rounded-xl text-xs font-semibold border border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100 flex items-center gap-1">
+        <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>Làm lại
+      </button>
+    </div>
+  </div>
+
+  <!-- MINI EXAM BANNER -->
+  <div id="exam-bar" class="hidden bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-2xl p-4 sm:p-5 shadow-sm flex flex-wrap items-center justify-between gap-4 no-print">
+    <div class="flex items-center gap-3">
+      <div class="w-11 h-11 rounded-xl bg-white/15 flex items-center justify-center"><i data-lucide="clock" class="w-6 h-6"></i></div>
+      <div>
+        <div class="text-xs uppercase tracking-wider text-indigo-100 font-semibold">Đề thi tổng hợp Chương 4 • 6 câu mỗi bài (Bài 15, 16, 17) • Đủ các dạng bài</div>
+        <div class="text-xl font-extrabold flex items-center gap-3">
+          <span id="exam-timer">20:00</span>
+          <span class="text-sm font-medium bg-white/15 px-2.5 py-0.5 rounded-lg">Đã trả lời: <span id="exam-answered">0</span>/18</span>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <button id="exam-submit-btn" onclick="submitMiniExam()" class="px-4 py-2.5 rounded-xl bg-white text-indigo-700 hover:bg-indigo-50 font-bold text-sm shadow-sm">Nộp bài &amp; Chấm điểm</button>
+      <button onclick="setMode('practice')" class="px-3.5 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white font-semibold text-xs">Thoát đề thi</button>
+    </div>
+  </div>
+
+  <!-- PRACTICE CONTROLS & FILTERS -->
+  <div id="practice-controls" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-4 sm:p-5 space-y-4 no-print">
+    <div class="space-y-1.5">
+      <div class="flex flex-wrap items-center justify-between text-xs sm:text-sm">
+        <span class="font-semibold text-slate-700">Tiến độ hoàn thành: <span id="stat-done" class="text-blue-600 font-bold">0</span>/100 câu (<span id="stat-pct">0</span>%)</span>
+        <span class="font-semibold text-slate-600">Đúng trọn vẹn: <span id="stat-correct" class="text-emerald-600 font-bold">0</span> • Chưa đúng: <span id="stat-wrong" class="text-rose-600 font-bold">0</span></span>
+      </div>
+      <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden flex">
+        <div id="bar-correct" class="bg-emerald-500 h-full transition-all duration-300" style="width:0%"></div>
+        <div id="bar-wrong" class="bg-rose-400 h-full transition-all duration-300" style="width:0%"></div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 pt-2 border-t border-slate-100">
+      <div class="lg:col-span-5 space-y-1.5">
+        <div class="text-xs font-bold uppercase tracking-wider text-slate-400">Lọc theo bài học</div>
+        <div class="flex flex-wrap gap-1.5" id="filter-lesson">
+          <button onclick="setFilter('lesson','all')" data-fl="all" class="pill-active px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-white text-slate-700">Tất cả (100)</button>
+          <button onclick="setFilter('lesson','15')" data-fl="15" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-white text-slate-700">Bài 15 (34)</button>
+          <button onclick="setFilter('lesson','16')" data-fl="16" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-white text-slate-700">Bài 16 (33)</button>
+          <button onclick="setFilter('lesson','17')" data-fl="17" class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-white text-slate-700">Bài 17 (33)</button>
+        </div>
+      </div>
+      <div class="lg:col-span-7 space-y-1.5">
+        <div class="text-xs font-bold uppercase tracking-wider text-slate-400">Lọc theo 6 hình thức câu hỏi</div>
+        <div class="flex flex-wrap gap-1.5" id="filter-type">
+          <button onclick="setFilter('type','all')" data-ft="all" class="pill-active px-2.5 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-white text-slate-700">Tất cả</button>
+          <button onclick="setFilter('type','mcq')" data-ft="mcq" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-white text-slate-700">Trắc nghiệm (45)</button>
+          <button onclick="setFilter('type','tf')" data-ft="tf" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-white text-slate-700">Đúng/Sai (15)</button>
+          <button onclick="setFilter('type','short')" data-ft="short" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-white text-slate-700">Trả lời ngắn (21)</button>
+          <button onclick="setFilter('type','match')" data-ft="match" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-white text-slate-700">Ghép cặp (9)</button>
+          <button onclick="setFilter('type','cloze')" data-ft="cloze" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-white text-slate-700">Điền khuyết (5)</button>
+          <button onclick="setFilter('type','order')" data-ft="order" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 bg-white text-slate-700">Sắp xếp c/m (5)</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-100">
+      <div class="flex flex-wrap items-center gap-2">
+        <select id="sel-level" onchange="setFilter('level', this.value)" class="text-xs font-semibold bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-slate-700">
+          <option value="all">Mọi mức độ</option>
+          <option value="NB">Nhận biết (24)</option>
+          <option value="TH">Thông hiểu (38)</option>
+          <option value="VD">Vận dụng (32)</option>
+          <option value="VDC">Vận dụng cao (6)</option>
+        </select>
+        <select id="sel-status" onchange="setFilter('status', this.value)" class="text-xs font-semibold bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-slate-700">
+          <option value="all">Mọi trạng thái</option>
+          <option value="unanswered">Chưa làm</option>
+          <option value="wrong">Đang làm sai</option>
+          <option value="correct">Đã làm đúng</option>
+        </select>
+        <select id="sel-pagesize" onchange="setPageSize(Number(this.value))" class="text-xs font-semibold bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-slate-700">
+          <option value="15" selected>15 câu / trang</option>
+          <option value="25">25 câu / trang</option>
+          <option value="100">Hiện tất cả</option>
+        </select>
+      </div>
+      <div id="filter-count" class="text-xs font-semibold text-slate-500">Đang hiển thị 1–15 / 100 câu</div>
+    </div>
+  </div>
+
+  <!-- QUESTIONS LIST -->
+  <div id="questions-container" class="space-y-5"></div>
+
+  <!-- PAGINATION -->
+  <div id="pagination-bar" class="flex flex-wrap items-center justify-center gap-1.5 pt-2 no-print"></div>
+</section>
+
+<!-- BOTTOM NAV -->
+<div class="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-slate-200 pt-6 no-print">
+  <a href="bai17_tinhchat_phangiac.html" class="w-full sm:w-auto px-5 py-3 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-blue-400 hover:text-blue-600 font-semibold text-sm text-center">← Quay lại Bài 17: Tính chất đường phân giác</a>
+  <a href="index.html" class="w-full sm:w-auto px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm text-center">Về trang chủ Toán 8 →</a>
+</div>
+
+</main>
+
+<!-- STATS / REPORT MODAL -->
+<div id="score-modal" class="fixed inset-0 z-50 hidden bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4 no-print">
+  <div class="bg-white rounded-2xl max-w-2xl w-full shadow-2xl border border-slate-200 overflow-hidden max-h-[90vh] flex flex-col">
+    <div class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white px-6 py-4 flex items-center justify-between">
+      <h3 id="modal-title" class="font-extrabold text-lg">Bảng thống kê kết quả Chương 4</h3>
+      <button onclick="closeScoreModal()" class="p-1.5 rounded-lg hover:bg-white/15"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <div id="modal-body" class="p-6 overflow-y-auto space-y-5 text-sm"></div>
+    <div class="bg-slate-50 border-t border-slate-200 px-6 py-3 flex flex-wrap justify-between items-center gap-2">
+      <button id="btn-review-wrong" onclick="reviewWrongQuestions()" class="px-3.5 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-semibold text-xs">Lọc các câu làm sai</button>
+      <button onclick="closeScoreModal()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm">Đóng</button>
+    </div>
+  </div>
+</div>
+
+<footer class="bg-white border-t border-slate-200/80 mt-12 py-6">
+  <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500">Hệ thống Kiến thức Toán 8 • Tổng ôn Chương 4: Định lí Thalès (Bài 15 → Bài 17) • 100 bài tập tự chấm</div>
+</footer>
+
+<script>
+// ==================== DATA ====================
+const QUESTIONS = [{"lesson": 15, "level": "NB", "q": "Cho hai đoạn thẳng $AB = 6\\text{ cm}$ và $CD = 15\\text{ cm}$. Tỉ số $\\dfrac{AB}{CD}$ bằng:", "opts": ["$\\dfrac{2}{5}$", "$\\dfrac{5}{2}$", "$\\dfrac{3}{5}$", "$\\dfrac{2}{3}$"], "ans": 0, "exp": "$\\dfrac{AB}{CD} = \\dfrac{6}{15} = \\dfrac{2}{5}$.", "type": "mcq", "id": 1}, {"lesson": 15, "level": "NB", "q": "Cho $AB = 4\\text{ cm}$ và $CD = 2\\text{ dm}$. Tỉ số của hai đoạn thẳng $AB$ và $CD$ là:", "opts": ["$2$", "$\\dfrac{1}{2}$", "$\\dfrac{1}{5}$", "$\\dfrac{2}{5}$"], "ans": 2, "exp": "Đổi cùng đơn vị: $CD = 2\\text{ dm} = 20\\text{ cm}$. Khi đó $\\dfrac{AB}{CD} = \\dfrac{4}{20} = \\dfrac{1}{5}$.", "type": "mcq", "id": 2}, {"lesson": 15, "level": "NB", "q": "Hai đoạn thẳng $AB, CD$ tỉ lệ với hai đoạn thẳng $EF, MN$ khi nào?", "opts": ["$AB + CD = EF + MN$", "$\\dfrac{AB}{CD} = \\dfrac{EF}{MN}$", "$\\dfrac{AB}{CD} = \\dfrac{MN}{EF}$", "$AB \\cdot CD = EF \\cdot MN$"], "ans": 1, "exp": "Theo định nghĩa, $AB, CD$ tỉ lệ với $EF, MN$ khi $\\dfrac{AB}{CD} = \\dfrac{EF}{MN}$ (hay $\\dfrac{AB}{EF} = \\dfrac{CD}{MN}$).", "type": "mcq", "id": 3}, {"lesson": 15, "level": "NB", "q": "Cho $\\triangle ABC$, đường thẳng $d$ song song với $BC$ cắt $AB, AC$ lần lượt tại $M, N$. Khẳng định nào sau đây là SAI?", "opts": ["$\\dfrac{AM}{AB} = \\dfrac{AN}{AC}$", "$\\dfrac{AM}{MB} = \\dfrac{AN}{NC}$", "$\\dfrac{MB}{AB} = \\dfrac{NC}{AC}$", "$\\dfrac{AM}{NC} = \\dfrac{AN}{MB}$"], "ans": 3, "exp": "Theo định lí Thalès: $\\dfrac{AM}{MB}=\\dfrac{AN}{NC} \\Rightarrow AM\\cdot NC = AN\\cdot MB$, nên $\\dfrac{AM}{NC}=\\dfrac{AN}{MB}$ là sai (trừ khi $MB=NC$).", "type": "mcq", "id": 4}, {"lesson": 15, "level": "TH", "svg": "th1", "q": "Quan sát hình vẽ, biết $MN \\parallel BC$, $AM = 4, MB = 2, AN = 6$. Độ dài $x$ ($NC$) bằng:", "opts": ["$2$", "$3$", "$4$", "$4{,}5$"], "ans": 1, "exp": "Theo định lí Thalès: $\\dfrac{AM}{MB} = \\dfrac{AN}{NC} \\Rightarrow \\dfrac{4}{2} = \\dfrac{6}{x} \\Rightarrow x = 3$.", "type": "mcq", "id": 5}, {"lesson": 15, "level": "TH", "svg": "th2", "q": "Cho $\\triangle ABC$ vuông tại $A$ như hình vẽ, kẻ $HM \\perp AB$. Biết $BH = 3, HA = 6, BM = 5$. Giá trị của $x$ ($MC$) bằng:", "opts": ["$8$", "$9$", "$10$", "$12$"], "ans": 2, "exp": "Vì $HM \\perp AB$ và $AC \\perp AB$ nên $HM \\parallel AC$. Theo định lí Thalès: $\\dfrac{BH}{HA} = \\dfrac{BM}{MC} \\Rightarrow \\dfrac{3}{6} = \\dfrac{5}{x} \\Rightarrow x = 10$.", "type": "mcq", "id": 6}, {"lesson": 15, "level": "TH", "svg": "th3", "q": "Cho hình vẽ có $MN \\parallel BC$, hai đoạn $MC$ và $NB$ cắt nhau tại $A$ với $AM = 3, AC = 6, AN = 4$. Độ dài $x$ ($AB$) là:", "opts": ["$6$", "$7$", "$8$", "$9$"], "ans": 2, "exp": "Theo định lí Thalès mở rộng ($MN \\parallel BC$): $\\dfrac{AM}{AC} = \\dfrac{AN}{AB} \\Rightarrow \\dfrac{3}{6} = \\dfrac{4}{x} \\Rightarrow x = 8$.", "type": "mcq", "id": 7}, {"lesson": 15, "level": "TH", "svg": "th4", "q": "Cho hình thang $ABCD$ ($AB \\parallel CD$), đường thẳng qua $I \\in AD$ song song với $CD$ cắt $BC$ tại $K$. Biết $AI = 2, ID = 3, BK = 4$. Độ dài $x$ ($KC$) bằng:", "opts": ["$5$", "$6$", "$7$", "$8$"], "ans": 1, "exp": "Gọi $O = AC \\cap IK$. Áp dụng định lí Thalès trong $\\triangle ADC$ và $\\triangle ABC$: $\\dfrac{AI}{ID} = \\dfrac{AO}{OC} = \\dfrac{BK}{KC} \\Rightarrow \\dfrac{2}{3} = \\dfrac{4}{x} \\Rightarrow x = 6$.", "type": "mcq", "id": 8}, {"lesson": 15, "level": "TH", "q": "Cho $\\triangle ABC$ có $D \\in AB, E \\in AC$ với $AD = 4\\text{ cm}, AB = 12\\text{ cm}, AE = 5\\text{ cm}$. Để $DE \\parallel BC$ thì độ dài $AC$ phải bằng:", "opts": ["$10\\text{ cm}$", "$12\\text{ cm}$", "$15\\text{ cm}$", "$18\\text{ cm}$"], "ans": 2, "exp": "Theo định lí Thalès đảo, $DE \\parallel BC \\Leftrightarrow \\dfrac{AD}{AB} = \\dfrac{AE}{AC} \\Leftrightarrow \\dfrac{4}{12} = \\dfrac{5}{AC} \\Leftrightarrow AC = 15\\text{ cm}$.", "type": "mcq", "id": 9}, {"lesson": 15, "level": "TH", "q": "Cho bốn đoạn thẳng $AB = 3\\text{ cm}, CD = 5\\text{ cm}, EF = 9\\text{ cm}$ và $MN = x$ lập thành tỉ lệ thức $\\dfrac{AB}{CD} = \\dfrac{EF}{MN}$. Giá trị $x$ là:", "opts": ["$12\\text{ cm}$", "$15\\text{ cm}$", "$18\\text{ cm}$", "$27\\text{ cm}$"], "ans": 1, "exp": "$\\dfrac{3}{5} = \\dfrac{9}{x} \\Rightarrow x = \\dfrac{5 \\cdot 9}{3} = 15\\text{ cm}$.", "type": "mcq", "id": 10}, {"lesson": 15, "level": "TH", "q": "Cho $\\triangle ABC$ có $M \\in AB, N \\in AC$ sao cho $AM = 3\\text{ cm}, MB = 6\\text{ cm}, AN = 4\\text{ cm}, NC = 8\\text{ cm}$. Kết luận nào ĐÚNG?", "opts": ["$MN \\perp BC$", "$MN \\parallel BC$", "$MN = \\dfrac{1}{2}BC$", "$M$ là trung điểm $AB$"], "ans": 1, "exp": "Ta có $\\dfrac{AM}{MB} = \\dfrac{3}{6} = \\dfrac{1}{2}$ và $\\dfrac{AN}{NC} = \\dfrac{4}{8} = \\dfrac{1}{2}$. Theo định lí Thalès đảo suy ra $MN \\parallel BC$.", "type": "mcq", "id": 11}, {"lesson": 15, "level": "VD", "q": "Cho $\\triangle ABC$ có trung tuyến $AM$ và trọng tâm $G$. Qua $G$ kẻ đường thẳng song song với $BC$ cắt $AB, AC$ tại $D, E$. Biết $AC = 15\\text{ cm}$, độ dài $EC$ bằng:", "opts": ["$3\\text{ cm}$", "$5\\text{ cm}$", "$7{,}5\\text{ cm}$", "$10\\text{ cm}$"], "ans": 1, "exp": "Xét $\\triangle AMC$ có $GE \\parallel MC$ nên $\\dfrac{EC}{AC} = \\dfrac{GM}{AM} = \\dfrac{1}{3} \\Rightarrow EC = \\dfrac{15}{3} = 5\\text{ cm}$.", "type": "mcq", "id": 12}, {"lesson": 15, "level": "VD", "q": "Cho $\\triangle ABC$ có $DE \\parallel BC$ ($D \\in AB, E \\in AC$). Biết $AD = 6\\text{ cm}, DB = 4\\text{ cm}, AC = 15\\text{ cm}$. Độ dài đoạn $AE$ bằng:", "opts": ["$6\\text{ cm}$", "$8\\text{ cm}$", "$9\\text{ cm}$", "$10\\text{ cm}$"], "ans": 2, "exp": "$AB = 6 + 4 = 10\\text{ cm}$. Theo định lí Thalès: $\\dfrac{AE}{AC} = \\dfrac{AD}{AB} = \\dfrac{6}{10} \\Rightarrow AE = \\dfrac{6 \\cdot 15}{10} = 9\\text{ cm}$.", "type": "mcq", "id": 13}, {"lesson": 15, "level": "VD", "q": "Cho $\\triangle ABC$ và điểm $O$ nằm trong tam giác. Lấy $D \\in OA$ sao cho $\\dfrac{OD}{OA} = \\dfrac{2}{5}$. Kẻ $DE \\parallel AB$ ($E \\in OB$), $DF \\parallel AC$ ($F \\in OC$). Tỉ số $\\dfrac{OF}{OC}$ bằng:", "opts": ["$\\dfrac{2}{3}$", "$\\dfrac{2}{5}$", "$\\dfrac{3}{5}$", "$\\dfrac{5}{2}$"], "ans": 1, "exp": "Áp dụng định lí Thalès trong $\\triangle OAC$ có $DF \\parallel AC$: $\\dfrac{OF}{OC} = \\dfrac{OD}{OA} = \\dfrac{2}{5}$.", "type": "mcq", "id": 14}, {"lesson": 15, "level": "VDC", "q": "Cho $\\triangle ABC$ có trung tuyến $AO$ và trọng tâm $G$. Một đường thẳng bất kì qua $G$ cắt hai cạnh $AB, AC$ lần lượt tại $M, N$. Giá trị của tổng $\\dfrac{AB}{AM} + \\dfrac{AC}{AN}$ luôn bằng:", "opts": ["$1$", "$2$", "$3$", "$4$"], "ans": 2, "exp": "Theo Bài 10 Tự luyện Bài 15: kẻ $BH, CK \\parallel MN$ ($H, K \\in AO$) ta chứng minh được $\\dfrac{AB}{AM} + \\dfrac{AC}{AN} = \\dfrac{AH + AK}{AG} = \\dfrac{2AO}{AG} = 3$.", "type": "mcq", "id": 15}, {"lesson": 16, "level": "NB", "q": "Đường trung bình của một tam giác là đoạn thẳng:", "opts": ["nối một đỉnh với trung điểm cạnh đối diện", "nối trung điểm hai cạnh của tam giác", "vuông góc với một cạnh tại trung điểm của nó", "chia đôi một góc của tam giác"], "ans": 1, "exp": "Định nghĩa: Đường trung bình của tam giác là đoạn thẳng nối trung điểm hai cạnh của tam giác.", "type": "mcq", "id": 16}, {"lesson": 16, "level": "NB", "q": "Mỗi tam giác có bao nhiêu đường trung bình?", "opts": ["$1$", "$2$", "$3$", "$6$"], "ans": 2, "exp": "Tam giác có $3$ cạnh nên có $3$ trung điểm, nối từng cặp tạo thành đúng $3$ đường trung bình.", "type": "mcq", "id": 17}, {"lesson": 16, "level": "NB", "q": "Cho $\\triangle ABC$ có $MN$ là đường trung bình ($M \\in AB, N \\in AC$). Khẳng định nào sau đây ĐÚNG?", "opts": ["$MN \\parallel BC$ và $MN = BC$", "$MN \\parallel BC$ và $MN = \\dfrac{1}{2}BC$", "$MN \\perp BC$ và $MN = \\dfrac{1}{2}BC$", "$MN = \\dfrac{1}{3}BC$"], "ans": 1, "exp": "Tính chất: Đường trung bình của tam giác song song với cạnh thứ ba và bằng nửa cạnh đó.", "type": "mcq", "id": 18}, {"lesson": 16, "level": "NB", "q": "Trong $\\triangle ABC$, nếu đường thẳng $d$ đi qua trung điểm $D$ của $AB$ và song song với $BC$, cắt $AC$ tại $E$ thì:", "opts": ["$E$ là trung điểm $AC$", "$AE = 2EC$", "$EC = 2AE$", "$DE = BC$"], "ans": 0, "exp": "Đường thẳng đi qua trung điểm một cạnh của tam giác và song song với cạnh thứ hai thì đi qua trung điểm cạnh thứ ba.", "type": "mcq", "id": 19}, {"lesson": 16, "level": "TH", "svg": "mid1", "q": "Quan sát hình vẽ, biết $M, N$ lần lượt là trung điểm của $AB, AC$ và $MN = 4{,}5\\text{ cm}$. Độ dài $x$ ($BC$) bằng:", "opts": ["$2{,}25\\text{ cm}$", "$7\\text{ cm}$", "$9\\text{ cm}$", "$13{,}5\\text{ cm}$"], "ans": 2, "exp": "$MN$ là đường trung bình $\\triangle ABC \\Rightarrow BC = 2MN = 2 \\cdot 4{,}5 = 9\\text{ cm}$.", "type": "mcq", "id": 20}, {"lesson": 16, "level": "TH", "svg": "mid2", "q": "Cho hình vẽ có $I$ là trung điểm $AB$, $\\widehat{BIK} = \\widehat{BAC}$ và $AC = 11\\text{ cm}$. Độ dài $x$ ($IK$) là:", "opts": ["$4{,}5\\text{ cm}$", "$5\\text{ cm}$", "$5{,}5\\text{ cm}$", "$6\\text{ cm}$"], "ans": 2, "exp": "Hai góc đồng vị bằng nhau $\\Rightarrow IK \\parallel AC$. Lại có $IA = IB \\Rightarrow IK$ là đường trung bình $\\triangle ABC \\Rightarrow IK = \\dfrac{11}{2} = 5{,}5\\text{ cm}$.", "type": "mcq", "id": 21}, {"lesson": 16, "level": "TH", "svg": "mid3", "q": "Cho $\\triangle ABC$ có $AB = 6\\text{ cm}, AC = 8\\text{ cm}, BC = 10\\text{ cm}$. Gọi $M, N, P$ là trung điểm ba cạnh. Chu vi $\\triangle MNP$ bằng:", "opts": ["$10\\text{ cm}$", "$12\\text{ cm}$", "$18\\text{ cm}$", "$24\\text{ cm}$"], "ans": 1, "exp": "$MN = 4, NP = 3, PM = 5 \\Rightarrow$ chu vi $\\triangle MNP = \\dfrac{6+8+10}{2} = 12\\text{ cm}$.", "type": "mcq", "id": 22}, {"lesson": 16, "level": "TH", "svg": "mid4", "q": "Cho hình thang $ABCD$ ($AB \\parallel CD$) có $AB = 8\\text{ cm}, CD = 14\\text{ cm}$. Gọi $M, N$ là trung điểm $AD, BC$ ($MN \\parallel AB$), $MN$ cắt $BD, AC$ tại $I, K$. Độ dài $IK$ bằng:", "opts": ["$2\\text{ cm}$", "$3\\text{ cm}$", "$4\\text{ cm}$", "$6\\text{ cm}$"], "ans": 1, "exp": "$MK = \\dfrac{CD}{2} = 7\\text{ cm}$ (đường trung bình $\\triangle ADC$), $MI = \\dfrac{AB}{2} = 4\\text{ cm}$ (đường trung bình $\\triangle ABD$) $\\Rightarrow IK = MK - MI = 7 - 4 = 3\\text{ cm}$.", "type": "mcq", "id": 23}, {"lesson": 16, "level": "TH", "q": "Để đo khoảng cách $BC$ giữa hai bờ hồ không đi qua được, người ta chọn điểm $A$ trên bờ rồi lấy trung điểm $M$ của $AB$, trung điểm $N$ của $AC$ và đo được $MN = 24\\text{ m}$. Chiều rộng $BC$ của hồ là:", "opts": ["$12\\text{ m}$", "$36\\text{ m}$", "$48\\text{ m}$", "$72\\text{ m}$"], "ans": 2, "exp": "$MN$ là đường trung bình của $\\triangle ABC$ nên $BC = 2MN = 2 \\cdot 24 = 48\\text{ m}$.", "type": "mcq", "id": 24}, {"lesson": 16, "level": "TH", "q": "Cho tứ giác $ABCD$ bất kì. Gọi $M, N, P, Q$ lần lượt là trung điểm các cạnh $AB, BC, CD, DA$. Tứ giác $MNPQ$ luôn là:", "opts": ["Hình thang cân", "Hình bình hành", "Hình chữ nhật", "Hình thoi"], "ans": 1, "exp": "Đường trung bình trong $\\triangle ABC$ và $\\triangle ADC$ cho $MN \\parallel AC, PQ \\parallel AC$ và $MN = PQ = \\dfrac{1}{2}AC \\Rightarrow MNPQ$ luôn là hình bình hành.", "type": "mcq", "id": 25}, {"lesson": 16, "level": "VD", "q": "Cho $\\triangle ABC$ có hai trung tuyến $BM, CN$ cắt nhau tại $G$. Gọi $I, K$ lần lượt là trung điểm $GB, GC$. Biết $BC = 14\\text{ cm}$, tổng $MN + IK$ bằng:", "opts": ["$7\\text{ cm}$", "$14\\text{ cm}$", "$21\\text{ cm}$", "$28\\text{ cm}$"], "ans": 1, "exp": "$MN = \\dfrac{1}{2}BC = 7\\text{ cm}$ và $IK = \\dfrac{1}{2}BC = 7\\text{ cm} \\Rightarrow MN + IK = 14\\text{ cm}$.", "type": "mcq", "id": 26}, {"lesson": 16, "level": "VD", "q": "Cho $\\triangle ABC$ có trung tuyến $AM$. Trên $AC$ lấy $E, F$ sao cho $AE = EF = FC$. Đoạn $BE$ cắt $AM$ tại $O$. Biết $BE = 16\\text{ cm}$, độ dài $OE$ là:", "opts": ["$2\\text{ cm}$", "$4\\text{ cm}$", "$6\\text{ cm}$", "$8\\text{ cm}$"], "ans": 1, "exp": "Theo Bài 3 Luyện tập Bài 16: $MF = \\dfrac{1}{2}BE = 8\\text{ cm}$ và $OE = \\dfrac{1}{2}MF = 4\\text{ cm}$ (vì $BO = 3OE$).", "type": "mcq", "id": 27}, {"lesson": 16, "level": "VD", "q": "Cho tứ giác $ABCD$ có hai đường chéo $AC = 12\\text{ cm}, BD = 16\\text{ cm}$ và $AC \\perp BD$. Gọi $M, N, P, Q$ là trung điểm bốn cạnh $AB, BC, CD, DA$. Diện tích tứ giác $MNPQ$ là:", "opts": ["$24\\text{ cm}^2$", "$48\\text{ cm}^2$", "$96\\text{ cm}^2$", "$192\\text{ cm}^2$"], "ans": 1, "exp": "$MNPQ$ có $MN = \\dfrac{AC}{2} = 6\\text{ cm}$, $NP = \\dfrac{BD}{2} = 8\\text{ cm}$ và $MN \\perp NP$ (vì $AC \\perp BD$) nên là hình chữ nhật có diện tích $6 \\cdot 8 = 48\\text{ cm}^2$.", "type": "mcq", "id": 28}, {"lesson": 16, "level": "VD", "q": "Cho hình thang vuông $ABCD$ ($\\widehat{A}=\\widehat{D}=90^\\circ, AB \\parallel CD, CD=2AB$). Kẻ $DH \\perp AC$, gọi $M, N$ là trung điểm $HC, HD$. Số đo góc $\\widehat{BMD}$ bằng:", "opts": ["$45^\\circ$", "$60^\\circ$", "$90^\\circ$", "$120^\\circ$"], "ans": 2, "exp": "Theo Bài 6 Tự luyện Bài 16: $ABMN$ là hình bình hành và $N$ là trực tâm $\\triangle ADM \\Rightarrow AN \\perp DM$, mà $BM \\parallel AN \\Rightarrow BM \\perp DM \\Rightarrow \\widehat{BMD} = 90^\\circ$.", "type": "mcq", "id": 29}, {"lesson": 16, "level": "VDC", "q": "Cho đoạn thẳng $AB$ và điểm $M$ nằm giữa $A, B$. Dựng về cùng một phía với $AB$ hai hình vuông $AMCD$ và $BMEF$. Gọi $G, I, N, K$ là trung điểm $AB, AC, CE, EB$. Tứ giác $GINK$ là hình gì?", "opts": ["Hình bình hành thường", "Hình chữ nhật không phải hình vuông", "Hình thoi không phải hình vuông", "Hình vuông"], "ans": 3, "exp": "Theo Bài 12 Tự luyện Bài 16: $AE = BC$ và $AE \\perp BC$; kết hợp đường trung bình cho $GI = NK = \\dfrac{1}{2}BC$, $IN = \\dfrac{1}{2}AE$ và $GI \\perp IN \\Rightarrow GINK$ là hình vuông.", "type": "mcq", "id": 30}, {"lesson": 17, "level": "NB", "q": "Trong $\\triangle ABC$, đường phân giác $AD$ của góc $\\widehat{A}$ ($D \\in BC$) thỏa mãn hệ thức nào sau đây?", "opts": ["$\\dfrac{DB}{DC} = \\dfrac{AB}{AC}$", "$\\dfrac{DB}{DC} = \\dfrac{AC}{AB}$", "$\\dfrac{DB}{AB} = \\dfrac{AC}{DC}$", "$\\dfrac{AD}{BC} = \\dfrac{AB}{AC}$"], "ans": 0, "exp": "Đường phân giác chia cạnh đối diện thành hai đoạn thẳng tỉ lệ với hai cạnh kề hai đoạn thẳng đó: $\\dfrac{DB}{DC} = \\dfrac{AB}{AC}$.", "type": "mcq", "id": 31}, {"lesson": 17, "level": "NB", "q": "Cho $\\triangle MNP$ có $NK$ là đường phân giác của $\\widehat{MNP}$ ($K \\in MP$). Khẳng định nào sau đây ĐÚNG?", "opts": ["$\\dfrac{KM}{KP} = \\dfrac{NM}{NP}$", "$\\dfrac{KM}{KP} = \\dfrac{NP}{NM}$", "$\\dfrac{KM}{NP} = \\dfrac{KP}{NM}$", "$KM = KP$"], "ans": 0, "exp": "Áp dụng tính chất đường phân giác $NK$ trong $\\triangle MNP$: $\\dfrac{KM}{KP} = \\dfrac{NM}{NP}$.", "type": "mcq", "id": 32}, {"lesson": 17, "level": "NB", "q": "Cho $\\triangle ABC$ có $D \\in BC$ sao cho $\\dfrac{DB}{DC} = \\dfrac{AB}{AC}$. Khi đó đoạn thẳng $AD$ là:", "opts": ["đường trung tuyến của $\\triangle ABC$", "đường cao của $\\triangle ABC$", "đường phân giác của $\\widehat{BAC}$", "đường trung trực của $BC$"], "ans": 2, "exp": "Tính chất đảo: nếu $D \\in BC$ thỏa $\\dfrac{DB}{DC} = \\dfrac{AB}{AC}$ thì $AD$ là đường phân giác góc $\\widehat{BAC}$.", "type": "mcq", "id": 33}, {"lesson": 17, "level": "NB", "q": "Tính chất đường phân giác của tam giác có đúng với đường phân giác góc ngoài không?", "opts": ["Không bao giờ đúng", "Chỉ đúng với tam giác vuông", "Chỉ đúng với tam giác cân", "Đúng với mọi tam giác có hai cạnh kề khác nhau ($AB \\neq AC$)"], "ans": 3, "exp": "Khi $AB \\neq AC$, tia phân giác góc ngoài tại $A$ cắt đường thẳng $BC$ tại $D$ và thỏa $\\dfrac{DB}{DC} = \\dfrac{AB}{AC}$. (Khi $AB = AC$ thì tia phân giác góc ngoài song song với $BC$.)", "type": "mcq", "id": 34}, {"lesson": 17, "level": "TH", "svg": "bis1", "q": "Quan sát hình vẽ $\\triangle ABC$ có $AD$ là phân giác $\\widehat{BAC}$, biết $AB = 6, AC = 9, BD = 4$. Độ dài $x$ ($DC$) bằng:", "opts": ["$5$", "$6$", "$7$", "$8$"], "ans": 1, "exp": "Theo tính chất đường phân giác: $\\dfrac{BD}{DC} = \\dfrac{AB}{AC} \\Rightarrow \\dfrac{4}{x} = \\dfrac{6}{9} = \\dfrac{2}{3} \\Rightarrow x = 6$.", "type": "mcq", "id": 35}, {"lesson": 17, "level": "TH", "svg": "bis2", "q": "Cho $\\triangle ABC$ như hình vẽ có $AB = 4, AC = 6, BC = 5$, đường phân giác $AD$. Độ dài $x$ ($BD$) là:", "opts": ["$1{,}5$", "$2$", "$2{,}5$", "$3$"], "ans": 1, "exp": "$\\dfrac{BD}{AB} = \\dfrac{DC}{AC} = \\dfrac{BD + DC}{AB + AC} = \\dfrac{5}{4 + 6} = \\dfrac{1}{2} \\Rightarrow x = BD = 4 \\cdot \\dfrac{1}{2} = 2$.", "type": "mcq", "id": 36}, {"lesson": 17, "level": "TH", "svg": "bis3", "q": "Cho $\\triangle ABC$ vuông tại $A$ có $AB = 6, BC = 10$, đường phân giác $BD$ ($D \\in AC$). Độ dài $x$ ($AD$) bằng:", "opts": ["$2$", "$2{,}5$", "$3$", "$4$"], "ans": 2, "exp": "Theo Pythagore: $AC = \\sqrt{10^2 - 6^2} = 8$. Áp dụng tính chất phân giác $BD$: $\\dfrac{AD}{6} = \\dfrac{DC}{10} = \\dfrac{8}{16} = \\dfrac{1}{2} \\Rightarrow x = 3$.", "type": "mcq", "id": 37}, {"lesson": 17, "level": "TH", "svg": "bis4", "q": "Cho $\\triangle ABC$ có $AB = 4, AC = 6, BC = 5$. Tia phân giác góc ngoài tại $A$ cắt tia $CB$ tại $D$ như hình vẽ. Độ dài $x$ ($DB$) là:", "opts": ["$6$", "$8$", "$10$", "$12$"], "ans": 2, "exp": "Theo tính chất phân giác góc ngoài: $\\dfrac{DB}{DC} = \\dfrac{AB}{AC} \\Rightarrow \\dfrac{x}{x + 5} = \\dfrac{4}{6} = \\dfrac{2}{3} \\Rightarrow 3x = 2x + 10 \\Rightarrow x = 10$.", "type": "mcq", "id": 38}, {"lesson": 17, "level": "TH", "q": "Cho $\\triangle ABC$ có $AB = 8\\text{ cm}, AC = 12\\text{ cm}, BC = 15\\text{ cm}$, phân giác $AD$ ($D \\in BC$). Độ dài đoạn $DC$ bằng:", "opts": ["$6\\text{ cm}$", "$7{,}5\\text{ cm}$", "$9\\text{ cm}$", "$10\\text{ cm}$"], "ans": 2, "exp": "$\\dfrac{BD}{8} = \\dfrac{DC}{12} = \\dfrac{15}{20} = \\dfrac{3}{4} \\Rightarrow DC = 12 \\cdot \\dfrac{3}{4} = 9\\text{ cm}$.", "type": "mcq", "id": 39}, {"lesson": 17, "level": "TH", "q": "Cho $\\triangle ABC$ có $AB = 5\\text{ cm}, AC = 10\\text{ cm}$, đường phân giác $AD$ ($D \\in BC$). Tỉ số $\\dfrac{BD}{BC}$ bằng:", "opts": ["$\\dfrac{1}{2}$", "$\\dfrac{1}{3}$", "$\\dfrac{2}{3}$", "$\\dfrac{1}{4}$"], "ans": 1, "exp": "$\\dfrac{BD}{AB} = \\dfrac{DC}{AC} = \\dfrac{BC}{AB + AC} \\Rightarrow \\dfrac{BD}{BC} = \\dfrac{AB}{AB + AC} = \\dfrac{5}{15} = \\dfrac{1}{3}$.", "type": "mcq", "id": 40}, {"lesson": 17, "level": "VD", "q": "Cho $\\triangle ABC$ có trung tuyến $AD$. Vẽ phân giác $DM$ của $\\widehat{ADB}$ ($M \\in AB$) và phân giác $DN$ của $\\widehat{ADC}$ ($N \\in AC$). Khẳng định nào ĐÚNG?", "opts": ["$MN \\parallel BC$ và $DM \\perp DN$", "$MN = \\dfrac{1}{2}BC$", "$M$ là trung điểm $AB$", "$DM = DN$"], "ans": 0, "exp": "Theo Bài 2 Luyện tập Bài 17: $\\dfrac{MB}{MA} = \\dfrac{BD}{AD} = \\dfrac{CD}{AD} = \\dfrac{NC}{NA} \\Rightarrow MN \\parallel BC$. Hơn nữa $DM, DN$ là phân giác hai góc kề bù nên $DM \\perp DN$.", "type": "mcq", "id": 41}, {"lesson": 17, "level": "VD", "q": "Cho $\\triangle ABC$ cân tại $A$ có $AB = AC = 10\\text{ cm}, BC = 12\\text{ cm}$. Đường phân giác $BD$ cắt đường cao $AH$ tại $I$. Tỉ số $\\dfrac{IA}{IH}$ bằng:", "opts": ["$\\dfrac{5}{6}$", "$\\dfrac{6}{5}$", "$\\dfrac{5}{3}$", "$\\dfrac{3}{5}$"], "ans": 2, "exp": "Vì $\\triangle ABC$ cân tại $A$ nên $BH = \\dfrac{BC}{2} = 6\\text{ cm}$. Trong $\\triangle ABH$, $BI$ là phân giác $\\widehat{ABH}$ nên $\\dfrac{IA}{IH} = \\dfrac{AB}{BH} = \\dfrac{10}{6} = \\dfrac{5}{3}$.", "type": "mcq", "id": 42}, {"lesson": 17, "level": "VD", "q": "Cho $\\triangle ABC$ vuông tại $A$ có $AB = 9\\text{ cm}, AC = 12\\text{ cm}$, đường cao $AH$ và phân giác $BD$ ($D \\in AC$) cắt $AH$ tại $I$. Khi đó $\\triangle AID$ là tam giác gì?", "opts": ["Tam giác vuông tại $I$", "Tam giác cân tại $A$", "Tam giác đều", "Tam giác cân tại $D$"], "ans": 1, "exp": "Theo Bài 3 Tự luyện Bài 17: $\\widehat{AID} = \\widehat{BIH} = 90^\\circ - \\widehat{HBI} = 90^\\circ - \\widehat{ABD} = \\widehat{ADI} \\Rightarrow \\triangle AID$ cân tại $A$.", "type": "mcq", "id": 43}, {"lesson": 17, "level": "VD", "q": "Cho $\\triangle ABC$ có $AB = 12\\text{ cm}, AC = 18\\text{ cm}$, phân giác $AD$. Biết $DC - BD = 4\\text{ cm}$. Độ dài cạnh $BC$ là:", "opts": ["$16\\text{ cm}$", "$20\\text{ cm}$", "$24\\text{ cm}$", "$30\\text{ cm}$"], "ans": 1, "exp": "$\\dfrac{BD}{12} = \\dfrac{DC}{18} = \\dfrac{DC - BD}{18 - 12} = \\dfrac{4}{6} = \\dfrac{2}{3} \\Rightarrow BC = BD + DC = (12 + 18) \\cdot \\dfrac{2}{3} = 20\\text{ cm}$.", "type": "mcq", "id": 44}, {"lesson": 17, "level": "VDC", "q": "Cho $\\triangle ABC$ có chu vi bằng $24\\text{ cm}$, đường phân giác $AD$ ($D \\in BC$) chia cạnh $BC$ thành hai đoạn $BD = 3\\text{ cm}, DC = 5\\text{ cm}$. Độ dài cạnh $AC$ bằng:", "opts": ["$6\\text{ cm}$", "$8\\text{ cm}$", "$10\\text{ cm}$", "$12\\text{ cm}$"], "ans": 2, "exp": "$BC = 3 + 5 = 8\\text{ cm} \\Rightarrow AB + AC = 24 - 8 = 16\\text{ cm}$. Theo tính chất phân giác: $\\dfrac{AB}{3} = \\dfrac{AC}{5} = \\dfrac{16}{8} = 2 \\Rightarrow AC = 10\\text{ cm}$.", "type": "mcq", "id": 45}, {"lesson": 15, "level": "NB", "q": "Xét các khẳng định về tỉ số của hai đoạn thẳng và đoạn thẳng tỉ lệ:", "items": [{"t": "Tỉ số của hai đoạn thẳng không phụ thuộc vào cách chọn đơn vị đo (miễn là cùng một đơn vị).", "a": true}, {"t": "Cho $AB = 3\\text{ cm}$ và $CD = 6\\text{ dm}$ thì $\\dfrac{AB}{CD} = \\dfrac{1}{2}$.", "a": false}, {"t": "Nếu $\\dfrac{AB}{CD} = \\dfrac{EF}{MN}$ thì $AB \\cdot MN = CD \\cdot EF$.", "a": true}, {"t": "Cho $AB = 4\\text{ cm}, CD = 6\\text{ cm}, EF = 6\\text{ cm}, MN = 9\\text{ cm}$ thì $AB, CD$ tỉ lệ với $EF, MN$.", "a": true}], "exp": "b) Sai vì $6\\text{ dm} = 60\\text{ cm} \\Rightarrow \\dfrac{AB}{CD} = \\dfrac{3}{60} = \\dfrac{1}{20}$. Các ý a, c, d đều đúng.", "type": "tf", "id": 46}, {"lesson": 15, "level": "TH", "q": "Cho $\\triangle ABC$, đường thẳng $DE \\parallel BC$ ($D \\in AB, E \\in AC$) với $AD = 6\\text{ cm}, DB = 3\\text{ cm}, AE = 8\\text{ cm}$.", "items": [{"t": "Tỉ số $\\dfrac{AD}{AB} = \\dfrac{2}{3}$.", "a": true}, {"t": "Độ dài đoạn thẳng $EC = 4\\text{ cm}$.", "a": true}, {"t": "Độ dài cạnh $AC = 10\\text{ cm}$.", "a": false}, {"t": "Tỉ số $\\dfrac{EC}{AC} = \\dfrac{1}{3}$.", "a": true}], "exp": "$AB = 9 \\Rightarrow \\dfrac{AD}{AB} = \\dfrac{2}{3}$. $\\dfrac{AD}{DB} = \\dfrac{AE}{EC} \\Rightarrow \\dfrac{6}{3} = \\dfrac{8}{EC} \\Rightarrow EC = 4\\text{ cm}$, nên $AC = 8 + 4 = 12\\text{ cm}$ (ý c sai).", "type": "tf", "id": 47}, {"lesson": 15, "level": "TH", "q": "Cho $\\triangle ABC$ có $M \\in AB, N \\in AC$. Xét các trường hợp sau để kiểm tra $MN \\parallel BC$:", "items": [{"t": "Nếu $AM = 2, MB = 3, AN = 4, NC = 6$ thì $MN \\parallel BC$.", "a": true}, {"t": "Nếu $AM = 3, AB = 9, AN = 5, AC = 15$ thì $MN \\parallel BC$.", "a": true}, {"t": "Nếu $AM = 2, AB = 5, AN = 4, NC = 6$ thì $MN \\parallel BC$.", "a": true}, {"t": "Nếu $AM = 3, MB = 4, AN = 4, NC = 5$ thì $MN \\parallel BC$.", "a": false}], "exp": "a) $\\frac{2}{3}=\\frac{4}{6}$ (Đ). b) $\\frac{3}{9}=\\frac{5}{15}$ (Đ). c) $AC=4+6=10 \\Rightarrow \\frac{2}{5}=\\frac{4}{10}$ (Đ). d) $\\frac{3}{4} \\neq \\frac{4}{5}$ (S).", "type": "tf", "id": 48}, {"lesson": 15, "level": "VD", "q": "Cho hình thang $ABCD$ ($AB \\parallel CD$). Lấy $I \\in AD$, kẻ $IK \\parallel CD$ cắt $AC$ tại $O$ và cắt $BC$ tại $K$.", "items": [{"t": "Trong $\\triangle ADC$, ta có $\\dfrac{AI}{ID} = \\dfrac{AO}{OC}$.", "a": true}, {"t": "Trong $\\triangle ABC$, ta có $\\dfrac{AO}{OC} = \\dfrac{BK}{KC}$.", "a": true}, {"t": "$AI \\cdot BK = ID \\cdot KC$.", "a": false}, {"t": "$AI \\cdot KC = ID \\cdot BK$.", "a": true}], "exp": "Từ $\\dfrac{AI}{ID} = \\dfrac{AO}{OC} = \\dfrac{BK}{KC}$ suy ra tích chéo $AI \\cdot KC = ID \\cdot BK$ (ý c sai, ý d đúng).", "type": "tf", "id": 49}, {"lesson": 15, "level": "VD", "q": "Cho $\\triangle ABC$ có trung tuyến $AD$ và trọng tâm $G$. Đường thẳng $d$ qua $G$ cắt $AB, AC$ tại $E, F$. Kẻ $BM \\parallel EF, CN \\parallel EF$ ($M, N \\in AD$).", "items": [{"t": "$\\dfrac{BE}{AE} = \\dfrac{MG}{AG}$.", "a": true}, {"t": "$\\triangle BDM = \\triangle CDN$ (g–c–g) nên $DM = DN$.", "a": true}, {"t": "$\\dfrac{BE}{AE} + \\dfrac{CF}{AF} = 1$.", "a": true}, {"t": "$\\dfrac{AB}{AE} + \\dfrac{AC}{AF} = 2$.", "a": false}], "exp": "Theo Bài 9 và Bài 10 Tự luyện Bài 15: $\\dfrac{BE}{AE} + \\dfrac{CF}{AF} = 1$, suy ra $\\dfrac{AB}{AE} + \\dfrac{AC}{AF} = \\left(1+\\dfrac{BE}{AE}\\right) + \\left(1+\\dfrac{CF}{AF}\\right) = 3$ (nên d sai).", "type": "tf", "id": 50}, {"lesson": 16, "level": "NB", "q": "Xét các khẳng định về đường trung bình $MN$ của $\\triangle ABC$ ($M \\in AB, N \\in AC$):", "items": [{"t": "$MN \\parallel BC$ và $MN = \\dfrac{1}{2}BC$.", "a": true}, {"t": "Tứ giác $BMNC$ là hình thang.", "a": true}, {"t": "Tứ giác $BMNC$ luôn là hình thang cân với mọi $\\triangle ABC$.", "a": false}, {"t": "Nếu $P$ là trung điểm $BC$ thì tứ giác $MNCP$ là hình bình hành.", "a": true}], "exp": "c) Sai: $BMNC$ chỉ là hình thang cân khi $\\triangle ABC$ cân tại $A$. Các ý a, b, d đều đúng.", "type": "tf", "id": 51}, {"lesson": 16, "level": "TH", "q": "Cho $\\triangle ABC$ có $AB = 10\\text{ cm}, AC = 14\\text{ cm}, BC = 16\\text{ cm}$. Gọi $D, E, F$ lần lượt là trung điểm của $AB, AC, BC$.", "items": [{"t": "$DE = 8\\text{ cm}$.", "a": true}, {"t": "$DF = 7\\text{ cm}$ và $EF = 5\\text{ cm}$.", "a": true}, {"t": "Chu vi $\\triangle DEF$ bằng $20\\text{ cm}$.", "a": true}, {"t": "Diện tích $\\triangle DEF$ bằng một nửa diện tích $\\triangle ABC$.", "a": false}], "exp": "$DE=8, DF=7, EF=5 \\Rightarrow P_{DEF} = 20\\text{ cm}$. $4$ tam giác nhỏ $ADE, DBF, EFC, FED$ bằng nhau nên $S_{DEF} = \\dfrac{1}{4}S_{ABC}$ (ý d sai).", "type": "tf", "id": 52}, {"lesson": 16, "level": "TH", "q": "Cho $\\triangle ABC$ cân tại $A$, đường cao $AM$, trung điểm $N$ của $AC$. Qua $A$ kẻ tia $Ax \\parallel BC$ cắt $MN$ tại $E$.", "items": [{"t": "$M$ là trung điểm của $BC$.", "a": true}, {"t": "$MN$ là đường trung bình của $\\triangle ABC$ nên $ME \\parallel AB$.", "a": true}, {"t": "Tứ giác $ABME$ là hình bình hành.", "a": true}, {"t": "$AE = 2MC$.", "a": false}], "exp": "Theo Bài 2 Luyện tập Bài 16: $AE = BM = MC$ (không phải $2MC$, nên d sai).", "type": "tf", "id": 53}, {"lesson": 16, "level": "VD", "q": "Cho hình bình hành $ABCD$ có $O = AC \\cap BD$. Lấy $E \\in CD$ sao cho $DE = \\dfrac{1}{3}DC$, kẻ $OF \\parallel AE$ ($F \\in CD$), $AE \\cap BD = K$.", "items": [{"t": "$OF$ là đường trung bình của $\\triangle ACE$.", "a": true}, {"t": "$DE = EF = FC$.", "a": true}, {"t": "$K$ là trung điểm của đoạn $OD$.", "a": true}, {"t": "$BD = 3DK$.", "a": false}], "exp": "Theo Bài 4 Tự luyện Bài 16: $K$ là trung điểm $OD$, mà $O$ là trung điểm $BD \\Rightarrow BD = 2OD = 4DK$ (ý d sai).", "type": "tf", "id": 54}, {"lesson": 16, "level": "VD", "q": "Cho $\\triangle ABC$ nhọn, đường cao $AH$. Kẻ $HE \\perp AB, HF \\perp AC$. Lấy $M$ đối xứng $H$ qua $E$, $N$ đối xứng $H$ qua $F$. Gọi $I$ là trung điểm $MN$.", "items": [{"t": "$AM = AH = AN$ nên $\\triangle AMN$ cân tại $A$.", "a": true}, {"t": "$EF$ là đường trung bình của $\\triangle HMN$.", "a": true}, {"t": "$EF = \\dfrac{1}{2}MN$ và $EF \\parallel MN$.", "a": true}, {"t": "$AI$ song song với $EF$.", "a": false}], "exp": "Theo Bài 5 Tự luyện Bài 16: $AI \\perp MN$ (trung tuyến tam giác cân) và $MN \\parallel EF \\Rightarrow AI \\perp EF$ (không song song).", "type": "tf", "id": 55}, {"lesson": 17, "level": "NB", "q": "Cho $\\triangle ABC$ có $AB = 6\\text{ cm}, AC = 8\\text{ cm}, BC = 10\\text{ cm}$, đường phân giác $AD$ ($D \\in BC$).", "items": [{"t": "$\\triangle ABC$ là tam giác vuông tại $A$.", "a": true}, {"t": "Tỉ số $\\dfrac{DB}{DC} = \\dfrac{3}{4}$.", "a": true}, {"t": "Độ dài $DB = \\dfrac{30}{7}\\text{ cm}$.", "a": true}, {"t": "Độ dài $DC = 6\\text{ cm}$.", "a": false}], "exp": "$6^2+8^2=10^2$ nên vuông tại $A$. $\\dfrac{DB}{6}=\\dfrac{DC}{8}=\\dfrac{10}{14}=\\dfrac{5}{7} \\Rightarrow DB=\\dfrac{30}{7}, DC=\\dfrac{40}{7}\\text{ cm}$ (ý d sai).", "type": "tf", "id": 56}, {"lesson": 17, "level": "TH", "q": "Cho $\\triangle ABC$ cân tại $C$ có $AB = 3\\text{ cm}, AC = 5\\text{ cm}$. Đường phân giác $BD$ cắt trung tuyến $CM$ tại $I$.", "items": [{"t": "$BC = 5\\text{ cm}$ và $BM = 1{,}5\\text{ cm}$.", "a": true}, {"t": "Trong $\\triangle BMC$, $BI$ là đường phân giác góc $\\widehat{MBC}$.", "a": true}, {"t": "$\\dfrac{IC}{IM} = \\dfrac{10}{3}$.", "a": true}, {"t": "$\\dfrac{CD}{CB} = \\dfrac{3}{8}$.", "a": false}], "exp": "Theo Bài 1 Luyện tập Bài 17: $\\dfrac{DC}{BC} = \\dfrac{AC}{AB + BC} = \\dfrac{5}{8}$ (không phải $\\dfrac{3}{8}$).", "type": "tf", "id": 57}, {"lesson": 17, "level": "TH", "q": "Cho $\\triangle ABC$ có trung tuyến $AM$ và phân giác $MD$ của $\\widehat{AMB}$ ($D \\in AB$). Kẻ $DE \\parallel BC$ ($E \\in AC$).", "items": [{"t": "$\\dfrac{DA}{DB} = \\dfrac{AM}{BM}$.", "a": true}, {"t": "$\\dfrac{EA}{EC} = \\dfrac{DA}{DB}$ (định lí Thalès).", "a": true}, {"t": "$\\dfrac{EA}{EC} = \\dfrac{AM}{CM}$.", "a": true}, {"t": "$ME$ vuông góc với $AC$.", "a": false}], "exp": "Theo Bài 6 Tự luyện Bài 17: $ME$ là đường phân giác của $\\widehat{AMC}$, không nhất thiết vuông góc $AC$.", "type": "tf", "id": 58}, {"lesson": 17, "level": "VD", "q": "Cho $\\triangle ABC$ vuông tại $A$, đường cao $AH$, phân giác $BD$ ($D \\in AC$). Kẻ $DE \\perp BC$ ($E \\in BC$).", "items": [{"t": "$\\dfrac{AD}{DC} = \\dfrac{AB}{BC}$.", "a": true}, {"t": "$DE \\parallel AH$.", "a": true}, {"t": "$\\dfrac{HE}{EC} = \\dfrac{AD}{DC}$.", "a": true}, {"t": "$DA = DE$ nhưng $BA \\neq BE$.", "a": false}], "exp": "Hai tam giác vuông $\\triangle BAD = \\triangle BED$ (cạnh huyền – góc nhọn) nên $DA = DE$ và $BA = BE$ (ý d sai).", "type": "tf", "id": 59}, {"lesson": 17, "level": "VD", "q": "Cho $\\triangle ABC$ có $AB = 5\\text{ cm}, AC = 8\\text{ cm}, BC = 6\\text{ cm}$. Tia phân giác góc ngoài tại $A$ cắt tia $CB$ tại $M$.", "items": [{"t": "$\\dfrac{MB}{MC} = \\dfrac{5}{8}$.", "a": true}, {"t": "$MC - MB = 6\\text{ cm}$.", "a": true}, {"t": "Độ dài $MB = 10\\text{ cm}$.", "a": true}, {"t": "Độ dài $MC = 14\\text{ cm}$.", "a": false}], "exp": "$\\dfrac{MB}{5} = \\dfrac{MC}{8} = \\dfrac{MC - MB}{8 - 5} = \\dfrac{6}{3} = 2 \\Rightarrow MB = 10\\text{ cm}, MC = 16\\text{ cm}$ (ý d sai).", "type": "tf", "id": 60}, {"lesson": 15, "level": "NB", "q": "Cho hai đoạn thẳng $AB = 12\\text{ cm}$ và $CD = 3\\text{ dm}$. Tính tỉ số $\\dfrac{AB}{CD}$ (viết dưới dạng phân số tối giản hoặc số thập phân).", "unit": "(tỉ số)", "ans_display": "2/5 (hoặc 0,4)", "accept": ["2/5", "0.4", "0,4"], "exp": "Đổi $CD = 3\\text{ dm} = 30\\text{ cm} \\Rightarrow \\dfrac{AB}{CD} = \\dfrac{12}{30} = \\dfrac{2}{5} = 0{,}4$.", "type": "short", "id": 61}, {"lesson": 15, "level": "NB", "q": "Cho $\\triangle ABC$ có $DE \\parallel BC$ ($D \\in AB, E \\in AC$). Biết $AD = 5\\text{ cm}, DB = 3\\text{ cm}, AE = 7{,}5\\text{ cm}$. Tính độ dài $EC$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "4,5", "accept": ["4.5", "4,5", "9/2"], "exp": "$\\dfrac{AD}{DB} = \\dfrac{AE}{EC} \\Rightarrow \\dfrac{5}{3} = \\dfrac{7{,}5}{EC} \\Rightarrow EC = \\dfrac{3 \\cdot 7{,}5}{5} = 4{,}5\\text{ cm}$.", "type": "short", "id": 62}, {"lesson": 15, "level": "TH", "q": "Cho $\\triangle ABC$ có $MN \\parallel AC$ ($M \\in BC, N \\in AB$). Biết $NA = 3\\text{ cm}, BM = 3\\text{ cm}, MC = 4\\text{ cm}$. Tính độ dài $BN$ (viết dưới dạng phân số tối giản hoặc số thập phân, đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "9/4 (hoặc 2,25)", "accept": ["9/4", "2.25", "2,25"], "exp": "Theo định lí Thalès: $\\dfrac{BN}{NA} = \\dfrac{BM}{MC} \\Rightarrow \\dfrac{BN}{3} = \\dfrac{3}{4} \\Rightarrow BN = \\dfrac{9}{4} = 2{,}25\\text{ cm}$.", "type": "short", "id": 63}, {"lesson": 15, "level": "TH", "q": "Cho $\\triangle ABC$ có $DE \\parallel BC$ ($D \\in AB, E \\in AC$). Biết $AD = 4\\text{ cm}, AB = 10\\text{ cm}, AC = 15\\text{ cm}$. Tính độ dài đoạn $EC$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "9", "accept": ["9"], "exp": "$DB = 10 - 4 = 6\\text{ cm}$. Theo định lí Thalès: $\\dfrac{EC}{AC} = \\dfrac{DB}{AB} = \\dfrac{6}{10} \\Rightarrow EC = 9\\text{ cm}$.", "type": "short", "id": 64}, {"lesson": 15, "level": "VD", "q": "Cho $\\triangle ABC$ có trung tuyến $AM$ và trọng tâm $G$. Qua $G$ kẻ $DE \\parallel BC$ ($D \\in AB, E \\in AC$). Biết $AD = 8\\text{ cm}$. Tính độ dài cạnh $AB$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "12", "accept": ["12"], "exp": "$\\dfrac{AD}{AB} = \\dfrac{AG}{AM} = \\dfrac{2}{3} \\Rightarrow AB = 8 \\cdot \\dfrac{3}{2} = 12\\text{ cm}$.", "type": "short", "id": 65}, {"lesson": 15, "level": "VD", "q": "Cho hình thang $ABCD$ ($AB \\parallel CD$). Lấy $I \\in AD$, kẻ $IK \\parallel CD$ ($K \\in BC$). Biết $AI = 3\\text{ cm}, AD = 8\\text{ cm}, BC = 12\\text{ cm}$. Tính độ dài đoạn $BK$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "4,5", "accept": ["4.5", "4,5", "9/2"], "exp": "Ta có $\\dfrac{BK}{BC} = \\dfrac{AI}{AD} = \\dfrac{3}{8} \\Rightarrow BK = \\dfrac{3 \\cdot 12}{8} = 4{,}5\\text{ cm}$.", "type": "short", "id": 66}, {"lesson": 15, "level": "VDC", "q": "Cho $\\triangle ABC$ có $MN \\parallel BC$ ($M \\in AB, N \\in AC$). Biết $AM = x$, $MB = 3$, $AN = 12$, $NC = x$ (với $x > 0$). Tìm $x$.", "unit": "cm", "ans_display": "6", "accept": ["6"], "exp": "Theo định lí Thalès: $\\dfrac{x}{3} = \\dfrac{12}{x} \\Rightarrow x^2 = 36 \\Rightarrow x = 6$ (vì $x > 0$).", "type": "short", "id": 67}, {"lesson": 16, "level": "NB", "q": "Cho $\\triangle ABC$ có $MN$ là đường trung bình ($M \\in AB, N \\in AC$). Biết $BC = 17\\text{ cm}$. Tính độ dài $MN$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "8,5", "accept": ["8.5", "8,5", "17/2"], "exp": "$MN = \\dfrac{BC}{2} = \\dfrac{17}{2} = 8{,}5\\text{ cm}$.", "type": "short", "id": 68}, {"lesson": 16, "level": "NB", "q": "Cho $\\triangle ABC$ có $D, E$ là trung điểm $AB, AC$. Biết $DE = 6{,}5\\text{ cm}$. Tính độ dài cạnh $BC$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "13", "accept": ["13"], "exp": "$BC = 2DE = 2 \\cdot 6{,}5 = 13\\text{ cm}$.", "type": "short", "id": 69}, {"lesson": 16, "level": "TH", "q": "Cho $\\triangle ABC$ có chu vi bằng $38\\text{ cm}$. Gọi $M, N, P$ lần lượt là trung điểm ba cạnh của tam giác. Tính chu vi $\\triangle MNP$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "19", "accept": ["19"], "exp": "Chu vi $\\triangle MNP$ bằng nửa chu vi $\\triangle ABC$: $\\dfrac{38}{2} = 19\\text{ cm}$.", "type": "short", "id": 70}, {"lesson": 16, "level": "TH", "q": "Cho hình thang $ABCD$ ($AB \\parallel CD$) có $AB = 7\\text{ cm}, CD = 15\\text{ cm}$. Gọi $M, N$ là trung điểm $AD, BC$ ($MN \\parallel AB$). Tính độ dài đoạn thẳng $MN$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "11", "accept": ["11"], "exp": "Kẻ đường chéo $AC$ cắt $MN$ tại $K$. Ta có $MK = \\dfrac{CD}{2} = 7{,}5\\text{ cm}$ và $KN = \\dfrac{AB}{2} = 3{,}5\\text{ cm} \\Rightarrow MN = 7{,}5 + 3{,}5 = 11\\text{ cm}$.", "type": "short", "id": 71}, {"lesson": 16, "level": "VD", "q": "Cho tứ giác $ABCD$ có hai đường chéo $AC = 14\\text{ cm}, BD = 18\\text{ cm}$. Gọi $M, N, P, Q$ lần lượt là trung điểm bốn cạnh $AB, BC, CD, DA$. Tính chu vi tứ giác $MNPQ$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "32", "accept": ["32"], "exp": "$MN = PQ = \\dfrac{AC}{2} = 7\\text{ cm}$ và $NP = QM = \\dfrac{BD}{2} = 9\\text{ cm}$. Chu vi $MNPQ = 2(7 + 9) = 32\\text{ cm}$ (bằng $AC + BD$).", "type": "short", "id": 72}, {"lesson": 16, "level": "VD", "q": "Cho $\\triangle ABC$ có trung tuyến $AM$. Trên $AC$ lấy $E, F$ sao cho $AE = EF = FC$. Đoạn $BE$ cắt $AM$ tại $O$. Biết $BO = 9\\text{ cm}$. Tính độ dài $BE$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "12", "accept": ["12"], "exp": "Theo Bài 3 Luyện tập Bài 16: $BO = 3OE \\Rightarrow OE = 3\\text{ cm} \\Rightarrow BE = 9 + 3 = 12\\text{ cm}$.", "type": "short", "id": 73}, {"lesson": 16, "level": "VDC", "q": "Cho hình thang $ABCD$ ($AB \\parallel CD$) có $M, N$ là trung điểm $AD, BC$ ($MN \\parallel AB$). Đoạn $MN$ cắt $BD, AC$ lần lượt tại $I, K$. Biết $AB = 6\\text{ cm}$ và $IK = 4\\text{ cm}$. Tính độ dài đáy lớn $CD$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "14", "accept": ["14"], "exp": "$MI = \\dfrac{AB}{2} = 3\\text{ cm} \\Rightarrow MK = MI + IK = 7\\text{ cm}$. Mà $MK = \\dfrac{CD}{2} \\Rightarrow CD = 14\\text{ cm}$.", "type": "short", "id": 74}, {"lesson": 17, "level": "NB", "q": "Cho $\\triangle ABC$ có $AB = 4\\text{ cm}, AC = 8\\text{ cm}$, đường phân giác $AD$ ($D \\in BC$). Biết $BD = 2{,}5\\text{ cm}$. Tính độ dài $DC$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "5", "accept": ["5"], "exp": "$\\dfrac{BD}{DC} = \\dfrac{AB}{AC} \\Rightarrow \\dfrac{2{,}5}{DC} = \\dfrac{4}{8} = \\dfrac{1}{2} \\Rightarrow DC = 5\\text{ cm}$.", "type": "short", "id": 75}, {"lesson": 17, "level": "NB", "q": "Cho $\\triangle ABC$ có $AB = 9\\text{ cm}, AC = 12\\text{ cm}, BC = 14\\text{ cm}$. Đường phân giác $AD$ cắt $BC$ tại $D$. Tính độ dài đoạn $BD$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "6", "accept": ["6"], "exp": "$\\dfrac{BD}{9} = \\dfrac{DC}{12} = \\dfrac{14}{21} = \\dfrac{2}{3} \\Rightarrow BD = 9 \\cdot \\dfrac{2}{3} = 6\\text{ cm}$.", "type": "short", "id": 76}, {"lesson": 17, "level": "TH", "q": "Cho $\\triangle ABC$ có $AB = 5\\text{ cm}, AC = 6\\text{ cm}, BC = 6\\text{ cm}$, đường phân giác $AM$ ($M \\in BC$). Tính độ dài $BM$ (viết dưới dạng phân số tối giản, đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "30/11", "accept": ["30/11"], "exp": "Theo Bài 3 Luyện tập Bài 17: $\\dfrac{BM}{5} = \\dfrac{CM}{6} = \\dfrac{6}{11} \\Rightarrow BM = \\dfrac{30}{11}\\text{ cm}$.", "type": "short", "id": 77}, {"lesson": 17, "level": "TH", "q": "Cho $\\triangle ABC$ có $BD$ là đường phân giác $\\widehat{ABC}$ ($D \\in AC$). Biết $AB = 5\\text{ cm}, DA = 3\\text{ cm}, CD = 4\\text{ cm}$. Tính độ dài cạnh $BC$ (viết dưới dạng phân số tối giản, đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "20/3", "accept": ["20/3"], "exp": "Theo Bài 1 Tự luyện Bài 17: $\\dfrac{BC}{CD} = \\dfrac{AB}{DA} \\Rightarrow \\dfrac{BC}{4} = \\dfrac{5}{3} \\Rightarrow BC = \\dfrac{20}{3}\\text{ cm}$.", "type": "short", "id": 78}, {"lesson": 17, "level": "VD", "q": "Cho $\\triangle ABC$ vuông tại $A$ có $AB = 5\\text{ cm}, AC = 12\\text{ cm}$, đường phân giác $BD$ ($D \\in AC$). Tính độ dài đoạn $AD$ (viết dưới dạng phân số tối giản, đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "10/3", "accept": ["10/3"], "exp": "Pythagore: $BC = \\sqrt{5^2+12^2} = 13\\text{ cm}$. Tính chất phân giác $BD$: $\\dfrac{AD}{5} = \\dfrac{DC}{13} = \\dfrac{12}{18} = \\dfrac{2}{3} \\Rightarrow AD = \\dfrac{10}{3}\\text{ cm}$.", "type": "short", "id": 79}, {"lesson": 17, "level": "VD", "q": "Cho $\\triangle ABC$ có $AB = 6\\text{ cm}, AC = 9\\text{ cm}, BC = 5\\text{ cm}$. Tia phân giác góc ngoài tại đỉnh $A$ cắt tia $CB$ tại $E$. Tính độ dài đoạn $EC$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "15", "accept": ["15"], "exp": "$\\dfrac{EB}{6} = \\dfrac{EC}{9} = \\dfrac{EC - EB}{9 - 6} = \\dfrac{5}{3} \\Rightarrow EC = 9 \\cdot \\dfrac{5}{3} = 15\\text{ cm}$.", "type": "short", "id": 80}, {"lesson": 17, "level": "VDC", "q": "Cho $\\triangle ABC$ có $AB = 12\\text{ cm}, AC = 18\\text{ cm}, BC = 15\\text{ cm}$. Gọi $D$ là chân đường phân giác trong và $E$ là chân đường phân giác ngoài tại đỉnh $A$ trên đường thẳng $BC$. Tính độ dài đoạn $DE$ (đơn vị: $\\text{cm}$).", "unit": "cm", "ans_display": "36", "accept": ["36"], "exp": "Phân giác trong: $\\dfrac{DB}{12} = \\dfrac{15}{30} \\Rightarrow DB = 6\\text{ cm}$. Phân giác ngoài ($E$ phía $B$): $\\dfrac{EB}{12} = \\dfrac{15}{18-12} = \\dfrac{5}{2} \\Rightarrow EB = 30\\text{ cm}$. Vì $B$ nằm giữa $E$ và $D$ nên $DE = EB + BD = 30 + 6 = 36\\text{ cm}$.", "type": "short", "id": 81}, {"lesson": 15, "level": "NB", "q": "Ghép mỗi cặp đoạn thẳng đã cho với tỉ số $\\dfrac{AB}{CD}$ tương ứng:", "pairs": [{"l": "$AB = 4\\text{ cm},\\ CD = 8\\text{ cm}$", "r": "$\\dfrac{1}{2}$"}, {"l": "$AB = 6\\text{ cm},\\ CD = 9\\text{ cm}$", "r": "$\\dfrac{2}{3}$"}, {"l": "$AB = 15\\text{ cm},\\ CD = 2\\text{ dm}$", "r": "$\\dfrac{3}{4}$"}, {"l": "$AB = 8\\text{ cm},\\ CD = 2\\text{ dm}$", "r": "$\\dfrac{2}{5}$"}], "exp": "Đổi $2\\text{ dm} = 20\\text{ cm}$: $\\frac{4}{8}=\\frac{1}{2}$; $\\frac{6}{9}=\\frac{2}{3}$; $\\frac{15}{20}=\\frac{3}{4}$; $\\frac{8}{20}=\\frac{2}{5}$.", "type": "match", "id": 82}, {"lesson": 15, "level": "TH", "q": "Cho $\\triangle ABC$ có $DE \\parallel AC$ ($D \\in AB, E \\in BC$). Ghép mỗi tỉ số ở cột A với tỉ số bằng nó theo định lí Thalès ở cột B:", "pairs": [{"l": "$\\dfrac{BD}{BA}$", "r": "$\\dfrac{BE}{BC}$"}, {"l": "$\\dfrac{DA}{AB}$", "r": "$\\dfrac{EC}{BC}$"}, {"l": "$\\dfrac{BD}{DA}$", "r": "$\\dfrac{BE}{EC}$"}, {"l": "$\\dfrac{AB}{BD}$", "r": "$\\dfrac{BC}{BE}$"}], "exp": "Từ $DE \\parallel AC$ trong $\\triangle ABC$ với đỉnh chung $B$, các đoạn tương ứng trên $BA$ và $BC$ tỉ lệ với nhau.", "type": "match", "id": 83}, {"lesson": 15, "level": "VD", "q": "Cho $\\triangle ABC$ có $MN \\parallel BC$ ($M \\in AB, N \\in AC$). Ghép bộ ba độ dài đã biết với giá trị $x$ tương ứng:", "pairs": [{"l": "$AM=2, MB=4, AN=3, NC=x$", "r": "$x = 6$"}, {"l": "$AM=3, MB=6, AN=x, NC=8$", "r": "$x = 4$"}, {"l": "$AM=5, AB=15, AN=x, AC=9$", "r": "$x = 3$"}, {"l": "$AM=4, MB=2, AN=10, NC=x$", "r": "$x = 5$"}], "exp": "Lần lượt giải: $\\frac{2}{4}=\\frac{3}{x}\\Rightarrow 6$; $\\frac{3}{6}=\\frac{x}{8}\\Rightarrow 4$; $\\frac{5}{15}=\\frac{x}{9}\\Rightarrow 3$; $\\frac{4}{2}=\\frac{10}{x}\\Rightarrow 5$.", "type": "match", "id": 84}, {"lesson": 16, "level": "NB", "q": "Cho $\\triangle ABC$ có $M, N, P$ lần lượt là trung điểm của $AB, AC, BC$. Ghép mỗi đường trung bình với mối quan hệ đúng:", "pairs": [{"l": "Đường trung bình $MN$", "r": "Song song và bằng $\\dfrac{1}{2}BC$"}, {"l": "Đường trung bình $MP$", "r": "Song song và bằng $\\dfrac{1}{2}AC$"}, {"l": "Đường trung bình $NP$", "r": "Song song và bằng $\\dfrac{1}{2}AB$"}, {"l": "Chu vi $\\triangle MNP$", "r": "Bằng $\\dfrac{1}{2}$ chu vi $\\triangle ABC$"}], "exp": "Áp dụng trực tiếp tính chất ba đường trung bình của $\\triangle ABC$.", "type": "match", "id": 85}, {"lesson": 16, "level": "TH", "q": "Ghép mỗi mô hình hình học ở cột A với loại tứ giác tạo thành ở cột B:", "pairs": [{"l": "Trung điểm bốn cạnh của tứ giác bất kì", "r": "Hình bình hành"}, {"l": "Trung điểm bốn cạnh của tứ giác có $AC \\perp BD$", "r": "Hình chữ nhật"}, {"l": "Trung điểm bốn cạnh của hình thang cân", "r": "Hình thoi"}, {"l": "Trung điểm bốn cạnh của hình vuông", "r": "Hình vuông"}], "exp": "Các cạnh nối trung điểm song song và bằng nửa đường chéo: $AC \\perp BD \\Rightarrow$ HCN; $AC = BD$ (hình thang cân) $\\Rightarrow$ Hình thoi; cả hai $\\Rightarrow$ Hình vuông.", "type": "match", "id": 86}, {"lesson": 16, "level": "VD", "q": "Cho hình thang $ABCD$ ($AB \\parallel CD$), $M, N$ là trung điểm $AD, BC$, $MN$ cắt $BD, AC$ tại $I, K$. Ghép kích thước hai đáy với độ dài đoạn $IK$:", "pairs": [{"l": "$AB = 4\\text{ cm},\\ CD = 8\\text{ cm}$", "r": "$IK = 2\\text{ cm}$"}, {"l": "$AB = 5\\text{ cm},\\ CD = 11\\text{ cm}$", "r": "$IK = 3\\text{ cm}$"}, {"l": "$AB = 6\\text{ cm},\\ CD = 14\\text{ cm}$", "r": "$IK = 4\\text{ cm}$"}, {"l": "$AB = 8\\text{ cm},\\ CD = 18\\text{ cm}$", "r": "$IK = 5\\text{ cm}$"}], "exp": "Công thức nhanh: $IK = MK - MI = \\dfrac{CD - AB}{2}$, lần lượt thu được $2; 3; 4; 5\\text{ cm}$.", "type": "match", "id": 87}, {"lesson": 17, "level": "NB", "q": "Cho $\\triangle ABC$ với ba đường phân giác trong $AD, BE, CF$ ($D \\in BC, E \\in AC, F \\in AB$). Ghép mỗi tỉ số ở cột A với tỉ số bằng nó:", "pairs": [{"l": "$\\dfrac{DB}{DC}$", "r": "$\\dfrac{AB}{AC}$"}, {"l": "$\\dfrac{EA}{EC}$", "r": "$\\dfrac{BA}{BC}$"}, {"l": "$\\dfrac{FA}{FB}$", "r": "$\\dfrac{CA}{CB}$"}, {"l": "$\\dfrac{DB}{BC}$", "r": "$\\dfrac{AB}{AB + AC}$"}], "exp": "Áp dụng tính chất đường phân giác cho từng đỉnh $A, B, C$ và tính chất dãy tỉ số bằng nhau.", "type": "match", "id": 88}, {"lesson": 17, "level": "TH", "q": "Cho $\\triangle ABC$ có $AD$ là phân giác góc $\\widehat{A}$. Ghép kích thước các cạnh với độ dài $BD$ tương ứng:", "pairs": [{"l": "$AB = 3, AC = 6, BC = 6$", "r": "$BD = 2$"}, {"l": "$AB = 4, AC = 8, BC = 9$", "r": "$BD = 3$"}, {"l": "$AB = 6, AC = 9, BC = 10$", "r": "$BD = 4$"}, {"l": "$AB = 5, AC = 7, BC = 12$", "r": "$BD = 5$"}], "exp": "Dùng công thức $BD = \\dfrac{AB \\cdot BC}{AB + AC}$: $\\frac{18}{9}=2$; $\\frac{36}{12}=3$; $\\frac{60}{15}=4$; $\\frac{60}{12}=5$.", "type": "match", "id": 89}, {"lesson": 17, "level": "VD", "q": "Ghép mỗi định lí / công cụ của Chương 4 với bài toán áp dụng đặc trưng nhất:", "pairs": [{"l": "Định lí Thalès thuận", "r": "Có đường thẳng song song $\\rightarrow$ tính độ dài đoạn thẳng"}, {"l": "Định lí Thalès đảo", "r": "Biết tỉ số đoạn thẳng bằng nhau $\\rightarrow$ chứng minh song song"}, {"l": "Đường trung bình tam giác", "r": "Biết hai trung điểm $\\rightarrow$ vừa có song song vừa có tỉ lệ $\\frac{1}{2}$"}, {"l": "Tính chất đường phân giác", "r": "Có tia phân giác $\\rightarrow$ lập tỉ số đoạn chia cạnh đối diện"}], "exp": "Phân biệt rõ dấu hiệu kích hoạt của từng công cụ trong Chương 4 giúp chọn đúng hướng chứng minh.", "type": "match", "id": 90}, {"lesson": 15, "level": "TH", "q": "Điền các biểu thức thích hợp vào chỗ trống để hoàn thành lời giải Bài 2 (Luyện tập Bài 15): Cho $\\triangle ABC$ có trung tuyến $AM$, trọng tâm $G$. Qua $G$ kẻ $DE \\parallel BC$ ($D \\in AB, E \\in AC$).", "parts": ["Xét $\\triangle ABM$ có $DG \\parallel BM$ (vì $DE \\parallel BC$). Áp dụng định lí Thalès ta có $\\dfrac{AD}{AB} =$ ", ". Vì $G$ là trọng tâm $\\triangle ABC$ nên tỉ số này bằng ", ". Tương tự, xét $\\triangle AMC$ có $GE \\parallel MC$ nên $\\dfrac{AE}{EC} = \\dfrac{AG}{GM} =$ ", ", suy ra $AE = 2EC$."], "blanks": [{"opts": ["$\\dfrac{AG}{AM}$", "$\\dfrac{AM}{AG}$", "$\\dfrac{GM}{AM}$"], "ans": 0}, {"opts": ["$\\dfrac{1}{2}$", "$\\dfrac{2}{3}$", "$\\dfrac{1}{3}$"], "ans": 1}, {"opts": ["$2$", "$\\dfrac{1}{2}$", "$3$"], "ans": 0}], "exp": "Trong $\\triangle ABM$: $\\dfrac{AD}{AB}=\\dfrac{AG}{AM}=\\dfrac{2}{3}$. Trong $\\triangle AMC$: $\\dfrac{AE}{EC}=\\dfrac{AG}{GM}=2$.", "type": "cloze", "id": 91}, {"lesson": 15, "level": "VD", "q": "Điền biểu thức đúng vào chỗ trống để chứng minh $EF \\parallel BC$ (Bài 8 Tự luyện Bài 15): Điểm $O$ nằm trong $\\triangle ABC$, $D \\in OA$, kẻ $DE \\parallel AB$ ($E \\in OB$), $DF \\parallel AC$ ($F \\in OC$).", "parts": ["Xét $\\triangle OAB$ có $DE \\parallel AB$, theo định lí Thalès thuận ta có $\\dfrac{OE}{OB} =$ ", ". Xét $\\triangle OAC$ có $DF \\parallel AC$, tương tự ta có $\\dfrac{OF}{OC} = \\dfrac{OD}{OA}$. Suy ra $\\dfrac{OE}{OB} =$ ", ". Xét $\\triangle OBC$, áp dụng ", " suy ra $EF \\parallel BC$."], "blanks": [{"opts": ["$\\dfrac{OD}{OA}$", "$\\dfrac{OA}{OD}$", "$\\dfrac{AD}{OA}$"], "ans": 0}, {"opts": ["$\\dfrac{OF}{OC}$", "$\\dfrac{FC}{OC}$", "$\\dfrac{OC}{OF}$"], "ans": 0}, {"opts": ["định lí Thalès thuận", "định lí Thalès đảo", "tính chất đường phân giác"], "ans": 1}], "exp": "Dùng Thalès thuận trong $\\triangle OAB, \\triangle OAC$ có cầu nối $\\dfrac{OD}{OA}$, sau đó dùng Thalès đảo trong $\\triangle OBC$.", "type": "cloze", "id": 92}, {"lesson": 16, "level": "TH", "q": "Điền các cụm từ / biểu thức thích hợp vào chứng minh đường trung bình trong $\\triangle ABC$ có $M, N$ là trung điểm $AB, AC$ và $MD \\parallel AC$ ($D \\in BC$):", "parts": ["Xét $\\triangle ABC$ có $M$ là trung điểm $AB$ và $MD \\parallel AC$ nên $D$ là ", " của cạnh $BC$. Khi đó $MD$ là ", " của $\\triangle ABC$, suy ra $MD =$ ", " và $MD \\parallel NC$, do đó $MDCN$ là hình bình hành."], "blanks": [{"opts": ["trung điểm", "chân đường cao", "trọng tâm"], "ans": 0}, {"opts": ["đường trung tuyến", "đường trung bình", "đường phân giác"], "ans": 1}, {"opts": ["$\\dfrac{AC}{2} = NC$", "$2AC$", "$\\dfrac{BC}{2}$"], "ans": 0}], "exp": "Đường thẳng qua trung điểm $M$ của $AB$ và song song $AC$ đi qua trung điểm $D$ của $BC$, nên $MD$ là đường trung bình và $MD = \\dfrac{AC}{2} = NC$.", "type": "cloze", "id": 93}, {"lesson": 16, "level": "VD", "q": "Điền vào chỗ trống để chứng minh $BO = 3OE$ (Bài 3 Luyện tập Bài 16: trung tuyến $AM$, $AE = EF = FC$, $O = BE \\cap AM$):", "parts": ["Xét $\\triangle BCE$ có $BM = MC$ và $EF = FC$ nên $MF$ là đường trung bình $\\Rightarrow MF \\parallel BE$ và $MF =$ ", ". Xét $\\triangle AMF$ có $EA = EF$ và $OE \\parallel MF$ nên $OE$ là đường trung bình $\\Rightarrow OE =$ ", ". Từ hai đẳng thức trên suy ra $OE =$ ", ", do đó $BO = BE - OE = 3OE$."], "blanks": [{"opts": ["$\\dfrac{1}{2}BE$", "$2BE$", "$\\dfrac{1}{3}BE$"], "ans": 0}, {"opts": ["$\\dfrac{1}{2}MF$", "$MF$", "$\\dfrac{1}{3}MF$"], "ans": 0}, {"opts": ["$\\dfrac{1}{2}BE$", "$\\dfrac{1}{3}BE$", "$\\dfrac{1}{4}BE$"], "ans": 2}], "exp": "$MF = \\dfrac{1}{2}BE$ và $OE = \\dfrac{1}{2}MF = \\dfrac{1}{4}BE \\Rightarrow BO = \\dfrac{3}{4}BE = 3OE$.", "type": "cloze", "id": 94}, {"lesson": 17, "level": "VD", "q": "Điền vào chỗ trống để hoàn thành chứng minh $ME$ là phân giác $\\widehat{AMC}$ (Bài 6 Tự luyện Bài 17: trung tuyến $AM$, phân giác $MD$ của $\\widehat{AMB}$, $DE \\parallel BC$):", "parts": ["Xét $\\triangle AMB$ có $MD$ là đường phân giác $\\widehat{AMB}$ nên $\\dfrac{DA}{DB} =$ ", ". Vì $DE \\parallel BC$, theo định lí Thalès trong $\\triangle ABC$ ta có $\\dfrac{EA}{EC} =$ ", ". Mặt khác $AM$ là trung tuyến nên $BM = CM$, suy ra $\\dfrac{EA}{EC} =$ ", ", do đó $ME$ là đường phân giác của $\\widehat{AMC}$."], "blanks": [{"opts": ["$\\dfrac{AM}{BM}$", "$\\dfrac{BM}{AM}$", "$\\dfrac{AM}{AB}$"], "ans": 0}, {"opts": ["$\\dfrac{DA}{DB}$", "$\\dfrac{DB}{DA}$", "$\\dfrac{DE}{BC}$"], "ans": 0}, {"opts": ["$\\dfrac{AM}{CM}$", "$\\dfrac{CM}{AM}$", "$\\dfrac{BM}{AC}$"], "ans": 0}], "exp": "Kết hợp tính chất phân giác trong $\\triangle AMB$, định lí Thalès cho $DE \\parallel BC$ và $BM = CM$ suy ra $\\dfrac{EA}{EC} = \\dfrac{AM}{CM}$.", "type": "cloze", "id": 95}, {"lesson": 15, "level": "TH", "q": "Sắp xếp 4 bước sau theo đúng trình tự logic để chứng minh $IK \\parallel BC$ trong $\\triangle ABC$ biết $AB = 9, AC = 12, IB = 6, KC = 8$ ($I \\in AB, K \\in AC$):", "steps": ["Tính tỉ số thứ nhất trên cạnh $AB$: $\\dfrac{IB}{AB} = \\dfrac{6}{9} = \\dfrac{2}{3}$.", "Tính tỉ số tương ứng trên cạnh $AC$: $\\dfrac{KC}{AC} = \\dfrac{8}{12} = \\dfrac{2}{3}$.", "So sánh hai tỉ số và suy ra đẳng thức $\\dfrac{IB}{AB} = \\dfrac{KC}{AC}$.", "Áp dụng định lí Thalès đảo trong $\\triangle ABC$, kết luận $IK \\parallel BC$."], "exp": "Quy trình chuẩn dùng Thalès đảo: Tính từng tỉ số tương ứng $\\rightarrow$ So sánh bằng nhau $\\rightarrow$ Kết luận song song.", "type": "order", "id": 96}, {"lesson": 15, "level": "VD", "q": "Sắp xếp 4 bước chứng minh $EF \\parallel BC$ (Bài 7 Tự luyện Bài 15: trung tuyến $AD$, $M \\in AD$, $E = BM \\cap AC$, $F = CM \\cap AB$, $DN = DM$ trên tia đối $DM$):", "steps": ["Chứng minh tứ giác $BMCN$ có hai đường chéo $BC, MN$ cắt nhau tại trung điểm $D$ nên là hình bình hành.", "Từ hình bình hành $BMCN$, suy ra $BN \\parallel FM$ và $CN \\parallel EM$.", "Áp dụng định lí Thalès trong $\\triangle ABN$ và $\\triangle ACN$: $\\dfrac{AF}{AB} = \\dfrac{AM}{AN} = \\dfrac{AE}{AC}$.", "Áp dụng định lí Thalès đảo trong $\\triangle ABC$ từ $\\dfrac{AF}{AB} = \\dfrac{AE}{AC}$, kết luận $EF \\parallel BC$."], "exp": "Bước 1 dựng hình bình hành $BMCN$ $\\rightarrow$ Bước 2 suy ra cặp cạnh song song $\\rightarrow$ Bước 3 dùng Thalès thuận qua cầu nối $\\dfrac{AM}{AN}$ $\\rightarrow$ Bước 4 dùng Thalès đảo.", "type": "order", "id": 97}, {"lesson": 16, "level": "VD", "q": "Sắp xếp 4 bước chứng minh $AI \\perp BD$ (Bài 11 Tự luyện Bài 16: $\\triangle ABC$ cân tại $A$, đường cao $AH$, $HD \\perp AC$, trung điểm $I, J$ của $HD, DC$):", "steps": ["Chứng minh $IJ$ là đường trung bình của $\\triangle HDC \\Rightarrow IJ \\parallel HC$, suy ra $IJ \\perp AH$.", "Xét $\\triangle AHJ$ có hai đường cao $HD \\perp AJ$ và $JI \\perp AH$ cắt nhau tại $I \\Rightarrow I$ là trực tâm $\\triangle AHJ \\Rightarrow AI \\perp HJ$.", "Vì $\\triangle ABC$ cân tại $A$ nên $H$ là trung điểm $BC$; kết hợp $J$ là trung điểm $DC \\Rightarrow HJ$ là đường trung bình $\\triangle BDC \\Rightarrow HJ \\parallel BD$.", "Từ $AI \\perp HJ$ và $HJ \\parallel BD$, kết luận $AI \\perp BD$."], "exp": "Chuỗi suy luận kinh điển: Đường trung bình tạo vuông góc $\\rightarrow$ Trực tâm $\\rightarrow$ Đường trung bình tạo song song $\\rightarrow$ Quan hệ vuông góc song song.", "type": "order", "id": 98}, {"lesson": 17, "level": "TH", "q": "Sắp xếp 4 bước chứng minh $MN \\parallel BC$ (Bài 2 Luyện tập Bài 17: trung tuyến $AD$, phân giác $DM$ của $\\widehat{ADB}$, phân giác $DN$ của $\\widehat{ADC}$):", "steps": ["Áp dụng tính chất đường phân giác $DM$ trong $\\triangle ABD$: $\\dfrac{MB}{MA} = \\dfrac{BD}{AD}$.", "Áp dụng tính chất đường phân giác $DN$ trong $\\triangle ADC$: $\\dfrac{NC}{NA} = \\dfrac{CD}{AD}$.", "Vì $AD$ là đường trung tuyến nên $BD = CD$, suy ra $\\dfrac{MB}{MA} = \\dfrac{NC}{NA}$.", "Áp dụng định lí Thalès đảo trong $\\triangle ABC$, kết luận $MN \\parallel BC$."], "exp": "Lập tỉ số phân giác ở hai tam giác con $\\rightarrow$ Dùng $BD = CD$ bắc cầu $\\rightarrow$ Dùng Thalès đảo.", "type": "order", "id": 99}, {"lesson": 17, "level": "VD", "q": "Sắp xếp 4 bước chứng minh $\\dfrac{IH}{BH} = \\dfrac{DC}{BC}$ (Bài 3 Tự luyện Bài 17: $\\triangle ABC$ vuông tại $A$, đường cao $AH$, phân giác $BD$ cắt $AH$ tại $I$):", "steps": ["Áp dụng tính chất phân giác trong $\\triangle ABH$ và $\\triangle ABC$: $\\dfrac{IH}{BH} = \\dfrac{AI}{AB}$ và $\\dfrac{DC}{BC} = \\dfrac{AD}{AB}$.", "Tính góc: $\\widehat{AID} = \\widehat{BIH} = 90^\\circ - \\widehat{HBI}$ và $\\widehat{ADI} = 90^\\circ - \\widehat{ABD}$.", "Vì $BD$ là phân giác nên $\\widehat{HBI} = \\widehat{ABD} \\Rightarrow \\widehat{AID} = \\widehat{ADI} \\Rightarrow \\triangle AID$ cân tại $A \\Rightarrow AI = AD$.", "Thay $AI = AD$ vào hai tỉ số ở bước đầu, suy ra $\\dfrac{IH}{BH} = \\dfrac{AI}{AB} = \\dfrac{AD}{AB} = \\dfrac{DC}{BC}$."], "exp": "Đổi mục tiêu về chứng minh $AI = AD$ bằng cách chứng minh $\\triangle AID$ cân tại $A$.", "type": "order", "id": 100}];
+const Q_SVGS = {"th1": "<svg class=\"q-svg\" viewBox=\"0 0 235 150\"><path stroke=\"#334155\" stroke-width=\"1.6\" fill=\"#f8fafc\" stroke-linejoin=\"round\" d=\"M96.2 22 L35.2 126 L185.8 126 Z\"/><path stroke=\"#2563eb\" stroke-width=\"1.5\" fill=\"none\" d=\"M55.5 91.3 L155.9 91.3\"/><circle cx=\"96.2\" cy=\"22\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"35.2\" cy=\"126\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"185.8\" cy=\"126\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"55.5\" cy=\"91.3\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"155.9\" cy=\"91.3\" r=\"1.9\" fill=\"#334155\"/><text x=\"96.2\" y=\"10\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">A<\/text><text x=\"23.2\" y=\"132\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">B<\/text><text x=\"197.8\" y=\"132\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">C<\/text><text x=\"42.5\" y=\"89.3\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">M<\/text><text x=\"168.9\" y=\"88.3\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">N<\/text><text x=\"65.5\" y=\"50.6\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">4<\/text><text x=\"35\" y=\"102.6\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">2<\/text><text x=\"135.1\" y=\"48.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">6<\/text><text x=\"180\" y=\"100.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\" font-style=\"italic\">x<\/text><text x=\"202\" y=\"34\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"10\" fill=\"#475569\" font-style=\"italic\">MN ∥ BC<\/text><\/svg>", "th2": "<svg class=\"q-svg\" viewBox=\"0 0 235 150\"><path stroke=\"#334155\" stroke-width=\"1.6\" fill=\"#f8fafc\" stroke-linejoin=\"round\" d=\"M38.8 126 L38.8 22 L202.2 126 Z\"/><path stroke=\"#2563eb\" stroke-width=\"1.5\" fill=\"none\" d=\"M38.8 56.7 L93.3 56.7\"/><path stroke=\"#2563eb\" stroke-width=\"1.3\" fill=\"none\" d=\"M38.8 118 L46.8 118 L46.8 126\"/><path stroke=\"#2563eb\" stroke-width=\"1.3\" fill=\"none\" d=\"M38.8 64.2 L46.3 64.2 L46.3 56.7\"/><circle cx=\"38.8\" cy=\"126\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"38.8\" cy=\"22\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"202.2\" cy=\"126\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"38.8\" cy=\"56.7\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"93.3\" cy=\"56.7\" r=\"1.9\" fill=\"#334155\"/><text x=\"38.8\" y=\"10\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">B<\/text><text x=\"27.8\" y=\"135\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">A<\/text><text x=\"214.2\" y=\"131\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">C<\/text><text x=\"25.8\" y=\"56.7\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">H<\/text><text x=\"103.3\" y=\"45.7\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">M<\/text><text x=\"26.8\" y=\"39.3\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">3<\/text><text x=\"26.8\" y=\"91.3\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">6<\/text><text x=\"72.5\" y=\"29.2\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">5<\/text><text x=\"154.2\" y=\"81.2\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\" font-style=\"italic\">x<\/text><\/svg>", "th3": "<svg class=\"q-svg\" viewBox=\"0 0 235 155\"><path stroke=\"#334155\" stroke-width=\"1.5\" fill=\"none\" d=\"M117.9 23.7 L174.2 129.5\"/><path stroke=\"#334155\" stroke-width=\"1.5\" fill=\"none\" d=\"M175 22 L60 133\"/><path stroke=\"#2563eb\" stroke-width=\"1.6\" fill=\"none\" d=\"M117.9 23.7 L175 22\"/><path stroke=\"#2563eb\" stroke-width=\"1.6\" fill=\"none\" d=\"M60 133 L174.2 129.5\"/><circle cx=\"136.7\" cy=\"59\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"60\" cy=\"133\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"174.2\" cy=\"129.5\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"117.9\" cy=\"23.7\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"175\" cy=\"22\" r=\"1.9\" fill=\"#334155\"/><text x=\"106.9\" y=\"15.7\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">M<\/text><text x=\"186\" y=\"14\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">N<\/text><text x=\"48\" y=\"139\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">B<\/text><text x=\"186.2\" y=\"135.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">C<\/text><text x=\"149.7\" y=\"59\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">A<\/text><text x=\"117.6\" y=\"46.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"10.5\" fill=\"#2563eb\" font-weight=\"700\">3<\/text><text x=\"163.5\" y=\"48.4\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"10.5\" fill=\"#2563eb\" font-weight=\"700\">4<\/text><text x=\"90\" y=\"87.4\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\" font-style=\"italic\">x<\/text><text x=\"166\" y=\"88.6\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"10.5\" fill=\"#2563eb\" font-weight=\"700\">6<\/text><text x=\"46\" y=\"26\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"10\" fill=\"#475569\" font-style=\"italic\">MN ∥ BC<\/text><\/svg>", "th4": "<svg class=\"q-svg\" viewBox=\"0 0 240 145\"><path stroke=\"#334155\" stroke-width=\"1.6\" fill=\"#f8fafc\" stroke-linejoin=\"round\" d=\"M57.5 24.6 L163 24.6 L206 118.4 L34 118.4 Z\"/><path stroke=\"#94a3b8\" stroke-width=\"1.2\" fill=\"none\" stroke-dasharray=\"4 3\" d=\"M57.5 24.6 L206 118.4\"/><path stroke=\"#2563eb\" stroke-width=\"1.6\" fill=\"none\" d=\"M48.1 62.1 L180.2 62.1\"/><circle cx=\"57.5\" cy=\"24.6\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"163\" cy=\"24.6\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"206\" cy=\"118.4\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"34\" cy=\"118.4\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"48.1\" cy=\"62.1\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"180.2\" cy=\"62.1\" r=\"1.9\" fill=\"#334155\"/><text x=\"47.5\" y=\"14.6\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">A<\/text><text x=\"173\" y=\"14.6\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">B<\/text><text x=\"217\" y=\"126.4\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">C<\/text><text x=\"23\" y=\"126.4\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">D<\/text><text x=\"35.1\" y=\"62.1\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">I<\/text><text x=\"193.2\" y=\"62.1\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">K<\/text><text x=\"41.1\" y=\"40.4\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"10.5\" fill=\"#2563eb\" font-weight=\"700\">2<\/text><text x=\"29.4\" y=\"87.4\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"10.5\" fill=\"#2563eb\" font-weight=\"700\">3<\/text><text x=\"182.5\" y=\"38.4\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"10.5\" fill=\"#2563eb\" font-weight=\"700\">4<\/text><text x=\"204\" y=\"85.3\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\" font-style=\"italic\">x<\/text><\/svg>", "mid1": "<svg class=\"q-svg\" viewBox=\"0 0 235 145\"><path stroke=\"#334155\" stroke-width=\"1.6\" fill=\"#f8fafc\" stroke-linejoin=\"round\" d=\"M96.7 22 L44.7 119 L190.2 119 Z\"/><path stroke=\"#2563eb\" stroke-width=\"1.5\" fill=\"none\" d=\"M70.7 70.5 L143.5 70.5\"/><path stroke=\"#334155\" stroke-width=\"1.4\" d=\"M86.8 47.9 L80.6 44.6\"/><path stroke=\"#334155\" stroke-width=\"1.4\" d=\"M60.8 96.4 L54.7 93.1\"/><path stroke=\"#334155\" stroke-width=\"1.4\" d=\"M121.5 42.7 L116.5 47.5 M123.7 45 L118.7 49.8\"/><path stroke=\"#334155\" stroke-width=\"1.4\" d=\"M168.3 91.2 L163.2 96 M170.5 93.5 L165.5 98.3\"/><circle cx=\"96.7\" cy=\"22\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"44.7\" cy=\"119\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"190.2\" cy=\"119\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"70.7\" cy=\"70.5\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"143.5\" cy=\"70.5\" r=\"1.9\" fill=\"#334155\"/><text x=\"96.7\" y=\"10\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">A<\/text><text x=\"32.7\" y=\"125\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">B<\/text><text x=\"202.2\" y=\"125\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">C<\/text><text x=\"57.7\" y=\"68.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">M<\/text><text x=\"156.5\" y=\"67.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">N<\/text><text x=\"107.1\" y=\"60.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">4,5<\/text><text x=\"117.5\" y=\"132\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\" font-style=\"italic\">x<\/text><\/svg>", "mid2": "<svg class=\"q-svg\" viewBox=\"0 0 235 150\"><path stroke=\"#334155\" stroke-width=\"1.6\" fill=\"#f8fafc\" stroke-linejoin=\"round\" d=\"M114 22 L47.2 124 L187.8 124 Z\"/><path stroke=\"#2563eb\" stroke-width=\"1.5\" fill=\"none\" d=\"M80.6 73 L117.5 124\"/><path stroke=\"#334155\" stroke-width=\"1.4\" d=\"M100.2 49.4 L94.3 45.6\"/><path stroke=\"#334155\" stroke-width=\"1.4\" d=\"M66.8 100.4 L60.9 96.6\"/><path stroke=\"#2563eb\" stroke-width=\"1.2\" fill=\"none\" d=\"M106.3 33.7 A14 14 0 0 0 122.2 33.3\"/><path stroke=\"#2563eb\" stroke-width=\"1.2\" fill=\"none\" d=\"M72.9 84.7 A14 14 0 0 0 88.8 84.3\"/><circle cx=\"114\" cy=\"22\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"47.2\" cy=\"124\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"187.8\" cy=\"124\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"80.6\" cy=\"73\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"117.5\" cy=\"124\" r=\"1.9\" fill=\"#334155\"/><text x=\"114\" y=\"10\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">A<\/text><text x=\"35.2\" y=\"130\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">B<\/text><text x=\"199.8\" y=\"130\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">C<\/text><text x=\"67.6\" y=\"71\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">I<\/text><text x=\"117.5\" y=\"137\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">K<\/text><text x=\"161.4\" y=\"65.4\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">11<\/text><text x=\"107.9\" y=\"92\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\" font-style=\"italic\">x<\/text><\/svg>", "mid3": "<svg class=\"q-svg\" viewBox=\"0 0 235 150\"><path stroke=\"#334155\" stroke-width=\"1.6\" fill=\"#f8fafc\" stroke-linejoin=\"round\" d=\"M93 31 L30 115 L205 115 Z\"/><path stroke=\"#2563eb\" stroke-width=\"1.5\" fill=\"none\" d=\"M61.5 73 L117.5 115\"/><path stroke=\"#2563eb\" stroke-width=\"1.5\" fill=\"none\" d=\"M117.5 115 L149 73\"/><path stroke=\"#2563eb\" stroke-width=\"1.5\" fill=\"none\" d=\"M149 73 L61.5 73\"/><circle cx=\"93\" cy=\"31\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"30\" cy=\"115\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"205\" cy=\"115\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"61.5\" cy=\"73\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"117.5\" cy=\"115\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"149\" cy=\"73\" r=\"1.9\" fill=\"#334155\"/><text x=\"93\" y=\"19\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">A<\/text><text x=\"18\" y=\"121\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">B<\/text><text x=\"217\" y=\"121\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">C<\/text><text x=\"48.5\" y=\"70\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">M<\/text><text x=\"117.5\" y=\"128\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">N<\/text><text x=\"162\" y=\"69\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">P<\/text><text x=\"64.2\" y=\"46.1\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"10.5\" fill=\"#2563eb\" font-weight=\"700\">6<\/text><text x=\"132.8\" y=\"43.3\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"10.5\" fill=\"#2563eb\" font-weight=\"700\">8<\/text><text x=\"73.8\" y=\"128\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"10.5\" fill=\"#2563eb\" font-weight=\"700\">10<\/text><\/svg>", "mid4": "<svg class=\"q-svg\" viewBox=\"0 0 240 145\"><path stroke=\"#334155\" stroke-width=\"1.6\" fill=\"#f8fafc\" stroke-linejoin=\"round\" d=\"M58.8 24.6 L158.3 24.6 L208 116.4 L32 116.4 Z\"/><path stroke=\"#2563eb\" stroke-width=\"1.5\" fill=\"none\" d=\"M45.4 70.5 L183.1 70.5\"/><path stroke=\"#94a3b8\" stroke-width=\"1.2\" fill=\"none\" d=\"M58.8 24.6 L208 116.4\"/><path stroke=\"#94a3b8\" stroke-width=\"1.2\" fill=\"none\" d=\"M158.3 24.6 L32 116.4\"/><path stroke=\"#334155\" stroke-width=\"1.4\" d=\"M55.4 48.5 L48.7 46.6\"/><path stroke=\"#334155\" stroke-width=\"1.4\" d=\"M42.1 94.4 L35.3 92.5\"/><path stroke=\"#334155\" stroke-width=\"1.4\" d=\"M173 44.5 L166.9 47.8 M174.5 47.3 L168.4 50.6\"/><path stroke=\"#334155\" stroke-width=\"1.4\" d=\"M197.9 90.4 L191.7 93.7 M199.4 93.2 L193.2 96.5\"/><circle cx=\"58.8\" cy=\"24.6\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"158.3\" cy=\"24.6\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"208\" cy=\"116.4\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"32\" cy=\"116.4\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"45.4\" cy=\"70.5\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"183.1\" cy=\"70.5\" r=\"1.9\" fill=\"#334155\"/><text x=\"48.8\" y=\"14.6\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">A<\/text><text x=\"168.3\" y=\"14.6\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">B<\/text><text x=\"219\" y=\"124.4\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">C<\/text><text x=\"21\" y=\"124.4\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">D<\/text><text x=\"32.4\" y=\"70.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">M<\/text><text x=\"196.1\" y=\"70.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">N<\/text><text x=\"108.5\" y=\"14.6\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">8<\/text><text x=\"120\" y=\"129.4\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">14<\/text><\/svg>", "bis1": "<svg class=\"q-svg\" viewBox=\"0 0 235 150\"><path stroke=\"#334155\" stroke-width=\"1.6\" fill=\"#f8fafc\" stroke-linejoin=\"round\" d=\"M78.1 26.3 L30 119.7 L205 119.7 Z\"/><path stroke=\"#2563eb\" stroke-width=\"1.5\" fill=\"none\" d=\"M78.1 26.3 L100 119.7\"/><path stroke=\"#2563eb\" stroke-width=\"1.2\" fill=\"none\" d=\"M71.2 39.7 A15 15 0 0 0 81.5 40.9\"/><path stroke=\"#2563eb\" stroke-width=\"1.2\" d=\"M76.6 38.9 L76 43.5\"/><path stroke=\"#2563eb\" stroke-width=\"1.2\" fill=\"none\" d=\"M81.5 40.9 A15 15 0 0 0 90.2 35.2\"/><path stroke=\"#2563eb\" stroke-width=\"1.2\" d=\"M85.1 36.9 L87.7 40.8\"/><circle cx=\"78.1\" cy=\"26.3\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"30\" cy=\"119.7\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"205\" cy=\"119.7\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"100\" cy=\"119.7\" r=\"1.9\" fill=\"#334155\"/><text x=\"78.1\" y=\"14.3\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">A<\/text><text x=\"18\" y=\"125.7\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">B<\/text><text x=\"217\" y=\"125.7\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">C<\/text><text x=\"100\" y=\"132.7\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">D<\/text><text x=\"43.4\" y=\"67.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">6<\/text><text x=\"148.7\" y=\"63.3\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">9<\/text><text x=\"65\" y=\"132.7\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">4<\/text><text x=\"152.5\" y=\"132.7\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\" font-style=\"italic\">x<\/text><\/svg>", "bis2": "<svg class=\"q-svg\" viewBox=\"0 0 235 155\"><path stroke=\"#334155\" stroke-width=\"1.6\" fill=\"#f8fafc\" stroke-linejoin=\"round\" d=\"M65.6 22 L52.6 125 L182.4 125 Z\"/><path stroke=\"#2563eb\" stroke-width=\"1.5\" fill=\"none\" d=\"M65.6 22 L104.5 125\"/><path stroke=\"#2563eb\" stroke-width=\"1.2\" fill=\"none\" d=\"M63.7 36.9 A15 15 0 0 0 70.9 36\"/><path stroke=\"#2563eb\" stroke-width=\"1.2\" d=\"M67.1 34.6 L67.6 39.2\"/><path stroke=\"#2563eb\" stroke-width=\"1.2\" fill=\"none\" d=\"M70.9 36 A15 15 0 0 0 76.8 31.9\"/><path stroke=\"#2563eb\" stroke-width=\"1.2\" d=\"M72.8 32.4 L75.4 36.2\"/><circle cx=\"65.6\" cy=\"22\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"52.6\" cy=\"125\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"182.4\" cy=\"125\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"104.5\" cy=\"125\" r=\"1.9\" fill=\"#334155\"/><text x=\"65.6\" y=\"10\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">A<\/text><text x=\"40.6\" y=\"131\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">B<\/text><text x=\"194.4\" y=\"131\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">C<\/text><text x=\"104.5\" y=\"137\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">D<\/text><text x=\"47.2\" y=\"72\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">4<\/text><text x=\"131.9\" y=\"64.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">6<\/text><text x=\"78.6\" y=\"115\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\" font-style=\"italic\">x<\/text><text x=\"117\" y=\"148\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"10.5\" fill=\"#475569\" font-weight=\"700\">BC = 5<\/text><\/svg>", "bis3": "<svg class=\"q-svg\" viewBox=\"0 0 235 150\"><path stroke=\"#334155\" stroke-width=\"1.6\" fill=\"#f8fafc\" stroke-linejoin=\"round\" d=\"M51.5 124 L51.5 22 L187.5 124 Z\"/><path stroke=\"#2563eb\" stroke-width=\"1.5\" fill=\"none\" d=\"M51.5 22 L102.5 124\"/><path stroke=\"#2563eb\" stroke-width=\"1.3\" fill=\"none\" d=\"M51.5 116 L59.5 116 L59.5 124\"/><path stroke=\"#2563eb\" stroke-width=\"1.2\" fill=\"none\" d=\"M51.5 39 A17 17 0 0 0 59.1 37.2\"/><path stroke=\"#2563eb\" stroke-width=\"1.2\" d=\"M54.9 36.3 L55.9 40.8\"/><path stroke=\"#2563eb\" stroke-width=\"1.2\" fill=\"none\" d=\"M59.1 37.2 A17 17 0 0 0 65.1 32.2\"/><path stroke=\"#2563eb\" stroke-width=\"1.2\" d=\"M60.9 33.3 L63.9 36.8\"/><circle cx=\"51.5\" cy=\"124\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"51.5\" cy=\"22\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"187.5\" cy=\"124\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"102.5\" cy=\"124\" r=\"1.9\" fill=\"#334155\"/><text x=\"51.5\" y=\"10\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">B<\/text><text x=\"40.5\" y=\"134\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">A<\/text><text x=\"199.5\" y=\"130\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"12\" fill=\"#1e293b\" font-weight=\"700\">C<\/text><text x=\"102.5\" y=\"137\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">D<\/text><text x=\"38.5\" y=\"73\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">6<\/text><text x=\"127.3\" y=\"62.6\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\">10<\/text><text x=\"77\" y=\"137\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\" font-style=\"italic\">x<\/text><\/svg>", "bis4": "<svg class=\"q-svg\" viewBox=\"0 0 250 150\"><path stroke=\"#334155\" stroke-width=\"1.6\" fill=\"#f8fafc\" stroke-linejoin=\"round\" d=\"M164.6 55.4 L158 107.8 L224 107.8 Z\"/><path stroke=\"#94a3b8\" stroke-width=\"1.2\" fill=\"none\" stroke-dasharray=\"4 3\" d=\"M164.6 55.4 L142.8 36.2\"/><path stroke=\"#2563eb\" stroke-width=\"1.5\" fill=\"none\" d=\"M164.6 55.4 L26 107.8\"/><path stroke=\"#334155\" stroke-width=\"1.5\" fill=\"none\" d=\"M26 107.8 L158 107.8\"/><path stroke=\"#2563eb\" stroke-width=\"1.2\" fill=\"none\" d=\"M154.1 46.2 A14 14 0 0 0 151.5 60.4\"/><path stroke=\"#2563eb\" stroke-width=\"1.2\" d=\"M153.1 53.3 L148.6 52.5\"/><path stroke=\"#2563eb\" stroke-width=\"1.2\" fill=\"none\" d=\"M151.5 60.4 A14 14 0 0 0 162.8 69.3\"/><path stroke=\"#2563eb\" stroke-width=\"1.2\" d=\"M157.4 64.6 L154.5 68.2\"/><circle cx=\"164.6\" cy=\"55.4\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"158\" cy=\"107.8\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"224\" cy=\"107.8\" r=\"1.9\" fill=\"#334155\"/><circle cx=\"26\" cy=\"107.8\" r=\"1.9\" fill=\"#334155\"/><text x=\"172.6\" y=\"43.4\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">A<\/text><text x=\"158\" y=\"120.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">B<\/text><text x=\"235\" y=\"113.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">C<\/text><text x=\"15\" y=\"113.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#1e293b\" font-weight=\"700\">D<\/text><text x=\"92\" y=\"120.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"11\" fill=\"#2563eb\" font-weight=\"700\" font-style=\"italic\">x<\/text><text x=\"191\" y=\"120.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Georgia,serif\" font-size=\"10.5\" fill=\"#2563eb\" font-weight=\"700\">5<\/text><\/svg>"};
+
+const LESSON_NAMES = {
+  15: 'Bài 15: Định lí Thalès trong tam giác',
+  16: 'Bài 16: Đường trung bình của tam giác',
+  17: 'Bài 17: Tính chất đường phân giác'
+};
+
+const LESSON_LINKS = {
+  15: 'bai15_Thales.html',
+  16: 'bai16_duongtrungbinh.html',
+  17: 'bai17_tinhchat_phangiac.html'
+};
+
+const MINDMAP_DATA = {
+  15: {
+    title: 'Bài 15: Định lí Thalès trong tam giác',
+    def: '<b>Tỉ số của hai đoạn thẳng</b> là tỉ số độ dài của chúng theo cùng một đơn vị đo. Hai đoạn thẳng $AB, CD$ tỉ lệ với $A\'B\', C\'D\'$ khi $\\dfrac{AB}{CD} = \\dfrac{A\'B\'}{C\'D\'}$ hay $\\dfrac{AB}{A\'B\'} = \\dfrac{CD}{C\'D\'}$.',
+    props: [
+      '<b>Định lí Thalès thuận:</b> Trong $\\triangle ABC$, nếu $MN \\parallel BC$ ($M \\in AB, N \\in AC$) thì $\\dfrac{AM}{AB}=\\dfrac{AN}{AC}$, $\\dfrac{AM}{MB}=\\dfrac{AN}{NC}$ và $\\dfrac{MB}{AB}=\\dfrac{NC}{AC}$.',
+      '<b>Định lí Thalès đảo:</b> Nếu đường thẳng cắt hai cạnh $AB, AC$ tại $M, N$ thỏa một trong các tỉ lệ thức tương ứng trên thì $MN \\parallel BC$.',
+      '<b>Thalès mở rộng:</b> Định lí vẫn đúng khi đường thẳng song song cắt phần kéo dài của hai cạnh tam giác (hình đồng hồ cát).'
+    ],
+    tips: [
+      'Luôn đổi các đoạn thẳng về <b>cùng một đơn vị đo</b> ($\\text{cm}, \\text{dm}, \\text{m}$) trước khi lập tỉ số.',
+      'Trong hình thang $ABCD$ ($AB \\parallel CD$), kẻ $IK \\parallel CD$ cắt $AD, AC, BC$ tại $I, O, K$ thì dùng cầu nối $\\dfrac{AO}{OC}$ để suy ra $\\dfrac{AI}{ID} = \\dfrac{BK}{KC}$.',
+      'Với trọng tâm $G$ trên trung tuyến $AD$: đường thẳng qua $G$ cắt $AB, AC$ tại $E, F$ luôn thỏa $\\dfrac{BE}{AE} + \\dfrac{CF}{AF} = 1$ và $\\dfrac{AB}{AE} + \\dfrac{AC}{AF} = 3$.'
+    ]
+  },
+  16: {
+    title: 'Bài 16: Đường trung bình của tam giác',
+    def: '<b>Đường trung bình của tam giác</b> là đoạn thẳng nối trung điểm hai cạnh của tam giác. Mỗi tam giác có $3$ đường trung bình.',
+    props: [
+      '<b>Tính chất:</b> Đường trung bình $MN$ của $\\triangle ABC$ ($M \\in AB, N \\in AC$) song song với cạnh thứ ba và bằng nửa cạnh đó: $MN \\parallel BC$ và $MN = \\dfrac{1}{2}BC$.',
+      '<b>Nhận biết (Chú ý):</b> Đường thẳng đi qua trung điểm một cạnh của tam giác và song song với cạnh thứ hai thì đi qua trung điểm của cạnh thứ ba.',
+      'Chu vi tam giác tạo bởi $3$ trung điểm bằng nửa chu vi tam giác ban đầu; diện tích bằng $\\dfrac{1}{4}$ diện tích tam giác ban đầu.'
+    ],
+    tips: [
+      '<b>Mẹo tứ giác trung điểm:</b> Nối trung điểm $4$ cạnh của tứ giác bất kì luôn ra <b>hình bình hành</b> có chu vi bằng $AC + BD$; nếu $AC \\perp BD \\Rightarrow$ hình chữ nhật; nếu $AC = BD \\Rightarrow$ hình thoi.',
+      '<b>Đoạn nối trung điểm hai cạnh bên hình thang ($MN$):</b> $MN = \\dfrac{AB + CD}{2}$, còn đoạn giữa hai đường chéo là $IK = \\dfrac{|CD - AB|}{2}$.',
+      'Trong chứng minh vuông góc ($AI \\perp BD$, $MN \\perp BM$, $\\widehat{BMD}=90^\\circ$): hay kết hợp <b>đường trung bình</b> với <b>trực tâm tam giác</b>.'
+    ]
+  },
+  17: {
+    title: 'Bài 17: Tính chất đường phân giác của tam giác',
+    def: 'Trong một tam giác, <b>đường phân giác của một góc</b> chia cạnh đối diện thành hai đoạn thẳng tỉ lệ với hai cạnh kề hai đoạn thẳng đó.',
+    props: [
+      '<b>Phân giác trong $AD$ ($D \\in BC$):</b> $\\dfrac{DB}{DC} = \\dfrac{AB}{AC}$ hay $\\dfrac{DB}{AB} = \\dfrac{DC}{AC} = \\dfrac{BC}{AB + AC}$.',
+      '<b>Tính chất đảo:</b> Nếu $D \\in BC$ thỏa $\\dfrac{DB}{DC} = \\dfrac{AB}{AC}$ thì $AD$ là đường phân giác của $\\widehat{BAC}$.',
+      '<b>Phân giác góc ngoài $AE$ ($AB \\neq AC$, $E \\in BC$ kéo dài):</b> $\\dfrac{EB}{EC} = \\dfrac{AB}{AC}$.'
+    ],
+    tips: [
+      '<b>Công thức tính nhanh khi biết $3$ cạnh $AB, AC, BC$:</b> $DB = \\dfrac{AB \\cdot BC}{AB + AC}$ và $DC = \\dfrac{AC \\cdot BC}{AB + AC}$.',
+      'Nếu đề cho phân giác góc ngoài tại $A$ với $AB < AC$ thì giao điểm $E$ nằm trên tia đối của tia $BC$ (phía $B$), và $EC - EB = BC$.',
+      'Hai tia phân giác trong và ngoài tại cùng một đỉnh luôn <b>vuông góc</b> với nhau ($AD \\perp AE$).'
+    ]
+  }
+};
+
+// ==================== STATE ====================
+const STORAGE_KEY = 'toan8_bt_c4_v1';
+let state = {
+  mode: 'practice',
+  activeMindLesson: 15,
+  soundOn: true,
+  filters: { lesson: 'all', type: 'all', level: 'all', status: 'all' },
+  page: 1,
+  pageSize: 15,
+  answers: {},
+  examIds: [],
+  examAnswers: {},
+  examSubmitted: false,
+  examSecondsLeft: 1200,
+  examTimerRef: null
+};
+
+// Deterministic permutations for Match right-side and Order initial sequence
+const MATCH_RIGHT_ORDER = {};
+const ORDER_INIT = {};
+QUESTIONS.forEach(q => {
+  if (q.type === 'match' || q.type === 'order') {
+    const arr = [0, 1, 2, 3];
+    let seed = q.id * 9301 + 49297;
+    for (let i = arr.length - 1; i > 0; i--) {
+      seed = (seed * 9301 + 49297) % 233280;
+      const j = seed % (i + 1);
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    if (arr.every((v, idx) => v === idx)) [arr[0], arr[2]] = [arr[2], arr[0]];
+    if (q.type === 'match') MATCH_RIGHT_ORDER[q.id] = arr;
+    else ORDER_INIT[q.id] = arr;
+  }
+});
+
+// ==================== WEB AUDIO API SOUND ====================
+let audioCtx = null;
+function playTone(ok) {
+  if (!state.soundOn) return;
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain); gain.connect(audioCtx.destination);
+    const now = audioCtx.currentTime;
+    if (ok) {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(587.33, now);
+      osc.frequency.setValueAtTime(880, now + 0.08);
+      gain.gain.setValueAtTime(0.11, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+      osc.start(now); osc.stop(now + 0.26);
+    } else {
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(220, now);
+      osc.frequency.linearRampToValueAtTime(160, now + 0.18);
+      gain.gain.setValueAtTime(0.12, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+      osc.start(now); osc.stop(now + 0.23);
+    }
+  } catch (e) {}
+}
+
+function toggleSound() {
+  state.soundOn = !state.soundOn;
+  document.getElementById('sound-btn').innerHTML = `<i data-lucide="${state.soundOn ? 'volume-2' : 'volume-x'}" class="w-4 h-4"></i>`;
+  if (window.lucide) lucide.createIcons();
+}
+
+// ==================== STORAGE ====================
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === 'object') state.answers = parsed;
+    }
+  } catch (e) {}
+}
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state.answers)); } catch (e) {}
+}
+
+// ==================== KATEX RENDER ====================
+function renderKatexIn(el) {
+  if (typeof renderMathInElement === 'function' && el) {
+    renderMathInElement(el, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      throwOnError: false,
+      ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    });
+  }
+}
+
+// ==================== MIND MAP ====================
+function selectMindNode(lesson) {
+  state.activeMindLesson = lesson;
+  document.querySelectorAll('.mm-tab').forEach(btn => {
+    btn.classList.toggle('pill-active', Number(btn.dataset.mmtab) === lesson);
+  });
+  const d = MINDMAP_DATA[lesson];
+  const detailEl = document.getElementById('mm-detail');
+  detailEl.innerHTML = `
+    <div class="space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <h3 class="text-lg font-extrabold text-slate-800">${d.title}</h3>
+        <a href="${LESSON_LINKS[lesson]}" class="text-xs font-semibold text-indigo-600 hover:underline flex items-center gap-1">Mở bài giảng chi tiết <i data-lucide="external-link" class="w-3.5 h-3.5"></i></a>
+      </div>
+      <div class="bg-blue-50/70 border-l-4 border-blue-600 rounded-r-xl p-3.5 text-sm leading-relaxed">${d.def}</div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-slate-50 rounded-xl border border-slate-200/80 p-4 space-y-2">
+          <div class="text-xs font-bold uppercase tracking-wider text-indigo-700">Định lí &amp; Công thức cốt lõi</div>
+          <ul class="list-disc pl-5 space-y-1.5 text-sm text-slate-700">${d.props.map(p => `<li>${p}</li>`).join('')}</ul>
+        </div>
+        <div class="bg-emerald-50/60 rounded-xl border border-emerald-200/80 p-4 space-y-2">
+          <div class="text-xs font-bold uppercase tracking-wider text-emerald-800">Phương pháp giải nhanh &amp; Lưu ý</div>
+          <ul class="list-disc pl-5 space-y-1.5 text-sm text-slate-700">${d.tips.map(s => `<li>${s}</li>`).join('')}</ul>
+        </div>
+      </div>
+    </div>`;
+  renderKatexIn(detailEl);
+  if (window.lucide) lucide.createIcons();
+}
+
+function jumpToLessonQuiz() {
+  setMode('practice');
+  setFilter('lesson', String(state.activeMindLesson));
+  setFilter('type', 'all');
+  document.getElementById('kho-bai-100').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ==================== EVALUATION ====================
+function normalizeShort(str) {
+  return String(str || '').trim().toLowerCase()
+    .replace(/\s+/g, '')
+    .replace(/độ|°|cm²|cm2|cm|dm|m/g, '')
+    .replace(/,/g, '.');
+}
+
+function evaluateQuestion(q, ansObj) {
+  if (!ansObj || !ansObj.checked) return { status: 'unanswered', correct: false, score: 0 };
+  if (q.type === 'mcq') {
+    const ok = ansObj.val === q.ans;
+    return { status: ok ? 'correct' : 'wrong', correct: ok, score: ok ? 1 : 0 };
+  }
+  if (q.type === 'tf') {
+    const vals = ansObj.vals || {};
+    let rightCnt = 0;
+    for (let i = 0; i < 4; i++) if (vals[i] === q.items[i].a) rightCnt++;
+    const sc = [0, 0.1, 0.25, 0.5, 1.0][rightCnt];
+    return { status: rightCnt === 4 ? 'correct' : 'wrong', correct: rightCnt === 4, rightCnt, totalSub: 4, score: sc };
+  }
+  if (q.type === 'short') {
+    const norm = normalizeShort(ansObj.val);
+    const ok = q.accept.some(a => normalizeShort(a) === norm);
+    return { status: ok ? 'correct' : 'wrong', correct: ok, score: ok ? 1 : 0 };
+  }
+  if (q.type === 'match') {
+    const pairs = ansObj.pairs || {};
+    let rightCnt = 0;
+    for (let i = 0; i < 4; i++) if (Number(pairs[i]) === i) rightCnt++;
+    return { status: rightCnt === 4 ? 'correct' : 'wrong', correct: rightCnt === 4, rightCnt, totalSub: 4, score: rightCnt / 4 };
+  }
+  if (q.type === 'cloze') {
+    const picks = ansObj.picks || {};
+    let rightCnt = 0;
+    q.blanks.forEach((bl, i) => { if (picks[i] === bl.ans) rightCnt++; });
+    const tot = q.blanks.length;
+    return { status: rightCnt === tot ? 'correct' : 'wrong', correct: rightCnt === tot, rightCnt, totalSub: tot, score: rightCnt / tot };
+  }
+  if (q.type === 'order') {
+    const seq = ansObj.seq || ORDER_INIT[q.id];
+    let rightCnt = 0;
+    for (let i = 0; i < 4; i++) if (seq[i] === i) rightCnt++;
+    return { status: rightCnt === 4 ? 'correct' : 'wrong', correct: rightCnt === 4, rightCnt, totalSub: 4, score: rightCnt === 4 ? 1 : rightCnt / 4 };
+  }
+  return { status: 'unanswered', correct: false, score: 0 };
+}
+
+function getAnsStore() {
+  return state.mode === 'exam' ? state.examAnswers : state.answers;
+}
+
+// ==================== FILTERS & PAGINATION ====================
+function setFilter(key, val) {
+  state.filters[key] = val;
+  state.page = 1;
+  if (key === 'lesson') {
+    document.querySelectorAll('#filter-lesson button').forEach(b => b.classList.toggle('pill-active', b.dataset.fl === val));
+  }
+  if (key === 'type') {
+    document.querySelectorAll('#filter-type button').forEach(b => b.classList.toggle('pill-active', b.dataset.ft === val));
+  }
+  if (key === 'level') document.getElementById('sel-level').value = val;
+  if (key === 'status') document.getElementById('sel-status').value = val;
+  renderQuestions();
+}
+
+function setPageSize(sz) {
+  state.pageSize = sz;
+  state.page = 1;
+  renderQuestions();
+}
+
+function getFilteredQuestions() {
+  if (state.mode === 'exam') {
+    return state.examIds.map(id => QUESTIONS.find(q => q.id === id));
+  }
+  const f = state.filters;
+  return QUESTIONS.filter(q => {
+    if (f.lesson !== 'all' && String(q.lesson) !== f.lesson) return false;
+    if (f.type !== 'all' && q.type !== f.type) return false;
+    if (f.level !== 'all' && q.level !== f.level) return false;
+    if (f.status !== 'all') {
+      const ev = evaluateQuestion(q, state.answers[q.id]);
+      if (ev.status !== f.status) return false;
+    }
+    return true;
+  });
+}
+
+// ==================== RENDER CARDS ====================
+const TYPE_META = {
+  mcq:   { label: 'Trắc nghiệm', cls: 'bg-blue-50 text-blue-700 border-blue-200' },
+  tf:    { label: 'Đúng / Sai (4 ý)', cls: 'bg-amber-50 text-amber-800 border-amber-200' },
+  short: { label: 'Trả lời ngắn', cls: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
+  match: { label: 'Ghép cặp', cls: 'bg-violet-50 text-violet-700 border-violet-200' },
+  cloze: { label: 'Điền khuyết c/m', cls: 'bg-cyan-50 text-cyan-800 border-cyan-200' },
+  order: { label: 'Sắp xếp bước c/m', cls: 'bg-fuchsia-50 text-fuchsia-800 border-fuchsia-200' }
+};
+const LEVEL_META = {
+  NB:  { label: 'Nhận biết', cls: 'bg-slate-100 text-slate-600' },
+  TH:  { label: 'Thông hiểu', cls: 'bg-sky-50 text-sky-700' },
+  VD:  { label: 'Vận dụng', cls: 'bg-indigo-50 text-indigo-700' },
+  VDC: { label: 'Vận dụng cao', cls: 'bg-rose-50 text-rose-700' }
+};
+const PAIR_COLORS = [
+  'bg-blue-100 text-blue-800 border-blue-300',
+  'bg-emerald-100 text-emerald-800 border-emerald-300',
+  'bg-amber-100 text-amber-800 border-amber-300',
+  'bg-violet-100 text-violet-800 border-violet-300'
+];
+
+function renderQuestionCard(q, displayNum) {
+  const store = getAnsStore();
+  const ansObj = store[q.id] || {};
+  const isRevealed = state.mode === 'practice' ? !!ansObj.checked : state.examSubmitted;
+  const ev = evaluateQuestion(q, isRevealed ? { ...ansObj, checked: true } : null);
+  const tm = TYPE_META[q.type];
+  const lm = LEVEL_META[q.level];
+
+  let statusBadge = '';
+  if (isRevealed) {
+    statusBadge = ev.correct
+      ? `<span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700 flex items-center gap-1"><i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>Chính xác</span>`
+      : `<span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-100 text-rose-700 flex items-center gap-1"><i data-lucide="x-circle" class="w-3.5 h-3.5"></i>${ev.rightCnt !== undefined ? `Đúng ${ev.rightCnt}/${ev.totalSub}` : 'Chưa đúng'}</span>`;
+  }
+
+  let bodyHtml = '';
+
+  // 1. MCQ
+  if (q.type === 'mcq') {
+    const letters = ['A', 'B', 'C', 'D'];
+    bodyHtml = `<div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mt-3">`;
+    q.opts.forEach((opt, i) => {
+      const selected = ansObj.val === i;
+      let cls = 'border-slate-200 bg-white text-slate-700';
+      if (isRevealed) {
+        if (i === q.ans) cls = 'border-emerald-500 bg-emerald-50 text-emerald-900 font-semibold';
+        else if (selected && i !== q.ans) cls = 'border-rose-400 bg-rose-50 text-rose-800';
+        else cls = 'border-slate-200 bg-slate-50/50 text-slate-400';
+      } else if (selected) {
+        cls = 'border-blue-500 bg-blue-50 text-blue-900 font-semibold';
+      }
+      bodyHtml += `<button onclick="answerMCQ(${q.id}, ${i})" ${isRevealed && state.mode === 'exam' ? 'disabled' : ''} class="opt-btn text-left px-3.5 py-2.5 rounded-xl border ${cls} flex items-start gap-2.5 text-sm">
+        <span class="w-6 h-6 shrink-0 rounded-lg border ${selected ? 'bg-blue-600 text-white border-blue-600' : 'bg-slate-100 text-slate-600 border-slate-200'} ${isRevealed && i === q.ans ? '!bg-emerald-600 !border-emerald-600 !text-white' : ''} ${isRevealed && selected && i !== q.ans ? '!bg-rose-500 !border-rose-500 !text-white' : ''} flex items-center justify-center text-xs font-bold">${letters[i]}</span>
+        <span class="pt-0.5">${opt}</span>
+      </button>`;
+    });
+    bodyHtml += `</div>`;
+  }
+
+  // 2. TRUE / FALSE
+  else if (q.type === 'tf') {
+    const letters = ['a', 'b', 'c', 'd'];
+    const vals = ansObj.vals || {};
+    bodyHtml = `<div class="mt-3 divide-y divide-slate-100 border border-slate-200 rounded-xl overflow-hidden">`;
+    q.items.forEach((it, i) => {
+      const v = vals[i];
+      const rowBg = isRevealed ? (v === it.a ? 'bg-emerald-50/60' : 'bg-rose-50/60') : 'bg-white';
+      bodyHtml += `<div class="${rowBg} px-3.5 py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-sm">
+        <div class="flex items-start gap-2"><span class="font-bold text-indigo-700 shrink-0">${letters[i]})</span><span>${it.t}</span></div>
+        <div class="flex items-center gap-1.5 shrink-0">
+          <button onclick="selectTF(${q.id}, ${i}, true)" ${isRevealed && state.mode==='exam'?'disabled':''} class="px-3 py-1 rounded-lg text-xs font-bold border ${v===true ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-slate-600 border-slate-200 hover:bg-blue-50'}">Đúng</button>
+          <button onclick="selectTF(${q.id}, ${i}, false)" ${isRevealed && state.mode==='exam'?'disabled':''} class="px-3 py-1 rounded-lg text-xs font-bold border ${v===false ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-slate-600 border-slate-200 hover:bg-blue-50'}">Sai</button>
+          ${isRevealed ? `<span class="ml-1 text-xs font-bold ${v===it.a?'text-emerald-700':'text-rose-600'}">(${it.a?'Đ':'S'})</span>` : ''}
+        </div>
+      </div>`;
+    });
+    bodyHtml += `</div>`;
+    if (state.mode === 'practice') {
+      bodyHtml += `<div class="mt-3"><button onclick="checkComposite(${q.id})" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold">Kiểm tra 4 mệnh đề</button></div>`;
+    }
+  }
+
+  // 3. SHORT ANSWER
+  else if (q.type === 'short') {
+    const val = ansObj.val || '';
+    const borderCls = isRevealed ? (ev.correct ? 'border-emerald-500 bg-emerald-50/40' : 'border-rose-400 bg-rose-50/40') : 'border-slate-300 bg-white';
+    bodyHtml = `<div class="mt-3 flex flex-wrap items-center gap-2">
+      <div class="flex items-center border ${borderCls} rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-blue-500">
+        <input id="short-inp-${q.id}" type="text" value="${val.replace(/"/g, '&quot;')}" ${isRevealed && state.mode==='exam'?'disabled':''}
+          oninput="updateShortDraft(${q.id}, this.value)"
+          onkeydown="if(event.key==='Enter'){${state.mode==='practice' ? `checkShort(${q.id})` : ''}}"
+          placeholder="Nhập số hoặc phân số..." class="px-3.5 py-2 text-sm font-semibold w-48 outline-none bg-transparent"/>
+        <span class="px-3 py-2 bg-slate-100 text-slate-600 text-xs font-bold border-l border-slate-200">${q.unit}</span>
+      </div>
+      ${state.mode === 'practice' ? `<button onclick="checkShort(${q.id})" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold">Kiểm tra</button>` : ''}
+      ${isRevealed && !ev.correct ? `<span class="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-lg">Đáp số đúng: ${q.ans_display} ${q.unit === '(tỉ số)' ? '' : q.unit}</span>` : ''}
+    </div>`;
+  }
+
+  // 4. MATCHING
+  else if (q.type === 'match') {
+    const rOrder = MATCH_RIGHT_ORDER[q.id];
+    const pairs = ansObj.pairs || {};
+    const numTags = ['1', '2', '3', '4'];
+    bodyHtml = `<div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+      <div class="space-y-2"><div class="text-xs font-bold uppercase tracking-wider text-slate-400">Cột A (Chọn số tương ứng ở Cột B)</div>`;
+    q.pairs.forEach((pr, i) => {
+      const chosenOrig = pairs[i];
+      const isOk = isRevealed && Number(chosenOrig) === i;
+      const isBad = isRevealed && Number(chosenOrig) !== i;
+      bodyHtml += `<div class="p-2.5 rounded-xl border ${isOk ? 'border-emerald-400 bg-emerald-50/50' : isBad ? 'border-rose-300 bg-rose-50/50' : 'border-slate-200 bg-slate-50/60'} flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2"><span class="w-5 h-5 shrink-0 rounded-md ${PAIR_COLORS[i]} border text-[11px] font-bold flex items-center justify-center">${['A','B','C','D'][i]}</span><span>${pr.l}</span></div>
+        <select onchange="selectMatch(${q.id}, ${i}, this.value)" ${isRevealed && state.mode==='exam'?'disabled':''} class="text-xs font-bold rounded-lg border border-slate-300 bg-white px-2 py-1 text-slate-700 shrink-0">
+          <option value="">-- Chọn --</option>
+          ${rOrder.map((origIdx, dispIdx) => `<option value="${origIdx}" ${String(chosenOrig)===String(origIdx)?'selected':''}>Ghép (${numTags[dispIdx]})</option>`).join('')}
+        </select>
+      </div>`;
+    });
+    bodyHtml += `</div><div class="space-y-2"><div class="text-xs font-bold uppercase tracking-wider text-slate-400">Cột B</div>`;
+    rOrder.forEach((origIdx, dispIdx) => {
+      bodyHtml += `<div class="p-2.5 rounded-xl border border-slate-200 bg-white flex items-center gap-2">
+        <span class="w-5 h-5 shrink-0 rounded-md bg-slate-100 border border-slate-300 text-slate-700 text-[11px] font-bold flex items-center justify-center">${numTags[dispIdx]}</span>
+        <span>${q.pairs[origIdx].r}</span>
+      </div>`;
+    });
+    bodyHtml += `</div></div>`;
+    if (isRevealed && !ev.correct) {
+      const keyStr = q.pairs.map((_, i) => `${['A','B','C','D'][i]}→(${rOrder.indexOf(i)+1})`).join(' • ');
+      bodyHtml += `<div class="mt-2 text-xs font-bold text-emerald-700">Đáp án ghép đúng: ${keyStr}</div>`;
+    }
+    if (state.mode === 'practice') {
+      bodyHtml += `<div class="mt-3"><button onclick="checkComposite(${q.id})" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold">Kiểm tra ghép cặp</button></div>`;
+    }
+  }
+
+  // 5. CLOZE FILL-IN-THE-BLANK (KaTeX-safe pill selector!)
+  else if (q.type === 'cloze') {
+    const picks = ansObj.picks || {};
+    let para = '';
+    q.parts.forEach((part, idx) => {
+      para += part;
+      if (idx < q.blanks.length) {
+        const bl = q.blanks[idx];
+        const chosen = picks[idx];
+        const slotTxt = chosen !== undefined ? bl.opts[chosen] : `(${idx + 1}) ___`;
+        let slotCls = chosen !== undefined ? 'filled' : '';
+        if (isRevealed) slotCls = chosen === bl.ans ? 'ok' : 'bad';
+        para += `<span class="cloze-slot ${slotCls}">${slotTxt}</span>`;
+      }
+    });
+    bodyHtml = `<div class="mt-3 p-4 rounded-xl bg-slate-50 border border-slate-200 text-sm sm:text-base leading-loose">${para}</div>`;
+    bodyHtml += `<div class="mt-3 space-y-2">`;
+    q.blanks.forEach((bl, bIdx) => {
+      const chosen = picks[bIdx];
+      bodyHtml += `<div class="flex flex-wrap items-center gap-2 text-xs sm:text-sm">
+        <span class="font-bold text-cyan-800 bg-cyan-50 border border-cyan-200 px-2.5 py-1 rounded-lg shrink-0">Ô trống (${bIdx + 1}):</span>
+        ${bl.opts.map((opt, oIdx) => {
+          let cls = 'bg-white border-slate-200 text-slate-700 hover:bg-blue-50 hover:border-blue-400';
+          if (isRevealed) {
+            if (oIdx === bl.ans) cls = 'bg-emerald-50 border-emerald-500 text-emerald-800 font-bold';
+            else if (chosen === oIdx) cls = 'bg-rose-50 border-rose-400 text-rose-700';
+            else cls = 'bg-slate-50 border-slate-200 text-slate-400';
+          } else if (chosen === oIdx) {
+            cls = 'bg-blue-600 border-blue-600 text-white font-semibold';
+          }
+          return `<button onclick="selectCloze(${q.id}, ${bIdx}, ${oIdx})" ${isRevealed && state.mode==='exam'?'disabled':''} class="px-3 py-1.5 rounded-xl border ${cls} transition-all">${opt}</button>`;
+        }).join('')}
+      </div>`;
+    });
+    bodyHtml += `</div>`;
+    if (state.mode === 'practice') {
+      bodyHtml += `<div class="mt-3"><button onclick="checkComposite(${q.id})" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold">Kiểm tra điền khuyết</button></div>`;
+    }
+  }
+
+  // 6. PROOF ORDERING (Up/Down interactive buttons!)
+  else if (q.type === 'order') {
+    const seq = ansObj.seq ? [...ansObj.seq] : [...ORDER_INIT[q.id]];
+    bodyHtml = `<div class="mt-3 space-y-2">`;
+    seq.forEach((origIdx, pos) => {
+      const isOk = isRevealed && origIdx === pos;
+      const isBad = isRevealed && origIdx !== pos;
+      const cardCls = isOk ? 'border-emerald-400 bg-emerald-50/50' : isBad ? 'border-rose-300 bg-rose-50/50' : 'border-slate-200 bg-slate-50/60';
+      bodyHtml += `<div class="p-3 rounded-xl border ${cardCls} flex items-center justify-between gap-3 text-sm">
+        <div class="flex items-start gap-2.5">
+          <span class="px-2 py-0.5 shrink-0 rounded-lg ${isOk ? 'bg-emerald-600 text-white' : isBad ? 'bg-rose-500 text-white' : 'bg-fuchsia-100 text-fuchsia-800'} text-xs font-extrabold">Bước ${pos + 1}</span>
+          <span class="leading-relaxed">${q.steps[origIdx]}</span>
+        </div>
+        ${!(isRevealed && state.mode==='exam') ? `<div class="flex flex-col gap-1 shrink-0">
+          <button onclick="moveOrderStep(${q.id}, ${pos}, -1)" ${pos===0?'disabled':''} title="Đưa lên trên" class="px-2 py-0.5 rounded-md border border-slate-300 bg-white hover:bg-blue-50 text-xs font-bold disabled:opacity-30">▲</button>
+          <button onclick="moveOrderStep(${q.id}, ${pos}, 1)" ${pos===3?'disabled':''} title="Đưa xuống dưới" class="px-2 py-0.5 rounded-md border border-slate-300 bg-white hover:bg-blue-50 text-xs font-bold disabled:opacity-30">▼</button>
+        </div>` : ''}
+      </div>`;
+    });
+    bodyHtml += `</div>`;
+    if (isRevealed && !ev.correct) {
+      bodyHtml += `<div class="mt-2.5 p-3 rounded-xl bg-emerald-50/70 border border-emerald-200 text-xs sm:text-sm space-y-1">
+        <div class="font-bold text-emerald-800">Thứ tự chứng minh đúng:</div>
+        ${q.steps.map((st, idx) => `<div><b>Bước ${idx + 1}:</b> ${st}</div>`).join('')}
+      </div>`;
+    }
+    if (state.mode === 'practice') {
+      bodyHtml += `<div class="mt-3"><button onclick="checkComposite(${q.id})" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold">Kiểm tra thứ tự chứng minh</button></div>`;
+    }
+  }
+
+  const svgHtml = q.svg && Q_SVGS[q.svg] ? Q_SVGS[q.svg] : '';
+  const expHtml = isRevealed ? `<div class="mt-3.5 p-3.5 rounded-xl bg-slate-50 border border-slate-200/90 text-xs sm:text-sm text-slate-700 leading-relaxed"><b class="text-blue-700">Lời giải / Giải thích:</b> ${q.exp}</div>` : '';
+
+  return `<article id="q-card-${q.id}" class="bg-white rounded-2xl border ${isRevealed ? (ev.correct ? 'border-emerald-200' : 'border-rose-200') : 'border-slate-200/80'} shadow-sm p-4 sm:p-5">
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-2.5">
+      <div class="flex flex-wrap items-center gap-1.5">
+        <span class="px-2.5 py-0.5 rounded-lg bg-slate-800 text-white text-xs font-extrabold">Câu ${displayNum}</span>
+        <span class="px-2 py-0.5 rounded-lg bg-slate-100 text-slate-700 text-xs font-semibold">Bài ${q.lesson}</span>
+        <span class="px-2 py-0.5 rounded-lg border text-xs font-semibold ${tm.cls}">${tm.label}</span>
+        <span class="px-2 py-0.5 rounded-lg text-xs font-semibold ${lm.cls}">${lm.label}</span>
+      </div>
+      <div>${statusBadge}</div>
+    </div>
+    <div class="text-sm sm:text-base font-medium text-slate-800 leading-relaxed">${q.q}</div>
+    ${svgHtml}
+    ${bodyHtml}
+    ${expHtml}
+  </article>`;
+}
+
+function renderQuestions() {
+  const list = getFilteredQuestions();
+  const total = list.length;
+  const pageSize = state.mode === 'exam' ? 18 : state.pageSize;
+  const totalPages = Math.max(1, Math.ceil(total / pageSize));
+  if (state.page > totalPages) state.page = totalPages;
+  const start = (state.page - 1) * pageSize;
+  const slice = list.slice(start, start + pageSize);
+
+  const container = document.getElementById('questions-container');
+  if (slice.length === 0) {
+    container.innerHTML = `<div class="bg-white rounded-2xl border border-slate-200 p-10 text-center text-slate-500 text-sm">Không có câu hỏi nào khớp với bộ lọc hiện tại.</div>`;
+  } else {
+    container.innerHTML = slice.map((q, idx) => renderQuestionCard(q, state.mode === 'exam' ? (idx + 1) : q.id)).join('');
+  }
+
+  const countEl = document.getElementById('filter-count');
+  if (countEl) countEl.textContent = total === 0 ? '0 câu khớp bộ lọc' : `Hiển thị ${start + 1}–${Math.min(start + pageSize, total)} / ${total} câu`;
+
+  const pBar = document.getElementById('pagination-bar');
+  if (state.mode === 'exam' || totalPages <= 1) {
+    pBar.innerHTML = '';
+  } else {
+    let pHtml = `<button onclick="goPage(${Math.max(1, state.page - 1)})" ${state.page===1?'disabled':''} class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-semibold disabled:opacity-40 hover:bg-slate-50">← Trước</button>`;
+    for (let p = 1; p <= totalPages; p++) {
+      pHtml += `<button onclick="goPage(${p})" class="w-8 h-8 rounded-lg border text-xs font-bold ${p===state.page ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-slate-700 border-slate-200 hover:bg-blue-50'}">${p}</button>`;
+    }
+    pHtml += `<button onclick="goPage(${Math.min(totalPages, state.page + 1)})" ${state.page===totalPages?'disabled':''} class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-semibold disabled:opacity-40 hover:bg-slate-50">Sau →</button>`;
+    pBar.innerHTML = pHtml;
+  }
+
+  renderKatexIn(container);
+  if (window.lucide) lucide.createIcons();
+  updateStats();
+}
+
+function goPage(p) {
+  state.page = p;
+  renderQuestions();
+  document.getElementById('kho-bai-100').scrollIntoView({ behavior: 'smooth' });
+}
+
+function rerenderSingleCard(qid) {
+  const q = QUESTIONS.find(x => x.id === qid);
+  const el = document.getElementById(`q-card-${qid}`);
+  if (!q || !el) return;
+  const dispNum = state.mode === 'exam' ? (state.examIds.indexOf(qid) + 1) : q.id;
+  const tmp = document.createElement('div');
+  tmp.innerHTML = renderQuestionCard(q, dispNum);
+  const newCard = tmp.firstElementChild;
+  el.replaceWith(newCard);
+  renderKatexIn(newCard);
+  if (window.lucide) lucide.createIcons();
+  updateStats();
+}
+
+// ==================== INTERACTIONS ====================
+function answerMCQ(qid, optIdx) {
+  const store = getAnsStore();
+  const q = QUESTIONS.find(x => x.id === qid);
+  if (state.mode === 'practice') {
+    store[qid] = { val: optIdx, checked: true };
+    saveState();
+    playTone(optIdx === q.ans);
+  } else {
+    if (state.examSubmitted) return;
+    store[qid] = { val: optIdx, checked: false };
+  }
+  rerenderSingleCard(qid);
+}
+
+function selectTF(qid, idx, boolVal) {
+  const store = getAnsStore();
+  if (state.mode === 'exam' && state.examSubmitted) return;
+  const cur = store[qid] || { vals: {}, checked: false };
+  cur.vals = { ...(cur.vals || {}), [idx]: boolVal };
+  if (state.mode === 'practice') cur.checked = false;
+  store[qid] = cur;
+  if (state.mode === 'practice') saveState();
+  rerenderSingleCard(qid);
+}
+
+function updateShortDraft(qid, txtVal) {
+  const store = getAnsStore();
+  const cur = store[qid] || {};
+  store[qid] = { ...cur, val: txtVal, checked: false };
+  if (state.mode === 'practice') saveState();
+  updateStats();
+}
+
+function checkShort(qid) {
+  const inp = document.getElementById(`short-inp-${qid}`);
+  const val = inp ? inp.value : '';
+  if (!val.trim()) { inp && inp.focus(); return; }
+  const q = QUESTIONS.find(x => x.id === qid);
+  state.answers[qid] = { val, checked: true };
+  saveState();
+  const ev = evaluateQuestion(q, state.answers[qid]);
+  playTone(ev.correct);
+  rerenderSingleCard(qid);
+}
+
+function selectMatch(qid, leftIdx, rightOrigVal) {
+  const store = getAnsStore();
+  if (state.mode === 'exam' && state.examSubmitted) return;
+  const cur = store[qid] || { pairs: {}, checked: false };
+  cur.pairs = { ...(cur.pairs || {}) };
+  if (rightOrigVal === '') delete cur.pairs[leftIdx];
+  else cur.pairs[leftIdx] = Number(rightOrigVal);
+  if (state.mode === 'practice') cur.checked = false;
+  store[qid] = cur;
+  if (state.mode === 'practice') saveState();
+  updateStats();
+}
+
+function selectCloze(qid, blankIdx, optIdx) {
+  const store = getAnsStore();
+  if (state.mode === 'exam' && state.examSubmitted) return;
+  const cur = store[qid] || { picks: {}, checked: false };
+  cur.picks = { ...(cur.picks || {}), [blankIdx]: optIdx };
+  if (state.mode === 'practice') cur.checked = false;
+  store[qid] = cur;
+  if (state.mode === 'practice') saveState();
+  rerenderSingleCard(qid);
+}
+
+function moveOrderStep(qid, pos, delta) {
+  const store = getAnsStore();
+  if (state.mode === 'exam' && state.examSubmitted) return;
+  const cur = store[qid] || { seq: [...ORDER_INIT[qid]], checked: false };
+  const seq = cur.seq ? [...cur.seq] : [...ORDER_INIT[qid]];
+  const target = pos + delta;
+  if (target < 0 || target >= seq.length) return;
+  [seq[pos], seq[target]] = [seq[target], seq[pos]];
+  store[qid] = { ...cur, seq, touched: true, checked: false };
+  if (state.mode === 'practice') saveState();
+  rerenderSingleCard(qid);
+}
+
+function checkComposite(qid) {
+  const q = QUESTIONS.find(x => x.id === qid);
+  const cur = state.answers[qid] || {};
+  if (q.type === 'tf' && Object.keys(cur.vals || {}).length < 4) {
+    alert('Hãy chọn Đúng hoặc Sai cho cả 4 mệnh đề (a, b, c, d) trước khi kiểm tra!'); return;
+  }
+  if (q.type === 'match' && Object.keys(cur.pairs || {}).length < 4) {
+    alert('Hãy ghép đủ cả 4 cặp (A, B, C, D) trước khi kiểm tra!'); return;
+  }
+  if (q.type === 'cloze' && Object.keys(cur.picks || {}).length < q.blanks.length) {
+    alert('Hãy chọn đáp án cho tất cả các ô trống trước khi kiểm tra!'); return;
+  }
+  const finalObj = q.type === 'order'
+    ? { seq: cur.seq ? [...cur.seq] : [...ORDER_INIT[qid]], touched: true, checked: true }
+    : { ...cur, checked: true };
+  state.answers[qid] = finalObj;
+  saveState();
+  const ev = evaluateQuestion(q, finalObj);
+  playTone(ev.correct);
+  rerenderSingleCard(qid);
+}
+
+// ==================== STATS & PROGRESS ====================
+function updateStats() {
+  if (state.mode === 'practice') {
+    let done = 0, correct = 0, wrong = 0;
+    QUESTIONS.forEach(q => {
+      const ev = evaluateQuestion(q, state.answers[q.id]);
+      if (ev.status !== 'unanswered') {
+        done++;
+        if (ev.correct) correct++; else wrong++;
+      }
+    });
+    document.getElementById('hdr-done').textContent = done;
+    document.getElementById('hdr-correct').textContent = correct;
+    document.getElementById('stat-done').textContent = done;
+    document.getElementById('stat-pct').textContent = Math.round((done / 100) * 100);
+    document.getElementById('stat-correct').textContent = correct;
+    document.getElementById('stat-wrong').textContent = wrong;
+    document.getElementById('bar-correct').style.width = `${correct}%`;
+    document.getElementById('bar-wrong').style.width = `${wrong}%`;
+  } else {
+    let answered = 0;
+    state.examIds.forEach(id => {
+      const q = QUESTIONS.find(x => x.id === id);
+      const a = state.examAnswers[id];
+      if (!a) return;
+      if (q.type === 'mcq' && a.val !== undefined) answered++;
+      else if (q.type === 'short' && String(a.val || '').trim() !== '') answered++;
+      else if (q.type === 'tf' && a.vals && Object.keys(a.vals).length === 4) answered++;
+      else if (q.type === 'match' && a.pairs && Object.keys(a.pairs).length === 4) answered++;
+      else if (q.type === 'cloze' && a.picks && Object.keys(a.picks).length === q.blanks.length) answered++;
+      else if (q.type === 'order' && a.touched) answered++;
+    });
+    document.getElementById('exam-answered').textContent = answered;
+  }
+}
+
+// ==================== MINI EXAM (18 Qs, 20 min) ====================
+function setMode(mode) {
+  if (state.examTimerRef) { clearInterval(state.examTimerRef); state.examTimerRef = null; }
+  state.mode = mode;
+  document.getElementById('exam-bar').classList.toggle('hidden', mode !== 'exam');
+  document.getElementById('practice-controls').classList.toggle('hidden', mode === 'exam');
+  const bP = document.getElementById('btn-mode-practice');
+  const bE = document.getElementById('btn-mode-exam');
+  if (mode === 'practice') {
+    bP.className = 'px-3.5 py-2 rounded-xl text-xs font-bold border border-blue-600 bg-blue-600 text-white flex items-center gap-1.5';
+    bE.className = 'px-3.5 py-2 rounded-xl text-xs font-bold border border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 flex items-center gap-1.5';
+  } else {
+    bE.className = 'px-3.5 py-2 rounded-xl text-xs font-bold border border-indigo-600 bg-indigo-600 text-white flex items-center gap-1.5';
+    bP.className = 'px-3.5 py-2 rounded-xl text-xs font-bold border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 flex items-center gap-1.5';
+  }
+  renderQuestions();
+}
+
+function startMiniExam() {
+  const pickRand = (arr, n) => [...arr].sort(() => Math.random() - 0.5).slice(0, n);
+  const chosen = [];
+  for (let l = 15; l <= 17; l++) {
+    const lq = QUESTIONS.filter(q => q.lesson === l);
+    chosen.push(...pickRand(lq.filter(q => q.type === 'mcq'), 3));
+    chosen.push(...pickRand(lq.filter(q => q.type === 'short'), 1));
+    chosen.push(...pickRand(lq.filter(q => q.type === 'tf'), 1));
+    chosen.push(...pickRand(lq.filter(q => ['match','cloze','order'].includes(q.type)), 1));
+  }
+  state.examIds = chosen.map(q => q.id);
+  state.examAnswers = {};
+  state.examSubmitted = false;
+  state.examSecondsLeft = 20 * 60;
+  const subBtn = document.getElementById('exam-submit-btn');
+  subBtn.disabled = false;
+  subBtn.textContent = 'Nộp bài & Chấm điểm';
+  setMode('exam');
+  updateTimerDisplay();
+  state.examTimerRef = setInterval(() => {
+    state.examSecondsLeft--;
+    updateTimerDisplay();
+    if (state.examSecondsLeft <= 0) {
+      clearInterval(state.examTimerRef);
+      submitMiniExam();
+    }
+  }, 1000);
+  document.getElementById('kho-bai-100').scrollIntoView({ behavior: 'smooth' });
+}
+
+function updateTimerDisplay() {
+  const m = Math.floor(Math.max(0, state.examSecondsLeft) / 60);
+  const s = Math.max(0, state.examSecondsLeft) % 60;
+  document.getElementById('exam-timer').textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+}
+
+function submitMiniExam() {
+  if (state.examTimerRef) { clearInterval(state.examTimerRef); state.examTimerRef = null; }
+  state.examSubmitted = true;
+  const subBtn = document.getElementById('exam-submit-btn');
+  subBtn.disabled = true;
+  subBtn.textContent = 'Đã nộp bài';
+  renderQuestions();
+  openScoreModal(true);
+}
+
+// ==================== STATS MODAL ====================
+function openScoreModal(isExamReport = false) {
+  const list = isExamReport ? state.examIds.map(id => QUESTIONS.find(q => q.id === id)) : QUESTIONS;
+  const store = isExamReport ? state.examAnswers : state.answers;
+  let totalScore = 0, fullRight = 0, attempted = 0;
+  const byLesson = { 15:{t:0,c:0}, 16:{t:0,c:0}, 17:{t:0,c:0} };
+  const byType = { mcq:{t:0,c:0}, tf:{t:0,c:0}, short:{t:0,c:0}, match:{t:0,c:0}, cloze:{t:0,c:0}, order:{t:0,c:0} };
+
+  list.forEach(q => {
+    const a = isExamReport ? { ...(store[q.id] || {}), checked: true } : store[q.id];
+    const ev = evaluateQuestion(q, a);
+    byLesson[q.lesson].t++;
+    byType[q.type].t++;
+    if (ev.status !== 'unanswered') {
+      attempted++;
+      totalScore += ev.score;
+      if (ev.correct) { fullRight++; byLesson[q.lesson].c++; byType[q.type].c++; }
+    }
+  });
+
+  const score10 = ((totalScore / list.length) * 10).toFixed(2);
+  document.getElementById('modal-title').textContent = isExamReport ? 'Kết quả Đề thi nhanh 18 câu (Chương 4)' : 'Thống kê tiến độ 100 bài tập Chương 4';
+  document.getElementById('btn-review-wrong').classList.toggle('hidden', isExamReport);
+  document.getElementById('modal-body').innerHTML = `
+    <div class="grid grid-cols-3 gap-3 text-center">
+      <div class="bg-blue-50 border border-blue-200 rounded-xl p-3">
+        <div class="text-xs text-blue-600 font-semibold">Điểm quy đổi (thang 10)</div>
+        <div class="text-2xl font-extrabold text-blue-800 mt-1">${score10}</div>
+      </div>
+      <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3">
+        <div class="text-xs text-emerald-600 font-semibold">Đúng trọn vẹn</div>
+        <div class="text-2xl font-extrabold text-emerald-800 mt-1">${fullRight}/${list.length}</div>
+      </div>
+      <div class="bg-slate-50 border border-slate-200 rounded-xl p-3">
+        <div class="text-xs text-slate-600 font-semibold">Đã làm</div>
+        <div class="text-2xl font-extrabold text-slate-800 mt-1">${attempted}/${list.length}</div>
+      </div>
+    </div>
+    <div class="space-y-2.5">
+      <div class="font-bold text-slate-800">Chi tiết theo từng bài học:</div>
+      ${[15,16,17].map(l => {
+        const s = byLesson[l];
+        const pct = s.t ? Math.round((s.c / s.t) * 100) : 0;
+        return `<div class="space-y-1">
+          <div class="flex justify-between text-xs font-semibold"><span>${LESSON_NAMES[l]}</span><span>Đúng ${s.c}/${s.t} (${pct}%)</span></div>
+          <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden"><div class="bg-blue-600 h-full" style="width:${pct}%"></div></div>
+        </div>`;
+      }).join('')}
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-2 border-t border-slate-100 text-center text-xs">
+      ${Object.entries(byType).filter(([,v]) => v.t > 0).map(([k, v]) => `<div class="bg-slate-50 rounded-xl p-2.5 border border-slate-200"><div class="font-bold text-slate-700">${TYPE_META[k].label}</div><div class="text-blue-700 font-extrabold mt-0.5">${v.c}/${v.t}</div></div>`).join('')}
+    </div>`;
+  document.getElementById('score-modal').classList.remove('hidden');
+  if (window.lucide) lucide.createIcons();
+}
+
+function closeScoreModal() {
+  document.getElementById('score-modal').classList.add('hidden');
+}
+
+function reviewWrongQuestions() {
+  closeScoreModal();
+  setMode('practice');
+  setFilter('lesson', 'all');
+  setFilter('type', 'all');
+  setFilter('level', 'all');
+  setFilter('status', 'wrong');
+  document.getElementById('kho-bai-100').scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetAllProgress() {
+  if (!confirm('Bạn có chắc muốn xóa toàn bộ kết quả đã làm ở Chương 4 để luyện lại từ đầu không?')) return;
+  state.answers = {};
+  saveState();
+  setMode('practice');
+}
+
+// ==================== INIT ====================
+window.addEventListener('load', () => {
+  loadState();
+  selectMindNode(15);
+  renderKatexIn(document.getElementById('tong-hop-kien-thuc'));
+  renderQuestions();
+  if (window.lucide) lucide.createIcons();
+});
+</script>
+</body></html>
