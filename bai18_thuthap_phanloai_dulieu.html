@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài 18: Thu thập và phân loại dữ liệu - Toán 8</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+:root{--ink:#1e293b;--blue:#2563eb;--line:#cbd5e1}
+html{scroll-behavior:smooth}body{font-family:Inter,sans-serif;background:#f8fafc;color:var(--ink)}
+.math-block{overflow-x:auto;padding:.65rem .25rem}.katex{font-size:1.04em}.katex-display{margin:.55rem 0;overflow-x:auto;overflow-y:hidden}
+details>summary{list-style:none}details>summary::-webkit-details-marker{display:none}
+.diagram{width:100%;max-width:680px;height:auto;margin:0 auto;display:block;background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:12px}
+.solution{line-height:1.8}.formula{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:.75rem 1rem}
+@media print{header,.no-print,aside{display:none!important}body{background:#fff}.shadow-sm{box-shadow:none!important}.solution{display:block!important}main{max-width:100%!important;padding:0!important}.diagram{max-width:560px}.bg-white{break-inside:avoid}}
+</style>
+</head>
+<body class="antialiased selection:bg-blue-600 selection:text-white">
+
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-sm no-print">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+    <a href="index.html" class="flex items-center gap-2 text-slate-600 hover:text-blue-600 bg-slate-100 hover:bg-blue-50 px-3 py-2 rounded-xl text-sm font-medium">
+      <i data-lucide="arrow-left" class="w-4 h-4"></i><span>Trang chủ Toán 8</span>
+    </a>
+    <div class="flex items-center gap-2">
+      <button id="toggle-all-btn" onclick="toggleAllSolutions()" class="flex items-center gap-1.5 text-xs font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 px-3 py-2 rounded-xl">
+        <i data-lucide="eye" class="w-4 h-4"></i><span>Hiện tất cả lời giải</span>
+      </button>
+      <button onclick="window.print()" class="flex items-center gap-1.5 text-xs font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 px-3 py-2 rounded-xl">
+        <i data-lucide="printer" class="w-4 h-4"></i><span class="hidden sm:inline">In bài</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-10 sm:py-12 border-b border-blue-900/20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-wrap items-center gap-2 mb-3">
+      <span class="bg-white/15 text-xs font-semibold px-3 py-1 rounded-full border border-white/20">Bài 18 • Bài 1 Chương 5</span>
+      <span class="text-blue-100 text-sm">Thống kê 8 • Lý thuyết, luyện tập và tự luyện</span>
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">THU THẬP VÀ PHÂN LOẠI DỮ LIỆU</h1>
+    <p class="mt-3 text-blue-100 text-sm sm:text-base max-w-3xl">Phân biệt phương pháp thu thập dữ liệu trực tiếp và gián tiếp; nhận diện tính đại diện của dữ liệu; phân loại dữ liệu là số (rời rạc, liên tục) và dữ liệu không là số (có thể hoặc không thể sắp thứ tự).</p>
+  </div>
+</section>
+
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+    <!-- MỤC LỤC BÊN TRÁI -->
+    <aside class="lg:col-span-3 lg:sticky lg:top-24 bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm max-h-[calc(100vh-7rem)] overflow-y-auto no-print">
+      <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
+        <i data-lucide="list" class="w-4 h-4 text-blue-600"></i>Mục lục bài học
+      </h2>
+      <nav class="space-y-1 text-sm font-medium">
+        <a href="#ly-thuyet" class="block px-3 py-2 rounded-lg bg-blue-50 text-blue-700">I. Lý thuyết</a>
+        <a href="#thu-thap" class="block pl-5 py-1 text-slate-600 hover:text-blue-600">1) Thu thập dữ liệu</a>
+        <a href="#phan-loai" class="block pl-5 py-1 text-slate-600 hover:text-blue-600">2) Phân loại dữ liệu</a>
+
+        <a href="#luyen-tap" class="block px-3 py-2 rounded-lg bg-indigo-50 text-indigo-700 mt-2">II. Luyện tập</a>
+        <a href="#lt-bai1" class="block pl-5 py-1 text-slate-600 hover:text-indigo-600">Bài 1 – Trực tiếp hay gián tiếp</a>
+        <a href="#lt-bai2" class="block pl-5 py-1 text-slate-600 hover:text-indigo-600">Bài 2 – Thời gian tự học ở nhà</a>
+        <a href="#lt-bai3" class="block pl-5 py-1 text-slate-600 hover:text-indigo-600">Bài 3 – Kết quả bài toán tìm x</a>
+
+        <a href="#tu-luyen" class="block px-3 py-2 rounded-lg bg-violet-50 text-violet-700 mt-2">III. Bài tập tự luyện</a>
+        <a href="#tl-bai1" class="block pl-5 py-0.5 text-slate-600 hover:text-violet-700 text-xs">Bài 1 – Phân loại dữ liệu (1)</a>
+        <a href="#tl-bai2" class="block pl-5 py-0.5 text-slate-600 hover:text-violet-700 text-xs">Bài 2 – Phân loại dữ liệu (2)</a>
+        <a href="#tl-bai3" class="block pl-5 py-0.5 text-slate-600 hover:text-violet-700 text-xs">Bài 3 – Chọn cách thu thập</a>
+        <a href="#tl-bai4" class="block pl-5 py-0.5 text-slate-600 hover:text-violet-700 text-xs">Bài 4 – Khuyến cáo WHO</a>
+        <a href="#tl-bai5" class="block pl-5 py-0.5 text-slate-600 hover:text-violet-700 text-xs">Bài 5 – Liên tục hay rời rạc</a>
+        <a href="#tl-bai6" class="block pl-5 py-0.5 text-slate-600 hover:text-violet-700 text-xs">Bài 6 – Danh sách mừng thọ</a>
+        <a href="#tl-bai7" class="block pl-5 py-0.5 text-slate-600 hover:text-violet-700 text-xs">Bài 7 – Khen thưởng khuyến học</a>
+      </nav>
+    </aside>
+
+    <!-- NỘI DUNG CHÍNH -->
+    <div class="lg:col-span-9 space-y-12">
+
+      <!-- I. LÝ THUYẾT -->
+      <section id="ly-thuyet" class="space-y-6">
+        <div class="flex items-center gap-3 border-b border-slate-200 pb-3">
+          <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold shadow-sm">I</div>
+          <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight">LÝ THUYẾT</h2>
+        </div>
+
+        <!-- Mục 1 -->
+        <div id="thu-thap" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+          <div class="bg-slate-50 border-b border-slate-200 px-6 py-4">
+            <h3 class="text-lg font-bold">1) Thu thập dữ liệu</h3>
+          </div>
+          <div class="p-5 sm:p-6 space-y-5 text-sm sm:text-base leading-relaxed">
+            <div class="space-y-2.5">
+              <p><b>Ví dụ 1:</b> Một số bạn trong tổ một đã thu thập dữ liệu như sau:</p>
+              <ul class="list-disc pl-6 space-y-1 text-slate-700">
+                <li><b>Bạn Nam:</b> Lập bảng hỏi các bạn về điểm kiểm tra giữa học kì 2 của các bạn trong lớp.</li>
+                <li><b>Bạn Hương:</b> Tra thông tin trên mạng về các hãng xe máy đang bán trên thị trường.</li>
+                <li><b>Bạn Ánh:</b> Kiểm tra số km đi được của xe máy các thầy cô ở trong trường.</li>
+              </ul>
+              <p class="text-slate-700">Trong các cách thu thập dữ liệu trên, <b>bạn Nam</b> và <b>bạn Ánh</b> đã thu thập dữ liệu một cách <b>trực tiếp</b>, còn <b>bạn Hương</b> đã thu thập dữ liệu một cách <b>gián tiếp</b>.</p>
+            </div>
+
+            <div class="bg-blue-50/80 border-l-4 border-blue-600 rounded-r-xl p-4 space-y-2">
+              <b class="text-blue-800">Kết luận</b>
+              <ul class="list-disc pl-5 space-y-1.5">
+                <li>Thu thập dữ liệu có thể là <b>trực tiếp</b> hoặc <b>gián tiếp</b>:</li>
+                <li><b>Thu thập dữ liệu trực tiếp</b> là việc thu thập dữ liệu thông qua quan sát, làm thí nghiệm, lập bảng hỏi, phỏng vấn, …</li>
+                <li><b>Thu thập dữ liệu gián tiếp</b> là việc thu thập dữ liệu từ những nguồn có sẵn như sách, báo, mạng internet, …</li>
+                <li>Để có thể đưa ra các kết luận hợp lí, dữ liệu thu thập được phải <b>đảm bảo tính đại diện</b> cho toàn bộ đối tượng đang được quan tâm.</li>
+              </ul>
+            </div>
+
+            <div class="pt-3 border-t border-slate-100 space-y-3">
+              <p><b>Ví dụ 2:</b> Để thu thập các dữ liệu sau, ta nên làm như thế nào và cách đó là thu thập dữ liệu trực tiếp hay gián tiếp?</p>
+              <div class="pl-4 space-y-1">
+                <p>a) Dữ liệu về số người trong mỗi nhà của các nhà gần nhà em.</p>
+                <p>b) Dữ liệu thông tin dự báo thời tiết trong $7$ ngày tới.</p>
+              </div>
+              <div class="formula space-y-2 text-sm sm:text-base">
+                <p><b>Giải:</b></p>
+                <p>a) Nếu đến từng nhà và hỏi về số người trong mỗi gia đình thì đó là cách thu thập dữ liệu <b>trực tiếp</b>. Nếu nhờ bác tổ trưởng tổ dân phố hay trưởng xóm cung cấp danh sách thì đó là cách thu thập dữ liệu <b>gián tiếp</b>.</p>
+                <p>b) Để có thông tin về dự báo thời tiết trong $7$ ngày tới ta có thể vào mạng internet để xem; cách thu thập này là cách thu thập dữ liệu <b>gián tiếp</b>.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mục 2 -->
+        <div id="phan-loai" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+          <div class="bg-slate-50 border-b border-slate-200 px-6 py-4">
+            <h3 class="text-lg font-bold">2) Phân loại dữ liệu</h3>
+          </div>
+          <div class="p-5 sm:p-6 space-y-5 text-sm sm:text-base leading-relaxed">
+            <div class="space-y-2.5">
+              <p><b>Ví dụ 3:</b> Cho hai dãy dữ liệu về số liệu như sau:</p>
+              <div class="pl-4 space-y-1">
+                <p>a) Cân nặng của $4$ bạn trong một nhóm: $49{,}2\text{ kg};\; 48{,}9\text{ kg};\; 50{,}3\text{ kg};\; 51{,}1\text{ kg}$.</p>
+                <p>b) Số bút của $4$ bạn trong nhóm trên mang để trong cặp: $2;\; 3;\; 1;\; 3$.</p>
+              </div>
+              <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-1.5 text-slate-700">
+                <p><b>Nhận thấy:</b></p>
+                <p>• Số cân nặng có thể là một giá trị tùy ý nào đó trong khoảng từ $45\text{ kg}$ đến $55\text{ kg}$ nên được gọi là <b>số liệu liên tục</b>.</p>
+                <p>• Số bút bi của một bạn nào đó không thể nhận được giá trị lớn hơn $2$ và nhỏ hơn $3$ nên được gọi là <b>số liệu rời rạc</b>.</p>
+              </div>
+            </div>
+
+            <div class="bg-emerald-50 border-l-4 border-emerald-600 rounded-r-xl p-4 space-y-2">
+              <b class="text-emerald-800">Kết luận</b>
+              <ul class="list-disc pl-5 space-y-1.5">
+                <li><b>Số liệu liên tục:</b> Số liệu nhận giá trị tùy ý trong một khoảng nào đó (dạng số liệu hay gặp là: chiều cao, cân nặng, nhiệt độ, thời gian, …).</li>
+                <li><b>Số liệu rời rạc:</b> Số liệu chỉ nhận các giá trị cụ thể, đếm được (như số người, số quyển sách, số sản phẩm, …).</li>
+                <li><b>Dữ liệu không là số (định tính):</b> Gồm hai loại là <i>không thể sắp thứ tự</i> (tên môn học, tên địa danh, hãng xe, …) và <i>có thể sắp thứ tự</i> (xếp loại học lực, mức độ hài lòng, …).</li>
+              </ul>
+            </div>
+
+            <!-- Sơ đồ phân loại dữ liệu -->
+            <figure class="space-y-2">
+              <svg class="diagram" viewBox="0 0 680 258" role="img" aria-label="Sơ đồ phân loại dữ liệu">
+                <defs>
+                  <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+                    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#475569"/>
+                  </marker>
+                </defs>
+                <!-- Đường nối -->
+                <line x1="340" y1="52" x2="176" y2="94" stroke="#475569" stroke-width="1.7" marker-end="url(#arrow)"/>
+                <line x1="340" y1="52" x2="504" y2="94" stroke="#475569" stroke-width="1.7" marker-end="url(#arrow)"/>
+                <line x1="170" y1="138" x2="92" y2="184" stroke="#475569" stroke-width="1.7" marker-end="url(#arrow)"/>
+                <line x1="170" y1="138" x2="248" y2="184" stroke="#475569" stroke-width="1.7" marker-end="url(#arrow)"/>
+                <line x1="510" y1="138" x2="420" y2="184" stroke="#475569" stroke-width="1.7" marker-end="url(#arrow)"/>
+                <line x1="510" y1="138" x2="588" y2="184" stroke="#475569" stroke-width="1.7" marker-end="url(#arrow)"/>
+
+                <!-- Cấp 1 -->
+                <rect x="274" y="14" width="132" height="38" rx="10" fill="#1e3a8a"/>
+                <text x="340" y="34" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="Inter,sans-serif" font-size="14" font-weight="700">Dữ liệu</text>
+
+                <!-- Cấp 2 -->
+                <rect x="64" y="96" width="212" height="42" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="1.7"/>
+                <text x="170" y="117" text-anchor="middle" dominant-baseline="central" fill="#1e3a8a" font-family="Inter,sans-serif" font-size="13.5" font-weight="700">Dữ liệu là số (số liệu)</text>
+
+                <rect x="404" y="96" width="212" height="42" rx="10" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.7"/>
+                <text x="510" y="117" text-anchor="middle" dominant-baseline="central" fill="#5b21b6" font-family="Inter,sans-serif" font-size="13.5" font-weight="700">Dữ liệu không là số</text>
+
+                <!-- Cấp 3 -->
+                <rect x="16" y="186" width="148" height="54" rx="10" fill="#ffffff" stroke="#3b82f6" stroke-width="1.5"/>
+                <text x="90" y="213" text-anchor="middle" dominant-baseline="central" fill="#1e293b" font-family="Inter,sans-serif" font-size="13" font-weight="600">Số liệu rời rạc</text>
+
+                <rect x="174" y="186" width="148" height="54" rx="10" fill="#ffffff" stroke="#3b82f6" stroke-width="1.5"/>
+                <text x="248" y="213" text-anchor="middle" dominant-baseline="central" fill="#1e293b" font-family="Inter,sans-serif" font-size="13" font-weight="600">Số liệu liên tục</text>
+
+                <rect x="336" y="186" width="166" height="54" rx="10" fill="#ffffff" stroke="#8b5cf6" stroke-width="1.5"/>
+                <text x="419" y="204" text-anchor="middle" dominant-baseline="central" fill="#1e293b" font-family="Inter,sans-serif" font-size="12.5" font-weight="600">Dữ liệu không là số,</text>
+                <text x="419" y="223" text-anchor="middle" dominant-baseline="central" fill="#1e293b" font-family="Inter,sans-serif" font-size="12.5" font-weight="600">không thể sắp thứ tự</text>
+
+                <rect x="510" y="186" width="156" height="54" rx="10" fill="#ffffff" stroke="#8b5cf6" stroke-width="1.5"/>
+                <text x="588" y="204" text-anchor="middle" dominant-baseline="central" fill="#1e293b" font-family="Inter,sans-serif" font-size="12.5" font-weight="600">Dữ liệu không là số,</text>
+                <text x="588" y="223" text-anchor="middle" dominant-baseline="central" fill="#1e293b" font-family="Inter,sans-serif" font-size="12.5" font-weight="600">có thể sắp thứ tự</text>
+              </svg>
+              <figcaption class="text-center text-xs text-slate-500 italic">Sơ đồ hệ thống phân loại dữ liệu thống kê</figcaption>
+            </figure>
+
+            <div class="pt-3 border-t border-slate-100 space-y-3">
+              <p><b>Ví dụ 4:</b> Hãy cho biết trong các câu sau, đâu là dữ liệu liên tục, đâu là dữ liệu rời rạc:</p>
+              <div class="pl-4 space-y-1">
+                <p>a) Số đồng hồ có trong nhà của các bạn tổ 1 là: $3;\; 4;\; 2;\; 1$.</p>
+                <p>b) Thời gian hoàn thành một bài tập về nhà: $4{,}5\text{ phút};\; 5{,}1\text{ phút};\; 9{,}2\text{ phút}$.</p>
+              </div>
+              <div class="formula space-y-1.5 text-sm sm:text-base">
+                <p><b>Giải:</b></p>
+                <p>a) Đây là <b>dãy dữ liệu rời rạc</b> (số đồng hồ chỉ nhận các giá trị tự nhiên đếm được).</p>
+                <p>b) Đây là <b>dãy dữ liệu liên tục</b> (thời gian có thể nhận giá trị tùy ý trong một khoảng).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- II. LUYỆN TẬP -->
+      <section id="luyen-tap" class="space-y-7">
+        <div class="flex items-center gap-3 border-b border-slate-200 pb-3">
+          <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold">II</div>
+          <div>
+            <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight">LUYỆN TẬP</h2>
+            <p class="text-xs text-slate-500">Các bài tập và lời giải theo tài liệu gốc</p>
+          </div>
+        </div>
+
+        <!-- LT Bài 1 -->
+        <div id="lt-bai1" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 sm:p-6 space-y-4">
+          <h3 class="font-bold text-lg"><span class="text-indigo-600">Bài 1:</span> Em hãy thu thập các dữ liệu sau và cho biết dữ liệu mà em thu thập được là trực tiếp hay gián tiếp.</h3>
+          <div class="space-y-1.5 text-sm sm:text-base pl-3">
+            <p>a) Họ và tên các bạn tổ của mình.</p>
+            <p>b) Số trang của mỗi chương trong sách Toán 8 mà em đang học.</p>
+          </div>
+          <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+            <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50">
+              <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i>Xem lời giải chi tiết Bài 1</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 group-open:rotate-180 transition-transform"></i>
+            </summary>
+            <div class="solution p-4 bg-white border-t border-indigo-100 space-y-3 text-sm sm:text-base">
+              <p><b>a)</b> Học sinh tự thu thập bằng cách hỏi các bạn cùng tổ. Cách thu thập này là <b>trực tiếp</b>.</p>
+              <p><b>b)</b> Học sinh mở mục lục SGK Toán 8 và đếm số trang của mỗi chương:</p>
+              <div class="formula grid grid-cols-2 sm:grid-cols-3 gap-2 text-sm">
+                <span>• Chương 1: <b>$27$ trang</b></span>
+                <span>• Chương 2: <b>$19$ trang</b></span>
+                <span>• Chương 3: <b>$27$ trang</b></span>
+                <span>• Chương 4: <b>$14$ trang</b></span>
+                <span>• Chương 5: <b>$20$ trang</b></span>
+              </div>
+              <p>Đây là cách thu thập <b>gián tiếp</b> (lấy từ nguồn tài liệu có sẵn là sách giáo khoa).</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- LT Bài 2 -->
+        <div id="lt-bai2" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 sm:p-6 space-y-4">
+          <h3 class="font-bold text-lg"><span class="text-indigo-600">Bài 2:</span> Em muốn ước lượng thời gian tự học của các bạn ở nhà.</h3>
+          <div class="space-y-1.5 text-sm sm:text-base pl-3">
+            <p>a) Em muốn thu thập dữ liệu này em sẽ làm gì? Đó là cách thu thập gián tiếp hay trực tiếp?</p>
+            <p>b) Dữ liệu mà em thu thập được là số liệu hay không, nếu có thì nó có phải là liên tục không?</p>
+          </div>
+          <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+            <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50">
+              <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i>Xem lời giải chi tiết Bài 2</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 group-open:rotate-180 transition-transform"></i>
+            </summary>
+            <div class="solution p-4 bg-white border-t border-indigo-100 space-y-2.5 text-sm sm:text-base">
+              <p><b>a)</b> Để thu thập dữ liệu về thời gian tự học của các bạn ở nhà, em có thể đến hỏi trực tiếp từng bạn (hoặc phát phiếu khảo sát). Đây là cách thu thập <b>trực tiếp</b>.</p>
+              <p><b>b)</b> Dữ liệu thu thập được <b>là số liệu</b> và nó là <b>số liệu liên tục</b> (vì thời gian có thể nhận giá trị tùy ý trong một khoảng).</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- LT Bài 3 -->
+        <div id="lt-bai3" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 sm:p-6 space-y-4">
+          <h3 class="font-bold text-lg"><span class="text-indigo-600">Bài 3:</span> Cô Hải giao cho cả lớp một bài toán tìm $x$ để về nhà làm.</h3>
+          <div class="space-y-1.5 text-sm sm:text-base pl-3">
+            <p>a) Để thu thập kết quả của bài toán đó, cô Hải có thể sử dụng phương pháp thu thập nào?</p>
+            <p>b) Dữ liệu thu thập được có phải là số liệu hay không? Đây là dữ liệu liên tục hay rời rạc?</p>
+          </div>
+          <details class="group bg-indigo-50/50 rounded-xl border border-indigo-100 overflow-hidden">
+            <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-indigo-700 flex items-center justify-between hover:bg-indigo-50">
+              <span class="flex items-center gap-2"><i data-lucide="help-circle" class="w-4 h-4"></i>Xem lời giải chi tiết Bài 3</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 group-open:rotate-180 transition-transform"></i>
+            </summary>
+            <div class="solution p-4 bg-white border-t border-indigo-100 space-y-2.5 text-sm sm:text-base">
+              <p><b>a)</b> Để thu thập kết quả bài toán đó, cô Hải có thể gọi từng bạn đọc kết quả đã làm của mình ở nhà (hoặc thu vở bài tập). Đây là phương pháp thu thập <b>trực tiếp</b>.</p>
+              <p><b>b)</b> Dữ liệu thu thập được của cô Hải <b>là số liệu</b> và số liệu này là <b>số liệu liên tục</b> (vì kết quả $x$ trong bài toán tìm $x$ có thể nhận giá trị số thực tùy ý).</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- III. BÀI TẬP TỰ LUYỆN -->
+      <section id="tu-luyen" class="space-y-7">
+        <div class="flex items-center gap-3 border-b border-slate-200 pb-3">
+          <div class="w-10 h-10 rounded-xl bg-violet-600 text-white flex items-center justify-center font-bold">III</div>
+          <div>
+            <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight">BÀI TẬP TỰ LUYỆN</h2>
+            <p class="text-xs text-slate-500">7 bài tập tổng hợp – kèm lời giải chi tiết từng câu</p>
+          </div>
+        </div>
+
+        <!-- TL Bài 1 -->
+        <div id="tl-bai1" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 sm:p-6 space-y-4">
+          <h3 class="font-bold text-lg"><span class="text-violet-700">Bài 1:</span> Dữ liệu thu thập được ở mỗi câu sau thuộc loại dữ liệu nào?</h3>
+          <div class="space-y-1.5 text-sm sm:text-base pl-3">
+            <p>a) Tên các hãng điện thoại.</p>
+            <p>b) Số tiền có trong túi.</p>
+            <p>c) Số điểm trong bài kiểm tra của một học sinh.</p>
+          </div>
+          <details class="group bg-violet-50/50 rounded-xl border border-violet-100 overflow-hidden">
+            <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-violet-800 flex justify-between items-center hover:bg-violet-50">
+              <span>Xem lời giải chi tiết Bài 1</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 group-open:rotate-180 transition-transform"></i>
+            </summary>
+            <div class="solution p-4 bg-white border-t border-violet-100 space-y-2.5 text-sm sm:text-base">
+              <p><b>a)</b> Tên các hãng điện thoại (như Apple, Samsung, Xiaomi, Oppo, …): là <b>dữ liệu không là số, không thể sắp thứ tự</b>.</p>
+              <p><b>b)</b> Số tiền có trong túi: là <b>dữ liệu là số (số liệu rời rạc)</b> vì tiền mặt có các mệnh giá xác định, không nhận giá trị thực tùy ý ở giữa hai mệnh giá nhỏ nhất.</p>
+              <p><b>c)</b> Số điểm kiểm tra của một học sinh: là <b>dữ liệu là số (số liệu rời rạc)</b> vì điểm kiểm tra chỉ nhận các mức cụ thể (chẳng hạn theo bậc $0{,}25$ hoặc $0{,}5$ từ $0$ đến $10$).</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- TL Bài 2 -->
+        <div id="tl-bai2" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 sm:p-6 space-y-4">
+          <h3 class="font-bold text-lg"><span class="text-violet-700">Bài 2:</span> Dữ liệu thu thập được ở mỗi câu sau thuộc loại dữ liệu nào?</h3>
+          <div class="space-y-1.5 text-sm sm:text-base pl-3">
+            <p>a) Tên các môn học mà em đang học.</p>
+            <p>b) Thời gian ngủ trưa của các thành viên trong gia đình em.</p>
+            <p>c) Số sản phẩm bán được của một cửa hàng bán quần áo.</p>
+          </div>
+          <details class="group bg-violet-50/50 rounded-xl border border-violet-100 overflow-hidden">
+            <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-violet-800 flex justify-between items-center hover:bg-violet-50">
+              <span>Xem lời giải chi tiết Bài 2</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 group-open:rotate-180 transition-transform"></i>
+            </summary>
+            <div class="solution p-4 bg-white border-t border-violet-100 space-y-2.5 text-sm sm:text-base">
+              <p><b>a)</b> Tên các môn học đang học (Toán, Ngữ văn, Tiếng Anh, …): là <b>dữ liệu không là số, không thể sắp thứ tự</b>.</p>
+              <p><b>b)</b> Thời gian ngủ trưa của các thành viên trong gia đình: là <b>dữ liệu là số (số liệu liên tục)</b> vì thời gian nhận giá trị tùy ý trong một khoảng.</p>
+              <p><b>c)</b> Số sản phẩm bán được của cửa hàng quần áo: là <b>dữ liệu là số (số liệu rời rạc)</b> vì số lượng sản phẩm chỉ nhận các giá trị tự nhiên đếm được ($0;\; 1;\; 2;\; \dots$).</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- TL Bài 3 -->
+        <div id="tl-bai3" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 sm:p-6 space-y-4">
+          <h3 class="font-bold text-lg"><span class="text-violet-700">Bài 3:</span> Nên sử dụng phương pháp thu thập dữ liệu nào để có được dữ liệu ở mỗi câu sau?</h3>
+          <div class="space-y-1.5 text-sm sm:text-base pl-3">
+            <p>a) Tên của các loài chim đẹp nhất.</p>
+            <p>b) Tên món ăn mà mẹ em hay nấu.</p>
+            <p>c) Số lần bố mẹ cho đi chơi trong một tháng của bản thân.</p>
+          </div>
+          <details class="group bg-violet-50/50 rounded-xl border border-violet-100 overflow-hidden">
+            <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-violet-800 flex justify-between items-center hover:bg-violet-50">
+              <span>Xem lời giải chi tiết Bài 3</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 group-open:rotate-180 transition-transform"></i>
+            </summary>
+            <div class="solution p-4 bg-white border-t border-violet-100 space-y-2.5 text-sm sm:text-base">
+              <p><b>a)</b> Tra cứu qua sách, báo, tạp chí khoa học hoặc mạng internet (phương pháp thu thập <b>gián tiếp</b>).</p>
+              <p><b>b)</b> Quan sát thực tế hằng ngày hoặc phỏng vấn, hỏi trực tiếp mẹ (phương pháp thu thập <b>trực tiếp</b>).</p>
+              <p><b>c)</b> Quan sát, tự theo dõi và ghi chép lại trong suốt tháng (phương pháp thu thập <b>trực tiếp</b>).</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- TL Bài 4 -->
+        <div id="tl-bai4" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 sm:p-6 space-y-4">
+          <h3 class="font-bold text-lg"><span class="text-violet-700">Bài 4:</span> Theo WHO khuyến cáo, thuốc lá điện tử (làm nóng) tạo ra chất khí độc hại, có nhiều chất độc giống như trong khói thuốc lá điếu thông thường.</h3>
+          <div class="space-y-1.5 text-sm sm:text-base pl-3">
+            <p>a) Em thu thập dữ liệu các chất độc hại đó bằng cách nào? Cách thu thập đó là trực tiếp hay gián tiếp?</p>
+            <p>b) Em hãy thu thập thêm các dữ liệu về tác hại của thuốc lá điện tử và cho biết các dữ liệu đó có phải là số liệu hay không, hay là loại dữ liệu gì?</p>
+          </div>
+          <details class="group bg-violet-50/50 rounded-xl border border-violet-100 overflow-hidden">
+            <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-violet-800 flex justify-between items-center hover:bg-violet-50">
+              <span>Xem lời giải chi tiết Bài 4</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 group-open:rotate-180 transition-transform"></i>
+            </summary>
+            <div class="solution p-4 bg-white border-t border-violet-100 space-y-2.5 text-sm sm:text-base">
+              <p><b>a)</b> Để biết danh sách các chất độc hại trong thuốc lá điện tử, em tra cứu từ các báo cáo chính thức của Tổ chức Y tế Thế giới (WHO), Bộ Y tế, sách báo hoặc mạng internet uy tín. Cách thu thập này là <b>gián tiếp</b>.</p>
+              <p><b>b)</b> Các dữ liệu về tác hại của thuốc lá điện tử (ví dụ: gây nghiện nicotine, tổn thương phổi cấp tính, ảnh hưởng đến sự phát triển não bộ ở thanh thiếu niên, tăng nguy cơ bệnh tim mạch, …) là <b>dữ liệu không phải là số, không thể sắp thứ tự</b>.</p>
+              <p class="text-xs text-slate-500"><i>Ghi chú:</i> Nếu học sinh thu thập thêm tỉ lệ phần trăm người mắc bệnh hoặc hàm lượng chất độc tính bằng đơn vị đo thì những dữ liệu đó là <b>số liệu liên tục</b>.</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- TL Bài 5 -->
+        <div id="tl-bai5" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 sm:p-6 space-y-4">
+          <h3 class="font-bold text-lg"><span class="text-violet-700">Bài 5:</span> Cho các dãy dữ liệu là số liệu sau, em hãy cho biết đâu là dữ liệu liên tục, đâu là dữ liệu rời rạc:</h3>
+          <div class="space-y-1.5 text-sm sm:text-base pl-3">
+            <p>a) Nhiệt độ không khí trung bình $5$ ngày trong tháng $1/2023$ là: $17{,}3^\circ\text{C};\; 17{,}5^\circ\text{C};\; 18{,}1^\circ\text{C};\; 17{,}9^\circ\text{C};\; 16{,}9^\circ\text{C}$.</p>
+            <p>b) Số đôi giày của các thành viên trong một gia đình: $2;\; 4;\; 6;\; 3$.</p>
+            <p>c) Số công tơ điện của một hộ gia đình trong $5$ giờ liên tiếp là: $133{,}4\text{ kW.h};\; 134{,}1\text{ kW.h};\; 135{,}0\text{ kW.h};\; 137{,}7\text{ kW.h};\; 140{,}2\text{ kW.h}$.</p>
+            <p>d) Số học sinh vi phạm nội quy của lớp $8\text{A}$ trong $4$ tuần của tháng $3$ là: $6;\; 3;\; 7;\; 6$.</p>
+          </div>
+          <details class="group bg-violet-50/50 rounded-xl border border-violet-100 overflow-hidden">
+            <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-violet-800 flex justify-between items-center hover:bg-violet-50">
+              <span>Xem lời giải chi tiết Bài 5</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 group-open:rotate-180 transition-transform"></i>
+            </summary>
+            <div class="solution p-4 bg-white border-t border-violet-100 space-y-2.5 text-sm sm:text-base">
+              <p><b>a) Dữ liệu liên tục</b> (nhiệt độ không khí có thể nhận giá trị thực tùy ý trong một khoảng).</p>
+              <p><b>b) Dữ liệu rời rạc</b> (số đôi giày là số tự nhiên đếm được, không thể có $2{,}5$ đôi giày).</p>
+              <p><b>c) Dữ liệu liên tục</b> (chỉ số điện năng tiêu thụ kW.h có thể nhận giá trị thực tùy ý trong một khoảng).</p>
+              <p><b>d) Dữ liệu rời rạc</b> (số học sinh vi phạm nội quy chỉ nhận các giá trị tự nhiên đếm được).</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- TL Bài 6 -->
+        <div id="tl-bai6" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 sm:p-6 space-y-4">
+          <h3 class="font-bold text-lg"><span class="text-violet-700">Bài 6:</span> Để mừng thọ các cụ vào đầu xuân, bác tổ trưởng hội người cao tuổi trong thôn cần lên danh sách các cụ năm nay tròn $70$ tuổi, $80$ tuổi và $90$ tuổi để mừng thọ.</h3>
+          <div class="space-y-1.5 text-sm sm:text-base pl-3">
+            <p>a) Bác tổ trưởng có cách nào để thu thập dữ liệu trên? Cách đó là trực tiếp hay gián tiếp?</p>
+            <p>b) Trong các dữ liệu bác tổ trưởng thu được, dữ liệu nào không phải là số, dữ liệu nào là số? Dữ liệu là số có phải là dữ liệu liên tục hay không? Dữ liệu không phải là số có thể sắp thứ tự hay không?</p>
+          </div>
+          <details class="group bg-violet-50/50 rounded-xl border border-violet-100 overflow-hidden">
+            <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-violet-800 flex justify-between items-center hover:bg-violet-50">
+              <span>Xem lời giải chi tiết Bài 6</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 group-open:rotate-180 transition-transform"></i>
+            </summary>
+            <div class="solution p-4 bg-white border-t border-violet-100 space-y-2.5 text-sm sm:text-base">
+              <p><b>a)</b> Bác tổ trưởng có thể chọn một trong hai cách:</p>
+              <ul class="list-disc pl-6 space-y-1">
+                <li>Đến hỏi trực tiếp từng hộ gia đình trong thôn → cách thu thập <b>trực tiếp</b>.</li>
+                <li>Tra cứu từ danh sách hội viên người cao tuổi hoặc sổ quản lí nhân khẩu của thôn, xã → cách thu thập <b>gián tiếp</b>.</li>
+              </ul>
+              <p><b>b)</b> Phân loại dữ liệu thu được:</p>
+              <ul class="list-disc pl-6 space-y-1">
+                <li><b>Dữ liệu không phải là số:</b> Họ và tên các cụ, địa chỉ/xóm. Dữ liệu này <b>không thể sắp thứ tự</b> (theo cấp bậc giá trị).</li>
+                <li><b>Dữ liệu là số:</b> Số tuổi tròn mừng thọ ($70;\; 80;\; 90$) và số lượng các cụ ở từng độ tuổi. Đây là <b>số liệu rời rạc</b>, <b>không phải</b> dữ liệu liên tục.</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+
+        <!-- TL Bài 7 -->
+        <div id="tl-bai7" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 sm:p-6 space-y-4">
+          <h3 class="font-bold text-lg"><span class="text-violet-700">Bài 7:</span> Để khen thưởng cho các con cháu trong họ có thành tích xuất sắc trong năm học, bác trưởng họ đã kêu gọi các gia đình trong họ có con em có giấy khen mang bản photo đến nộp để nhận phần thưởng.</h3>
+          <div class="space-y-1.5 text-sm sm:text-base pl-3">
+            <p>a) Cách làm của bác trưởng họ là phương pháp thu thập dữ liệu gián tiếp hay trực tiếp?</p>
+            <p>b) Nếu các cháu được giấy khen tiên tiến thì thưởng $200\,000$ đồng, giấy khen học sinh giỏi là $300\,000$ đồng, học sinh đỗ giải Huyện, TP là $500\,000$ đồng. Vậy dữ liệu mà bác trưởng họ thu được gồm những dữ liệu gì?</p>
+          </div>
+          <details class="group bg-violet-50/50 rounded-xl border border-violet-100 overflow-hidden">
+            <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-violet-800 flex justify-between items-center hover:bg-violet-50">
+              <span>Xem lời giải chi tiết Bài 7</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 group-open:rotate-180 transition-transform"></i>
+            </summary>
+            <div class="solution p-4 bg-white border-t border-violet-100 space-y-2.5 text-sm sm:text-base">
+              <p><b>a)</b> Cách làm của bác trưởng họ (thu thập qua bản photo giấy khen có sẵn do các gia đình nộp) là phương pháp thu thập dữ liệu <b>gián tiếp</b>.</p>
+              <p><b>b)</b> Dữ liệu bác trưởng họ thu được bao gồm đầy đủ các loại sau:</p>
+              <ul class="list-disc pl-6 space-y-1.5">
+                <li><b>Dữ liệu không là số, không thể sắp thứ tự:</b> Họ và tên các cháu được khen thưởng, tên bố mẹ/gia đình.</li>
+                <li><b>Dữ liệu không là số, có thể sắp thứ tự:</b> Mức danh hiệu/thành tích đạt được (Học sinh tiên tiến &lt; Học sinh giỏi &lt; Đạt giải Huyện, TP).</li>
+                <li><b>Dữ liệu là số (số liệu rời rạc):</b> Số lượng các cháu đạt từng loại danh hiệu và mức tiền thưởng tương ứng ($200\,000$ đồng; $300\,000$ đồng; $500\,000$ đồng).</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- ĐIỀU HƯỚNG CUỐI TRANG -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-slate-200 pt-6 no-print">
+        <a href="bai17_tinhchat_phangiac.html" class="w-full sm:w-auto px-5 py-3 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-blue-400 hover:text-blue-600 font-semibold text-sm text-center">← Quay lại Bài 17: Tính chất đường phân giác</a>
+        <a href="bai19_bieudien_dulieu_bieudo.html" class="w-full sm:w-auto px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm text-center flex items-center justify-center gap-2">
+          <span>Bài 19: Biểu diễn dữ liệu bằng bảng, biểu đồ →</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer class="bg-white border-t border-slate-200/80 mt-12 py-6">
+  <div class="max-w-6xl mx-auto px-4 text-center text-xs text-slate-500">Hệ thống Kiến thức Toán 8 • Chương 5: Dữ liệu và biểu đồ • Bài 18: Thu thập và phân loại dữ liệu</div>
+</footer>
+
+<script>
+function renderMath(){
+  if(typeof renderMathInElement==='function'){
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      ignoredTags:['script','noscript','style','textarea','pre','code']
+    });
+  }
+}
+function toggleAllSolutions(){
+  const items=[...document.querySelectorAll('details')];
+  const shouldOpen=items.some(item=>!item.open);
+  items.forEach(item=>item.open=shouldOpen);
+  const label=document.querySelector('#toggle-all-btn span');
+  if(label) label.textContent=shouldOpen?'Ẩn tất cả lời giải':'Hiện tất cả lời giải';
+}
+window.addEventListener('load',()=>{renderMath();if(window.lucide)lucide.createIcons();});
+</script>
+</body>
+</html>

@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài 19: Biểu diễn dữ liệu bằng bảng, biểu đồ - Toán 8</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+:root{--ink:#1e293b;--blue:#2563eb;--line:#cbd5e1}
+html{scroll-behavior:smooth}body{font-family:Inter,sans-serif;background:#f8fafc;color:var(--ink)}
+.katex{font-size:1.04em}.katex-display{margin:.55rem 0;overflow-x:auto;overflow-y:hidden}
+details>summary{list-style:none}details>summary::-webkit-details-marker{display:none}
+.chart-box{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:10px;overflow-x:auto}
+.chart-box svg{width:100%;max-width:460px;height:auto;display:block;margin:0 auto}
+.data-tbl{width:100%;border-collapse:collapse;font-size:.88rem;background:#fff}
+.data-tbl th,.data-tbl td{border:1px solid #cbd5e1;padding:7px 10px;text-align:center}
+.data-tbl th{background:#eff6ff;color:#1e3a8a;font-weight:700}
+.picto-row{display:flex;flex-wrap:wrap;gap:5px;align-items:center;justify-content:center}
+.solution{line-height:1.8}.formula{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:.75rem 1rem}
+@media print{header,.no-print,aside{display:none!important}body{background:#fff}.shadow-sm{box-shadow:none!important}details{display:block!important}.solution{display:block!important}main{max-width:100%!important;padding:0!important}.bg-white{break-inside:avoid}}
+</style>
+</head>
+<body class="antialiased selection:bg-blue-600 selection:text-white">
+
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-sm no-print">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+    <a href="index.html" class="flex items-center gap-2 text-slate-600 hover:text-blue-600 bg-slate-100 hover:bg-blue-50 px-3 py-2 rounded-xl text-sm font-medium">
+      <i data-lucide="arrow-left" class="w-4 h-4"></i><span>Trang chủ Toán 8</span>
+    </a>
+    <div class="flex items-center gap-2">
+      <button id="toggle-all-btn" onclick="toggleAllSolutions()" class="flex items-center gap-1.5 text-xs font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 px-3 py-2 rounded-xl">
+        <i data-lucide="eye" class="w-4 h-4"></i><span>Hiện tất cả lời giải</span>
+      </button>
+      <button onclick="window.print()" class="flex items-center gap-1.5 text-xs font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 px-3 py-2 rounded-xl">
+        <i data-lucide="printer" class="w-4 h-4"></i><span class="hidden sm:inline">In bài</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-10 sm:py-12 border-b border-blue-900/20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-wrap items-center gap-2 mb-3">
+      <span class="bg-white/15 text-xs font-semibold px-3 py-1 rounded-full border border-white/20">Bài 19 • Bài 2 Chương 5</span>
+      <span class="text-blue-100 text-sm">Thống kê 8 • Lý thuyết và bài tập tự luyện</span>
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">BIỂU DIỄN DỮ LIỆU BẰNG BẢNG, BIỂU ĐỒ</h1>
+    <p class="mt-3 text-blue-100 text-sm sm:text-base max-w-3xl">Biết cách lựa chọn dạng biểu đồ phù hợp (biểu đồ tranh, biểu đồ cột, biểu đồ đoạn thẳng, biểu đồ cột kép, biểu đồ hình quạt tròn) và chuyển đổi dữ liệu giữa bảng thống kê với các loại biểu đồ.</p>
+  </div>
+</section>
+
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+    <!-- MỤC LỤC BÊN TRÁI -->
+    <aside class="lg:col-span-3 lg:sticky lg:top-24 bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm max-h-[calc(100vh-7rem)] overflow-y-auto no-print">
+      <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
+        <i data-lucide="list" class="w-4 h-4 text-blue-600"></i>Mục lục bài học
+      </h2>
+      <nav class="space-y-1 text-sm font-medium">
+        <a href="#ly-thuyet" class="block px-3 py-2 rounded-lg bg-blue-50 text-blue-700">I. Lý thuyết</a>
+        <a href="#tranh-cot" class="block pl-5 py-1 text-slate-600 hover:text-blue-600">1) Biểu đồ tranh hay cột</a>
+        <a href="#cot-doanthang" class="block pl-5 py-1 text-slate-600 hover:text-blue-600">2) Biểu đồ cột hay đoạn thẳng</a>
+        <a href="#cotkep-quattron" class="block pl-5 py-1 text-slate-600 hover:text-blue-600">3) Cột kép hay quạt tròn</a>
+
+        <a href="#tu-luyen" class="block px-3 py-2 rounded-lg bg-violet-50 text-violet-700 mt-2">II. Bài tập tự luyện</a>
+        <a href="#tl-bai1" class="block pl-5 py-0.5 text-slate-600 hover:text-violet-700 text-xs">Bài 1 – Điểm tốt các tổ</a>
+        <a href="#tl-bai2" class="block pl-5 py-0.5 text-slate-600 hover:text-violet-700 text-xs">Bài 2 – Sĩ số khối 8</a>
+        <a href="#tl-bai3" class="block pl-5 py-0.5 text-slate-600 hover:text-violet-700 text-xs">Bài 3 – Tỉ lệ vật nuôi</a>
+        <a href="#tl-bai4" class="block pl-5 py-0.5 text-slate-600 hover:text-violet-700 text-xs">Bài 4 – Thời gian tự học</a>
+        <a href="#tl-bai5" class="block pl-5 py-0.5 text-slate-600 hover:text-violet-700 text-xs">Bài 5 – Điểm cộng, điểm trừ</a>
+        <a href="#tl-bai6" class="block pl-5 py-0.5 text-slate-600 hover:text-violet-700 text-xs">Bài 6 – Học lực lớp 8B</a>
+        <a href="#tl-bai7" class="block pl-5 py-0.5 text-slate-600 hover:text-violet-700 text-xs">Bài 7 – Môn học lớp 8C</a>
+        <a href="#tl-bai8" class="block pl-5 py-0.5 text-slate-600 hover:text-violet-700 text-xs">Bài 8 – HSG Toán 4 khối</a>
+      </nav>
+    </aside>
+
+    <!-- NỘI DUNG CHÍNH -->
+    <div class="lg:col-span-9 space-y-12">
+
+      <!-- I. LÝ THUYẾT -->
+      <section id="ly-thuyet" class="space-y-6">
+        <div class="flex items-center gap-3 border-b border-slate-200 pb-3">
+          <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold shadow-sm">I</div>
+          <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight">LÝ THUYẾT</h2>
+        </div>
+
+        <!-- Mục 1 -->
+        <div id="tranh-cot" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+          <div class="bg-slate-50 border-b border-slate-200 px-6 py-4">
+            <h3 class="text-lg font-bold">1) Lựa chọn biểu đồ tranh hay biểu đồ cột</h3>
+          </div>
+          <div class="p-5 sm:p-6 space-y-5 text-sm sm:text-base leading-relaxed">
+            <p><b>Ví dụ 1:</b> Cho hai biểu đồ như hình bên dưới:</p>
+            <div class="grid md:grid-cols-2 gap-4 items-center">
+              <div class="overflow-x-auto">
+                <table class="data-tbl">
+                  <thead><tr><th class="w-36">Môn học</th><th>Số lượng sách</th></tr></thead>
+                  <tbody id="vd1-picto"></tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="2" class="bg-slate-50 text-xs font-semibold text-slate-600">
+                        <span class="inline-flex items-center gap-2"><span id="vd1-key"></span><span>: 9 quyển sách</span></span>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <figure class="space-y-1.5">
+                <div class="chart-box" data-chart="vd1_bar"></div>
+              </figure>
+            </div>
+
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-slate-700">
+              <p><b>Nhận xét:</b> Ở biểu đồ tranh thì các giá trị của mỗi đối tượng phải có mối quan hệ nhất định (cùng chia hết hoặc tỉ lệ thuận với giá trị mỗi biểu tượng) và đôi khi số biểu tượng phải vẽ là rất nhiều.</p>
+            </div>
+
+            <div class="bg-blue-50/80 border-l-4 border-blue-600 rounded-r-xl p-4">
+              <b class="text-blue-800">Kết luận:</b> Có thể dùng <b>biểu đồ tranh</b> hay <b>biểu đồ cột</b> để biểu diễn số lượng các đối tượng khác nhau. Tuy nhiên khi dùng biểu đồ tranh mà phải vẽ rất nhiều biểu tượng thì ta nên dùng <b>biểu đồ cột</b>.
+            </div>
+
+            <div class="pt-3 border-t border-slate-100 space-y-3">
+              <p><b>Ví dụ 2:</b> Cho bảng số liệu về sự lựa chọn trái cây yêu thích của $12$ bạn:</p>
+              <div class="overflow-x-auto">
+                <table class="data-tbl max-w-lg mx-auto">
+                  <thead><tr><th>Trái cây</th><th>Đu đủ</th><th>Chuối</th><th>Thanh long</th><th>Dưa đỏ</th></tr></thead>
+                  <tbody><tr><td><b>Học sinh</b></td><td>2</td><td>3</td><td>2</td><td>5</td></tr></tbody>
+                </table>
+              </div>
+              <div class="pl-4 space-y-1">
+                <p>a) Với bảng trên em sẽ dùng biểu đồ nào để thể hiện thông tin trong bảng? Giải thích.</p>
+                <p>b) Vẽ biểu đồ mà em lựa chọn ở câu a.</p>
+              </div>
+              <div class="formula space-y-3">
+                <p><b>Giải:</b></p>
+                <p>a) Với thông tin trong bảng, ta nên vẽ <b>biểu đồ tranh</b> (vì số lượng nhỏ, chỉ cần chọn $1$ biểu tượng ứng với $1$ học sinh là dễ vẽ và trực quan).</p>
+                <p>b) Ta có biểu đồ tranh (mỗi biểu tượng $\bigcirc$ ứng với $1$ học sinh):</p>
+                <div class="overflow-x-auto">
+                  <table class="data-tbl max-w-xl mx-auto">
+                    <thead><tr><th>Quả</th><th>Đu đủ</th><th>Chuối</th><th>Thanh long</th><th>Dưa đỏ</th></tr></thead>
+                    <tbody id="vd2-picto"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mục 2 -->
+        <div id="cot-doanthang" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+          <div class="bg-slate-50 border-b border-slate-200 px-6 py-4">
+            <h3 class="text-lg font-bold">2) Lựa chọn biểu đồ cột hay biểu đồ đoạn thẳng</h3>
+          </div>
+          <div class="p-5 sm:p-6 space-y-5 text-sm sm:text-base leading-relaxed">
+            <p><b>Ví dụ 3:</b> Cho hai biểu đồ sau:</p>
+            <div class="grid md:grid-cols-2 gap-4 items-start">
+              <figure class="space-y-1.5">
+                <div class="chart-box" data-chart="vd3_bar"></div>
+                <figcaption class="text-center text-xs text-slate-500 italic">Hình 1: Học lực học sinh khối 8 trong học kì 1 của một trường THCS</figcaption>
+              </figure>
+              <figure class="space-y-1.5">
+                <div class="chart-box" data-chart="vd3_line"></div>
+                <figcaption class="text-center text-xs text-slate-500 italic">Hình 2: Thứ hạng bóng đá của Việt Nam trong 5 năm 2016 – 2020</figcaption>
+              </figure>
+            </div>
+
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-slate-700">
+              <p><b>Nhận xét:</b> Đối với biểu đồ cột, do chứa các cột để thể hiện giá trị của mỗi đối tượng nên ta thể hiện được ít đối tượng hơn so với biểu đồ đoạn thẳng (biểu đồ đường).</p>
+            </div>
+
+            <div class="bg-blue-50/80 border-l-4 border-blue-600 rounded-r-xl p-4">
+              <b class="text-blue-800">Kết luận:</b> Nếu muốn biểu diễn <b>sự thay đổi của một đại lượng theo thời gian</b> ta dùng <b>biểu đồ đoạn thẳng</b>. Khi số lượng thời điểm quan sát ít ta có thể biểu diễn bằng biểu đồ cột.
+            </div>
+
+            <div class="pt-3 border-t border-slate-100 space-y-3">
+              <p><b>Ví dụ 4:</b> Cho bảng dữ liệu về doanh số trong $6$ tháng đầu năm của một doanh nghiệp:</p>
+              <div class="overflow-x-auto">
+                <table class="data-tbl">
+                  <thead><tr><th>Tháng</th><th>Tháng 1</th><th>Tháng 2</th><th>Tháng 3</th><th>Tháng 4</th><th>Tháng 5</th><th>Tháng 6</th></tr></thead>
+                  <tbody><tr><td><b>Doanh số (sản phẩm)</b></td><td>100</td><td>120</td><td>130</td><td>90</td><td>85</td><td>140</td></tr></tbody>
+                </table>
+              </div>
+              <div class="pl-4 space-y-1">
+                <p>a) Với thông tin ở bảng trên, theo em ta nên dùng biểu đồ nào là hợp lí? Giải thích vì sao.</p>
+                <p>b) Vẽ biểu đồ mà em đã lựa chọn.</p>
+              </div>
+              <div class="formula grid md:grid-cols-[1fr_1.2fr] gap-4 items-center">
+                <div class="space-y-2">
+                  <p><b>Giải:</b></p>
+                  <p>a) Với thông tin ở bảng trên, ta nên dùng <b>biểu đồ đoạn thẳng</b> vì dữ liệu biểu diễn sự thay đổi doanh số theo thời gian và có tới $6$ tháng (nếu vẽ biểu đồ cột sẽ cần nhiều cột).</p>
+                  <p>b) Ta có biểu đồ đoạn thẳng như hình bên.</p>
+                </div>
+                <div class="chart-box" data-chart="vd4_line"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mục 3 -->
+        <div id="cotkep-quattron" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+          <div class="bg-slate-50 border-b border-slate-200 px-6 py-4">
+            <h3 class="text-lg font-bold">3) Lựa chọn biểu đồ cột kép hay biểu đồ hình quạt tròn</h3>
+          </div>
+          <div class="p-5 sm:p-6 space-y-5 text-sm sm:text-base leading-relaxed">
+            <p><b>Ví dụ 5:</b> Cho hai biểu đồ sau:</p>
+            <div class="grid md:grid-cols-2 gap-4 items-start">
+              <figure class="space-y-1.5">
+                <div class="chart-box" data-chart="vd5_pie"></div>
+                <figcaption class="text-center text-xs text-slate-500 italic">Hình 3: Biểu đồ về mô hình và cơ cấu lao động</figcaption>
+              </figure>
+              <figure class="space-y-1.5">
+                <div class="chart-box" data-chart="vd5_grouped"></div>
+                <figcaption class="text-center text-xs text-slate-500 italic">Hình 4: Số lượng bán ra Điều hòa và Quạt hơi nước</figcaption>
+              </figure>
+            </div>
+
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-slate-700">
+              <p><b>Nhận xét:</b> Ở biểu đồ hình quạt tròn thì tổng các thành phần là $100\%$ nên ta phải đưa số liệu các đơn vị về phần trăm, còn biểu đồ hình cột kép chủ yếu để so sánh hai đối tượng theo cùng một thời gian.</p>
+            </div>
+
+            <div class="bg-emerald-50 border-l-4 border-emerald-600 rounded-r-xl p-4">
+              <b class="text-emerald-800">Kết luận:</b> Khi muốn <b>so sánh hai tập dữ liệu</b> với nhau ta dùng <b>biểu đồ cột kép</b>. Khi muốn <b>biểu diễn tỉ lệ các phần trong tổng thể</b> ta dùng <b>biểu đồ hình quạt tròn</b>.
+            </div>
+
+            <div class="pt-3 border-t border-slate-100 space-y-3">
+              <p><b>Ví dụ 6:</b> Cho bảng số liệu về chất lượng đánh giá sản phẩm của khách hàng tại một cửa hàng bán đồ điện tử:</p>
+              <div class="overflow-x-auto">
+                <table class="data-tbl max-w-lg mx-auto">
+                  <thead><tr><th>Đánh giá</th><th>Rất tốt</th><th>Tốt</th><th>Trung bình</th><th>Không tốt</th></tr></thead>
+                  <tbody><tr><td><b>Số lượng</b></td><td>6</td><td>32</td><td>10</td><td>2</td></tr></tbody>
+                </table>
+              </div>
+              <div class="pl-4 space-y-1">
+                <p>a) Với bảng trên, ta nên dùng biểu đồ quạt tròn hay cột kép để biểu diễn thông tin?</p>
+                <p>b) Hãy tính xem các mức đánh giá <i>Rất tốt</i>, <i>Tốt</i> và <i>Trung bình</i> chiếm bao nhiêu $\%$.</p>
+              </div>
+              <div class="formula space-y-2">
+                <p><b>Giải:</b></p>
+                <p>a) Với bảng trên ta nên dùng <b>biểu đồ hình quạt tròn</b> để thể hiện tỉ lệ các mức đánh giá trong tổng thể.</p>
+                <p>b) Tổng số lượng đánh giá là: $6 + 32 + 10 + 2 = 50$.</p>
+                <ul class="list-disc pl-6 space-y-1">
+                  <li>Đánh giá <b>Rất tốt</b> chiếm: $\dfrac{6}{50} \cdot 100\% = \mathbf{12\%}$.</li>
+                  <li>Đánh giá <b>Tốt</b> chiếm: $\dfrac{32}{50} \cdot 100\% = \mathbf{64\%}$.</li>
+                  <li>Đánh giá <b>Trung bình</b> chiếm: $\dfrac{10}{50} \cdot 100\% = \mathbf{20\%}$.</li>
+                  <li class="text-slate-500 text-sm"><i>(Đánh giá Không tốt chiếm $\dfrac{2}{50} \cdot 100\% = 4\%$; tổng đúng $100\%$.)</i></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- II. BÀI TẬP TỰ LUYỆN -->
+      <section id="tu-luyen" class="space-y-7">
+        <div class="flex items-center gap-3 border-b border-slate-200 pb-3">
+          <div class="w-10 h-10 rounded-xl bg-violet-600 text-white flex items-center justify-center font-bold">II</div>
+          <div>
+            <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight">BÀI TẬP TỰ LUYỆN</h2>
+            <p class="text-xs text-slate-500">8 bài tập tổng hợp – kèm bảng thống kê và biểu đồ lời giải chi tiết</p>
+          </div>
+        </div>
+
+        <!-- Bài 1 -->
+        <div id="tl-bai1" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 sm:p-6 space-y-4">
+          <h3 class="font-bold text-lg"><span class="text-violet-700">Bài 1:</span> Cho biểu đồ thể hiện số điểm tốt đạt được của các tổ trong tuần.</h3>
+          <div class="overflow-x-auto">
+            <table class="data-tbl max-w-2xl mx-auto">
+              <thead><tr><th>Tổ 1</th><th>Tổ 2</th><th>Tổ 3</th><th>Tổ 4</th></tr></thead>
+              <tbody id="b1-picto"></tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="4" class="bg-slate-50 text-xs font-semibold text-slate-600">
+                    <span class="inline-flex items-center gap-2"><span id="b1-key"></span><span>: 5 điểm tốt</span></span>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+          <div class="space-y-1 text-sm sm:text-base pl-3">
+            <p>a) Biểu đồ trên là biểu đồ gì? Mỗi biểu tượng bông hoa ứng với bao nhiêu điểm tốt?</p>
+            <p>b) Lập bảng thống kê và vẽ biểu đồ khác thể hiện dữ liệu trong bảng thống kê.</p>
+          </div>
+          <details class="group bg-violet-50/50 rounded-xl border border-violet-100 overflow-hidden">
+            <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-violet-800 flex justify-between items-center hover:bg-violet-50">
+              <span>Xem lời giải chi tiết Bài 1</span><i data-lucide="chevron-down" class="w-4 h-4 group-open:rotate-180 transition-transform"></i>
+            </summary>
+            <div class="solution p-4 bg-white border-t border-violet-100 space-y-4 text-sm sm:text-base">
+              <p><b>a)</b> Biểu đồ trên là <b>biểu đồ tranh</b>. Mỗi biểu tượng bông hoa ứng với <b>$5$ điểm tốt</b>.</p>
+              <p><b>b)</b> Bảng thống kê số điểm tốt của các tổ trong tuần:</p>
+              <div class="overflow-x-auto">
+                <table class="data-tbl max-w-md mx-auto">
+                  <thead><tr><th>Tổ</th><th>Tổ 1</th><th>Tổ 2</th><th>Tổ 3</th><th>Tổ 4</th></tr></thead>
+                  <tbody><tr><td><b>Số điểm tốt</b></td><td>20</td><td>10</td><td>15</td><td>25</td></tr></tbody>
+                </table>
+              </div>
+              <p>Ta biểu diễn lại dữ liệu trên bằng <b>biểu đồ cột</b>:</p>
+              <div class="chart-box" data-chart="b1_sol_bar"></div>
+            </div>
+          </details>
+        </div>
+
+        <!-- Bài 2 -->
+        <div id="tl-bai2" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 sm:p-6 space-y-4">
+          <h3 class="font-bold text-lg"><span class="text-violet-700">Bài 2:</span> Cho biểu đồ ở <i>Hình 1</i> thể hiện sĩ số học sinh khối lớp 8.</h3>
+          <div class="grid md:grid-cols-[1.1fr_1fr] gap-4 items-center">
+            <div class="chart-box" data-chart="b2_bar"></div>
+            <div class="space-y-2 text-sm sm:text-base">
+              <p>a) Đây là biểu đồ gì?</p>
+              <p>b) Lập bảng thống kê cho biểu đồ trên và vẽ biểu đồ khác thể hiện bảng thống kê vừa lập.</p>
+            </div>
+          </div>
+          <details class="group bg-violet-50/50 rounded-xl border border-violet-100 overflow-hidden">
+            <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-violet-800 flex justify-between items-center hover:bg-violet-50">
+              <span>Xem lời giải chi tiết Bài 2</span><i data-lucide="chevron-down" class="w-4 h-4 group-open:rotate-180 transition-transform"></i>
+            </summary>
+            <div class="solution p-4 bg-white border-t border-violet-100 space-y-4 text-sm sm:text-base">
+              <p><b>a)</b> Đây là <b>biểu đồ cột</b>.</p>
+              <p><b>b)</b> Bảng thống kê sĩ số học sinh khối 8:</p>
+              <div class="overflow-x-auto">
+                <table class="data-tbl max-w-lg mx-auto">
+                  <thead><tr><th>Lớp</th><th>8A</th><th>8B</th><th>8C</th><th>8D</th><th>8E</th></tr></thead>
+                  <tbody><tr><td><b>Sĩ số (học sinh)</b></td><td>34</td><td>28</td><td>27</td><td>25</td><td>34</td></tr></tbody>
+                </table>
+              </div>
+              <p>Ta có thể chuyển sang <b>biểu đồ đoạn thẳng</b> (hoặc biểu đồ quạt tròn sau khi đổi ra phần trăm):</p>
+              <div class="chart-box" data-chart="b2_sol_line"></div>
+            </div>
+          </details>
+        </div>
+
+        <!-- Bài 3 -->
+        <div id="tl-bai3" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 sm:p-6 space-y-4">
+          <h3 class="font-bold text-lg"><span class="text-violet-700">Bài 3:</span> Cho biểu đồ ở <i>Hình 2</i> thể hiện tỉ lệ phần trăm các loại vật nuôi (gia cầm) trong một trang trại.</h3>
+          <div class="grid md:grid-cols-[1.15fr_1fr] gap-4 items-center">
+            <div class="chart-box" data-chart="b3_pie"></div>
+            <div class="space-y-2 text-sm sm:text-base">
+              <p>a) Đây là biểu đồ gì? Có bao nhiêu loại vật nuôi được thống kê trong trang trại này?</p>
+              <p>b) Lập bảng thống kê cho biểu đồ trên.</p>
+            </div>
+          </div>
+          <details class="group bg-violet-50/50 rounded-xl border border-violet-100 overflow-hidden">
+            <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-violet-800 flex justify-between items-center hover:bg-violet-50">
+              <span>Xem lời giải chi tiết Bài 3</span><i data-lucide="chevron-down" class="w-4 h-4 group-open:rotate-180 transition-transform"></i>
+            </summary>
+            <div class="solution p-4 bg-white border-t border-violet-100 space-y-3 text-sm sm:text-base">
+              <p><b>a)</b> Đây là <b>biểu đồ hình quạt tròn</b>. Có <b>$3$ loại</b> được thống kê trong trang trại là: Lợn, Vịt và Gà <i>(lưu ý nhỏ: trong đề gốc ghi "gia cầm" nhưng chú giải có cả Lợn là gia súc)</i>.</p>
+              <p><b>b)</b> Bảng thống kê tỉ lệ phần trăm các loại vật nuôi trong trang trại:</p>
+              <div class="overflow-x-auto">
+                <table class="data-tbl max-w-md mx-auto">
+                  <thead><tr><th>Loại vật nuôi</th><th>Lợn</th><th>Vịt</th><th>Gà</th></tr></thead>
+                  <tbody><tr><td><b>Tỉ lệ phần trăm</b></td><td>21%</td><td>47%</td><td>32%</td></tr></tbody>
+                </table>
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <!-- Bài 4 -->
+        <div id="tl-bai4" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 sm:p-6 space-y-4">
+          <h3 class="font-bold text-lg"><span class="text-violet-700">Bài 4:</span> Cho bảng thống kê về thời gian tự học của bạn Tiến như sau:</h3>
+          <div class="overflow-x-auto">
+            <table class="data-tbl max-w-2xl mx-auto">
+              <thead><tr><th>Thứ</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>CN</th></tr></thead>
+              <tbody><tr><td><b>Thời gian (phút)</b></td><td>80</td><td>100</td><td>60</td><td>70</td><td>90</td><td>60</td><td>0</td></tr></tbody>
+            </table>
+          </div>
+          <div class="space-y-1 text-sm sm:text-base pl-3">
+            <p>a) Vẽ biểu đồ thích hợp cho bảng thống kê trên.</p>
+            <p>b) Với bảng thống kê trên, có thể vẽ được những biểu đồ nào thì phù hợp?</p>
+          </div>
+          <details class="group bg-violet-50/50 rounded-xl border border-violet-100 overflow-hidden">
+            <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-violet-800 flex justify-between items-center hover:bg-violet-50">
+              <span>Xem lời giải chi tiết Bài 4</span><i data-lucide="chevron-down" class="w-4 h-4 group-open:rotate-180 transition-transform"></i>
+            </summary>
+            <div class="solution p-4 bg-white border-t border-violet-100 space-y-4 text-sm sm:text-base">
+              <p><b>a)</b> Vì dữ liệu theo dõi sự thay đổi thời gian tự học qua $7$ ngày trong tuần nên biểu đồ thích hợp nhất là <b>biểu đồ đoạn thẳng</b>:</p>
+              <div class="chart-box" data-chart="b4_sol_line"></div>
+              <p><b>b)</b> Với bảng thống kê trên, có thể vẽ <b>biểu đồ đoạn thẳng</b> (tốt nhất để thấy xu hướng tăng/giảm theo các ngày) hoặc <b>biểu đồ cột</b> (tốt để so sánh trực tiếp độ dài thời gian học giữa các ngày).</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- Bài 5 -->
+        <div id="tl-bai5" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 sm:p-6 space-y-4">
+          <h3 class="font-bold text-lg"><span class="text-violet-700">Bài 5:</span> Cho bảng thống kê thể hiện điểm cộng và điểm trừ về thành tích thi đua của khối $8$ trong $1$ tuần. Vẽ biểu đồ thích hợp cho bảng thống kê trên.</h3>
+          <div class="overflow-x-auto">
+            <table class="data-tbl max-w-lg mx-auto">
+              <thead><tr><th>Lớp</th><th>$8\text{A}_1$</th><th>$8\text{A}_2$</th><th>$8\text{A}_3$</th><th>$8\text{A}_4$</th></tr></thead>
+              <tbody>
+                <tr><td><b>Điểm cộng</b></td><td>25</td><td>28</td><td>19</td><td>15</td></tr>
+                <tr><td><b>Điểm trừ</b></td><td>8</td><td>10</td><td>8</td><td>6</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <details class="group bg-violet-50/50 rounded-xl border border-violet-100 overflow-hidden">
+            <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-violet-800 flex justify-between items-center hover:bg-violet-50">
+              <span>Xem lời giải chi tiết Bài 5</span><i data-lucide="chevron-down" class="w-4 h-4 group-open:rotate-180 transition-transform"></i>
+            </summary>
+            <div class="solution p-4 bg-white border-t border-violet-100 space-y-3 text-sm sm:text-base">
+              <p>Để so sánh trực tiếp hai tập dữ liệu (<b>Điểm cộng</b> và <b>Điểm trừ</b>) của cùng $4$ lớp khối $8$, ta chọn <b>biểu đồ cột kép</b>:</p>
+              <div class="chart-box" data-chart="b5_sol_grouped"></div>
+            </div>
+          </details>
+        </div>
+
+        <!-- Bài 6 -->
+        <div id="tl-bai6" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 sm:p-6 space-y-4">
+          <h3 class="font-bold text-lg"><span class="text-violet-700">Bài 6:</span> Cho bảng thống kê thể hiện tỉ lệ phần trăm xếp loại học lực của lớp $8\text{B}$ trong học kì $1$. Vẽ biểu đồ thích hợp thể hiện bảng thống kê trên.</h3>
+          <div class="overflow-x-auto">
+            <table class="data-tbl max-w-md mx-auto">
+              <thead><tr><th>Học lực</th><th>Giỏi</th><th>Khá</th><th>Trung bình</th></tr></thead>
+              <tbody><tr><td><b>Tỉ lệ phần trăm</b></td><td>25%</td><td>60%</td><td>15%</td></tr></tbody>
+            </table>
+          </div>
+          <details class="group bg-violet-50/50 rounded-xl border border-violet-100 overflow-hidden">
+            <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-violet-800 flex justify-between items-center hover:bg-violet-50">
+              <span>Xem lời giải chi tiết Bài 6</span><i data-lucide="chevron-down" class="w-4 h-4 group-open:rotate-180 transition-transform"></i>
+            </summary>
+            <div class="solution p-4 bg-white border-t border-violet-100 space-y-3 text-sm sm:text-base">
+              <p>Vì bảng cho tỉ lệ phần trăm các thành phần có tổng $25\% + 60\% + 15\% = 100\%$, ta chọn <b>biểu đồ hình quạt tròn</b> (với góc ở tâm tương ứng: Giỏi $90^\circ$, Khá $216^\circ$, Trung bình $54^\circ$):</p>
+              <div class="chart-box" data-chart="b6_sol_pie"></div>
+            </div>
+          </details>
+        </div>
+
+        <!-- Bài 7 -->
+        <div id="tl-bai7" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 sm:p-6 space-y-4">
+          <h3 class="font-bold text-lg"><span class="text-violet-700">Bài 7:</span> Cho bảng thống kê về tỉ lệ phần trăm yêu thích môn học của lớp $8\text{C}$:</h3>
+          <div class="overflow-x-auto">
+            <table class="data-tbl max-w-lg mx-auto">
+              <thead><tr><th>Môn học yêu thích</th><th>Toán</th><th>Văn</th><th>Anh</th><th>Khoa học</th></tr></thead>
+              <tbody><tr><td><b>Tỉ lệ phần trăm</b></td><td>30%</td><td>25%</td><td>20%</td><td>25%</td></tr></tbody>
+            </table>
+          </div>
+          <div class="space-y-1 text-sm sm:text-base pl-3">
+            <p>a) Vẽ biểu đồ cột thể hiện bảng thống kê trên.</p>
+            <p>b) Vẽ biểu đồ quạt tròn thể hiện bảng thống kê trên.</p>
+            <p>c) Có nhận xét gì về việc so sánh hai biểu đồ trên và việc bảng thống kê cho tỉ lệ phần trăm nhưng lại được biểu thị trên biểu đồ cột?</p>
+          </div>
+          <details class="group bg-violet-50/50 rounded-xl border border-violet-100 overflow-hidden">
+            <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-violet-800 flex justify-between items-center hover:bg-violet-50">
+              <span>Xem lời giải chi tiết Bài 7</span><i data-lucide="chevron-down" class="w-4 h-4 group-open:rotate-180 transition-transform"></i>
+            </summary>
+            <div class="solution p-4 bg-white border-t border-violet-100 space-y-4 text-sm sm:text-base">
+              <div class="grid md:grid-cols-2 gap-4">
+                <div class="space-y-1.5">
+                  <p><b>a) Biểu đồ cột:</b></p>
+                  <div class="chart-box" data-chart="b7_sol_bar"></div>
+                </div>
+                <div class="space-y-1.5">
+                  <p><b>b) Biểu đồ hình quạt tròn:</b></p>
+                  <div class="chart-box" data-chart="b7_sol_pie"></div>
+                </div>
+              </div>
+              <div class="formula space-y-1.5">
+                <p><b>c) Nhận xét:</b></p>
+                <p>• Ta <b>vẫn có thể</b> dùng biểu đồ cột để biểu diễn dữ liệu dạng phần trăm (đặt đơn vị trục tung là $\%$); biểu đồ cột giúp so sánh nhanh mức chênh lệch giữa các môn (ví dụ Toán cao hơn Anh $10\%$, Văn bằng Khoa học).</p>
+                <p>• Tuy nhiên, vì bảng thống kê thể hiện <b>tỉ lệ phần trăm các phần trong một tổng thể $100\%$</b>, nên <b>biểu đồ hình quạt tròn</b> trực quan và phù hợp hơn để nhìn thấy ngay tỉ trọng của từng môn so với cả lớp (ví dụ Văn và Khoa học mỗi môn chiếm đúng $\dfrac{1}{4}$ hình tròn).</p>
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <!-- Bài 8 -->
+        <div id="tl-bai8" class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 sm:p-6 space-y-4">
+          <h3 class="font-bold text-lg"><span class="text-violet-700">Bài 8:</span> Cho bảng thống kê về số học sinh đạt học sinh giỏi cấp huyện môn Toán của bốn khối trong trường:</h3>
+          <div class="overflow-x-auto">
+            <table class="data-tbl max-w-md mx-auto">
+              <thead><tr><th>Khối lớp</th><th>6</th><th>7</th><th>8</th><th>9</th></tr></thead>
+              <tbody><tr><td><b>Số học sinh</b></td><td>16</td><td>24</td><td>20</td><td>25</td></tr></tbody>
+            </table>
+          </div>
+          <div class="space-y-1 text-sm sm:text-base pl-3">
+            <p>a) Vẽ biểu đồ đoạn thẳng thể hiện bảng thống kê trên.</p>
+            <p>b) Hãy tính toán và vẽ biểu đồ hình quạt tròn thể hiện bảng thống kê trên.</p>
+          </div>
+          <details class="group bg-violet-50/50 rounded-xl border border-violet-100 overflow-hidden">
+            <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-violet-800 flex justify-between items-center hover:bg-violet-50">
+              <span>Xem lời giải chi tiết Bài 8</span><i data-lucide="chevron-down" class="w-4 h-4 group-open:rotate-180 transition-transform"></i>
+            </summary>
+            <div class="solution p-4 bg-white border-t border-violet-100 space-y-4 text-sm sm:text-base">
+              <p><b>a) Biểu đồ đoạn thẳng:</b></p>
+              <div class="chart-box" data-chart="b8_sol_line"></div>
+              <p><b>b) Tính tỉ lệ phần trăm từng khối (làm tròn đến chữ số thập phân thứ hai):</b></p>
+              <div class="formula space-y-1.5">
+                <p>Tổng số học sinh giỏi Toán của cả $4$ khối là: $16 + 24 + 20 + 25 = 85$ (học sinh).</p>
+                <div class="grid sm:grid-cols-2 gap-1.5 text-sm">
+                  <span>• Khối 6: $\dfrac{16}{85} \cdot 100\% \approx \mathbf{18{,}82\%}$</span>
+                  <span>• Khối 7: $\dfrac{24}{85} \cdot 100\% \approx \mathbf{28{,}24\%}$</span>
+                  <span>• Khối 8: $\dfrac{20}{85} \cdot 100\% \approx \mathbf{23{,}53\%}$</span>
+                  <span>• Khối 9: $\dfrac{25}{85} \cdot 100\% \approx \mathbf{29{,}41\%}$</span>
+                </div>
+              </div>
+              <div class="chart-box" data-chart="b8_sol_pie"></div>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- ĐIỀU HƯỚNG CUỐI TRANG -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-slate-200 pt-6 no-print">
+        <a href="bai18_thuthap_phanloai_dulieu.html" class="w-full sm:w-auto px-5 py-3 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-blue-400 hover:text-blue-600 font-semibold text-sm text-center">← Quay lại Bài 18: Thu thập và phân loại dữ liệu</a>
+        <a href="bai20_phantich_solieu.html" class="w-full sm:w-auto px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm text-center flex items-center justify-center gap-2">
+          <span>Bài 20: Phân tích số liệu thống kê dựa vào biểu đồ →</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer class="bg-white border-t border-slate-200/80 mt-12 py-6">
+  <div class="max-w-6xl mx-auto px-4 text-center text-xs text-slate-500">Hệ thống Kiến thức Toán 8 • Chương 5: Dữ liệu và biểu đồ • Bài 19: Biểu diễn dữ liệu bằng bảng, biểu đồ</div>
+</footer>
+
+<script>
+const FONT = 'Inter,Segoe UI,Arial,sans-serif';
+
+/* Biểu tượng SVG gọn cho biểu đồ tranh */
+const BOOK_SVG = `<svg width="24" height="19" viewBox="0 0 26 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4.5C5.5 3 9.5 3.2 13 5.2C16.5 3.2 20.5 3 24 4.5V16.8C20.5 15.3 16.5 15.5 13 17.5C9.5 15.5 5.5 15.3 2 16.8V4.5Z" fill="#eff6ff" stroke="#1e40af" stroke-width="1.5" stroke-linejoin="round"/><line x1="13" y1="5.2" x2="13" y2="17.5" stroke="#1e40af" stroke-width="1.3"/></svg>`;
+const CIRCLE_SVG = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="8.5" fill="#eff6ff" stroke="#2563eb" stroke-width="1.8"/></svg>`;
+const FLOWER_SVG = `<svg width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="7.5" r="4.2" fill="#fce7f3" stroke="#db2777" stroke-width="1.4"/><circle cx="20.2" cy="11.8" r="4.2" fill="#fce7f3" stroke="#db2777" stroke-width="1.4"/><circle cx="17.8" cy="19.2" r="4.2" fill="#fce7f3" stroke="#db2777" stroke-width="1.4"/><circle cx="10.2" cy="19.2" r="4.2" fill="#fce7f3" stroke="#db2777" stroke-width="1.4"/><circle cx="7.8" cy="11.8" r="4.2" fill="#fce7f3" stroke="#db2777" stroke-width="1.4"/><circle cx="14" cy="14" r="3.6" fill="#fef08a" stroke="#ca8a04" stroke-width="1.3"/></svg>`;
+
+function repeatIcon(svg, n){ return `<div class="picto-row">${Array(n).fill(svg).join('')}</div>`; }
+
+/* Bộ dựng 4 loại biểu đồ SVG chuẩn tọa độ, chống đè chữ */
+function makeBar({ title, unit, labels, values, maxVal, step, suffix = '', color = '#2563eb' }) {
+  const W = 460, H = 252, pL = 50, pR = 20, pT = 56, pB = 42, pW = W - pL - pR, pH = H - pT - pB;
+  let s = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+  s += `<text x="${W/2}" y="20" text-anchor="middle" font-family="${FONT}" font-size="13" font-weight="700" fill="#0f172a">${title}</text>`;
+  s += `<text x="10" y="40" font-family="${FONT}" font-size="11" font-style="italic" fill="#475569">${unit}</text>`;
+  for (let v = 0; v <= maxVal; v += step) {
+    const y = pT + pH - (v / maxVal) * pH;
+    s += `<line x1="${pL}" y1="${y.toFixed(1)}" x2="${W-pR}" y2="${y.toFixed(1)}" stroke="${v===0?'#334155':'#e2e8f0'}" stroke-width="${v===0?1.5:1}"/>`;
+    s += `<text x="${pL-7}" y="${(y+4).toFixed(1)}" text-anchor="end" font-family="${FONT}" font-size="11" fill="#475569">${v}</text>`;
+  }
+  s += `<line x1="${pL}" y1="${pT-6}" x2="${pL}" y2="${pT+pH}" stroke="#334155" stroke-width="1.5"/>`;
+  const slot = pW / labels.length, bw = Math.min(42, slot * 0.52);
+  labels.forEach((lb, i) => {
+    const cx = pL + slot * (i + 0.5), h = (values[i] / maxVal) * pH, y = pT + pH - h;
+    s += `<rect x="${(cx-bw/2).toFixed(1)}" y="${y.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="4" fill="${color}"/>`;
+    s += `<text x="${cx.toFixed(1)}" y="${(y-6).toFixed(1)}" text-anchor="middle" font-family="${FONT}" font-size="11.5" font-weight="700" fill="#0f172a">${values[i]}${suffix}</text>`;
+    s += `<text x="${cx.toFixed(1)}" y="${pT+pH+19}" text-anchor="middle" font-family="${FONT}" font-size="11.5" font-weight="600" fill="#334155">${lb}</text>`;
+  });
+  return s + '</svg>';
+}
+
+function makeGroupedBar({ title, unit, labels, series, maxVal, step }) {
+  const W = 470, H = 272, pL = 50, pR = 20, pT = 74, pB = 42, pW = W - pL - pR, pH = H - pT - pB;
+  let s = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+  s += `<text x="${W/2}" y="20" text-anchor="middle" font-family="${FONT}" font-size="13" font-weight="700" fill="#0f172a">${title}</text>`;
+  const gapL = 152, startL = (W - gapL * series.length + 32) / 2;
+  series.forEach((sr, i) => {
+    const lx = startL + i * gapL;
+    s += `<rect x="${lx}" y="32" width="13" height="11" rx="2.5" fill="${sr.color}"/>`;
+    s += `<text x="${lx+19}" y="42" font-family="${FONT}" font-size="11.5" font-weight="600" fill="#334155">${sr.name}</text>`;
+  });
+  s += `<text x="10" y="61" font-family="${FONT}" font-size="11" font-style="italic" fill="#475569">${unit}</text>`;
+  for (let v = 0; v <= maxVal; v += step) {
+    const y = pT + pH - (v / maxVal) * pH;
+    s += `<line x1="${pL}" y1="${y.toFixed(1)}" x2="${W-pR}" y2="${y.toFixed(1)}" stroke="${v===0?'#334155':'#e2e8f0'}" stroke-width="${v===0?1.5:1}"/>`;
+    s += `<text x="${pL-7}" y="${(y+4).toFixed(1)}" text-anchor="end" font-family="${FONT}" font-size="11" fill="#475569">${v}</text>`;
+  }
+  s += `<line x1="${pL}" y1="${pT-6}" x2="${pL}" y2="${pT+pH}" stroke="#334155" stroke-width="1.5"/>`;
+  const slot = pW / labels.length, bw = Math.min(28, slot * 0.3), bg = 6;
+  labels.forEach((lb, i) => {
+    const cx = pL + slot * (i + 0.5), pw = bw * 2 + bg;
+    series.forEach((sr, j) => {
+      const bx = cx - pw / 2 + j * (bw + bg), h = (sr.values[i] / maxVal) * pH, y = pT + pH - h;
+      s += `<rect x="${bx.toFixed(1)}" y="${y.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="3" fill="${sr.color}"/>`;
+      s += `<text x="${(bx+bw/2).toFixed(1)}" y="${(y-5).toFixed(1)}" text-anchor="middle" font-family="${FONT}" font-size="11" font-weight="700" fill="#0f172a">${sr.values[i]}</text>`;
+    });
+    s += `<text x="${cx.toFixed(1)}" y="${pT+pH+19}" text-anchor="middle" font-family="${FONT}" font-size="11.5" font-weight="600" fill="#334155">${lb}</text>`;
+  });
+  return s + '</svg>';
+}
+
+function makeLine({ title, unit, labels, values, maxVal, step, color = '#2563eb' }) {
+  const W = 465, H = 256, pL = 50, pR = 26, pT = 56, pB = 42, pW = W - pL - pR, pH = H - pT - pB;
+  let s = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+  s += `<text x="${W/2}" y="20" text-anchor="middle" font-family="${FONT}" font-size="13" font-weight="700" fill="#0f172a">${title}</text>`;
+  s += `<text x="10" y="40" font-family="${FONT}" font-size="11" font-style="italic" fill="#475569">${unit}</text>`;
+  for (let v = 0; v <= maxVal; v += step) {
+    const y = pT + pH - (v / maxVal) * pH;
+    s += `<line x1="${pL}" y1="${y.toFixed(1)}" x2="${W-pR}" y2="${y.toFixed(1)}" stroke="${v===0?'#334155':'#e2e8f0'}" stroke-width="${v===0?1.5:1}"/>`;
+    s += `<text x="${pL-7}" y="${(y+4).toFixed(1)}" text-anchor="end" font-family="${FONT}" font-size="11" fill="#475569">${v}</text>`;
+  }
+  s += `<line x1="${pL}" y1="${pT-6}" x2="${pL}" y2="${pT+pH}" stroke="#334155" stroke-width="1.5"/>`;
+  const pts = labels.map((lb, i) => ({
+    x: pL + 24 + (i * (pW - 48)) / (labels.length - 1),
+    y: pT + pH - (values[i] / maxVal) * pH,
+    lb, val: values[i]
+  }));
+  pts.forEach(p => { s += `<line x1="${p.x.toFixed(1)}" y1="${p.y.toFixed(1)}" x2="${p.x.toFixed(1)}" y2="${pT+pH}" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,3"/>`; });
+  s += `<polyline points="${pts.map(p=>`${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ')}" fill="none" stroke="${color}" stroke-width="2.4" stroke-linejoin="round"/>`;
+  pts.forEach(p => {
+    s += `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4.2" fill="#fff" stroke="${color}" stroke-width="2.3"/>`;
+    s += `<text x="${p.x.toFixed(1)}" y="${(p.y-10).toFixed(1)}" text-anchor="middle" font-family="${FONT}" font-size="11.5" font-weight="700" fill="#0f172a" style="paint-order:stroke;stroke:#fff;stroke-width:4px">${p.val}</text>`;
+    s += `<text x="${p.x.toFixed(1)}" y="${pT+pH+19}" text-anchor="middle" font-family="${FONT}" font-size="11.5" font-weight="600" fill="#334155">${p.lb}</text>`;
+  });
+  return s + '</svg>';
+}
+
+function makePie({ title, slices }) {
+  const W = 465, H = 228, cx = 114, cy = 126, r = 76;
+  let s = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+  s += `<text x="${W/2}" y="20" text-anchor="middle" font-family="${FONT}" font-size="13" font-weight="700" fill="#0f172a">${title}</text>`;
+  let ang = -90;
+  slices.forEach(sl => {
+    const sw = (sl.pct / 100) * 360, a1 = ang * Math.PI / 180, a2 = (ang + sw) * Math.PI / 180;
+    const x1 = cx + r * Math.cos(a1), y1 = cy + r * Math.sin(a1), x2 = cx + r * Math.cos(a2), y2 = cy + r * Math.sin(a2);
+    s += `<path d="M ${cx} ${cy} L ${x1.toFixed(2)} ${y1.toFixed(2)} A ${r} ${r} 0 ${sw>180?1:0} 1 ${x2.toFixed(2)} ${y2.toFixed(2)} Z" fill="${sl.color}" stroke="#fff" stroke-width="2"/>`;
+    if (sl.pct >= 14) {
+      const m = (ang + sw / 2) * Math.PI / 180, tx = cx + r * 0.6 * Math.cos(m), ty = cy + r * 0.6 * Math.sin(m) + 4;
+      s += `<text x="${tx.toFixed(1)}" y="${ty.toFixed(1)}" text-anchor="middle" font-family="${FONT}" font-size="11.5" font-weight="800" fill="${sl.tc||'#fff'}">${sl.txt || sl.pct + '%'}</text>`;
+    }
+    ang += sw;
+  });
+  const rh = 29, sy = cy - (slices.length * rh) / 2 + 12;
+  slices.forEach((sl, i) => {
+    const ry = sy + i * rh;
+    s += `<rect x="218" y="${(ry-10).toFixed(1)}" width="14" height="14" rx="3" fill="${sl.color}"/>`;
+    s += `<text x="240" y="${(ry+1).toFixed(1)}" font-family="${FONT}" font-size="12" font-weight="600" fill="#1e293b">${sl.label}: <tspan font-weight="800" fill="#0f172a">${sl.txt || sl.pct + '%'}</tspan></text>`;
+  });
+  return s + '</svg>';
+}
+
+/* Cấu hình toàn bộ biểu đồ trong bài học */
+const CHARTS = {
+  vd1_bar: makeBar({ title: 'Xếp loại học lực học sinh khối 8', unit: 'Số học sinh', labels: ['Giỏi', 'Khá', 'Trung bình', 'Yếu'], values: [38, 140, 52, 13], maxVal: 160, step: 20 }),
+  vd3_bar: makeBar({ title: 'Học lực học sinh khối 8 (HK1)', unit: 'Số học sinh', labels: ['Giỏi', 'Khá', 'Trung bình', 'Yếu'], values: [38, 140, 52, 13], maxVal: 160, step: 20 }),
+  vd3_line: makeLine({ title: 'Thứ hạng bóng đá Việt Nam (2016–2020)', unit: 'Thứ hạng', labels: ['2016', '2017', '2018', '2019', '2020'], values: [134, 112, 100, 94, 93], maxVal: 160, step: 20, color: '#0284c7' }),
+  vd4_line: makeLine({ title: 'Doanh số 6 tháng đầu năm', unit: 'Sản phẩm', labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6'], values: [100, 120, 130, 90, 85, 140], maxVal: 160, step: 20, color: '#2563eb' }),
+  vd5_pie: makePie({ title: 'Cơ cấu lao động theo khu vực', slices: [
+    { label: 'Dịch vụ', pct: 46.7, txt: '46,7%', color: '#22c55e' },
+    { label: 'Nông – Lâm – Ngư nghiệp', pct: 21.2, txt: '21,2%', color: '#86efac', tc: '#0f172a' },
+    { label: 'Công nghiệp – Xây dựng', pct: 32.1, txt: '32,1%', color: '#3b82f6' }
+  ]}),
+  vd5_grouped: makeGroupedBar({ title: 'Số lượng bán ra Điều hòa & Quạt hơi nước', unit: 'Chiếc', labels: ['Tháng 6', 'Tháng 7', 'Tháng 8'], series: [
+    { name: 'Điều hòa', values: [250, 320, 260], color: '#2563eb' },
+    { name: 'Quạt hơi nước', values: [200, 285, 240], color: '#f97316' }
+  ], maxVal: 350, step: 50 }),
+  b1_sol_bar: makeBar({ title: 'Số điểm tốt đạt được của các tổ trong tuần', unit: 'Điểm tốt', labels: ['Tổ 1', 'Tổ 2', 'Tổ 3', 'Tổ 4'], values: [20, 10, 15, 25], maxVal: 30, step: 5, color: '#db2777' }),
+  b2_bar: makeBar({ title: 'Sĩ số học sinh khối lớp 8 (Hình 1)', unit: 'Học sinh', labels: ['8A', '8B', '8C', '8D', '8E'], values: [34, 28, 27, 25, 34], maxVal: 40, step: 5, color: '#4f46e5' }),
+  b2_sol_line: makeLine({ title: 'Sĩ số học sinh khối lớp 8', unit: 'Học sinh', labels: ['8A', '8B', '8C', '8D', '8E'], values: [34, 28, 27, 25, 34], maxVal: 40, step: 5, color: '#4f46e5' }),
+  b3_pie: makePie({ title: 'Tỉ lệ phần trăm các loại vật nuôi (Hình 2)', slices: [
+    { label: 'Lợn', pct: 21, color: '#f97316' },
+    { label: 'Gà', pct: 32, color: '#eab308', tc: '#0f172a' },
+    { label: 'Vịt', pct: 47, color: '#2563eb' }
+  ]}),
+  b4_sol_line: makeLine({ title: 'Thời gian tự học trong tuần của bạn Tiến', unit: 'Phút', labels: ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'], values: [80, 100, 60, 70, 90, 60, 0], maxVal: 120, step: 20, color: '#7c3aed' }),
+  b5_sol_grouped: makeGroupedBar({ title: 'Điểm cộng và điểm trừ thi đua khối 8', unit: 'Điểm', labels: ['8A1', '8A2', '8A3', '8A4'], series: [
+    { name: 'Điểm cộng', values: [25, 28, 19, 15], color: '#16a34a' },
+    { name: 'Điểm trừ', values: [8, 10, 8, 6], color: '#ef4444' }
+  ], maxVal: 35, step: 5 }),
+  b6_sol_pie: makePie({ title: 'Tỉ lệ xếp loại học lực lớp 8B (HK1)', slices: [
+    { label: 'Giỏi', pct: 25, color: '#2563eb' },
+    { label: 'Khá', pct: 60, color: '#16a34a' },
+    { label: 'Trung bình', pct: 15, color: '#f59e0b' }
+  ]}),
+  b7_sol_bar: makeBar({ title: 'Tỉ lệ yêu thích môn học lớp 8C', unit: 'Tỉ lệ (%)', labels: ['Toán', 'Văn', 'Anh', 'Khoa học'], values: [30, 25, 20, 25], maxVal: 35, step: 5, suffix: '%', color: '#0284c7' }),
+  b7_sol_pie: makePie({ title: 'Tỉ lệ yêu thích môn học lớp 8C', slices: [
+    { label: 'Toán', pct: 30, color: '#2563eb' },
+    { label: 'Văn', pct: 25, color: '#f97316' },
+    { label: 'Anh', pct: 20, color: '#16a34a' },
+    { label: 'Khoa học', pct: 25, color: '#8b5cf6' }
+  ]}),
+  b8_sol_line: makeLine({ title: 'Số HSG Toán cấp huyện của 4 khối', unit: 'Số học sinh', labels: ['Khối 6', 'Khối 7', 'Khối 8', 'Khối 9'], values: [16, 24, 20, 25], maxVal: 30, step: 5, color: '#dc2626' }),
+  b8_sol_pie: makePie({ title: 'Cơ cấu HSG Toán cấp huyện theo khối', slices: [
+    { label: 'Khối 6', pct: 18.82, txt: '18,82%', color: '#3b82f6' },
+    { label: 'Khối 7', pct: 28.24, txt: '28,24%', color: '#16a34a' },
+    { label: 'Khối 8', pct: 23.53, txt: '23,53%', color: '#f59e0b' },
+    { label: 'Khối 9', pct: 29.41, txt: '29,41%', color: '#8b5cf6' }
+  ]})
+};
+
+function renderPictograms() {
+  const vd1Rows = [['Toán', 7], ['Ngữ Văn', 4], ['Tin Học', 2], ['Lịch sử và Địa lí', 2], ['Khoa học tự nhiên', 6]];
+  document.getElementById('vd1-picto').innerHTML = vd1Rows.map(([k, n]) => `<tr><td class="font-semibold">${k}</td><td>${repeatIcon(BOOK_SVG, n)}</td></tr>`).join('');
+  document.getElementById('vd1-key').innerHTML = BOOK_SVG;
+
+  document.getElementById('vd2-picto').innerHTML = `<tr><td class="font-semibold">Số lượng học sinh chọn</td><td>${repeatIcon(CIRCLE_SVG, 2)}</td><td>${repeatIcon(CIRCLE_SVG, 3)}</td><td>${repeatIcon(CIRCLE_SVG, 2)}</td><td>${repeatIcon(CIRCLE_SVG, 5)}</td></tr>`;
+
+  document.getElementById('b1-picto').innerHTML = `<tr><td>${repeatIcon(FLOWER_SVG, 4)}</td><td>${repeatIcon(FLOWER_SVG, 2)}</td><td>${repeatIcon(FLOWER_SVG, 3)}</td><td>${repeatIcon(FLOWER_SVG, 5)}</td></tr>`;
+  document.getElementById('b1-key').innerHTML = FLOWER_SVG;
+}
+
+function renderAllCharts() {
+  document.querySelectorAll('[data-chart]').forEach(el => {
+    const key = el.getAttribute('data-chart');
+    if (CHARTS[key]) el.innerHTML = CHARTS[key];
+  });
+}
+
+function renderMath() {
+  if (typeof renderMathInElement === 'function') {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      throwOnError: false,
+      ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    });
+  }
+}
+
+function toggleAllSolutions() {
+  const items = [...document.querySelectorAll('details')];
+  const shouldOpen = items.some(item => !item.open);
+  items.forEach(item => item.open = shouldOpen);
+  const label = document.querySelector('#toggle-all-btn span');
+  if (label) label.textContent = shouldOpen ? 'Ẩn tất cả lời giải' : 'Hiện tất cả lời giải';
+}
+
+window.addEventListener('load', () => {
+  renderPictograms();
+  renderAllCharts();
+  renderMath();
+  if (window.lucide) lucide.createIcons();
+});
+</script>
+</body>
+</html>

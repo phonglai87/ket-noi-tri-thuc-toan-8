@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BT_C5: Tổng hợp 100 bài tập Chương V — Dữ liệu và Biểu đồ (Toán 8)</title>
+  <style>
+    :root{--bg:#f1f5f9;--surface:#fff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--primary:#2563eb;--primary-dark:#1e3a8a;--primary-soft:#eff6ff;--success:#16a34a;--success-soft:#f0fdf4;--danger:#dc2626;--danger-soft:#fef2f2;--warning:#d97706;--warning-soft:#fffbeb;--violet:#7c3aed;--violet-soft:#f5f3ff;--shadow:0 4px 16px rgba(15,23,42,.06)}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+    .hidden{display:none!important}
+    .math{font-family:'Cambria Math','Times New Roman',Georgia,serif;font-size:1.06em;white-space:nowrap}
+    .math i{font-style:italic}
+    .frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 3px;font-size:.88em;line-height:1.1}
+    .frac>span:first-child{border-bottom:1.3px solid currentColor;padding:0 4px 1px}
+    .frac>span:last-child{padding:1px 4px 0}
+
+    /* Header & Sticky Bar */
+    .hero{background:linear-gradient(135deg,#1e3a8a 0%,#2563eb 60%,#4f46e5 100%);color:#fff;padding:24px 20px 28px}
+    .hero-inner{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px}
+    .hero h1{font-size:1.65rem;font-weight:800;line-height:1.25}
+    .hero p{color:#dbeafe;font-size:.94rem;margin-top:4px}
+    .hero-links{display:flex;flex-wrap:wrap;gap:8px}
+    .hero-link{color:#fff;text-decoration:none;font-size:.84rem;font-weight:600;padding:7px 13px;border-radius:999px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);transition:.2s}
+    .hero-link:hover{background:rgba(255,255,255,.26)}
+
+    .topbar{position:sticky;top:0;z-index:500;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);box-shadow:0 2px 10px rgba(15,23,42,.05)}
+    .topbar-inner{max-width:1180px;margin:0 auto;padding:10px 18px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
+    .stats-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:.86rem;font-weight:700}
+    .stat-pill{padding:5px 12px;border-radius:999px;background:#f8fafc;border:1px solid var(--border);color:var(--text)}
+    .stat-pill.ok{background:var(--success-soft);border-color:#bbf7d0;color:var(--success)}
+    .stat-pill.score{background:var(--primary-soft);border-color:#bfdbfe;color:var(--primary-dark)}
+    .action-row{display:flex;flex-wrap:wrap;gap:8px}
+    .btn{border:none;border-radius:9px;padding:8px 14px;font-size:.85rem;font-weight:700;cursor:pointer;transition:.18s;display:inline-flex;align-items:center;gap:6px}
+    .btn-primary{background:var(--primary);color:#fff}
+    .btn-primary:hover{background:#1d4ed8}
+    .btn-outline{background:#fff;border:1.5px solid #cbd5e1;color:#334155}
+    .btn-outline:hover{border-color:var(--primary);color:var(--primary)}
+    .btn-danger{background:var(--danger-soft);border:1.5px solid #fecaca;color:var(--danger)}
+    .btn-danger:hover{background:#fee2e2}
+
+    /* Main Container */
+    .container{max-width:1180px;margin:22px auto 64px;padding:0 18px}
+
+    /* Mind Map Summary */
+    .mindmap{background:var(--surface);border:1px solid var(--border);border-radius:16px;margin-bottom:20px;box-shadow:var(--shadow);overflow:hidden}
+    .mindmap summary{padding:14px 20px;font-weight:800;font-size:.98rem;color:var(--primary-dark);cursor:pointer;display:flex;align-items:center;justify-content:space-between;background:#f8fafc;list-style:none}
+    .mindmap summary::-webkit-details-marker{display:none}
+    .mm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:16px 20px 20px;border-top:1px solid var(--border)}
+    .mm-card{background:#f8fafc;border:1px solid var(--border);border-top:4px solid var(--primary);border-radius:12px;padding:13px 15px;font-size:.87rem}
+    .mm-card.c2{border-top-color:#0284c7}
+    .mm-card.c3{border-top-color:var(--violet)}
+    .mm-card h3{font-size:.94rem;font-weight:800;color:var(--primary-dark);margin-bottom:7px}
+    .mm-card ul{padding-left:17px;display:flex;flex-direction:column;gap:4px;color:#334155}
+
+    /* Filters */
+    .filter-panel{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 18px;margin-bottom:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px}
+    .filter-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+    .filter-lbl{font-size:.82rem;font-weight:800;color:var(--muted);text-transform:uppercase;min-width:86px}
+    .chip{border:1.5px solid var(--border);background:#fff;color:#475569;padding:6px 13px;border-radius:999px;font-size:.83rem;font-weight:700;cursor:pointer;transition:.15s}
+    .chip:hover{border-color:var(--primary);color:var(--primary)}
+    .chip.active{background:var(--primary);border-color:var(--primary);color:#fff}
+
+    /* Layout: Questions + Sidebar */
+    .layout{display:grid;grid-template-columns:1fr 265px;gap:22px;align-items:start}
+    .sec-banner{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;padding:13px 18px;border-radius:12px;margin:22px 0 14px}
+    .sec-banner:first-child{margin-top:0}
+    .sec-banner h2{font-size:1.05rem;font-weight:800}
+    .sec-banner p{font-size:.84rem;color:#dbeafe;margin-top:2px}
+
+    /* Question Card */
+    .q-card{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--border);border-radius:14px;padding:18px 20px;margin-bottom:14px;box-shadow:0 2px 8px rgba(15,23,42,.03);scroll-margin-top:78px;transition:border-color .2s}
+    .q-card.st-ok{border-left-color:var(--success)}
+    .q-card.st-part{border-left-color:var(--warning)}
+    .q-card.st-no{border-left-color:var(--danger)}
+    .q-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+    .q-badges{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+    .q-num{background:var(--primary-soft);color:var(--primary);font-weight:800;font-size:.84rem;padding:2px 10px;border-radius:6px}
+    .q-tag{background:#f1f5f9;color:#475569;font-size:.76rem;font-weight:700;padding:2px 9px;border-radius:999px}
+    .q-tag.tf{background:var(--violet-soft);color:var(--violet)}
+    .q-tag.sa{background:#ecfeff;color:#0e7490}
+    .q-text{font-size:.98rem;font-weight:600;margin-bottom:12px;color:var(--text)}
+
+    /* Charts & Tables inside questions */
+    .q-vis{margin:10px 0 14px;background:#fff;border:1px solid var(--border);border-radius:12px;padding:10px;overflow-x:auto}
+    .q-vis svg{max-width:480px;width:100%;height:auto;display:block;margin:0 auto}
+    .q-vis.wide svg{max-width:540px}
+    .data-tbl{width:100%;max-width:600px;margin:0 auto;border-collapse:collapse;font-size:.88rem;background:#fff}
+    .data-tbl caption{font-weight:700;color:var(--primary-dark);margin-bottom:6px;font-size:.89rem}
+    .data-tbl th,.data-tbl td{border:1px solid #cbd5e1;padding:6px 10px;text-align:center}
+    .data-tbl th{background:#eff6ff;color:#1e3a8a;font-weight:700}
+    .data-tbl td.left{text-align:left}
+    .picto-row{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;align-items:center}
+
+    /* MCQ */
+    .mcq-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+    .mcq-grid.single{grid-template-columns:1fr}
+    .mcq-opt{display:flex;align-items:center;gap:10px;padding:10px 13px;border:1.5px solid var(--border);border-radius:10px;cursor:pointer;background:#fff;font-size:.94rem;transition:.15s}
+    .mcq-opt:hover{border-color:#93c5fd;background:#f8fafc}
+    .mcq-opt.sel{border-color:var(--primary);background:var(--primary-soft);font-weight:600}
+    .mcq-opt.rev-ok{border-color:var(--success);background:var(--success-soft);font-weight:700}
+    .mcq-opt.rev-no{border-color:var(--danger);background:var(--danger-soft)}
+    .mcq-ltr{width:26px;height:26px;border-radius:50%;border:1.5px solid #cbd5e1;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.82rem;color:var(--muted);flex-shrink:0}
+    .mcq-opt.sel .mcq-ltr{background:var(--primary);border-color:var(--primary);color:#fff}
+    .mcq-opt.rev-ok .mcq-ltr{background:var(--success);border-color:var(--success);color:#fff}
+    .mcq-opt.rev-no .mcq-ltr{background:var(--danger);border-color:var(--danger);color:#fff}
+
+    /* Short Answer */
+    .sa-wrap{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+    .sa-inp{width:190px;padding:9px 13px;border:1.5px solid #cbd5e1;border-radius:9px;font-size:.98rem;font-weight:700;color:var(--primary-dark);outline:none}
+    .sa-inp:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,.14)}
+    .sa-inp.rev-ok{border-color:var(--success);background:var(--success-soft);color:#14532d}
+    .sa-inp.rev-no{border-color:var(--danger);background:var(--danger-soft);color:#7f1d1d}
+    .sa-hint{font-size:.81rem;color:var(--muted)}
+
+    /* True / False */
+    .tf-tbl{width:100%;border-collapse:collapse;margin-top:4px;font-size:.93rem}
+    .tf-tbl th,.tf-tbl td{padding:9px 10px;border-bottom:1px solid var(--border);vertical-align:middle}
+    .tf-tbl th{font-size:.78rem;text-transform:uppercase;color:var(--muted);background:#f8fafc;text-align:center}
+    .tf-tbl th:first-child{text-align:left}
+    .tf-tbl tr:last-child td{border-bottom:none}
+    .tf-tbl tr.rev-ok td{background:var(--success-soft)}
+    .tf-tbl tr.rev-no td{background:var(--danger-soft)}
+    .tf-cell{text-align:center;width:66px}
+    .tf-btn{width:50px;padding:5px 0;border-radius:7px;border:1.5px solid #cbd5e1;background:#fff;font-weight:700;font-size:.82rem;color:var(--muted);cursor:pointer;transition:.15s}
+    .tf-btn.act-t{background:var(--success);border-color:var(--success);color:#fff}
+    .tf-btn.act-f{background:var(--danger);border-color:var(--danger);color:#fff}
+
+    /* Footer & Explanation inside Question */
+    .q-foot{margin-top:12px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}
+    .btn-check{background:#f8fafc;border:1.5px solid #cbd5e1;color:#1e3a8a;padding:6px 12px;border-radius:8px;font-size:.82rem;font-weight:700;cursor:pointer;transition:.15s}
+    .btn-check:hover{border-color:var(--primary);background:var(--primary-soft)}
+    .q-status{font-size:.85rem;font-weight:700}
+    .q-status.ok{color:var(--success)}
+    .q-status.part{color:var(--warning)}
+    .q-status.no{color:var(--danger)}
+    .q-exp{margin-top:10px;padding:11px 14px;border-radius:10px;background:#f8fafc;border:1px dashed #cbd5e1;font-size:.89rem;color:#334155;display:none}
+    .q-exp.show{display:block}
+
+    /* Sidebar Navigator */
+    .sidebar{position:sticky;top:68px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:15px;box-shadow:var(--shadow);max-height:calc(100vh - 86px);overflow-y:auto}
+    .sidebar h3{font-size:.9rem;font-weight:800;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+    .nav-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
+    .nav-dot{height:30px;border-radius:7px;border:1.5px solid #cbd5e1;background:#fff;font-size:.76rem;font-weight:700;color:var(--text);cursor:pointer;transition:.12s}
+    .nav-dot:hover{border-color:var(--primary);color:var(--primary)}
+    .nav-dot.done{background:var(--primary-soft);border-color:var(--primary);color:var(--primary-dark)}
+    .nav-dot.ok{background:var(--success);border-color:var(--success);color:#fff}
+    .nav-dot.part{background:var(--warning);border-color:var(--warning);color:#fff}
+    .nav-dot.no{background:var(--danger);border-color:var(--danger);color:#fff}
+    .nav-dot.dim{opacity:.28}
+
+    /* Result Summary Banner */
+    #summaryBox{background:var(--surface);border:2px solid var(--primary);border-radius:16px;padding:22px;margin-bottom:20px;box-shadow:var(--shadow);text-align:center}
+    .sum-score{font-size:2.6rem;font-weight:900;color:var(--primary);line-height:1.15}
+    .sum-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+    .sum-cell{background:#f8fafc;border:1px solid var(--border);border-radius:10px;padding:10px}
+    .sum-cell b{display:block;font-size:1.05rem;color:var(--text)}
+    .sum-cell span{font-size:.78rem;color:var(--muted)}
+
+    @media(max-width:960px){.layout{grid-template-columns:1fr}.sidebar{position:static;max-height:none}.mm-grid{grid-template-columns:1fr}.sum-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:600px){.mcq-grid{grid-template-columns:1fr}.hero h1{font-size:1.35rem}}
+  </style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>BT_C5: Tổng Hợp 100 Bài Tập Chương V — Dữ Liệu &amp; Biểu Đồ</h1>
+      <p>Toán 8 (Kết nối tri thức) • 50 Trắc nghiệm • 42 Trả lời ngắn • 8 Đúng / Sai • Tự chấm điểm &amp; lời giải chi tiết</p>
+    </div>
+    <div class="hero-links">
+      <a href="index.html" class="hero-link">← Trang chủ</a>
+      <a href="bai18_thuthap_phanloai_dulieu.html" class="hero-link">Bài 18</a>
+      <a href="bai19_bieudien_dulieu.html" class="hero-link">Bài 19</a>
+      <a href="bai20_phantich_solieu.html" class="hero-link">Bài 20</a>
+    </div>
+  </div>
+</header>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="stats-row">
+      <span class="stat-pill" id="stDone">Đã làm: 0 / 100</span>
+      <span class="stat-pill ok" id="stChecked">Đã chấm: 0 câu</span>
+      <span class="stat-pill score" id="stScore">Điểm: 0,00 / 10</span>
+    </div>
+    <div class="action-row">
+      <button class="btn btn-outline" id="btnSound" title="Bật/tắt âm thanh">🔊 Âm thanh: Bật</button>
+      <button class="btn btn-primary" id="btnGradeAll">✓ Chấm toàn bộ 100 câu</button>
+      <button class="btn btn-danger" id="btnReset">↺ Làm lại</button>
+    </div>
+  </div>
+</div>
+
+<main class="container">
+
+  <!-- Sơ đồ tóm tắt nhanh Chương V -->
+  <details class="mindmap">
+    <summary><span>📌 Sơ đồ tóm tắt trọng tâm Chương V (Bài 18 • Bài 19 • Bài 20)</span><span style="font-size:.82rem;color:var(--primary)">Bấm để mở / thu gọn ▾</span></summary>
+    <div class="mm-grid">
+      <div class="mm-card">
+        <h3>Bài 18: Thu thập &amp; Phân loại dữ liệu</h3>
+        <ul>
+          <li><b>Trực tiếp:</b> quan sát, thí nghiệm, lập bảng hỏi, phỏng vấn.</li>
+          <li><b>Gián tiếp:</b> sách, báo, internet, báo cáo thống kê có sẵn.</li>
+          <li><b>Số liệu (định lượng):</b> <i>Rời rạc</i> (đếm được) &amp; <i>Liên tục</i> (nhận giá trị tùy ý trong khoảng: cao, nặng, thời gian, nhiệt độ).</li>
+          <li><b>Không là số (định tính):</b> <i>Không sắp thứ tự</i> (tên môn, hãng xe) &amp; <i>Có sắp thứ tự</i> (Tốt, Khá, Đạt).</li>
+        </ul>
+      </div>
+      <div class="mm-card c2">
+        <h3>Bài 19: Biểu diễn bằng bảng, biểu đồ</h3>
+        <ul>
+          <li><b>Biểu đồ tranh:</b> trực quan khi số liệu nhỏ, chia hết cho giá trị biểu tượng.</li>
+          <li><b>Biểu đồ cột:</b> so sánh số lượng giữa các đối tượng.</li>
+          <li><b>Biểu đồ đoạn thẳng:</b> theo dõi xu hướng thay đổi theo thời gian.</li>
+          <li><b>Biểu đồ cột kép:</b> so sánh 2 tập dữ liệu cùng loại.</li>
+          <li><b>Hình quạt tròn:</b> tỉ lệ % trong tổng thể 100%; góc ở tâm $= 360^\circ \times \text{tỉ lệ}$.</li>
+        </ul>
+      </div>
+      <div class="mm-card c3">
+        <h3>Bài 20: Phân tích số liệu từ biểu đồ</h3>
+        <ul>
+          <li><b>Gốc trục đứng khác 0:</b> tỉ lệ chiều cao các cột <b>không bằng</b> tỉ lệ số liệu thực.</li>
+          <li><b>Trục ngang chia không đều:</b> không dựa vào độ dốc để kết luận tốc độ tăng/giảm.</li>
+          <li><b>Tỉ lệ % tăng/giảm:</b> $\dfrac{\text{Chênh lệch}}{\text{Giá trị ban đầu}} \times 100\%$.</li>
+          <li><b>Tính giá gốc khi giảm $a\%$:</b> $\text{Giá gốc} = \text{Giá sau giảm} : (100\% - a\%)$.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
+  <!-- Bảng tổng kết sau khi bấm Chấm toàn bộ -->
+  <section id="summaryBox" class="hidden">
+    <div style="font-size:.9rem;font-weight:700;color:var(--muted)">KẾT QUẢ TỔNG HỢP 100 CÂU CHƯƠNG V</div>
+    <div class="sum-score" id="sumScore">0,00 / 10</div>
+    <div style="font-size:.92rem;font-weight:600;color:var(--primary-dark);margin-top:4px" id="sumMsg"></div>
+    <div class="sum-grid">
+      <div class="sum-cell"><b id="sumMcq">0 / 50</b><span>Trắc nghiệm (1–50)</span></div>
+      <div class="sum-cell"><b id="sumSa">0 / 42</b><span>Trả lời ngắn (51–92)</span></div>
+      <div class="sum-cell"><b id="sumTf">0,00 / 8,00</b><span>Đúng / Sai (93–100)</span></div>
+      <div class="sum-cell"><b id="sumAcc">0%</b><span>Tỉ lệ hoàn thành đúng</span></div>
+    </div>
+  </section>
+
+  <!-- Bộ lọc -->
+  <section class="filter-panel">
+    <div class="filter-row">
+      <span class="filter-lbl">Dạng bài:</span>
+      <button class="chip active" data-ftype="all">Tất cả (100)</button>
+      <button class="chip" data-ftype="mcq">Trắc nghiệm (50)</button>
+      <button class="chip" data-ftype="sa">Trả lời ngắn (42)</button>
+      <button class="chip" data-ftype="tf">Đúng / Sai (8)</button>
+    </div>
+    <div class="filter-row">
+      <span class="filter-lbl">Theo bài:</span>
+      <button class="chip active" data-flesson="all">Toàn Chương V</button>
+      <button class="chip" data-flesson="18">Bài 18: Thu thập &amp; Phân loại</button>
+      <button class="chip" data-flesson="19">Bài 19: Bảng &amp; Biểu đồ</button>
+      <button class="chip" data-flesson="20">Bài 20: Phân tích số liệu</button>
+    </div>
+  </section>
+
+  <!-- Nội dung câu hỏi + Bảng điều hướng 100 ô -->
+  <div class="layout">
+    <div id="qList"></div>
+    <aside class="sidebar">
+      <h3><span>Phiếu 100 câu</span><span style="font-size:.75rem;color:var(--muted)" id="visCount">100 câu</span></h3>
+      <div class="nav-grid" id="navGrid"></div>
+    </aside>
+  </div>
+
+</main>
+
+<script>
+/* =========================================================================
+   1. BỘ DỰNG BIỂU ĐỒ SVG & BẢNG DỮ LIỆU CHỐNG ĐÈ CHỮ TUYỆT ĐỐI
+   ========================================================================= */
+const F = 'Segoe UI,Arial,sans-serif';
+
+const BOOK_ICO = `<svg width="21" height="17" viewBox="0 0 26 20" fill="none"><path d="M2 4.5C5.5 3 9.5 3.2 13 5.2C16.5 3.2 20.5 3 24 4.5V16.8C20.5 15.3 16.5 15.5 13 17.5C9.5 15.5 5.5 15.3 2 16.8V4.5Z" fill="#eff6ff" stroke="#1e40af" stroke-width="1.6" stroke-linejoin="round"/><line x1="13" y1="5.2" x2="13" y2="17.5" stroke="#1e40af" stroke-width="1.3"/></svg>`;
+const TREE_ICO = `<svg width="20" height="22" viewBox="0 0 24 26" fill="none"><polygon points="12,2 4,14 20,14" fill="#bbf7d0" stroke="#15803d" stroke-width="1.5" stroke-linejoin="round"/><polygon points="12,8 3,20 21,20" fill="#86efac" stroke="#15803d" stroke-width="1.5" stroke-linejoin="round"/><rect x="10.2" y="20" width="3.6" height="4.5" fill="#92400e"/></svg>`;
+const repIco = (svg, n) => `<div class="picto-row">${Array(n).fill(svg).join('')}</div>`;
+
+function mkBar({ t, u, lb, v, min = 0, max, st, suf = '', col = '#2563eb' }) {
+  const W = 470, H = 246, pL = 50, pR = 20, pT = 54, pB = 40, pW = W - pL - pR, pH = H - pT - pB;
+  let s = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg"><text x="${W/2}" y="20" text-anchor="middle" font-family="${F}" font-size="13" font-weight="700" fill="#0f172a">${t}</text><text x="10" y="39" font-family="${F}" font-size="11" font-style="italic" fill="#475569">${u}</text>`;
+  for (let yv = min; yv <= max; yv += st) {
+    const y = pT + pH - ((yv - min) / (max - min)) * pH;
+    const isMin = yv === min;
+    s += `<line x1="${pL}" y1="${y.toFixed(1)}" x2="${W-pR}" y2="${y.toFixed(1)}" stroke="${isMin?'#334155':'#e2e8f0'}" stroke-width="${isMin?1.5:1}"/><text x="${pL-7}" y="${(y+4).toFixed(1)}" text-anchor="end" font-family="${F}" font-size="11" fill="${isMin&&min>0?'#dc2626':'#475569'}" font-weight="${isMin&&min>0?'700':'400'}">${yv}</text>`;
+  }
+  s += `<line x1="${pL}" y1="${pT-6}" x2="${pL}" y2="${pT+pH}" stroke="#334155" stroke-width="1.5"/>`;
+  const sl = pW / lb.length, bw = Math.min(44, sl * 0.5);
+  lb.forEach((l, i) => {
+    const cx = pL + sl * (i + 0.5), h = ((v[i] - min) / (max - min)) * pH, y = pT + pH - h;
+    s += `<rect x="${(cx-bw/2).toFixed(1)}" y="${y.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="4" fill="${col}"/><text x="${cx.toFixed(1)}" y="${(y-6).toFixed(1)}" text-anchor="middle" font-family="${F}" font-size="11.5" font-weight="700" fill="#0f172a">${v[i]}${suf}</text><text x="${cx.toFixed(1)}" y="${pT+pH+19}" text-anchor="middle" font-family="${F}" font-size="11.5" font-weight="600" fill="#334155">${l}</text>`;
+  });
+  return s + '</svg>';
+}
+
+function mkGroup({ t, u, lb, sr, min = 0, max, st }) {
+  const W = 480, H = 268, pL = 50, pR = 20, pT = 74, pB = 40, pW = W - pL - pR, pH = H - pT - pB;
+  let s = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg"><text x="${W/2}" y="20" text-anchor="middle" font-family="${F}" font-size="13" font-weight="700" fill="#0f172a">${t}</text>`;
+  const gl = 148, sx = (W - gl * sr.length + 28) / 2;
+  sr.forEach((r, i) => { s += `<rect x="${sx+i*gl}" y="32" width="13" height="11" rx="2.5" fill="${r.c}"/><text x="${sx+i*gl+19}" y="42" font-family="${F}" font-size="11.5" font-weight="600" fill="#334155">${r.n}</text>`; });
+  s += `<text x="10" y="61" font-family="${F}" font-size="11" font-style="italic" fill="#475569">${u}</text>`;
+  for (let yv = min; yv <= max; yv += st) {
+    const y = pT + pH - ((yv - min) / (max - min)) * pH;
+    s += `<line x1="${pL}" y1="${y.toFixed(1)}" x2="${W-pR}" y2="${y.toFixed(1)}" stroke="${yv===min?'#334155':'#e2e8f0'}" stroke-width="${yv===min?1.5:1}"/><text x="${pL-7}" y="${(y+4).toFixed(1)}" text-anchor="end" font-family="${F}" font-size="11" fill="#475569">${yv}</text>`;
+  }
+  s += `<line x1="${pL}" y1="${pT-6}" x2="${pL}" y2="${pT+pH}" stroke="#334155" stroke-width="1.5"/>`;
+  const sl = pW / lb.length, bw = Math.min(28, sl * 0.29), bg = 6;
+  lb.forEach((l, i) => {
+    const cx = pL + sl * (i + 0.5), pw = bw * 2 + bg;
+    sr.forEach((r, j) => {
+      const bx = cx - pw / 2 + j * (bw + bg), h = ((r.v[i] - min) / (max - min)) * pH, y = pT + pH - h;
+      s += `<rect x="${bx.toFixed(1)}" y="${y.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="3" fill="${r.c}"/><text x="${(bx+bw/2).toFixed(1)}" y="${(y-5).toFixed(1)}" text-anchor="middle" font-family="${F}" font-size="11" font-weight="700" fill="#0f172a">${r.v[i]}</text>`;
+    });
+    s += `<text x="${cx.toFixed(1)}" y="${pT+pH+19}" text-anchor="middle" font-family="${F}" font-size="11.5" font-weight="600" fill="#334155">${l}</text>`;
+  });
+  return s + '</svg>';
+}
+
+function mkLine({ t, u, lb, sr, min = 0, max, st }) {
+  const multi = sr.length > 1;
+  const W = 480, H = multi ? 272 : 248, pL = 50, pR = 26, pT = multi ? 74 : 54, pB = 40, pW = W - pL - pR, pH = H - pT - pB;
+  let s = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg"><text x="${W/2}" y="20" text-anchor="middle" font-family="${F}" font-size="13" font-weight="700" fill="#0f172a">${t}</text>`;
+  if (multi) {
+    const gl = 152, sx = (W - gl * sr.length + 28) / 2;
+    sr.forEach((r, i) => { s += `<line x1="${sx+i*gl}" y1="38" x2="${sx+i*gl+18}" y2="38" stroke="${r.c}" stroke-width="2.5"/><circle cx="${sx+i*gl+9}" cy="38" r="3.4" fill="#fff" stroke="${r.c}" stroke-width="2"/><text x="${sx+i*gl+24}" y="42" font-family="${F}" font-size="11.5" font-weight="600" fill="#334155">${r.n}</text>`; });
+  }
+  s += `<text x="10" y="${multi?61:39}" font-family="${F}" font-size="11" font-style="italic" fill="#475569">${u}</text>`;
+  for (let yv = min; yv <= max; yv += st) {
+    const y = pT + pH - ((yv - min) / (max - min)) * pH;
+    s += `<line x1="${pL}" y1="${y.toFixed(1)}" x2="${W-pR}" y2="${y.toFixed(1)}" stroke="${yv===min?'#334155':'#e2e8f0'}" stroke-width="${yv===min?1.5:1}"/><text x="${pL-7}" y="${(y+4).toFixed(1)}" text-anchor="end" font-family="${F}" font-size="11" fill="#475569">${yv}</text>`;
+  }
+  s += `<line x1="${pL}" y1="${pT-6}" x2="${pL}" y2="${pT+pH}" stroke="#334155" stroke-width="1.5"/>`;
+  const xs = lb.map((_, i) => pL + 24 + (i * (pW - 48)) / (lb.length - 1));
+  xs.forEach((x, i) => { s += `<line x1="${x.toFixed(1)}" y1="${pT}" x2="${x.toFixed(1)}" y2="${pT+pH}" stroke="#f1f5f9" stroke-width="1"/><text x="${x.toFixed(1)}" y="${pT+pH+19}" text-anchor="middle" font-family="${F}" font-size="11.5" font-weight="600" fill="#334155">${lb[i]}</text>`; });
+  sr.forEach(r => {
+    const pts = r.v.map((v, i) => ({ x: xs[i], y: pT + pH - ((v - min) / (max - min)) * pH, v, dy: (r.off && r.off[i]) || -10 }));
+    s += `<polyline points="${pts.map(p=>`${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ')}" fill="none" stroke="${r.c}" stroke-width="2.4" stroke-linejoin="round"/>`;
+    pts.forEach(p => { s += `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4" fill="#fff" stroke="${r.c}" stroke-width="2.2"/><text x="${p.x.toFixed(1)}" y="${(p.y+p.dy).toFixed(1)}" text-anchor="middle" font-family="${F}" font-size="11" font-weight="700" fill="${r.c}" style="paint-order:stroke;stroke:#fff;stroke-width:3.8px">${p.v}</text>`; });
+  });
+  return s + '</svg>';
+}
+
+function mkPie({ t, sl }) {
+  const W = 470, H = 224, cx = 114, cy = 124, r = 74;
+  let s = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg"><text x="${W/2}" y="20" text-anchor="middle" font-family="${F}" font-size="13" font-weight="700" fill="#0f172a">${t}</text>`;
+  const tot = sl.reduce((a, b) => a + b.p, 0);
+  if (tot < 99.9) s += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,3"/>`;
+  let ang = -90;
+  sl.forEach(x => {
+    const sw = (x.p / 100) * 360, a1 = ang * Math.PI / 180, a2 = (ang + sw) * Math.PI / 180;
+    const x1 = cx + r * Math.cos(a1), y1 = cy + r * Math.sin(a1), x2 = cx + r * Math.cos(a2), y2 = cy + r * Math.sin(a2);
+    s += `<path d="M ${cx} ${cy} L ${x1.toFixed(2)} ${y1.toFixed(2)} A ${r} ${r} 0 ${sw>180?1:0} 1 ${x2.toFixed(2)} ${y2.toFixed(2)} Z" fill="${x.c}" stroke="#fff" stroke-width="2"/>`;
+    if (x.p >= 12) {
+      const m = (ang + sw / 2) * Math.PI / 180, tx = cx + r * 0.6 * Math.cos(m), ty = cy + r * 0.6 * Math.sin(m) + 4;
+      s += `<text x="${tx.toFixed(1)}" y="${ty.toFixed(1)}" text-anchor="middle" font-family="${F}" font-size="11.5" font-weight="800" fill="${x.tc||'#fff'}">${x.d || x.p + '%'}</text>`;
+    }
+    ang += sw;
+  });
+  const rh = 28, sy = cy - (sl.length * rh) / 2 + 11;
+  sl.forEach((x, i) => {
+    const ry = sy + i * rh;
+    s += `<rect x="218" y="${(ry-10).toFixed(1)}" width="14" height="14" rx="3" fill="${x.c}"/><text x="240" y="${(ry+1).toFixed(1)}" font-family="${F}" font-size="12" font-weight="600" fill="#1e293b">${x.l}: <tspan font-weight="800" fill="#0f172a">${x.d || x.p + '%'}</tspan></text>`;
+  });
+  return s + '</svg>';
+}
+
+function mkCombo() {
+  const W = 520, H = 274, pL = 50, pR = 46, pT = 66, pB = 38, pW = W - pL - pR, pH = H - pT - pB;
+  const rain = [20, 40, 60, 100, 180, 260], temp = [16, 18, 21, 25, 28, 30];
+  let s = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg"><text x="${W/2}" y="20" text-anchor="middle" font-family="${F}" font-size="13" font-weight="700" fill="#0f172a">Lượng mưa (mm) và Nhiệt độ (°C) 6 tháng đầu năm</text><rect x="145" y="31" width="13" height="11" rx="2.5" fill="#93c5fd" stroke="#2563eb"/><text x="164" y="41" font-family="${F}" font-size="11.5" font-weight="600" fill="#334155">Lượng mưa (mm)</text><line x1="286" y1="37" x2="304" y2="37" stroke="#dc2626" stroke-width="2.4"/><circle cx="295" cy="37" r="3.2" fill="#fff" stroke="#dc2626" stroke-width="2"/><text x="310" y="41" font-family="${F}" font-size="11.5" font-weight="600" fill="#334155">Nhiệt độ (°C)</text><text x="10" y="56" font-family="${F}" font-size="11" font-style="italic" fill="#1e40af">mm</text><text x="${W-10}" y="56" text-anchor="end" font-family="${F}" font-size="11" font-style="italic" fill="#dc2626">°C</text>`;
+  for (let v = 0; v <= 300; v += 50) {
+    const y = pT + pH - (v / 300) * pH;
+    s += `<line x1="${pL}" y1="${y.toFixed(1)}" x2="${W-pR}" y2="${y.toFixed(1)}" stroke="${v===0?'#334155':'#e2e8f0'}" stroke-width="${v===0?1.5:1}"/><text x="${pL-7}" y="${(y+4).toFixed(1)}" text-anchor="end" font-family="${F}" font-size="10.5" fill="#1e40af">${v}</text>`;
+  }
+  for (let t = 12; t <= 32; t += 4) {
+    const y = pT + pH - ((t - 12) / 20) * pH;
+    s += `<text x="${W-pR+8}" y="${(y+3.5).toFixed(1)}" font-family="${F}" font-size="10.5" fill="#dc2626">${t}</text>`;
+  }
+  s += `<line x1="${pL}" y1="${pT-6}" x2="${pL}" y2="${pT+pH}" stroke="#334155" stroke-width="1.5"/><line x1="${W-pR}" y1="${pT-6}" x2="${W-pR}" y2="${pT+pH}" stroke="#dc2626" stroke-width="1.5"/>`;
+  const sl = pW / 6, bw = 34, pts = [];
+  rain.forEach((rv, i) => {
+    const cx = pL + sl * (i + 0.5), h = (rv / 300) * pH, y = pT + pH - h;
+    s += `<rect x="${(cx-bw/2).toFixed(1)}" y="${y.toFixed(1)}" width="${bw}" height="${h.toFixed(1)}" rx="3" fill="#93c5fd" stroke="#2563eb"/><text x="${cx.toFixed(1)}" y="${pT+pH+18}" text-anchor="middle" font-family="${F}" font-size="11.5" font-weight="600" fill="#334155">Tháng ${i+1}</text>`;
+    const ty = pT + pH - ((temp[i] - 12) / 20) * pH;
+    pts.push({ x: cx, y: ty, t: temp[i], r: rv, ry: y });
+  });
+  s += `<polyline points="${pts.map(p=>`${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ')}" fill="none" stroke="#dc2626" stroke-width="2.4" stroke-linejoin="round"/>`;
+  pts.forEach(p => {
+    s += `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="3.8" fill="#fff" stroke="#dc2626" stroke-width="2.2"/>`;
+    s += `<text x="${p.x.toFixed(1)}" y="${(p.y-9).toFixed(1)}" text-anchor="middle" font-family="${F}" font-size="10.5" font-weight="700" fill="#dc2626" style="paint-order:stroke;stroke:#fff;stroke-width:3.5px">${p.t}°C</text>`;
+    s += `<text x="${p.x.toFixed(1)}" y="${Math.min(pT+pH-5, p.ry+14).toFixed(1)}" text-anchor="middle" font-family="${F}" font-size="10.5" font-weight="700" fill="#1e3a8a">${p.r}</text>`;
+  });
+  return s + '</svg>';
+}
+
+/* Thư viện 19 bảng & biểu đồ cho toàn bộ 100 câu */
+const V = {
+  p1: `<table class="data-tbl"><caption>Biểu đồ tranh: Số quyển vở quyên góp của 4 tổ lớp 8A</caption><thead><tr><th>Tổ 1</th><th>Tổ 2</th><th>Tổ 3</th><th>Tổ 4</th></tr></thead><tbody><tr><td>${repIco(BOOK_ICO,4)}</td><td>${repIco(BOOK_ICO,6)}</td><td>${repIco(BOOK_ICO,5)}</td><td>${repIco(BOOK_ICO,3)}</td></tr></tbody><tfoot><tr><td colspan="4" style="background:#f8fafc;font-size:.82rem;font-weight:700"><span style="display:inline-flex;align-items:center;gap:6px">${BOOK_ICO} = 5 quyển vở</span></td></tr></tfoot></table>`,
+  p2: `<table class="data-tbl"><caption>Biểu đồ tranh: Số cây xanh trồng được của 4 lớp khối 8</caption><thead><tr><th>Lớp 8A</th><th>Lớp 8B</th><th>Lớp 8C</th><th>Lớp 8D</th></tr></thead><tbody><tr><td>${repIco(TREE_ICO,5)}</td><td>${repIco(TREE_ICO,4)}</td><td>${repIco(TREE_ICO,6)}</td><td>${repIco(TREE_ICO,5)}</td></tr></tbody><tfoot><tr><td colspan="4" style="background:#f8fafc;font-size:.82rem;font-weight:700"><span style="display:inline-flex;align-items:center;gap:6px">${TREE_ICO} = 10 cây xanh</span></td></tr></tfoot></table>`,
+  b1: mkBar({ t: 'Phổ điểm kiểm tra Toán lớp 8A (40 học sinh)', u: 'Số học sinh', lb: ['Điểm 6', 'Điểm 7', 'Điểm 8', 'Điểm 9', 'Điểm 10'], v: [4, 8, 12, 10, 6], max: 14, st: 2 }),
+  b2: mkBar({ t: 'Số học sinh đăng ký các CLB lớp 8B (40 HS)', u: 'Số học sinh', lb: ['Bóng đá', 'Cầu lông', 'Bơi lội', 'Cờ vua'], v: [16, 10, 8, 6], max: 20, st: 4, col: '#0284c7' }),
+  b_err: mkBar({ t: 'Số học sinh nam hai lớp 8A và 8B (Gốc trục = 10)', u: 'Số học sinh', lb: ['Lớp 8A', 'Lớp 8B'], v: [18, 12], min: 10, max: 20, st: 2, col: '#f97316' }),
+  g1: mkGroup({ t: 'Số học sinh Nam & Nữ tham gia CLB thể thao khối 8', u: 'Số học sinh', lb: ['8A', '8B', '8C', '8D'], sr: [{ n: 'Nam', v: [12, 10, 16, 12], c: '#2563eb' }, { n: 'Nữ', v: [8, 14, 10, 12], c: '#f97316' }], max: 20, st: 4 }),
+  g2: mkGroup({ t: 'Số tivi bán được của 3 cửa hàng tháng 5 & tháng 6', u: 'Chiếc', lb: ['Cửa hàng 1', 'Cửa hàng 2', 'Cửa hàng 3'], sr: [{ n: 'Tháng 5', v: [30, 40, 50], c: '#0284c7' }, { n: 'Tháng 6', v: [45, 60, 75], c: '#16a34a' }], max: 80, st: 20 }),
+  l1: mkLine({ t: 'Nhiệt độ lúc 12 giờ trưa từ Thứ 2 đến Thứ 7', u: 'Nhiệt độ (°C)', lb: ['T2', 'T3', 'T4', 'T5', 'T6', 'T7'], sr: [{ n: 'Nhiệt độ', v: [24, 26, 23, 28, 30, 25], c: '#dc2626' }], min: 20, max: 32, st: 2 }),
+  l2: mkLine({ t: 'Lượng điện tiêu thụ của gia đình từ Tháng 5 – Tháng 9', u: 'Điện năng (kWh)', lb: ['T5', 'T6', 'T7', 'T8', 'T9'], sr: [{ n: 'Điện năng', v: [200, 250, 300, 240, 210], c: '#7c3aed' }], min: 150, max: 350, st: 50 }),
+  l_err: mkLine({ t: 'Cân nặng em bé theo tuổi (Trục ngang bỏ mốc 6, 7)', u: 'Cân nặng (kg)', lb: ['2 tuổi', '3 tuổi', '4 tuổi', '5 tuổi', '8 tuổi'], sr: [{ n: 'Cân nặng', v: [12, 13, 15, 18, 24], c: '#dc2626' }], min: 10, max: 26, st: 2 }),
+  ml1: mkLine({ t: 'Doanh thu hai chi nhánh A và B giai đoạn 2021 – 2024', u: 'Triệu đồng', lb: ['2021', '2022', '2023', '2024'], sr: [{ n: 'Chi nhánh A', v: [40, 55, 65, 80], c: '#2563eb', off: [16, -10, 16, -10] }, { n: 'Chi nhánh B', v: [50, 45, 70, 75], c: '#16a34a', off: [-10, 16, -10, 16] }], min: 30, max: 90, st: 15 }),
+  pie1: mkPie({ t: 'Xếp loại học tập lớp 8A (40 học sinh)', sl: [{ l: 'Tốt', p: 25, c: '#2563eb' }, { l: 'Khá', p: 50, c: '#16a34a' }, { l: 'Đạt', p: 20, c: '#f59e0b' }, { l: 'Chưa đạt', p: 5, c: '#ef4444' }] }),
+  pie2: mkPie({ t: 'Xếp loại học tập lớp 8B (50 học sinh)', sl: [{ l: 'Tốt', p: 30, c: '#2563eb' }, { l: 'Khá', p: 46, c: '#16a34a' }, { l: 'Đạt', p: 24, c: '#f59e0b' }] }),
+  pie3: mkPie({ t: 'Cơ cấu 400 kg trái cây bán trong ngày', sl: [{ l: 'Cam', p: 35, c: '#f97316' }, { l: 'Xoài', p: 25, c: '#eab308', tc: '#0f172a' }, { l: 'Táo', p: 20, c: '#ef4444' }, { l: 'Nho', p: 15, c: '#8b5cf6' }, { l: 'Lê', p: 5, c: '#22c55e' }] }),
+  pie_miss: mkPie({ t: 'Phương tiện đi học của 200 học sinh khối 8', sl: [{ l: 'Xe đạp', p: 45, d: '?%', c: '#2563eb' }, { l: 'Đi bộ', p: 25, c: '#16a34a' }, { l: 'Xe buýt', p: 15, c: '#f59e0b' }, { l: 'Bố mẹ chở', p: 15, c: '#8b5cf6' }] }),
+  pie_bad: mkPie({ t: 'Chương trình khuyến mại giảm giá 4 mặt hàng', sl: [{ l: 'Quần âu', p: 25, c: '#22c55e' }, { l: 'Áo sơ mi', p: 35, c: '#2563eb' }, { l: 'Áo khoác', p: 20, c: '#f59e0b' }, { l: 'Quần Jeans', p: 10, c: '#8b5cf6' }] }),
+  combo1: mkCombo(),
+  t1: `<table class="data-tbl"><caption>Bảng khảo sát 4 tiêu chí của học sinh lớp 8C</caption><thead><tr><th>STT</th><th>Tiêu chí khảo sát</th><th>Ví dụ dữ liệu</th></tr></thead><tbody><tr><td>1</td><td class="left">Chiều cao (cm)</td><td>155,4; 161,2; 158,0</td></tr><tr><td>2</td><td class="left">Số anh chị em ruột</td><td>0; 1; 2; 3</td></tr><tr><td>3</td><td class="left">Môn học yêu thích</td><td>Toán, Văn, Tiếng Anh</td></tr><tr><td>4</td><td class="left">Xếp loại rèn luyện</td><td>Tốt, Khá, Đạt</td></tr></tbody></table>`,
+  t2: `<table class="data-tbl"><caption>Bảng điểm thi đua trong tháng của 4 tổ lớp 8A</caption><thead><tr><th>Tổ</th><th>Tổ 1</th><th>Tổ 2</th><th>Tổ 3</th><th>Tổ 4</th></tr></thead><tbody><tr><td><b>Điểm thi đua</b></td><td>85</td><td>92</td><td>78</td><td>85</td></tr></tbody></table>`,
+  t3: `<table class="data-tbl"><caption>Số học sinh giỏi Toán cấp huyện của 4 khối (Tổng 100 HS)</caption><thead><tr><th>Khối lớp</th><th>Khối 6</th><th>Khối 7</th><th>Khối 8</th><th>Khối 9</th></tr></thead><tbody><tr><td><b>Số học sinh</b></td><td>15</td><td>25</td><td>20</td><td>40</td></tr></tbody></table>`
+};
+
+/* =========================================================================
+   2. NGÂN HÀNG ĐÚNG 100 CÂU CHƯƠNG V
+   Cấu trúc gọn: [id, bai(18|19|20), type('mcq'|'sa'|'tf'), text, visKey, data, ans, exp]
+   - 50 Trắc nghiệm (1..50) | 42 Trả lời ngắn (51..92) | 8 Đúng/Sai (93..100)
+   ========================================================================= */
+const QUESTIONS = [
+  /* ---------- PHẦN I: 50 CÂU TRẮC NGHIỆM (CÂU 1 – 50) ---------- */
+  // Bài 18 (Câu 1 – 16)
+  [1,18,'mcq','Trong các cách thu thập dữ liệu sau, cách nào là <b>thu thập dữ liệu trực tiếp</b>?','',
+    ['Tra cứu số liệu dân số trên internet.','Xem bản tin dự báo thời tiết trên tivi.','Lập bảng hỏi khảo sát các bạn cùng lớp.','Đọc số liệu thống kê trong sách báo.'],2,
+    'Lập bảng hỏi (phiếu khảo sát) là thu thập dữ liệu trực tiếp; xem tivi, đọc báo, tra internet là gián tiếp.'],
+  [2,18,'mcq','Bạn Lan vào trang web của Tổng cục Thống kê để lấy số liệu sản lượng lúa Việt Nam năm 2025. Đây là phương pháp thu thập nào?','',
+    ['Thu thập trực tiếp bằng quan sát.','Thu thập trực tiếp bằng phỏng vấn.','Thu thập gián tiếp qua nguồn có sẵn.','Thu thập bằng làm thí nghiệm.'],2,
+    'Lấy dữ liệu từ nguồn có sẵn như sách, báo, trang web thống kê là thu thập gián tiếp.'],
+  [3,18,'mcq','Để biết tỉ lệ dân số biết chữ của các nước Đông Nam Á, cách thu thập dữ liệu hiệu quả nhất đối với học sinh là:','',
+    ['Tự đi phỏng vấn người dân các nước.','Tra cứu từ báo cáo chính thức trên internet hoặc sách địa lí.','Hỏi ý kiến các bạn trong lớp.','Làm thí nghiệm trên lớp.'],1,
+    'Dữ liệu quy mô nhiều quốc gia nên thu thập gián tiếp từ các nguồn chính thống, uy tín.'],
+  [4,18,'mcq','Dữ liệu nào sau đây là <b>dữ liệu là số (định lượng)</b>?','',
+    ['Tên các loại hoa trồng ở công viên.','Chiều cao (cm) của học sinh lớp 8A.','Tên các quận, huyện của thành phố Hải Phòng.','Mức độ hài lòng (Rất hài lòng, Hài lòng, Chưa hài lòng).'],1,
+    'Chiều cao biểu diễn bằng số kèm đơn vị đo nên là dữ liệu số (định lượng).'],
+  [5,18,'mcq','Dữ liệu nào sau đây là <b>số liệu rời rạc</b>?','',
+    ['Cân nặng (kg) của các bạn trong tổ 1.','Thời gian (phút) tự học mỗi tối của bạn Nam.','Số quyển sách trong ba lô của mỗi học sinh.','Nhiệt độ cơ thể (°C) của bệnh nhân.'],2,
+    'Số quyển sách chỉ nhận các giá trị tự nhiên đếm được (0, 1, 2,...) nên là số liệu rời rạc.'],
+  [6,18,'mcq','Dữ liệu nào sau đây là <b>số liệu liên tục</b>?','',
+    ['Số học sinh nghỉ học mỗi ngày trong tuần.','Số bàn ghế trong mỗi phòng học.','Lượng mưa (mm) đo được trong từng tháng.','Số anh chị em ruột của mỗi bạn trong lớp.'],2,
+    'Lượng mưa (mm) có thể nhận giá trị thực tùy ý trong một khoảng nên là số liệu liên tục.'],
+  [7,18,'mcq','Dữ liệu <b>"Xếp loại rèn luyện: Tốt, Khá, Đạt, Chưa đạt"</b> thuộc loại dữ liệu nào?','',
+    ['Số liệu rời rạc.','Số liệu liên tục.','Dữ liệu không là số, không thể sắp thứ tự.','Dữ liệu không là số, có thể sắp thứ tự.'],3,
+    'Xếp loại rèn luyện không biểu diễn bằng số nhưng sắp xếp được theo thứ bậc từ cao xuống thấp.'],
+  [8,18,'mcq','Dữ liệu <b>"Tên các hãng xe máy đang bán tại Việt Nam"</b> thuộc loại dữ liệu nào?','',
+    ['Dữ liệu không là số, không thể sắp thứ tự.','Dữ liệu không là số, có thể sắp thứ tự.','Số liệu rời rạc.','Số liệu liên tục.'],0,
+    'Tên hãng xe là dữ liệu định tính và không có thứ tự hơn kém giữa các hãng.'],
+  [9,18,'mcq','Khảo sát cân nặng của 5 bạn học sinh lớp 8 thu được dãy dữ liệu: <span class="math">42 kg; 48 kg; 230 kg; 45 kg; 50 kg</span>. Dữ liệu <b>không hợp lí</b> là:','',
+    ['42 kg','48 kg','230 kg','50 kg'],2,
+    'Học sinh lớp 8 nặng 230 kg là bất hợp lí trong thực tế.'],
+  [10,18,'mcq','Khảo sát số điểm kiểm tra Toán (thang điểm 10) của 6 bạn thu được: <span class="math">8; 9,5; 12; 7; 6,5; 10</span>. Dữ liệu <b>không hợp lí</b> là:','',
+    ['9,5','12','6,5','10'],1,
+    'Thang điểm kiểm tra tối đa là 10 nên giá trị 12 không hợp lí.'],
+  [11,18,'mcq','Để khảo sát sở thích thể thao của học sinh <b>toàn trường THCS</b>, cách lấy mẫu nào sau đây đảm bảo <b>tính đại diện</b> tốt nhất?','',
+    ['Chỉ hỏi các bạn trong đội tuyển Bóng đá của trường.','Chỉ hỏi các bạn nữ lớp 8A.','Chọn ngẫu nhiên 10 học sinh (cả nam và nữ) ở mỗi lớp thuộc cả 4 khối 6, 7, 8, 9.','Chỉ hỏi 5 bạn ngồi bàn đầu lớp 9A.'],2,
+    'Lấy mẫu ngẫu nhiên đủ cả nam, nữ và đủ 4 khối lớp mới đại diện cho toàn trường.'],
+  [12,18,'mcq','Số đo chỉ số công tơ điện của một gia đình trong 5 ngày (<span class="math">132,4; 138,1; 145,6; 151,0; 158,9 kWh</span>) là loại dữ liệu nào?','',
+    ['Số liệu rời rạc.','Số liệu liên tục.','Dữ liệu không là số, có thứ tự.','Dữ liệu không là số, không thứ tự.'],1,
+    'Điện năng tiêu thụ (kWh) nhận giá trị số thực tùy ý trong khoảng nên là số liệu liên tục.'],
+  [13,18,'mcq','Khảo sát tên các tỉnh thành giáp biển ở nước ta, dữ liệu nào sau đây <b>không hợp lí</b>?','',
+    ['Hải Phòng','Quảng Ninh','Đà Nẵng','Hà Nội'],3,
+    'Hà Nội không giáp biển nên dữ liệu "Hà Nội" không phù hợp tiêu chí khảo sát.'],
+  [14,18,'mcq','Số lần ném bóng trúng rổ trong 10 lượt ném của mỗi bạn trong tổ thuộc loại dữ liệu nào?','',
+    ['Số liệu liên tục.','Số liệu rời rạc.','Dữ liệu không là số, có thứ tự.','Dữ liệu không là số, không thứ tự.'],1,
+    'Số lần ném trúng là số nguyên từ 0 đến 10 nên là số liệu rời rạc.'],
+  [15,18,'mcq','Dữ liệu nào sau đây là <b>dữ liệu không là số, có thể sắp thứ tự</b>?','',
+    ['Màu sắc yêu thích (Đỏ, Xanh, Vàng).','Cỡ áo đồng phục (S, M, L, XL).','Tên món ăn sáng (Phở, Bún, Xôi).','Chiều dài bàn học (120 cm).'],1,
+    'Cỡ áo S < M < L < XL không phải là số nhưng có thứ tự kích thước rõ ràng.'],
+  [16,18,'mcq','Quan sát bảng khảo sát lớp 8C dưới đây, có bao nhiêu tiêu chí cho <b>dữ liệu là số</b>?','t1',
+    ['1 tiêu chí','2 tiêu chí','3 tiêu chí','4 tiêu chí'],1,
+    'Có 2 tiêu chí cho dữ liệu là số: Chiều cao (liên tục) và Số anh chị em ruột (rời rạc).'],
+
+  // Bài 19 (Câu 17 – 34)
+  [17,19,'mcq','Để biểu diễn <b>sự thay đổi của lượng mưa trung bình qua 12 tháng</b> trong năm, loại biểu đồ thích hợp nhất là:','',
+    ['Biểu đồ tranh.','Biểu đồ hình quạt tròn.','Biểu đồ đoạn thẳng.','Biểu đồ cột kép.'],2,
+    'Biểu đồ đoạn thẳng chuyên dùng thể hiện xu hướng thay đổi của một đại lượng theo thời gian.'],
+  [18,19,'mcq','Để biểu diễn <b>tỉ lệ phần trăm</b> diện tích các loại cây trồng trong tổng diện tích một trang trại, ta nên dùng:','',
+    ['Biểu đồ hình quạt tròn.','Biểu đồ đoạn thẳng.','Biểu đồ tranh.','Biểu đồ cột kép.'],0,
+    'Biểu đồ hình quạt tròn biểu diễn trực quan tỉ lệ các thành phần trong một tổng thể 100%.'],
+  [19,19,'mcq','Để <b>so sánh số học sinh Nam và Nữ</b> tham gia CLB Tin học của 4 khối lớp 6, 7, 8, 9, loại biểu đồ phù hợp nhất là:','',
+    ['Biểu đồ hình quạt tròn.','Biểu đồ cột kép.','Biểu đồ tranh.','Biểu đồ đoạn thẳng đơn.'],1,
+    'Biểu đồ cột kép phù hợp nhất để so sánh hai tập dữ liệu cùng loại theo từng nhóm đối tượng.'],
+  [20,19,'mcq','Khi dùng <b>biểu đồ tranh</b> mà phải vẽ quá nhiều biểu tượng giống nhau cho mỗi đối tượng thì ta nên thay bằng:','',
+    ['Biểu đồ cột.','Không cần vẽ biểu đồ.','Vẽ biểu tượng nhỏ lại.','Bỏ bớt đối tượng.'],0,
+    'Khi số lượng biểu tượng phải vẽ quá nhiều, biểu đồ cột giúp trình bày gọn và chính xác hơn.'],
+  [21,19,'mcq','Quan sát biểu đồ tranh số quyển vở quyên góp của lớp 8A. Tổ 2 quyên góp được bao nhiêu quyển vở?','p1',
+    ['6 quyển','25 quyển','30 quyển','35 quyển'],2,
+    'Tổ 2 có 6 biểu tượng, mỗi biểu tượng ứng với 5 quyển vở ⇒ 6 × 5 = 30 quyển.'],
+  [22,19,'mcq','Dựa vào biểu đồ tranh số cây xanh trồng được của khối 8. Lớp nào trồng được <b>ít cây nhất</b>?','p2',
+    ['Lớp 8A','Lớp 8B','Lớp 8C','Lớp 8D'],1,
+    'Lớp 8B có 4 biểu tượng (40 cây), ít nhất trong 4 lớp.'],
+  [23,19,'mcq','Trong biểu đồ hình quạt tròn, tổng tỉ lệ phần trăm của tất cả các hình quạt thành phần phải bằng:','',
+    ['100%','180%','360%','50%'],0,
+    'Biểu đồ hình quạt tròn biểu diễn trọn vẹn một tổng thể nên tổng các thành phần bằng 100%.'],
+  [24,19,'mcq','Trong biểu đồ hình quạt tròn, một thành phần chiếm <b>25%</b> thì góc ở tâm của hình quạt tương ứng bằng:','',
+    ['25°','45°','90°','100°'],2,
+    'Góc ở tâm = 25% × 360° = 90°.'],
+  [25,19,'mcq','Trong biểu đồ hình quạt tròn, hình quạt có góc ở tâm bằng <b>72°</b> biểu diễn tỉ lệ bao nhiêu phần trăm?','',
+    ['15%','20%','25%','30%'],1,
+    'Tỉ lệ phần trăm = (72° / 360°) × 100% = 20%.'],
+  [26,19,'mcq','Quan sát biểu đồ cột phổ điểm Toán lớp 8A. Mức điểm nào có <b>nhiều học sinh đạt nhất</b>?','b1',
+    ['Điểm 7','Điểm 8','Điểm 9','Điểm 10'],1,
+    'Cột Điểm 8 cao nhất với 12 học sinh.'],
+  [27,19,'mcq','Quan sát biểu đồ cột CLB lớp 8B. Câu lạc bộ nào có số học sinh đăng ký <b>gấp đôi</b> CLB Bơi lội?','b2',
+    ['Bóng đá','Cầu lông','Cờ vua','Không có CLB nào'],0,
+    'CLB Bơi lội có 8 HS, CLB Bóng đá có 16 HS (= 2 × 8).'],
+  [28,19,'mcq','Quan sát biểu đồ đoạn thẳng nhiệt độ trưa từ Thứ 2 đến Thứ 7. Ngày nào có nhiệt độ <b>thấp nhất</b>?','l1',
+    ['Thứ 2','Thứ 4','Thứ 5','Thứ 7'],1,
+    'Điểm thấp nhất trên đường gấp khúc là Thứ 4 với 23°C.'],
+  [29,19,'mcq','Quan sát biểu đồ hình quạt tròn xếp loại học tập lớp 8A (40 HS). Số học sinh đạt mức <b>Khá</b> là:','pie1',
+    ['10 học sinh','16 học sinh','20 học sinh','25 học sinh'],2,
+    'Mức Khá chiếm 50% nên số HS = 40 × 50% = 20 học sinh.'],
+  [30,19,'mcq','Quan sát bảng số HSG Toán 4 khối (tổng 100 HS). Nếu vẽ biểu đồ hình quạt tròn thì góc ở tâm của <b>Khối 9</b> bằng:','t3',
+    ['40°','90°','120°','144°'],3,
+    'Khối 9 chiếm 40/100 = 40% ⇒ góc ở tâm = 40% × 360° = 144°.'],
+  [31,19,'mcq','Khi muốn biểu diễn nhiệt độ trung bình của 4 ngày trong tuần (số thời điểm quan sát ít), ta có thể dùng:','',
+    ['Chỉ biểu đồ hình quạt tròn.','Biểu đồ đoạn thẳng hoặc biểu đồ cột.','Chỉ biểu đồ cột kép.','Không vẽ được biểu đồ.'],1,
+    'Khi số lượng thời điểm quan sát ít, ngoài biểu đồ đoạn thẳng ta vẫn có thể dùng biểu đồ cột.'],
+  [32,19,'mcq','Bảng thống kê cho biết tỉ lệ học lực lớp 8D: Giỏi 20%, Khá 55%, Đạt 25%. Loại biểu đồ nào giúp thấy ngay tỉ trọng từng mức so với cả lớp?','',
+    ['Biểu đồ hình quạt tròn.','Biểu đồ đoạn thẳng.','Biểu đồ cột kép.','Biểu đồ tranh.'],0,
+    'Tổng bằng 100% và thể hiện cơ cấu các phần trong tổng thể nên hình quạt tròn là trực quan nhất.'],
+  [33,19,'mcq','Quan sát biểu đồ cột kép CLB thể thao khối 8. Lớp nào có số học sinh <b>Nữ nhiều hơn Nam</b>?','g1',
+    ['Lớp 8A','Lớp 8B','Lớp 8C','Lớp 8D'],1,
+    'Ở lớp 8B có 14 Nữ > 10 Nam (8D có Nam = Nữ = 12; 8A và 8C có Nam > Nữ).'],
+  [34,19,'mcq','Quan sát biểu đồ hình quạt tròn phương tiện đi học của 200 HS khối 8. Tỉ lệ học sinh đi bằng <b>Xe đạp</b> là:','pie_miss',
+    ['35%','40%','45%','50%'],2,
+    'Tỉ lệ Xe đạp = 100% − (25% + 15% + 15%) = 45%.'],
+
+  // Bài 20 (Câu 35 – 50)
+  [35,20,'mcq','Trong biểu đồ cột, nếu <b>gốc của trục đứng khác 0</b> thì điều nào sau đây xảy ra?','',
+    ['Số liệu thực tế trên biểu đồ bị sai lệch.','Tỉ lệ chiều cao các cột không bằng tỉ lệ số liệu mà chúng biểu diễn.','Không thể đọc được giá trị lớn nhất.','Tổng các cột bị thay đổi.'],1,
+    'Khi gốc trục đứng khác 0, chiều cao hình học của các cột bị phóng đại sự chênh lệch so với tỉ lệ số liệu thực.'],
+  [36,20,'mcq','Quan sát biểu đồ cột số HS nam lớp 8A và 8B có <b>gốc trục đứng bắt đầu từ 10</b>. Chiều cao cột lớp 8A gấp mấy lần chiều cao cột lớp 8B?','b_err',
+    ['1,5 lần','2 lần','3 lần','4 lần'],3,
+    'Do gốc trục đứng là 10, chiều cao cột 8A ứng với 18 − 10 = 8 đơn vị, cột 8B ứng với 12 − 10 = 2 đơn vị ⇒ gấp 8 / 2 = 4 lần (trong khi thực tế chỉ gấp 1,5 lần).'],
+  [37,20,'mcq','Quan sát biểu đồ cân nặng em bé theo tuổi (trục ngang bỏ qua mốc 6 và 7 tuổi). Vì sao <b>không được</b> dựa vào độ dốc đoạn cuối để kết luận em bé tăng cân đột biến ở tuổi thứ 8?','l_err',
+    ['Vì trục tung bắt đầu từ 10.','Vì các mốc quan sát trên trục ngang chia không đều nhau.','Vì cân nặng là số liệu rời rạc.','Vì chưa có dữ liệu năm 1 tuổi.'],1,
+    'Khoảng 5→8 tuổi dài 3 năm nhưng vẽ bằng 1 khoảng 1 năm làm đoạn cuối dốc giả tạo (thực tế vẫn tăng đều 2 kg/năm).'],
+  [38,20,'mcq','Quan sát biểu đồ khuyến mại giảm giá 4 mặt hàng. Vì sao biểu đồ hình quạt tròn này <b>không phù hợp</b>?','pie_bad',
+    ['Vì chỉ có 4 mặt hàng.','Vì tổng các mức giảm giá bằng 90% ≠ 100% và đây là tỉ lệ riêng của từng mặt hàng.','Vì có mức giảm giá 35%.','Vì chưa biết số lượng hàng bán ra.'],1,
+    'Mỗi % là mức giảm giá trên giá gốc riêng của từng sản phẩm, không phải thành phần của cùng một tổng thể 100%.'],
+  [39,20,'mcq','Quan sát biểu đồ đoạn thẳng nhiệt độ trưa T2–T7. Giữa hai ngày liên tiếp nào, nhiệt độ <b>tăng mạnh nhất</b>?','l1',
+    ['Thứ 2 → Thứ 3','Thứ 4 → Thứ 5','Thứ 5 → Thứ 6','Thứ 6 → Thứ 7'],1,
+    'T4→T5 tăng từ 23°C lên 28°C (+5°C), mạnh nhất trong tuần.'],
+  [40,20,'mcq','Quan sát biểu đồ lượng điện tiêu thụ T5–T9. Tháng nào gia đình dùng <b>nhiều điện nhất</b> và <b>ít điện nhất</b>?','l2',
+    ['Nhiều nhất T7 (300 kWh), ít nhất T5 (200 kWh).','Nhiều nhất T7 (300 kWh), ít nhất T9 (210 kWh).','Nhiều nhất T6 (250 kWh), ít nhất T5 (200 kWh).','Nhiều nhất T8 (240 kWh), ít nhất T9 (210 kWh).'],0,
+    'Cao nhất ở T7 (300 kWh) và thấp nhất ở T5 (200 kWh).'],
+  [41,20,'mcq','Quan sát biểu đồ đoạn thẳng kép doanh thu Chi nhánh A và B (2021–2024). Nhận định nào sau đây là <b>đúng</b>?','ml1',
+    ['Doanh thu Chi nhánh B tăng liên tục qua các năm.','Doanh thu Chi nhánh A tăng liên tục từ 2021 đến 2024.','Năm 2022, Chi nhánh B có doanh thu cao hơn Chi nhánh A.','Năm 2024, hai chi nhánh có doanh thu bằng nhau.'],1,
+    'Chi nhánh A tăng liên tục: 40 → 55 → 65 → 80 triệu đồng.'],
+  [42,20,'mcq','Kết hợp 2 biểu đồ hình quạt tròn của lớp 8A (40 HS) và lớp 8B (50 HS). Phát biểu nào sau đây <b>đúng</b> về số học sinh đạt mức <b>Tốt</b>?','pie2',
+    ['Lớp 8A có nhiều HS mức Tốt hơn lớp 8B.','Hai lớp có số HS mức Tốt bằng nhau.','Lớp 8B có nhiều hơn lớp 8A là 5 HS mức Tốt.','Lớp 8B có nhiều hơn lớp 8A là 10 HS mức Tốt.'],2,
+    '8A có 40×25% = 10 HS Tốt; 8B có 50×30% = 15 HS Tốt ⇒ 8B nhiều hơn 5 HS.'],
+  [43,20,'mcq','Quan sát biểu đồ cột kép số tivi bán ra tháng 5 và tháng 6. Tỉ lệ phần trăm tăng trưởng tháng 6 so với tháng 5 của <b>Cửa hàng 1</b> là:','g2',
+    ['15%','30%','45%','50%'],3,
+    'CH1 tăng từ 30 lên 45 chiếc (tăng 15 chiếc) ⇒ tỉ lệ tăng = 15/30 × 100% = 50%.'],
+  [44,20,'mcq','Quan sát biểu đồ cơ cấu 400 kg trái cây bán trong ngày. Loại quả nào bán được <b>nhiều thứ hai</b> và đạt bao nhiêu kg?','pie3',
+    ['Cam (140 kg)','Xoài (100 kg)','Táo (80 kg)','Nho (60 kg)'],1,
+    'Xoài đứng thứ hai với 25% × 400 = 100 kg.'],
+  [45,20,'mcq','Quan sát biểu đồ kết hợp Lượng mưa và Nhiệt độ 6 tháng đầu năm. Nhận định nào sau đây <b>đúng</b>?','combo1',
+    ['Lượng mưa cao nhất vào Tháng 5.','Cả lượng mưa và nhiệt độ đều tăng dần từ Tháng 1 đến Tháng 6.','Nhiệt độ cao nhất đạt 28°C.','Tháng 3 có lượng mưa 100 mm.'],1,
+    'Lượng mưa tăng 20→40→60→100→180→260 mm; nhiệt độ tăng 16→18→21→25→28→30°C.'],
+  [46,20,'mcq','Quan sát biểu đồ cột kép CLB thể thao khối 8. Lớp nào có <b>tổng số học sinh tham gia lớn nhất</b>?','g1',
+    ['Lớp 8A (20 HS)','Lớp 8B (24 HS)','Lớp 8C (26 HS)','Lớp 8D (24 HS)'],2,
+    '8C có 16 + 10 = 26 học sinh, nhiều nhất khối.'],
+  [47,20,'mcq','Quan sát biểu đồ đoạn thẳng kép Chi nhánh A & B. Tổng doanh thu 4 năm (2021–2024) của hai chi nhánh so với nhau như thế nào?','ml1',
+    ['Chi nhánh A lớn hơn 10 triệu đồng.','Chi nhánh B lớn hơn 10 triệu đồng.','Hai chi nhánh có tổng doanh thu 4 năm bằng nhau (240 triệu đồng).','Chi nhánh A lớn hơn 20 triệu đồng.'],2,
+    'Tổng A = 40+55+65+80 = 240; Tổng B = 50+45+70+75 = 240 triệu đồng.'],
+  [48,20,'mcq','Quan sát biểu đồ cột điểm Toán lớp 8A (40 HS). Tỉ lệ học sinh đạt <b>từ 9 điểm trở lên</b> bằng:','b1',
+    ['25%','35%','40%','45%'],2,
+    'Số HS đạt 9 và 10 điểm là 10 + 6 = 16 HS ⇒ 16/40 × 100% = 40%.'],
+  [49,20,'mcq','Quan sát biểu đồ khuyến mại giảm giá 4 mặt hàng. Nếu một chiếc <b>Áo khoác</b> có giá gốc 600 000 đồng thì giá sau khi giảm là:','pie_bad',
+    ['420 000 đồng','480 000 đồng','500 000 đồng','520 000 đồng'],1,
+    'Áo khoác giảm 20% ⇒ giá sau giảm = 600 000 × (100% − 20%) = 480 000 đồng.'],
+  [50,20,'mcq','Trong biểu đồ đoạn thẳng kép, tại sao người ta thường vẽ hai đường biểu diễn trên <b>cùng một hệ trục tọa độ</b>?','',
+    ['Để tiết kiệm giấy vẽ.','Để dễ dàng so sánh trực quan sự thay đổi theo thời gian của hai đại lượng.','Để tổng hai đường luôn bằng 100%.','Vì biểu đồ cột không vẽ được 2 đại lượng.'],1,
+    'Vẽ chung hệ trục giúp đối chiếu nhanh vị trí giao nhau, chênh lệch và xu hướng của hai đại lượng theo từng mốc thời gian.'],
+
+  /* ---------- PHẦN II: 42 CÂU TRẢ LỜI NGẮN (CÂU 51 – 92) ---------- */
+  // Bài 18 (Câu 51 – 58)
+  [51,18,'sa','Khảo sát số anh chị em ruột của 6 bạn thu được dãy dữ liệu: <span class="math">1; 2; 0; 1,5; 3; 1</span>. Hãy nhập giá trị <b>không hợp lí</b> trong dãy trên.','',
+    'Nhập số thập phân','1,5','Số anh chị em ruột là số tự nhiên nên giá trị 1,5 là không hợp lí.'],
+  [52,18,'sa','Khảo sát số quyển sách trong cặp của 5 bạn thu được: <span class="math">7; 5; −3; 8; 6</span>. Giá trị <b>không hợp lí</b> trong dãy trên là bao nhiêu?','',
+    'Nhập số nguyên','-3','Số quyển sách không thể là số âm, nên −3 không hợp lí.'],
+  [53,18,'sa','Cho danh sách 5 loại dữ liệu: (1) Chiều cao; (2) Số học sinh trong lớp; (3) Thời gian chạy 100 m; (4) Nhiệt độ phòng; (5) Số đôi giày. Có bao nhiêu dữ liệu là <b>số liệu liên tục</b>?','',
+    'Nhập số tự nhiên','3','Có 3 số liệu liên tục: (1) Chiều cao, (3) Thời gian chạy, (4) Nhiệt độ phòng.'],
+  [54,18,'sa','Trong 5 loại dữ liệu ở câu 53, có bao nhiêu dữ liệu là <b>số liệu rời rạc</b>?','',
+    'Nhập số tự nhiên','2','Có 2 số liệu rời rạc: (2) Số học sinh trong lớp và (5) Số đôi giày.'],
+  [55,18,'sa','Cho 4 loại dữ liệu: (1) Cỡ giày S, M, L; (2) Tên môn học; (3) Mức độ hài lòng (Tốt, Khá, Kém); (4) Tên các quốc gia. Có bao nhiêu dữ liệu thuộc loại <b>không là số và có thể sắp thứ tự</b>?','',
+    'Nhập số tự nhiên','2','Có 2 dữ liệu: (1) Cỡ S, M, L và (3) Mức độ hài lòng.'],
+  [56,18,'sa','Khảo sát điểm thi đua của 4 tổ lớp 8A như bảng dưới đây. Tính <b>điểm thi đua trung bình</b> của 4 tổ.','t2',
+    'Chỉ nhập số','85','Điểm trung bình = (85 + 92 + 78 + 85) / 4 = 340 / 4 = 85.'],
+  [57,18,'sa','Một lớp có 40 học sinh. Giáo viên muốn thu thập phiếu khảo sát từ đúng <b>25%</b> số học sinh của lớp để lấy mẫu. Cần phát bao nhiêu phiếu?','',
+    'Chỉ nhập số','10','Số phiếu cần phát = 40 × 25% = 10 phiếu.'],
+  [58,18,'sa','Khảo sát thời gian ngủ trưa (phút) của 5 bạn thu được: <span class="math">30; 45; 25; 40; 35</span>. Chênh lệch giữa thời gian dài nhất và ngắn nhất bằng bao nhiêu phút?','',
+    'Chỉ nhập số','20','Hiệu = 45 − 25 = 20 phút.'],
+
+  // Bài 19 (Câu 59 – 74)
+  [59,19,'sa','Quan sát biểu đồ tranh số quyển vở quyên góp của lớp 8A. Tính <b>tổng số quyển vở</b> cả 4 tổ quyên góp được.','p1',
+    'Chỉ nhập số','90','Tổng số biểu tượng = 4 + 6 + 5 + 3 = 18 ⇒ 18 × 5 = 90 quyển vở.'],
+  [60,19,'sa','Dựa vào biểu đồ tranh số quyển vở của lớp 8A, Tổ 2 quyên góp nhiều hơn Tổ 4 bao nhiêu quyển vở?','p1',
+    'Chỉ nhập số','15','Tổ 2 có 30 quyển, Tổ 4 có 15 quyển ⇒ nhiều hơn 30 − 15 = 15 quyển.'],
+  [61,19,'sa','Quan sát biểu đồ tranh số cây xanh trồng được của 4 lớp khối 8. Tính <b>tổng số cây xanh</b> cả 4 lớp trồng được.','p2',
+    'Chỉ nhập số','200','Tổng biểu tượng = 5 + 4 + 6 + 5 = 20 ⇒ 20 × 10 = 200 cây.'],
+  [62,19,'sa','Nếu muốn vẽ biểu đồ tranh thể hiện <b>72 quyển sách</b> mà mỗi biểu tượng ứng với <b>9 quyển sách</b> thì cần vẽ bao nhiêu biểu tượng?','',
+    'Chỉ nhập số','8','Số biểu tượng = 72 : 9 = 8 biểu tượng.'],
+  [63,19,'sa','Quan sát bảng số HSG Toán 4 khối (tổng 100 HS). Nếu biểu diễn bằng biểu đồ hình quạt tròn, góc ở tâm ứng với <b>Khối 6</b> bằng bao nhiêu độ?','t3',
+    'Chỉ nhập số, không cần °','54','Khối 6 chiếm 15% ⇒ góc ở tâm = 15% × 360° = 54°.'],
+  [64,19,'sa','Quan sát bảng số HSG Toán 4 khối. Góc ở tâm của hình quạt tròn ứng với <b>Khối 8</b> bằng bao nhiêu độ?','t3',
+    'Chỉ nhập số, không cần °','72','Khối 8 chiếm 20% ⇒ góc ở tâm = 20% × 360° = 72°.'],
+  [65,19,'sa','Một bảng đánh giá chất lượng dịch vụ gồm 50 lượt: Rất tốt (6), Tốt (32), Trung bình (10), Chưa tốt (2). Tỉ lệ đánh giá mức <b>Tốt</b> là bao nhiêu phần trăm?','',
+    'Chỉ nhập số, không cần %','64','Tỉ lệ = (32 / 50) × 100% = 64%.'],
+  [66,19,'sa','Trong bảng đánh giá 50 lượt ở câu 65, tỉ lệ đánh giá mức <b>Rất tốt</b> là bao nhiêu phần trăm?','',
+    'Chỉ nhập số, không cần %','12','Tỉ lệ = (6 / 50) × 100% = 12%.'],
+  [67,19,'sa','Quan sát biểu đồ cột CLB lớp 8B (40 HS). Tỉ lệ phần trăm học sinh đăng ký <b>Bóng đá</b> là bao nhiêu phần trăm?','b2',
+    'Chỉ nhập số, không cần %','40','Tỉ lệ = (16 / 40) × 100% = 40%.'],
+  [68,19,'sa','Quan sát biểu đồ cột CLB lớp 8B (40 HS). Tỉ lệ phần trăm học sinh đăng ký <b>Cầu lông</b> là bao nhiêu phần trăm?','b2',
+    'Chỉ nhập số, không cần %','25','Tỉ lệ = (10 / 40) × 100% = 25%.'],
+  [69,19,'sa','Trong một biểu đồ hình quạt tròn gồm 4 thành phần có tỉ lệ lần lượt là <span class="math">35%; 28%; 19%</span> và <span class="math">x%</span>. Tìm giá trị của <span class="math">x</span>.','',
+    'Chỉ nhập số','18','x = 100 − (35 + 28 + 19) = 18.'],
+  [70,19,'sa','Một hình quạt tròn có góc ở tâm bằng <span class="math">108°</span>. Hình quạt đó biểu diễn bao nhiêu phần trăm của tổng thể?','',
+    'Chỉ nhập số, không cần %','30','Tỉ lệ = (108 / 360) × 100% = 30%.'],
+  [71,19,'sa','Quan sát biểu đồ hình quạt tròn cơ cấu 400 kg trái cây. Góc ở tâm ứng với phần <b>Cam (35%)</b> bằng bao nhiêu độ?','pie3',
+    'Chỉ nhập số, không cần °','126','Góc ở tâm = 35% × 360° = 126°.'],
+  [72,19,'sa','Quan sát biểu đồ hình quạt tròn cơ cấu 400 kg trái cây. Góc ở tâm ứng với phần <b>Nho (15%)</b> bằng bao nhiêu độ?','pie3',
+    'Chỉ nhập số, không cần °','54','Góc ở tâm = 15% × 360° = 54°.'],
+  [73,19,'sa','Quan sát biểu đồ hình quạt tròn phương tiện đi học của 200 HS khối 8. Có bao nhiêu học sinh đi học bằng <b>Xe đạp</b>?','pie_miss',
+    'Chỉ nhập số','90','Xe đạp chiếm 45% ⇒ 200 × 45% = 90 học sinh.'],
+  [74,19,'sa','Quan sát biểu đồ cột điểm Toán lớp 8A (40 HS). Có bao nhiêu học sinh đạt <b>từ 8 điểm trở lên</b>?','b1',
+    'Chỉ nhập số','28','Số HS đạt 8, 9, 10 điểm = 12 + 10 + 6 = 28 học sinh.'],
+
+  // Bài 20 (Câu 75 – 92)
+  [75,20,'sa','Quan sát biểu đồ cột điểm Toán lớp 8A (40 HS). Tỉ lệ phần trăm học sinh đạt <b>từ 8 điểm trở lên</b> là bao nhiêu phần trăm?','b1',
+    'Chỉ nhập số, không cần %','70','28 / 40 × 100% = 70%.'],
+  [76,20,'sa','Quan sát biểu đồ cột điểm Toán lớp 8A (40 HS). Tính <b>điểm trung bình</b> môn Toán của cả lớp 8A.','b1',
+    'Nhập số thập phân (vd: 8,15)','8,15','Tổng điểm = 6×4 + 7×8 + 8×12 + 9×10 + 10×6 = 326 ⇒ TB = 326 / 40 = 8,15.'],
+  [77,20,'sa','Quan sát biểu đồ cột số HS nam hai lớp 8A (18 HS) và 8B (12 HS) có gốc trục đứng từ 10. Thực tế số HS nam lớp 8A gấp bao nhiêu lần lớp 8B?','b_err',
+    'Nhập số thập phân hoặc phân số','1,5','Tỉ lệ thực tế = 18 / 12 = 1,5 lần (khác hoàn toàn tỉ lệ chiều cao 4 lần trên hình).'],
+  [78,20,'sa','Quan sát biểu đồ cột kép CLB thể thao khối 8. Tính <b>tổng số học sinh Nam</b> tham gia của cả 4 lớp.','g1',
+    'Chỉ nhập số','50','Tổng Nam = 12 + 10 + 16 + 12 = 50 học sinh.'],
+  [79,20,'sa','Quan sát biểu đồ cột kép CLB thể thao khối 8. Tổng số học sinh <b>Nam nhiều hơn Nữ</b> ở cả 4 lớp là bao nhiêu bạn?','g1',
+    'Chỉ nhập số','6','Tổng Nam = 50; Tổng Nữ = 8 + 14 + 10 + 12 = 44 ⇒ hơn 50 − 44 = 6 bạn.'],
+  [80,20,'sa','Quan sát biểu đồ cột kép số tivi bán ra của 3 cửa hàng. Tổng số tivi cả 3 cửa hàng bán được trong <b>tháng 6 nhiều hơn tháng 5</b> bao nhiêu chiếc?','g2',
+    'Chỉ nhập số','60','Tổng T5 = 30+40+50 = 120; Tổng T6 = 45+60+75 = 180 ⇒ nhiều hơn 60 chiếc.'],
+  [81,20,'sa','Quan sát biểu đồ cột kép số tivi bán ra. Tổng lượng tivi bán ra tháng 6 của cả 3 cửa hàng <b>tăng bao nhiêu phần trăm</b> so với tháng 5?','g2',
+    'Chỉ nhập số, không cần %','50','Tỉ lệ tăng = (60 / 120) × 100% = 50%.'],
+  [82,20,'sa','Quan sát biểu đồ đoạn thẳng nhiệt độ trưa T2–T7. Tính <b>nhiệt độ trung bình</b> lúc 12 giờ trưa trong 6 ngày đó (°C).','l1',
+    'Chỉ nhập số','26','TB = (24 + 26 + 23 + 28 + 30 + 25) / 6 = 156 / 6 = 26°C.'],
+  [83,20,'sa','Quan sát biểu đồ lượng điện tiêu thụ T5–T9. Tính <b>lượng điện tiêu thụ trung bình</b> mỗi tháng của gia đình (kWh).','l2',
+    'Chỉ nhập số','240','TB = (200 + 250 + 300 + 240 + 210) / 5 = 1200 / 5 = 240 kWh.'],
+  [84,20,'sa','Quan sát biểu đồ lượng điện tiêu thụ T5–T9. Lượng điện tháng 8 <b>giảm bao nhiêu phần trăm</b> so với tháng 7?','l2',
+    'Chỉ nhập số, không cần %','20','Giảm 300 − 240 = 60 kWh ⇒ (60 / 300) × 100% = 20%.'],
+  [85,20,'sa','Quan sát biểu đồ lượng điện tiêu thụ T5–T9. Lượng điện tháng 6 <b>tăng bao nhiêu phần trăm</b> so với tháng 5?','l2',
+    'Chỉ nhập số, không cần %','25','Tăng 250 − 200 = 50 kWh ⇒ (50 / 200) × 100% = 25%.'],
+  [86,20,'sa','Quan sát biểu đồ đoạn thẳng kép Chi nhánh A & B. Doanh thu năm 2024 của Chi nhánh A <b>tăng bao nhiêu phần trăm</b> so với năm 2021?','ml1',
+    'Chỉ nhập số, không cần %','100','A tăng từ 40 lên 80 (tăng 40 triệu) ⇒ (40 / 40) × 100% = 100%.'],
+  [87,20,'sa','Kết hợp hai biểu đồ hình quạt tròn lớp 8A (40 HS) và lớp 8B (50 HS). Tính <b>tổng số học sinh xếp loại Đạt</b> của cả hai lớp 8A và 8B.','pie1',
+    'Chỉ nhập số','20','8A có 40×20% = 8 HS Đạt; 8B có 50×24% = 12 HS Đạt ⇒ Tổng = 20 HS.'],
+  [88,20,'sa','Quan sát biểu đồ cơ cấu 400 kg trái cây bán trong ngày. Khối lượng <b>Cam nhiều hơn Táo</b> bao nhiêu kg?','pie3',
+    'Chỉ nhập số','60','Cam = 35%×400 = 140 kg; Táo = 20%×400 = 80 kg ⇒ nhiều hơn 60 kg.'],
+  [89,20,'sa','Quan sát biểu đồ cơ cấu 400 kg trái cây. Biết giá bán mỗi kg Lê là 45 000 đồng. Hỏi doanh thu bán <b>Lê</b> trong ngày bằng bao nhiêu nghìn đồng?','pie3',
+    'Nhập số (đơn vị nghìn đồng)','900','Khối lượng Lê = 5%×400 = 20 kg ⇒ Doanh thu = 20 × 45 = 900 nghìn đồng.'],
+  [90,20,'sa','Quan sát biểu đồ kết hợp Lượng mưa & Nhiệt độ 6 tháng đầu năm. Tính <b>lượng mưa trung bình</b> mỗi tháng trong 6 tháng đầu năm (mm).','combo1',
+    'Chỉ nhập số','110','Tổng lượng mưa = 20+40+60+100+180+260 = 660 mm ⇒ TB = 660 / 6 = 110 mm.'],
+  [91,20,'sa','Quan sát biểu đồ khuyến mại giảm giá 4 mặt hàng. Cô Mai mua 1 chiếc <b>Áo sơ mi</b> với giá sau giảm là 325 000 đồng. Giá gốc của chiếc áo sơ mi là bao nhiêu nghìn đồng?','pie_bad',
+    'Nhập số (đơn vị nghìn đồng)','500','Giảm 35% còn 65% giá gốc ⇒ Giá gốc = 325 : 0,65 = 500 nghìn đồng.'],
+  [92,20,'sa','Tiếp tục từ biểu đồ giảm giá 4 mặt hàng: Cô Mai mua 2 chiếc áo sơ mi (giá sau giảm 325 nghìn/chiếc) và 4 chiếc quần âu, tổng hóa đơn 1 850 nghìn đồng. Giá gốc của 1 chiếc <b>Quần âu</b> là bao nhiêu nghìn đồng?','pie_bad',
+    'Nhập số (đơn vị nghìn đồng)','400','4 quần âu sau giảm = 1850 − 650 = 1200 nghìn ⇒ 1 quần âu sau giảm = 300 nghìn (ứng với 75%) ⇒ Giá gốc = 300 : 0,75 = 400 nghìn đồng.'],
+
+  /* ---------- PHẦN III: 8 CÂU ĐÚNG / SAI (CÂU 93 – 100) ---------- */
+  [93,18,'tf','Quan sát bảng khảo sát 4 tiêu chí thông tin của học sinh lớp 8C. Xét tính đúng, sai của các khẳng định sau:','t1',
+    [
+      ['Chiều cao (cm) là số liệu liên tục.', true],
+      ['Số anh chị em ruột là số liệu rời rạc.', true],
+      ['Môn học yêu thích là dữ liệu không là số và có thể sắp thứ tự.', false],
+      ['Xếp loại rèn luyện là dữ liệu không là số và có thể sắp thứ tự.', true]
+    ],null,'Môn học yêu thích không sắp thứ tự hơn kém được nên c) sai; 3 ý còn lại đúng.'],
+  [94,18,'tf','Xét các nhận định về phương pháp thu thập dữ liệu và tính hợp lí của dữ liệu thống kê:','',
+    [
+      ['Đo nhiệt độ nước sôi trong phòng thực hành là thu thập dữ liệu trực tiếp.', true],
+      ['Tra cứu số dân các tỉnh năm 2025 trên báo điện tử uy tín là thu thập gián tiếp.', true],
+      ['Khảo sát chỉ 5 bạn trong đội tuyển Toán là đủ đại diện cho sở thích môn học toàn trường.', false],
+      ['Trong thống kê chiều cao học sinh lớp 8, giá trị 215 cm là dữ liệu không hợp lí.', true]
+    ],null,'Chỉ hỏi 5 bạn đội tuyển Toán bị thiên lệch, không đại diện cho toàn trường nên c) sai.'],
+  [95,19,'tf','Quan sát biểu đồ tranh thể hiện số quyển vở quyên góp của 4 tổ lớp 8A (mỗi biểu tượng = 5 quyển vở):','p1',
+    [
+      ['Tổ 2 quyên góp nhiều vở nhất với 30 quyển vở.', true],
+      ['Tổ 1 quyên góp nhiều hơn Tổ 4 là 10 quyển vở.', false],
+      ['Tổng số vở cả 4 tổ quyên góp được là 90 quyển.', true],
+      ['Số quyển vở của Tổ 2 chiếm đúng 1/3 tổng số vở cả lớp.', true]
+    ],null,'Tổ 1 có 20 quyển, Tổ 4 có 15 quyển ⇒ nhiều hơn 5 quyển (b sai). Tổ 2 = 30/90 = 1/3 tổng (d đúng).'],
+  [96,19,'tf','Cho bảng thống kê số HSG Toán cấp huyện của 4 khối (tổng 100 HS):','t3',
+    [
+      ['Có thể dùng biểu đồ cột để so sánh trực tiếp số HSG giữa 4 khối lớp.', true],
+      ['Nếu vẽ biểu đồ hình quạt tròn thì Khối 7 chiếm 25% và có góc ở tâm bằng 90°.', true],
+      ['Khối 9 chiếm tỉ lệ 45% tổng số HSG Toán toàn trường.', false],
+      ['Tổng số HSG Toán của Khối 6 và Khối 7 đúng bằng số HSG của Khối 9.', true]
+    ],null,'Khối 9 có 40/100 = 40% (c sai). Khối 6 + Khối 7 = 15 + 25 = 40 = Khối 9 (d đúng).'],
+  [97,20,'tf','Quan sát biểu đồ cột có gốc trục đứng từ 10 (lớp 8A: 18 nam, lớp 8B: 12 nam) và liên hệ các lưu ý khi đọc biểu đồ:','b_err',
+    [
+      ['Vì gốc trục đứng bằng 10 nên tỉ lệ chiều cao cột 8A so với cột 8B bằng 4 : 1.', true],
+      ['Trên thực tế, số học sinh nam lớp 8A chỉ gấp 1,5 lần lớp 8B.', true],
+      ['Khi trục ngang biểu đồ đoạn thẳng chia mốc thời gian không đều, ta vẫn có thể nhìn độ dốc để kết luận tốc độ tăng.', false],
+      ['Để tránh gây hiểu nhầm trực quan trên biểu đồ cột, gốc trục đứng nên bắt đầu từ 0.', true]
+    ],null,'Khi trục ngang chia không đều tuyệt đối không dựa vào độ dốc để kết luận tốc độ tăng/giảm (c sai).'],
+  [98,20,'tf','Quan sát biểu đồ cột kép số học sinh Nam và Nữ tham gia CLB thể thao của 4 lớp khối 8:','g1',
+    [
+      ['Tổng số học sinh tham gia của lớp 8A là 20 học sinh.', true],
+      ['Ở lớp 8A, số học sinh Nữ chiếm 40% tổng số học sinh tham gia của lớp 8A.', true],
+      ['Lớp 8D có số học sinh Nam nhiều hơn số học sinh Nữ.', false],
+      ['Lớp 8C có tổng số học sinh tham gia lớn nhất trong 4 lớp (26 học sinh).', true]
+    ],null,'Ở lớp 8D có 12 Nam và 12 Nữ (bằng nhau) nên c) sai.'],
+  [99,20,'tf','Quan sát biểu đồ đoạn thẳng kép biểu diễn doanh thu (triệu đồng) của Chi nhánh A và Chi nhánh B từ 2021 đến 2024:','ml1',
+    [
+      ['Năm 2022, doanh thu Chi nhánh A cao hơn Chi nhánh B là 10 triệu đồng.', true],
+      ['Năm 2023, Chi nhánh B đạt doanh thu cao hơn Chi nhánh A.', true],
+      ['Doanh thu trung bình mỗi năm của Chi nhánh A trong giai đoạn 2021–2024 là 65 triệu đồng.', false],
+      ['Giai đoạn 2022–2023 là giai đoạn Chi nhánh B tăng doanh thu mạnh nhất (+25 triệu đồng).', true]
+    ],null,'Trung bình của A = (40+55+65+80)/4 = 240/4 = 60 triệu đồng (c sai).'],
+  [100,20,'tf','Quan sát biểu đồ hình quạt tròn biểu diễn cơ cấu 400 kg trái cây bán được trong ngày của một cửa hàng:','pie3',
+    [
+      ['Khối lượng Cam bán được trong ngày là 140 kg.', true],
+      ['Tổng khối lượng Nho và Lê bán được bằng đúng khối lượng Táo bán được.', true],
+      ['Khối lượng Xoài bán được nhiều hơn khối lượng Táo là 30 kg.', false],
+      ['Tổng khối lượng Cam và Xoài chiếm 60% tổng lượng trái cây bán ra trong ngày.', true]
+    ],null,'Xoài = 100 kg, Táo = 80 kg ⇒ hơn 20 kg (c sai). Nho + Lê = 15% + 5% = 20% = Táo (b đúng).']
+];
+
+/* =========================================================================
+   3. TRẠNG THÁI, ÂM THANH & HIỂN THỊ 100 CÂU
+   ========================================================================= */
+const LETTERS = ['A', 'B', 'C', 'D'];
+const userAns = {};   // { qId: val }
+const checked = {};   // { qId: { score: 0..1, status: 'ok'|'part'|'no' } }
+let soundOn = true, fType = 'all', fLesson = 'all';
+const $ = (id) => document.getElementById(id);
+
+function beep(kind) {
+  if (!soundOn) return;
+  try {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    const ctx = new AC(), now = ctx.currentTime;
+    const notes = kind === 'ok' ? [587, 880] : (kind === 'no' ? [280, 210] : [523, 659, 784, 1046]);
+    notes.forEach((f, i) => {
+      const o = ctx.createOscillator(), g = ctx.createGain(), t = now + i * 0.08;
+      o.type = kind === 'no' ? 'sawtooth' : 'triangle';
+      o.frequency.setValueAtTime(f, t);
+      g.gain.setValueAtTime(0.08, t);
+      g.gain.exponentialRampToValueAtTime(0.001, t + 0.16);
+      o.connect(g); g.connect(ctx.destination); o.start(t); o.stop(t + 0.17);
+    });
+  } catch (_) {}
+}
+
+function parseNum(raw) {
+  let s = String(raw || '').trim().replace(/−/g, '-').replace(/[%°]/g, '')
+    .replace(/(nghìn đồng|triệu đồng|học sinh|quyển vở|quyển|chiếc|cây xanh|cây|triệu|nghìn|đồng|phút|kwh|mm|cm|kg|độ|lần|hs|m|tấn)$/i, '')
+    .replace(/\s+/g, '');
+  if (!s) return NaN;
+  if (/^-?\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g, '');
+  s = s.replace(/,/g, '.');
+  if (/^-?\d+(\.\d+)?\/-?\d+(\.\d+)?$/.test(s)) {
+    const [a, b] = s.split('/').map(Number);
+    return b ? a / b : NaN;
+  }
+  return Number(s);
+}
+
+function renderAll() {
+  const list = $('qList'), nav = $('navGrid');
+  list.innerHTML = ''; nav.innerHTML = '';
+
+  const secMeta = {
+    1: ['PHẦN I. TRẮC NGHIỆM CHỌN ĐÁP ÁN (50 câu: Câu 1 – 50)', 'Bao phủ Bài 18 (1–16), Bài 19 (17–34), Bài 20 (35–50). Chọn 1 phương án đúng nhất.'],
+    51: ['PHẦN II. TRẢ LỜI NGẮN (42 câu: Câu 51 – 92)', 'Điền kết quả số ngắn gọn (tự động nhận số nguyên, số thập phân dấu phẩy/chấm và phân số).'],
+    93: ['PHẦN III. TRẮC NGHIỆM ĐÚNG / SAI (8 câu: Câu 93 – 100)', 'Mỗi câu gồm 4 mệnh đề a, b, c, d. Chấm điểm thành phần theo chuẩn 0,1 / 0,25 / 0,5 / 1,0.']
+  };
+
+  QUESTIONS.forEach(([id, bai, type, text, visKey, data, ans, exp]) => {
+    if (secMeta[id]) {
+      const [h, p] = secMeta[id];
+      list.insertAdjacentHTML('beforeend', `<div class="sec-banner" data-sec="${type}"><h2>${h}</h2><p>${p}</p></div>`);
+    }
+
+    const typeLabel = type === 'mcq' ? 'Trắc nghiệm' : (type === 'sa' ? 'Trả lời ngắn' : 'Đúng / Sai');
+    const visHtml = visKey && V[visKey] ? `<div class="q-vis ${visKey==='combo1'?'wide':''}">${V[visKey]}</div>` : '';
+    let bodyHtml = '';
+
+    if (type === 'mcq') {
+      const longOpt = data.some(o => o.replace(/<[^>]+>/g, '').length > 36);
+      bodyHtml = `<div class="mcq-grid ${longOpt ? 'single' : ''}">${data.map((o, idx) =>
+        `<div class="mcq-opt" data-q="${id}" data-i="${idx}"><span class="mcq-ltr">${LETTERS[idx]}</span><span>${o}</span></div>`
+      ).join('')}</div>`;
+    } else if (type === 'sa') {
+      bodyHtml = `<div class="sa-wrap"><input type="text" class="sa-inp" data-q="${id}" placeholder="Nhập đáp số..." autocomplete="off" spellcheck="false" /><span class="sa-hint">(${data})</span></div>`;
+    } else {
+      const ks = ['a', 'b', 'c', 'd'];
+      bodyHtml = `<table class="tf-tbl"><thead><tr><th>Mệnh đề</th><th>Đúng</th><th>Sai</th></tr></thead><tbody>${data.map(([st], idx) =>
+        `<tr data-q="${id}" data-k="${ks[idx]}"><td><b>${ks[idx]})</b> ${st}</td><td class="tf-cell"><button type="button" class="tf-btn" data-q="${id}" data-k="${ks[idx]}" data-v="1">Đ</button></td><td class="tf-cell"><button type="button" class="tf-btn" data-q="${id}" data-k="${ks[idx]}" data-v="0">S</button></td></tr>`
+      ).join('')}</tbody></table>`;
+    }
+
+    list.insertAdjacentHTML('beforeend', `
+      <article class="q-card" id="q-${id}" data-type="${type}" data-bai="${bai}">
+        <div class="q-head">
+          <div class="q-badges">
+            <span class="q-num">Câu ${id}</span>
+            <span class="q-tag">Bài ${bai}</span>
+            <span class="q-tag ${type}">${typeLabel}</span>
+          </div>
+          <span class="q-status" id="st-${id}"></span>
+        </div>
+        <div class="q-text">${text}</div>
+        ${visHtml}
+        ${bodyHtml}
+        <div class="q-foot">
+          <button type="button" class="btn-check" data-check="${id}">Kiểm tra câu ${id}</button>
+        </div>
+        <div class="q-exp" id="exp-${id}"></div>
+      </article>
+    `);
+
+    const dot = document.createElement('button');
+    dot.type = 'button'; dot.className = 'nav-dot'; dot.id = `nav-${id}`; dot.textContent = id;
+    dot.dataset.type = type; dot.dataset.bai = bai;
+    dot.addEventListener('click', () => {
+      const card = $(`q-${id}`);
+      if (card.classList.contains('hidden')) {
+        setFilter('all', 'all');
+      }
+      card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    nav.appendChild(dot);
+  });
+
+  bindEvents();
+  updateStats();
+}
+
+function bindEvents() {
+  document.querySelectorAll('.mcq-opt').forEach(el => el.addEventListener('click', () => {
+    const q = +el.dataset.q, i = +el.dataset.i;
+    userAns[q] = i;
+    document.querySelectorAll(`.mcq-opt[data-q="${q}"]`).forEach(o => {
+      o.classList.remove('rev-ok', 'rev-no');
+      o.classList.toggle('sel', +o.dataset.i === i);
+    });
+    clearChecked(q); updateStats();
+  }));
+
+  document.querySelectorAll('.sa-inp').forEach(inp => {
+    inp.addEventListener('input', () => {
+      const q = +inp.dataset.q;
+      userAns[q] = inp.value;
+      inp.classList.remove('rev-ok', 'rev-no');
+      clearChecked(q); updateStats();
+    });
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') gradeOne(+inp.dataset.q, true); });
+  });
+
+  document.querySelectorAll('.tf-btn').forEach(btn => btn.addEventListener('click', () => {
+    const q = +btn.dataset.q, k = btn.dataset.k, v = btn.dataset.v === '1';
+    if (!userAns[q]) userAns[q] = {};
+    userAns[q][k] = v;
+    document.querySelectorAll(`.tf-btn[data-q="${q}"][data-k="${k}"]`).forEach(b => {
+      b.classList.remove('act-t', 'act-f');
+      if (b === btn) b.classList.add(v ? 'act-t' : 'act-f');
+    });
+    document.querySelectorAll(`tr[data-q="${q}"]`).forEach(r => r.classList.remove('rev-ok', 'rev-no'));
+    clearChecked(q); updateStats();
+  }));
+
+  document.querySelectorAll('[data-check]').forEach(btn => btn.addEventListener('click', () => {
+    gradeOne(+btn.dataset.check, true);
+  }));
+}
+
+function clearChecked(id) {
+  delete checked[id];
+  $(`q-${id}`).classList.remove('st-ok', 'st-part', 'st-no');
+  $(`st-${id}`).textContent = ''; $(`st-${id}`).className = 'q-status';
+  $(`exp-${id}`).classList.remove('show');
+}
+
+function gradeOne(id, playSfx = false) {
+  const item = QUESTIONS[id - 1];
+  const [, , type, , , data, ans, exp] = item;
+  const card = $(`q-${id}`), stEl = $(`st-${id}`), expEl = $(`exp-${id}`);
+  card.classList.remove('st-ok', 'st-part', 'st-no');
+  let score = 0, status = 'no', keyLine = '';
+
+  if (type === 'mcq') {
+    const ch = userAns[id];
+    const ok = ch === ans;
+    score = ok ? 1 : 0; status = ok ? 'ok' : 'no';
+    document.querySelectorAll(`.mcq-opt[data-q="${id}"]`).forEach(o => {
+      const idx = +o.dataset.i;
+      o.classList.remove('rev-ok', 'rev-no');
+      if (idx === ans) o.classList.add('rev-ok');
+      else if (idx === ch) o.classList.add('rev-no');
+    });
+    stEl.textContent = ok ? '✓ Đúng' : (ch === undefined ? '✗ Chưa chọn' : '✗ Sai');
+    keyLine = `<b>Đáp án đúng: ${LETTERS[ans]}.</b> `;
+  } else if (type === 'sa') {
+    const raw = userAns[id] || '', u = parseNum(raw), k = parseNum(ans);
+    const ok = !Number.isNaN(u) && Math.abs(u - k) < 1e-5;
+    score = ok ? 1 : 0; status = ok ? 'ok' : 'no';
+    const inp = document.querySelector(`.sa-inp[data-q="${id}"]`);
+    inp.classList.remove('rev-ok', 'rev-no');
+    inp.classList.add(ok ? 'rev-ok' : 'rev-no');
+    stEl.textContent = ok ? '✓ Đúng' : (raw.trim() ? '✗ Sai' : '✗ Bỏ trống');
+    keyLine = `<b>Đáp số đúng: ${ans}.</b> `;
+  } else {
+    const ks = ['a', 'b', 'c', 'd'], sub = userAns[id] || {};
+    let rc = 0;
+    data.forEach(([, keyVal], idx) => {
+      const k = ks[idx], ok = sub[k] === keyVal;
+      if (ok) rc++;
+      const tr = document.querySelector(`tr[data-q="${id}"][data-k="${k}"]`);
+      tr.classList.remove('rev-ok', 'rev-no');
+      tr.classList.add(ok ? 'rev-ok' : 'rev-no');
+    });
+    score = [0, 0.1, 0.25, 0.5, 1.0][rc];
+    status = rc === 4 ? 'ok' : (rc > 0 ? 'part' : 'no');
+    stEl.textContent = `Đúng ${rc}/4 ý`;
+    keyLine = `<b>Đáp án: ${data.map(([,v], i) => `${ks[i]}) ${v?'Đ':'S'}`).join(' • ')}.</b> `;
+  }
+
+  checked[id] = { score, status };
+  card.classList.add(`st-${status}`);
+  stEl.className = `q-status ${status}`;
+  expEl.innerHTML = `${keyLine}${exp}`;
+  expEl.classList.add('show');
+
+  updateStats();
+  if (playSfx) beep(status === 'ok' ? 'ok' : 'no');
+}
+
+function isAnswered(q) {
+  const [id, , type] = q, val = userAns[id];
+  if (type === 'mcq') return val !== undefined;
+  if (type === 'sa') return String(val || '').trim() !== '';
+  return val && Object.keys(val).length === 4;
+}
+
+function updateStats() {
+  let done = 0, chk = 0, pts = 0;
+  QUESTIONS.forEach(q => {
+    const id = q[0], dot = $(`nav-${id}`);
+    const ansDone = isAnswered(q);
+    if (ansDone) done++;
+    dot.classList.remove('done', 'ok', 'part', 'no');
+    if (checked[id]) {
+      chk++; pts += checked[id].score;
+      dot.classList.add(checked[id].status);
+    } else if (ansDone) {
+      dot.classList.add('done');
+    }
+  });
+  $('stDone').textContent = `Đã làm: ${done} / 100`;
+  $('stChecked').textContent = `Đã chấm: ${chk} câu`;
+  $('stScore').textContent = `Điểm: ${(pts / 10).toFixed(2).replace('.', ',')} / 10`;
+}
+
+function setFilter(type, lesson) {
+  fType = type; fLesson = lesson;
+  document.querySelectorAll('[data-ftype]').forEach(b => b.classList.toggle('active', b.dataset.ftype === fType));
+  document.querySelectorAll('[data-flesson]').forEach(b => b.classList.toggle('active', b.dataset.flesson === fLesson));
+
+  let visible = 0;
+  const secCount = { mcq: 0, sa: 0, tf: 0 };
+  QUESTIONS.forEach(([id, bai, t]) => {
+    const show = (fType === 'all' || fType === t) && (fLesson === 'all' || +fLesson === bai);
+    $(`q-${id}`).classList.toggle('hidden', !show);
+    $(`nav-${id}`).classList.toggle('dim', !show);
+    if (show) { visible++; secCount[t]++; }
+  });
+  document.querySelectorAll('.sec-banner').forEach(b => b.classList.toggle('hidden', secCount[b.dataset.sec] === 0));
+  $('visCount').textContent = `${visible} câu`;
+}
+
+document.querySelectorAll('[data-ftype]').forEach(b => b.addEventListener('click', () => setFilter(b.dataset.ftype, fLesson)));
+document.querySelectorAll('[data-flesson]').forEach(b => b.addEventListener('click', () => setFilter(fType, b.dataset.flesson)));
+
+$('btnSound').addEventListener('click', () => {
+  soundOn = !soundOn;
+  $('btnSound').textContent = soundOn ? '🔊 Âm thanh: Bật' : '🔇 Âm thanh: Tắt';
+});
+
+$('btnGradeAll').addEventListener('click', () => {
+  let mcqOk = 0, saOk = 0, tfPts = 0, totalPts = 0;
+  QUESTIONS.forEach(q => {
+    const id = q[0], t = q[2];
+    gradeOne(id, false);
+    const sc = checked[id].score;
+    totalPts += sc;
+    if (t === 'mcq') mcqOk += sc;
+    else if (t === 'sa') saOk += sc;
+    else tfPts += sc;
+  });
+  const score10 = totalPts / 10;
+  $('sumScore').textContent = `${score10.toFixed(2).replace('.', ',')} / 10`;
+  $('sumMcq').textContent = `${mcqOk} / 50`;
+  $('sumSa').textContent = `${saOk} / 42`;
+  $('sumTf').textContent = `${tfPts.toFixed(2).replace('.', ',')} / 8,00`;
+  $('sumAcc').textContent = `${Math.round(totalPts)}%`;
+  $('sumMsg').textContent = score10 >= 8.5 ? 'Xuất sắc! Bạn đã làm chủ hoàn toàn Chương V: Dữ liệu & Biểu đồ.' : (score10 >= 6.5 ? 'Khá tốt! Hãy xem lại các câu sai để tránh bẫy đọc biểu đồ.' : 'Cần ôn tập lại phần phân loại dữ liệu và công thức tính tỉ lệ %, góc ở tâm.');
+  $('summaryBox').classList.remove('hidden');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  beep(score10 >= 8 ? 'done' : 'ok');
+});
+
+$('btnReset').addEventListener('click', () => {
+  Object.keys(userAns).forEach(k => delete userAns[k]);
+  Object.keys(checked).forEach(k => delete checked[k]);
+  $('summaryBox').classList.add('hidden');
+  renderAll();
+  setFilter(fType, fLesson);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+renderAll();
+</script>
+</body>
+</html>
