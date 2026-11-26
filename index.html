@@ -503,7 +503,7 @@
                     <ul class="p-3 sm:p-4 grid grid-cols-1 md:grid-cols-2 gap-x-6 divide-y md:divide-y-0 divide-slate-100">
                         <!-- Thay href="#" bằng link bài viết của bạn -->
                         <li class="lesson-row">
-                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                            <a href="bai18_thuthap_phanloai_dulieu.html" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
                                 <div class="flex items-center gap-3 min-w-0">
                                     <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-blue-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">18</span>
                                     <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-blue-700 truncate">Bài 18: Thu thập và phân loại dữ liệu</span>
@@ -512,7 +512,7 @@
                             </a>
                         </li>
                         <li class="lesson-row">
-                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                            <a href="bai19_bieudien_dulieu_bieudo.html" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
                                 <div class="flex items-center gap-3 min-w-0">
                                     <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-blue-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">19</span>
                                     <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-blue-700 truncate">Bài 19: Biểu diễn dữ liệu bằng bảng, biểu đồ</span>
@@ -521,7 +521,7 @@
                             </a>
                         </li>
                         <li class="lesson-row">
-                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                            <a href="bai20_phantich_solieu.html" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
                                 <div class="flex items-center gap-3 min-w-0">
                                     <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-blue-600 group-hover:text-white text-slate-600 font-mono text-xs font-semibold flex items-center justify-center shrink-0 transition-colors">20</span>
                                     <span class="lesson-title text-sm font-medium text-slate-700 group-hover:text-blue-700 truncate">Bài 20: Phân tích số liệu thống kê dựa vào biểu đồ</span>
@@ -530,7 +530,7 @@
                             </a>
                         </li>
                         <li class="lesson-row">
-                            <a href="#" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
+                            <a href="BT_C5.html" class="lesson-item flex items-center justify-between gap-3 p-2.5 rounded-xl hover:bg-blue-50/60 group">
                                 <div class="flex items-center gap-3 min-w-0">
                                     <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 font-mono text-xs font-bold flex items-center justify-center shrink-0">★</span>
                                     <span class="lesson-title text-sm font-semibold text-slate-800 group-hover:text-blue-700 truncate">Tổng hợp & Bài tập cuối chương V</span>
@@ -1061,7 +1061,7 @@
                 <span>Học kì I & Học kì II</span>
             </div>
             <div>
-                Tất cả liên kết bài học đang để <code class="px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 font-mono text-xs">href="#"</code> sẵn sàng để cập nhật.
+                <p>&#169; <span id="year"></span> Xichma8 - Hệ thống toán 8 Kết nối tri thức. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -1185,6 +1185,7 @@
         }
 
         searchInput.addEventListener('input', applyFilters);
+        document.getElementById("year").textContent = new Date().getFullYear();
     </script>
 </body>
 </html>
