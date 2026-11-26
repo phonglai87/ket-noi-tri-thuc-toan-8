@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kiểm tra Chương V: Dữ liệu và Biểu đồ - Toán 8 KNTT (hk_1_ktra7)</title>
+  <style>
+    :root{--bg:#f1f5f9;--surface:#fff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--primary:#2563eb;--primary-dark:#1e3a8a;--primary-soft:#eff6ff;--success:#16a34a;--success-soft:#f0fdf4;--danger:#dc2626;--danger-soft:#fef2f2;--warning:#d97706;--warning-soft:#fffbeb;--shadow:0 4px 16px rgba(15,23,42,.07)}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+    body.exam-active{-webkit-user-select:none;-moz-user-select:none;user-select:none;-webkit-touch-callout:none}
+    body.exam-active input[type="text"]{-webkit-user-select:text;-moz-user-select:text;user-select:text}
+    @media print{body{display:none!important}}
+    .hidden{display:none!important}
+
+    /* Ký hiệu toán học, bảng dữ liệu & biểu đồ SVG */
+    .math{font-family:'Cambria Math','Times New Roman',Georgia,serif;font-size:1.06em;white-space:nowrap}
+    .math i{font-style:italic}
+    .q-figure{margin:12px 0 16px;text-align:center;background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px 10px 8px;overflow-x:auto}
+    .q-figure svg{max-width:480px;width:100%;height:auto;display:block;margin:0 auto}
+    .q-figure figcaption{margin-top:6px;font-size:.82rem;color:var(--muted);font-style:italic}
+
+    .data-table-wrap{margin:12px 0 16px;overflow-x:auto}
+    .data-table{width:100%;max-width:640px;margin:0 auto;border-collapse:collapse;font-size:.92rem;background:#fff;border:1px solid #cbd5e1;border-radius:8px;overflow:hidden}
+    .data-table caption{caption-side:top;font-weight:700;color:var(--primary-dark);margin-bottom:8px;font-size:.93rem}
+    .data-table th,.data-table td{border:1px solid #cbd5e1;padding:8px 12px;text-align:center}
+    .data-table th{background:#eff6ff;color:#1e3a8a;font-weight:700}
+    .data-table td.left{text-align:left}
+
+    /* Chống chụp màn hình, watermark & pháo hoa */
+    #privacyShield{position:fixed;inset:0;background:#020617;color:#fff;z-index:99999;display:none;align-items:center;justify-content:center;text-align:center;padding:24px;font-size:1.25rem;font-weight:700}
+    #watermarkLayer{position:fixed;inset:0;pointer-events:none;z-index:900;overflow:hidden;display:none;opacity:.055}
+    .watermark-grid{width:160vw;height:160vh;margin:-30vh 0 0 -30vw;display:grid;grid-template-columns:repeat(4,1fr);gap:60px;transform:rotate(-24deg);align-items:center;justify-items:center;font-size:1.15rem;font-weight:800;color:#0f172a;text-transform:uppercase;letter-spacing:.08em}
+    #fireworksCanvas{position:fixed;inset:0;pointer-events:none;z-index:1200;display:none}
+
+    /* Màn hình 1: Quy chế thi */
+    .rules-wrapper{max-width:780px;margin:36px auto;padding:0 18px 48px}
+    .rules-card{background:var(--surface);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;border:1px solid var(--border)}
+    .rules-hero{background:linear-gradient(135deg,var(--primary-dark),var(--primary));color:#fff;padding:28px 28px 24px}
+    .rules-hero .badge{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);padding:4px 12px;border-radius:999px;font-size:.8rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:10px}
+    .rules-hero h1{font-size:1.7rem;font-weight:800;line-height:1.25}
+    .rules-hero p{color:#dbeafe;margin-top:6px;font-size:.96rem}
+    .rules-body{padding:26px 28px 30px}
+    .info-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:22px}
+    .info-box{background:#f8fafc;border:1px solid var(--border);border-radius:10px;padding:12px 14px;text-align:center}
+    .info-box .val{font-size:1.15rem;font-weight:800;color:var(--primary)}
+    .info-box .lbl{font-size:.8rem;color:var(--muted);font-weight:600;margin-top:2px}
+    .structure-box{background:var(--primary-soft);border:1px solid #bfdbfe;border-radius:12px;padding:15px 18px;margin-bottom:18px;font-size:.92rem}
+    .structure-box h3{font-size:.96rem;color:var(--primary-dark);margin-bottom:8px}
+    .structure-box ul{padding-left:18px;display:flex;flex-direction:column;gap:4px}
+    .regulation-box{background:var(--danger-soft);border:1.5px solid #fecaca;border-radius:12px;padding:16px 18px;margin-bottom:24px}
+    .regulation-box h3{color:var(--danger);font-size:.98rem;font-weight:800;margin-bottom:10px}
+    .regulation-box ol{padding-left:20px;font-size:.92rem;color:#7f1d1d;display:flex;flex-direction:column;gap:6px}
+    .student-form{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-bottom:22px}
+    .form-group label{display:block;font-size:.88rem;font-weight:700;margin-bottom:6px}
+    .form-group input{width:100%;padding:11px 14px;border:1.5px solid #cbd5e1;border-radius:10px;font-size:.98rem;outline:none;transition:.2s}
+    .form-group input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,.14)}
+    .form-error{color:var(--danger);font-size:.86rem;font-weight:600;margin:-12px 0 16px;display:none}
+    .rules-actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;border-radius:10px;padding:12px 22px;font-size:.96rem;font-weight:700;cursor:pointer;text-decoration:none;transition:.2s}
+    .btn-primary{background:var(--primary);color:#fff;box-shadow:0 4px 12px rgba(37,99,235,.28)}
+    .btn-primary:hover{background:#1d4ed8;transform:translateY(-1px)}
+    .btn-secondary{background:#e2e8f0;color:#334155}
+    .btn-secondary:hover{background:#cbd5e1}
+
+    /* Màn hình 2: Làm bài tập trung */
+    .exam-topbar{position:sticky;top:0;z-index:950;background:rgba(15,23,42,.96);backdrop-filter:blur(8px);color:#fff;padding:12px 20px;box-shadow:0 4px 14px rgba(15,23,42,.18)}
+    .exam-topbar-inner{max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+    .student-badge{display:flex;align-items:center;gap:10px;font-size:.92rem}
+    .focus-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(220,38,38,.2);border:1px solid rgba(248,113,113,.45);color:#fecaca;padding:4px 10px;border-radius:999px;font-size:.78rem;font-weight:700}
+    .focus-dot{width:8px;height:8px;border-radius:50%;background:#ef4444;animation:pulse 1.3s infinite}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(1.25)}}
+    .topbar-right{display:flex;align-items:center;gap:14px}
+    .timer-box{font-variant-numeric:tabular-nums;font-size:1.2rem;font-weight:800;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);padding:6px 14px;border-radius:10px;min-width:102px;text-align:center}
+    .timer-box.warn{background:rgba(217,119,6,.25);border-color:#fbbf24;color:#fde68a}
+    .timer-box.crit{background:rgba(220,38,38,.35);border-color:#f87171;color:#fecaca;animation:pulse 1s infinite}
+
+    .exam-layout{max-width:1240px;margin:24px auto 60px;padding:0 18px;display:grid;grid-template-columns:1fr 270px;gap:24px;align-items:start}
+    .section-header{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;padding:14px 20px;border-radius:12px;margin:26px 0 16px}
+    .section-header:first-child{margin-top:0}
+    .section-header h2{font-size:1.08rem;font-weight:800}
+    .section-header p{font-size:.86rem;color:#dbeafe;margin-top:3px}
+    .q-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin-bottom:16px;box-shadow:0 2px 8px rgba(15,23,42,.04);scroll-margin-top:86px}
+    .q-title{font-size:1rem;font-weight:600;margin-bottom:14px}
+    .q-num{display:inline-block;background:var(--primary-soft);color:var(--primary);font-weight:800;padding:2px 10px;border-radius:6px;margin-right:8px;font-size:.9rem}
+    .q-hard-badge{display:inline-block;background:var(--danger-soft);color:var(--danger);border:1px solid #fecaca;font-size:.76rem;font-weight:700;padding:2px 8px;border-radius:999px;margin-left:6px;vertical-align:middle}
+
+    /* Các dạng câu hỏi */
+    .mcq-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .mcq-grid.single-col{grid-template-columns:1fr}
+    .mcq-option{display:flex;align-items:center;gap:10px;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;cursor:pointer;transition:.15s;background:#fff}
+    .mcq-option:hover{border-color:#93c5fd;background:#f8fafc}
+    .mcq-option.selected{border-color:var(--primary);background:var(--primary-soft);font-weight:600}
+    .mcq-letter{width:28px;height:28px;border-radius:50%;border:1.5px solid #cbd5e1;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.86rem;color:var(--muted);flex-shrink:0}
+    .mcq-option.selected .mcq-letter{background:var(--primary);border-color:var(--primary);color:#fff}
+
+    .tf-table{width:100%;border-collapse:collapse;margin-top:6px}
+    .tf-table th,.tf-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+    .tf-table th{font-size:.82rem;text-transform:uppercase;color:var(--muted);background:#f8fafc;text-align:center}
+    .tf-table th:first-child{text-align:left}
+    .tf-table tr:last-child td{border-bottom:none}
+    .tf-btn-cell{text-align:center;width:78px}
+    .tf-btn{width:58px;padding:6px 0;border-radius:8px;border:1.5px solid #cbd5e1;background:#fff;font-weight:700;font-size:.85rem;color:var(--muted);cursor:pointer;transition:.15s}
+    .tf-btn:hover{border-color:var(--primary)}
+    .tf-btn.active-true{background:var(--success);border-color:var(--success);color:#fff}
+    .tf-btn.active-false{background:var(--danger);border-color:var(--danger);color:#fff}
+
+    .sa-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    .sa-label{font-weight:700;color:var(--muted);font-size:.92rem}
+    .sa-input{width:190px;padding:10px 14px;border:1.5px solid #cbd5e1;border-radius:10px;font-size:1rem;font-weight:700;color:var(--primary-dark);outline:none;transition:.2s}
+    .sa-input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,.15)}
+    .sa-hint{font-size:.82rem;color:var(--muted)}
+
+    /* Sidebar & Modal */
+    .sidebar{position:sticky;top:84px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
+    .sidebar h3{font-size:.95rem;font-weight:800;margin-bottom:10px}
+    .progress-text{font-size:.85rem;color:var(--muted);margin-bottom:14px;font-weight:600}
+    .nav-group-title{font-size:.74rem;font-weight:700;color:var(--muted);text-transform:uppercase;margin:10px 0 6px}
+    .nav-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+    .nav-dot{height:34px;border-radius:8px;border:1.5px solid #cbd5e1;background:#fff;font-size:.82rem;font-weight:700;color:var(--text);cursor:pointer;transition:.15s}
+    .nav-dot:hover{border-color:var(--primary);color:var(--primary)}
+    .nav-dot.done{background:var(--primary);border-color:var(--primary);color:#fff}
+    .nav-dot.partial{background:var(--warning-soft);border-color:var(--warning);color:var(--warning)}
+    .sidebar-submit{width:100%;margin-top:18px}
+
+    .modal-backdrop{position:fixed;inset:0;background:rgba(15,23,42,.6);backdrop-filter:blur(4px);z-index:2000;display:flex;align-items:center;justify-content:center;padding:18px}
+    .modal-box{background:var(--surface);border-radius:16px;max-width:440px;width:100%;padding:24px;box-shadow:0 20px 50px rgba(15,23,42,.25)}
+    .modal-box h3{font-size:1.15rem;font-weight:800;margin-bottom:8px}
+    .modal-box p{font-size:.94rem;color:var(--muted);margin-bottom:20px}
+    .modal-actions{display:flex;justify-content:flex-end;gap:10px}
+
+    /* Màn hình 3: Kết quả & lời giải */
+    .result-wrapper{max-width:940px;margin:28px auto 64px;padding:0 18px}
+    .violation-banner{background:var(--danger-soft);border:2px solid var(--danger);border-radius:14px;padding:18px 22px;margin-bottom:20px;color:#991b1b}
+    .violation-banner h2{font-size:1.15rem;font-weight:800;color:var(--danger);margin-bottom:4px}
+    .score-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;box-shadow:var(--shadow);margin-bottom:24px;text-align:center}
+    .score-student{font-size:1.05rem;font-weight:700;color:var(--muted);margin-bottom:8px}
+    .score-big{font-size:3.4rem;font-weight:900;color:var(--primary);line-height:1.1}
+    .score-big.low{color:var(--danger)}
+    .score-big.mid{color:var(--warning)}
+    .score-big.high{color:var(--success)}
+    .score-rank{display:inline-block;margin-top:8px;padding:5px 16px;border-radius:999px;font-weight:700;font-size:.9rem;background:var(--primary-soft);color:var(--primary)}
+    .score-breakdown{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:22px}
+    .bd-item{background:#f8fafc;border:1px solid var(--border);border-radius:10px;padding:12px 8px}
+    .bd-item .num{font-size:1.08rem;font-weight:800}
+    .bd-item .lbl{font-size:.78rem;color:var(--muted);margin-top:2px}
+    .result-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:22px}
+    .review-card{background:var(--surface);border:1px solid var(--border);border-left:5px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:14px}
+    .review-card.correct{border-left-color:var(--success)}
+    .review-card.partial{border-left-color:var(--warning)}
+    .review-card.wrong{border-left-color:var(--danger)}
+    .review-meta{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;font-size:.86rem;font-weight:700}
+    .tag-ok{color:var(--success)}
+    .tag-part{color:var(--warning)}
+    .tag-no{color:var(--danger)}
+    .review-explain{margin-top:10px;background:#f8fafc;border-radius:8px;padding:10px 14px;font-size:.9rem;color:#334155;border:1px dashed #cbd5e1}
+    .tf-review-list{margin-top:8px;display:flex;flex-direction:column;gap:6px;font-size:.92rem}
+    .tf-review-row{display:flex;justify-content:space-between;gap:12px;padding:6px 10px;border-radius:6px;background:#f8fafc}
+    .tf-review-row.ok{background:var(--success-soft)}
+    .tf-review-row.no{background:var(--danger-soft)}
+
+    @media(max-width:900px){.exam-layout{grid-template-columns:1fr}.sidebar{position:static}.score-breakdown{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:600px){.mcq-grid,.info-strip,.student-form{grid-template-columns:1fr}.rules-body{padding:20px 18px}}
+  </style>
+</head>
+<body>
+
+  <div id="privacyShield">
+    <div>
+      <div style="font-size:2.2rem;margin-bottom:10px">⛔</div>
+      PHÁT HIỆN THAO TÁC CẤM CHỤP MÀN HÌNH / RỜI CỬA SỔ THI<br />
+      <span style="font-size:.95rem;font-weight:500;opacity:.85">Hệ thống đang thu bài và chấm điểm tự động...</span>
+    </div>
+  </div>
+
+  <div id="watermarkLayer"><div class="watermark-grid" id="watermarkGrid"></div></div>
+  <canvas id="fireworksCanvas"></canvas>
+
+  <!-- MÀN HÌNH 1: QUY CHẾ THI -->
+  <section id="rulesScreen" class="rules-wrapper">
+    <div class="rules-card">
+      <div class="rules-hero">
+        <div class="badge">Toán 8 • Kết nối tri thức với cuộc sống • Chương V</div>
+        <h1>Bài Kiểm Tra Chương V: Dữ Liệu và Biểu Đồ</h1>
+        <p>Thu thập &amp; phân loại dữ liệu • Biểu diễn bằng bảng, biểu đồ • Phân tích số liệu thống kê</p>
+      </div>
+      <div class="rules-body">
+        <div class="info-strip">
+          <div class="info-box"><div class="val">45 phút</div><div class="lbl">Thời gian làm bài</div></div>
+          <div class="info-box"><div class="val">22 câu</div><div class="lbl">3 dạng câu hỏi</div></div>
+          <div class="info-box"><div class="val">10 điểm</div><div class="lbl">Thang điểm chuẩn</div></div>
+        </div>
+
+        <div class="structure-box">
+          <h3>Cấu trúc đề kiểm tra Chương V (Bài 18, 19, 20 — SGK Kết nối tri thức)</h3>
+          <ul>
+            <li><strong>Phần I — Trắc nghiệm nhiều lựa chọn (3,0 điểm):</strong> 12 câu (Câu 1–12; 0,25 điểm/câu) kèm bảng và biểu đồ minh họa.</li>
+            <li><strong>Phần II — Trắc nghiệm Đúng / Sai (4,0 điểm):</strong> 4 câu (Câu 13–16) phân tích bảng, biểu đồ cột kép, đoạn thẳng và hình quạt tròn (0,1 / 0,25 / 0,5 / 1,0đ).</li>
+            <li><strong>Phần III — Trả lời ngắn (3,0 điểm):</strong> 6 câu tính toán từ bảng và biểu đồ thống kê (Câu 17–22; 0,5 điểm/câu).</li>
+          </ul>
+        </div>
+
+        <div class="regulation-box">
+          <h3>⚠️ QUY CHẾ PHÒNG THI TRỰC TUYẾN (BẮT BUỘC TUÂN THỦ)</h3>
+          <ol>
+            <li>Nhấn <strong>"Bắt đầu làm bài"</strong> lập tức kích hoạt <strong>Chế độ tập trung (Toàn màn hình)</strong> và đồng hồ 45 phút.</li>
+            <li><strong>Cấm bôi đen, sao chép (Copy), chuột phải hoặc mở công cụ kiểm tra (F12).</strong></li>
+            <li><strong>Cấm chụp màn hình (PrintScreen, Snipping Tool...) hoặc in trang (Ctrl + P).</strong></li>
+            <li><strong>Rời tab đang thi, chuyển sang ứng dụng khác hoặc thoát toàn màn hình:</strong> hệ thống <strong>LẬP TỨC THU BÀI VÀ CHẤM ĐIỂM NGAY</strong> theo các câu đã làm.</li>
+            <li>Hết 45 phút, hệ thống tự động thu bài và hiển thị đáp án kèm lời giải chi tiết.</li>
+          </ol>
+        </div>
+
+        <div class="student-form">
+          <div class="form-group">
+            <label for="studentName">Họ và tên thí sinh <span style="color:var(--danger)">*</span></label>
+            <input type="text" id="studentName" placeholder="Ví dụ: Nguyễn Văn An" autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <label for="studentClass">Lớp</label>
+            <input type="text" id="studentClass" placeholder="Ví dụ: 8A1" autocomplete="off" />
+          </div>
+        </div>
+        <div id="formError" class="form-error">Vui lòng nhập đầy đủ họ và tên trước khi bắt đầu làm bài.</div>
+
+        <div class="rules-actions">
+          <a href="hk_1.html" class="btn btn-secondary">← Quay lại danh sách đề</a>
+          <button type="button" id="startBtn" class="btn btn-primary">Bắt đầu làm bài (Vào chế độ tập trung) →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MÀN HÌNH 2: LÀM BÀI THI -->
+  <section id="examScreen" class="hidden">
+    <div class="exam-topbar">
+      <div class="exam-topbar-inner">
+        <div class="student-badge">
+          <span class="focus-pill"><span class="focus-dot"></span> CHẾ ĐỘ TẬP TRUNG</span>
+          <span>Thí sinh: <strong id="displayStudentName"></strong></span>
+        </div>
+        <div class="topbar-right">
+          <div class="timer-box" id="timerDisplay">45:00</div>
+          <button type="button" id="openSubmitModalBtn" class="btn btn-primary" style="padding:8px 18px;font-size:.9rem">Nộp bài</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="exam-layout">
+      <main id="questionsContainer"></main>
+      <aside class="sidebar">
+        <h3>Phiếu điều hướng</h3>
+        <div class="progress-text" id="progressText">Đã hoàn thành: 0 / 22 câu</div>
+        <div class="nav-group-title">Phần I: Chọn đáp án (1–12)</div>
+        <div class="nav-grid" id="navPart1"></div>
+        <div class="nav-group-title">Phần II: Đúng / Sai (13–16)</div>
+        <div class="nav-grid" id="navPart2"></div>
+        <div class="nav-group-title">Phần III: Trả lời ngắn (17–22)</div>
+        <div class="nav-grid" id="navPart3"></div>
+        <button type="button" id="sidebarSubmitBtn" class="btn btn-primary sidebar-submit">Nộp bài ngay</button>
+      </aside>
+    </div>
+  </section>
+
+  <div id="submitModal" class="modal-backdrop hidden">
+    <div class="modal-box">
+      <h3>Xác nhận nộp bài kiểm tra?</h3>
+      <p id="submitModalMsg">Bạn đã sẵn sàng nộp bài chưa?</p>
+      <div class="modal-actions">
+        <button type="button" id="cancelSubmitBtn" class="btn btn-secondary">Làm tiếp</button>
+        <button type="button" id="confirmSubmitBtn" class="btn btn-primary">Xác nhận nộp bài</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MÀN HÌNH 3: KẾT QUẢ & LỜI GIẢI -->
+  <section id="resultScreen" class="result-wrapper hidden">
+    <div id="violationBanner" class="violation-banner hidden">
+      <h2>⛔ BÀI THI ĐÃ BỊ THU TỰ ĐỘNG DO VI PHẠM QUY CHẾ</h2>
+      <p id="violationReasonText"></p>
+    </div>
+
+    <div class="score-card">
+      <div class="score-student" id="resultStudentInfo"></div>
+      <div class="score-big" id="totalScoreDisplay">0,00</div>
+      <div class="score-rank" id="scoreRankDisplay"></div>
+      <div class="score-breakdown">
+        <div class="bd-item"><div class="num" id="scoreP1">0,00 / 3,00</div><div class="lbl">Phần I (Trắc nghiệm)</div></div>
+        <div class="bd-item"><div class="num" id="scoreP2">0,00 / 4,00</div><div class="lbl">Phần II (Đúng / Sai)</div></div>
+        <div class="bd-item"><div class="num" id="scoreP3">0,00 / 3,00</div><div class="lbl">Phần III (Trả lời ngắn)</div></div>
+        <div class="bd-item"><div class="num" id="timeUsedDisplay">00:00</div><div class="lbl">Thời gian làm bài</div></div>
+      </div>
+      <div class="result-actions">
+        <a href="hk_1.html" class="btn btn-secondary">← Về trang danh sách đề</a>
+        <button type="button" id="retryBtn" class="btn btn-primary">Làm lại bài kiểm tra</button>
+      </div>
+    </div>
+
+    <div id="reviewContainer"></div>
+  </section>
+
+  <script>
+    /* =====================================================================
+       BỘ DỰNG BIỂU ĐỒ SVG TỰ ĐỘNG TÍNH TỌA ĐỘ — CHỐNG ĐÈ CHỮ TUYỆT ĐỐI
+       ===================================================================== */
+    const F = 'Segoe UI,Arial,sans-serif';
+
+    // 1. Biểu đồ cột đơn
+    function makeBarChart({ title, unit, labels, values, maxVal, step, color = '#2563eb' }) {
+      const W = 470, H = 258, pL = 54, pR = 22, pT = 58, pB = 44;
+      const plotW = W - pL - pR, plotH = H - pT - pB;
+      let out = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+      out += `<text x="${W / 2}" y="22" text-anchor="middle" font-family="${F}" font-size="13.5" font-weight="700" fill="#0f172a">${title}</text>`;
+      out += `<text x="12" y="42" font-family="${F}" font-size="11.5" font-style="italic" fill="#475569">${unit}</text>`;
+
+      for (let v = 0; v <= maxVal; v += step) {
+        const y = pT + plotH - (v / maxVal) * plotH;
+        out += `<line x1="${pL}" y1="${y.toFixed(1)}" x2="${W - pR}" y2="${y.toFixed(1)}" stroke="${v === 0 ? '#334155' : '#e2e8f0'}" stroke-width="${v === 0 ? 1.6 : 1}" />`;
+        out += `<text x="${pL - 8}" y="${(y + 4).toFixed(1)}" text-anchor="end" font-family="${F}" font-size="11.5" fill="#475569">${v}</text>`;
+      }
+      out += `<line x1="${pL}" y1="${pT - 6}" x2="${pL}" y2="${pT + plotH}" stroke="#334155" stroke-width="1.6" />`;
+
+      const slot = plotW / labels.length;
+      const barW = Math.min(46, slot * 0.52);
+      labels.forEach((lb, i) => {
+        const cx = pL + slot * (i + 0.5);
+        const h = (values[i] / maxVal) * plotH;
+        const y = pT + plotH - h;
+        out += `<rect x="${(cx - barW / 2).toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${h.toFixed(1)}" rx="4" fill="${color}" />`;
+        out += `<text x="${cx.toFixed(1)}" y="${(y - 7).toFixed(1)}" text-anchor="middle" font-family="${F}" font-size="12" font-weight="700" fill="#0f172a">${values[i]}</text>`;
+        out += `<text x="${cx.toFixed(1)}" y="${pT + plotH + 20}" text-anchor="middle" font-family="${F}" font-size="12" font-weight="600" fill="#334155">${lb}</text>`;
+      });
+      return out + '</svg>';
+    }
+
+    // 2. Biểu đồ cột kép
+    function makeGroupedBarChart({ title, unit, labels, series, maxVal, step }) {
+      const W = 490, H = 278, pL = 54, pR = 22, pT = 76, pB = 44;
+      const plotW = W - pL - pR, plotH = H - pT - pB;
+      let out = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+      out += `<text x="${W / 2}" y="20" text-anchor="middle" font-family="${F}" font-size="13.5" font-weight="700" fill="#0f172a">${title}</text>`;
+
+      // Chú giải đặt riêng 1 hàng thoáng ở y=34..48
+      const legGap = 155, legStart = (W - legGap * series.length + 35) / 2;
+      series.forEach((s, idx) => {
+        const lx = legStart + idx * legGap;
+        out += `<rect x="${lx}" y="33" width="14" height="12" rx="3" fill="${s.color}" />`;
+        out += `<text x="${lx + 20}" y="43" font-family="${F}" font-size="12" font-weight="600" fill="#334155">${s.name}</text>`;
+      });
+      out += `<text x="12" y="63" font-family="${F}" font-size="11.5" font-style="italic" fill="#475569">${unit}</text>`;
+
+      for (let v = 0; v <= maxVal; v += step) {
+        const y = pT + plotH - (v / maxVal) * plotH;
+        out += `<line x1="${pL}" y1="${y.toFixed(1)}" x2="${W - pR}" y2="${y.toFixed(1)}" stroke="${v === 0 ? '#334155' : '#e2e8f0'}" stroke-width="${v === 0 ? 1.6 : 1}" />`;
+        out += `<text x="${pL - 8}" y="${(y + 4).toFixed(1)}" text-anchor="end" font-family="${F}" font-size="11.5" fill="#475569">${v}</text>`;
+      }
+      out += `<line x1="${pL}" y1="${pT - 6}" x2="${pL}" y2="${pT + plotH}" stroke="#334155" stroke-width="1.6" />`;
+
+      const slot = plotW / labels.length;
+      const barW = Math.min(28, slot * 0.3), gap = 6;
+      labels.forEach((lb, i) => {
+        const cx = pL + slot * (i + 0.5);
+        const totalPairW = barW * 2 + gap;
+        series.forEach((s, j) => {
+          const bx = cx - totalPairW / 2 + j * (barW + gap);
+          const h = (s.values[i] / maxVal) * plotH;
+          const y = pT + plotH - h;
+          out += `<rect x="${bx.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${h.toFixed(1)}" rx="3" fill="${s.color}" />`;
+          out += `<text x="${(bx + barW / 2).toFixed(1)}" y="${(y - 6).toFixed(1)}" text-anchor="middle" font-family="${F}" font-size="11.5" font-weight="700" fill="#0f172a">${s.values[i]}</text>`;
+        });
+        out += `<text x="${cx.toFixed(1)}" y="${pT + plotH + 20}" text-anchor="middle" font-family="${F}" font-size="12" font-weight="600" fill="#334155">${lb}</text>`;
+      });
+      return out + '</svg>';
+    }
+
+    // 3. Biểu đồ đoạn thẳng
+    function makeLineChart({ title, unit, labels, values, minVal = 0, maxVal, step, color = '#2563eb' }) {
+      const W = 480, H = 262, pL = 56, pR = 28, pT = 58, pB = 44;
+      const plotW = W - pL - pR, plotH = H - pT - pB;
+      let out = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+      out += `<text x="${W / 2}" y="22" text-anchor="middle" font-family="${F}" font-size="13.5" font-weight="700" fill="#0f172a">${title}</text>`;
+      out += `<text x="12" y="42" font-family="${F}" font-size="11.5" font-style="italic" fill="#475569">${unit}</text>`;
+
+      for (let v = minVal; v <= maxVal; v += step) {
+        const y = pT + plotH - ((v - minVal) / (maxVal - minVal)) * plotH;
+        out += `<line x1="${pL}" y1="${y.toFixed(1)}" x2="${W - pR}" y2="${y.toFixed(1)}" stroke="${v === minVal ? '#334155' : '#e2e8f0'}" stroke-width="${v === minVal ? 1.6 : 1}" />`;
+        out += `<text x="${pL - 8}" y="${(y + 4).toFixed(1)}" text-anchor="end" font-family="${F}" font-size="11.5" fill="#475569">${v}</text>`;
+      }
+      out += `<line x1="${pL}" y1="${pT - 6}" x2="${pL}" y2="${pT + plotH}" stroke="#334155" stroke-width="1.6" />`;
+
+      const pts = labels.map((lb, i) => {
+        const x = pL + (labels.length === 1 ? plotW / 2 : 28 + (i * (plotW - 56)) / (labels.length - 1));
+        const y = pT + plotH - ((values[i] - minVal) / (maxVal - minVal)) * plotH;
+        return { x, y, lb, val: values[i] };
+      });
+
+      // Vẽ lưới dọc nét đứt nhẹ
+      pts.forEach((p) => {
+        out += `<line x1="${p.x.toFixed(1)}" y1="${p.y.toFixed(1)}" x2="${p.x.toFixed(1)}" y2="${pT + plotH}" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,3" />`;
+      });
+
+      // Đường gấp khúc
+      out += `<polyline points="${pts.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ')}" fill="none" stroke="${color}" stroke-width="2.6" stroke-linejoin="round" />`;
+
+      // Điểm dữ liệu + nhãn số có viền trắng chống đè
+      pts.forEach((p) => {
+        out += `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4.6" fill="#fff" stroke="${color}" stroke-width="2.5" />`;
+        out += `<text x="${p.x.toFixed(1)}" y="${(p.y - 11).toFixed(1)}" text-anchor="middle" font-family="${F}" font-size="12" font-weight="700" fill="#0f172a" style="paint-order:stroke;stroke:#fff;stroke-width:4px">${p.val}</text>`;
+        out += `<text x="${p.x.toFixed(1)}" y="${pT + plotH + 20}" text-anchor="middle" font-family="${F}" font-size="12" font-weight="600" fill="#334155">${p.lb}</text>`;
+      });
+      return out + '</svg>';
+    }
+
+    // 4. Biểu đồ hình quạt tròn (hình tròn bên trái, chú giải xếp dọc bên phải — không bao giờ đè chữ)
+    function makePieChart({ title, slices }) {
+      const W = 480, H = 238, cx = 126, cy = 132, r = 82;
+      let out = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+      out += `<text x="${W / 2}" y="22" text-anchor="middle" font-family="${F}" font-size="13.5" font-weight="700" fill="#0f172a">${title}</text>`;
+
+      let angleDeg = -90;
+      slices.forEach((s) => {
+        const sweep = (s.pct / 100) * 360;
+        const a1 = (angleDeg * Math.PI) / 180;
+        const a2 = ((angleDeg + sweep) * Math.PI) / 180;
+        const x1 = cx + r * Math.cos(a1), y1 = cy + r * Math.sin(a1);
+        const x2 = cx + r * Math.cos(a2), y2 = cy + r * Math.sin(a2);
+        const largeArc = sweep > 180 ? 1 : 0;
+
+        out += `<path d="M ${cx} ${cy} L ${x1.toFixed(2)} ${y1.toFixed(2)} A ${r} ${r} 0 ${largeArc} 1 ${x2.toFixed(2)} ${y2.toFixed(2)} Z" fill="${s.color}" stroke="#ffffff" stroke-width="2" />`;
+
+        // Chỉ ghi % trực tiếp trong miếng quạt nếu góc >= 42° (>= 12%) để không bao giờ tràn viền
+        if (s.pct >= 12) {
+          const mid = ((angleDeg + sweep / 2) * Math.PI) / 180;
+          const tx = cx + r * 0.62 * Math.cos(mid);
+          const ty = cy + r * 0.62 * Math.sin(mid) + 4.5;
+          const displayTxt = s.display || `${s.pct}%`;
+          out += `<text x="${tx.toFixed(1)}" y="${ty.toFixed(1)}" text-anchor="middle" font-family="${F}" font-size="12.5" font-weight="800" fill="${s.textColor || '#ffffff'}">${displayTxt}</text>`;
+        }
+        angleDeg += sweep;
+      });
+
+      // Chú giải bên phải căn giữa theo chiều dọc
+      const rowH = 30, totalLegH = slices.length * rowH;
+      const startY = cy - totalLegH / 2 + 12;
+      slices.forEach((s, i) => {
+        const ry = startY + i * rowH;
+        const displayTxt = s.display || `${s.pct}%`;
+        out += `<rect x="242" y="${(ry - 11).toFixed(1)}" width="15" height="15" rx="3.5" fill="${s.color}" />`;
+        out += `<text x="266" y="${(ry + 1).toFixed(1)}" font-family="${F}" font-size="12.8" font-weight="600" fill="#1e293b">${s.label}: <tspan font-weight="800" fill="#0f172a">${displayTxt}</tspan></text>`;
+      });
+
+      return out + '</svg>';
+    }
+
+    /* ================= TẠO TẤT CẢ BIỂU ĐỒ & BẢNG DỮ LIỆU ================= */
+    const VISUALS = {
+      tbl_c5: `
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <caption>Bảng số quyển sách đọc trong tháng của 4 tổ lớp 8A</caption>
+            <thead><tr><th>Tổ</th><th>Tổ 1</th><th>Tổ 2</th><th>Tổ 3</th><th>Tổ 4</th></tr></thead>
+            <tbody><tr><td><strong>Số quyển sách</strong></td><td>18</td><td>24</td><td>15</td><td>23</td></tr></tbody>
+          </table>
+        </div>`,
+      chart_c7: makeBarChart({
+        title: 'Số học sinh đăng ký các Câu lạc bộ lớp 8A',
+        unit: 'Số học sinh',
+        labels: ['Bóng đá', 'Cầu lông', 'Bơi lội', 'Cờ vua'],
+        values: [20, 15, 10, 5],
+        maxVal: 25, step: 5, color: '#2563eb'
+      }),
+      chart_c9: makePieChart({
+        title: 'Tỉ lệ kết quả học tập HK1 của lớp 8A (40 học sinh)',
+        slices: [
+          { label: 'Mức Tốt', pct: 25, color: '#2563eb' },
+          { label: 'Mức Khá', pct: 50, color: '#16a34a' },
+          { label: 'Mức Đạt', pct: 20, color: '#f59e0b' },
+          { label: 'Chưa đạt', pct: 5, color: '#ef4444' }
+        ]
+      }),
+      chart_c11: makeLineChart({
+        title: 'Nhiệt độ lúc 12 giờ trưa trong 5 ngày',
+        unit: 'Nhiệt độ (°C)',
+        labels: ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6'],
+        values: [22, 24, 21, 25, 23],
+        minVal: 18, maxVal: 28, step: 2, color: '#dc2626'
+      }),
+      tbl_c13: `
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <caption>Bảng tiêu chí khảo sát thông tin học sinh lớp 8B</caption>
+            <thead><tr><th>STT</th><th>Tiêu chí khảo sát</th><th>Ví dụ dữ liệu ghi nhận</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td class="left">Chiều cao (cm)</td><td>156,5; 162,0; 158,2</td></tr>
+              <tr><td>2</td><td class="left">Số anh chị em ruột</td><td>0; 1; 2; 3</td></tr>
+              <tr><td>3</td><td class="left">Môn học yêu thích nhất</td><td>Toán, Ngữ văn, Tiếng Anh</td></tr>
+              <tr><td>4</td><td class="left">Xếp loại rèn luyện</td><td>Tốt, Khá, Đạt</td></tr>
+            </tbody>
+          </table>
+        </div>`,
+      chart_c14: makeGroupedBarChart({
+        title: 'Số học sinh tham gia Hội khỏe Phù Đổng của khối 8',
+        unit: 'Số học sinh',
+        labels: ['Lớp 8A', 'Lớp 8B', 'Lớp 8C', 'Lớp 8D'],
+        series: [
+          { name: 'Học sinh Nam', values: [12, 10, 16, 12], color: '#2563eb' },
+          { name: 'Học sinh Nữ', values: [8, 14, 10, 12], color: '#f97316' }
+        ],
+        maxVal: 20, step: 4
+      }),
+      chart_c15: makeLineChart({
+        title: 'Doanh thu cửa hàng văn phòng phẩm 6 tháng đầu năm',
+        unit: 'Triệu đồng',
+        labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6'],
+        values: [40, 30, 50, 45, 60, 75],
+        minVal: 0, maxVal: 90, step: 15, color: '#2563eb'
+      }),
+      chart_c16: makePieChart({
+        title: 'Tỉ lệ các loại trái cây bán được trong ngày (Tổng 200 kg)',
+        slices: [
+          { label: 'Cam', pct: 35, color: '#f97316' },
+          { label: 'Xoài', pct: 25, color: '#eab308', textColor: '#0f172a' },
+          { label: 'Táo', pct: 20, color: '#ef4444' },
+          { label: 'Nho', pct: 15, color: '#8b5cf6' },
+          { label: 'Lê', pct: 5, color: '#22c55e' }
+        ]
+      }),
+      tbl_c17: `
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <caption>Bảng thống kê điểm kiểm tra môn Toán của 20 học sinh</caption>
+            <thead><tr><th>Điểm số</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr></thead>
+            <tbody><tr><td><strong>Số học sinh</strong></td><td>2</td><td>4</td><td>6</td><td>5</td><td>3</td></tr></tbody>
+          </table>
+        </div>`,
+      chart_c18: makeBarChart({
+        title: 'Số cây xanh trồng được của 5 lớp khối 8',
+        unit: 'Số cây',
+        labels: ['Lớp 8A', 'Lớp 8B', 'Lớp 8C', 'Lớp 8D', 'Lớp 8E'],
+        values: [32, 28, 40, 36, 24],
+        maxVal: 50, step: 10, color: '#16a34a'
+      }),
+      chart_c19: makePieChart({
+        title: 'Tỉ lệ phương tiện đi học của học sinh khối 8',
+        slices: [
+          { label: 'Xe đạp', pct: 45, color: '#2563eb' },
+          { label: 'Đi bộ', pct: 25, color: '#16a34a' },
+          { label: 'Xe buýt', pct: 15, color: '#f59e0b' },
+          { label: 'Bố mẹ chở', pct: 15, color: '#8b5cf6' }
+        ]
+      }),
+      chart_c20: makeGroupedBarChart({
+        title: 'Sản lượng xuất khẩu gạo của doanh nghiệp A và B (2023–2025)',
+        unit: 'Nghìn tấn',
+        labels: ['Năm 2023', 'Năm 2024', 'Năm 2025'],
+        series: [
+          { name: 'Doanh nghiệp A', values: [40, 50, 65], color: '#0284c7' },
+          { name: 'Doanh nghiệp B', values: [35, 45, 55], color: '#10b981' }
+        ],
+        maxVal: 80, step: 20
+      }),
+      chart_c21: makeLineChart({
+        title: 'Lượng điện tiêu thụ của gia đình bạn Nam (Tháng 5 – Tháng 8)',
+        unit: 'Điện năng (kWh)',
+        labels: ['Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8'],
+        values: [200, 250, 300, 240],
+        minVal: 150, maxVal: 350, step: 50, color: '#7c3aed'
+      }),
+      chart_c22: makePieChart({
+        title: 'Tỉ lệ xếp loại học lực khối 8 (Tổng 240 học sinh)',
+        slices: [
+          { label: 'Mức Tốt', pct: 30, display: '?%', color: '#2563eb' },
+          { label: 'Mức Khá', pct: 45, color: '#16a34a' },
+          { label: 'Mức Đạt', pct: 20, color: '#f59e0b' },
+          { label: 'Chưa đạt', pct: 5, color: '#ef4444' }
+        ]
+      })
+    };
+
+    /* ================= NGÂN HÀNG 22 CÂU CHƯƠNG V (45 PHÚT - 10 ĐIỂM) ================= */
+    const EXAM_DURATION_SEC = 45 * 60;
+    const LETTERS = ['A', 'B', 'C', 'D'];
+
+    // PHẦN I: 12 câu x 0,25đ = 3,0 điểm
+    const part1Questions = [
+      { id: 1, q: 'Trong các dữ liệu sau, dữ liệu nào là <strong>dữ liệu số (định lượng)</strong>?', layout: 'single', options: ['Các môn thể thao yêu thích của học sinh lớp 8A.', 'Chiều cao (tính theo cm) của các học sinh tổ 1.', 'Tên các tỉnh, thành phố trực thuộc Trung ương ở Việt Nam.', 'Mức độ hài lòng của khách hàng (Rất hài lòng, Hài lòng, Bình thường).'], answer: 1, explain: 'Chiều cao (tính theo cm) được biểu diễn bằng số thực nên là dữ liệu số (định lượng); các dữ liệu còn lại không phải là số.' },
+      { id: 2, q: 'Dữ liệu nào sau đây là <strong>dữ liệu số rời rạc</strong>?', layout: 'single', options: ['Cân nặng (kg) của các bạn học sinh trong lớp.', 'Thời gian (giây) chạy cự li 100 m của vận động viên.', 'Số học sinh vắng mặt mỗi ngày trong tuần của lớp 8B.', 'Nhiệt độ (°C) đo được tại các thời điểm trong ngày.'], answer: 2, explain: 'Số học sinh vắng mặt chỉ nhận các giá trị tự nhiên đếm được (0, 1, 2,...) nên là dữ liệu rời rạc; cân nặng, thời gian, nhiệt độ là dữ liệu liên tục.' },
+      { id: 3, q: 'Để biết tỉ lệ hộ gia đình sử dụng nước sạch trên cả nước năm 2025, phương pháp thu thập dữ liệu phù hợp nhất đối với một học sinh là:', layout: 'single', options: ['Tự đi phỏng vấn từng hộ gia đình trên cả nước.', 'Làm thí nghiệm hóa học trên lớp.', 'Tra cứu từ báo cáo chính thức của Tổng cục Thống kê hoặc cổng thông tin uy tín.', 'Quan sát một vài gia đình gần nhà rồi suy ra cả nước.'], answer: 2, explain: 'Với dữ liệu quy mô cả nước, học sinh nên thu thập gián tiếp qua nguồn chính thống, đáng tin cậy như Tổng cục Thống kê.' },
+      { id: 4, q: 'Khảo sát số quyển sách giáo khoa có trong cặp của 5 bạn lớp 8A thu được dãy dữ liệu: <span class="math">6; 8; −2; 7; 9</span>. Dữ liệu <strong>không hợp lí</strong> trong dãy trên là:', options: ['<span class="math">6</span>', '<span class="math">8</span>', '<span class="math">−2</span>', '<span class="math">9</span>'], answer: 2, explain: 'Số quyển sách phải là số tự nhiên không âm nên giá trị −2 là không hợp lí.' },
+      { id: 5, q: 'Quan sát bảng thống kê số quyển sách đọc trong tháng của 4 tổ lớp 8A dưới đây. Tỉ lệ phần trăm số quyển sách của <strong>Tổ 2</strong> so với cả lớp bằng:', htmlKey: 'tbl_c5', options: ['<span class="math">24%</span>', '<span class="math">25%</span>', '<span class="math">30%</span>', '<span class="math">35%</span>'], answer: 2, explain: 'Tổng số sách của cả lớp: 18 + 24 + 15 + 23 = 80 quyển. Tỉ lệ của Tổ 2 là (24 / 80) × 100% = 30%.' },
+      { id: 6, q: 'Để biểu diễn <strong>sự thay đổi của lượng mưa trung bình qua các tháng trong một năm</strong>, loại biểu đồ nào thích hợp nhất?', options: ['Biểu đồ hình quạt tròn.', 'Biểu đồ đoạn thẳng.', 'Biểu đồ tranh.', 'Biểu đồ cột kép.'], answer: 1, explain: 'Biểu đồ đoạn thẳng dùng để biểu diễn xu hướng thay đổi của một đại lượng theo thời gian.' },
+      { id: 7, q: 'Quan sát biểu đồ cột về số học sinh đăng ký các Câu lạc bộ lớp 8A. Câu lạc bộ có nhiều học sinh đăng ký nhất <strong>nhiều hơn</strong> câu lạc bộ ít nhất bao nhiêu học sinh?', svgKey: 'chart_c7', figCaption: 'Biểu đồ Câu 7 — Số học sinh đăng ký Câu lạc bộ', options: ['10 học sinh', '15 học sinh', '20 học sinh', '25 học sinh'], answer: 1, explain: 'CLB nhiều nhất là Bóng đá (20 học sinh), ít nhất là Cờ vua (5 học sinh). Hiệu bằng 20 − 5 = 15 học sinh.' },
+      { id: 8, q: 'Để biểu diễn <strong>tỉ lệ phần trăm</strong> từng loại sách (Sách giáo khoa, Truyện tranh, Khoa học, Tham khảo) trong tổng số sách của thư viện, ta nên chọn loại biểu đồ nào?', options: ['Biểu đồ đoạn thẳng.', 'Biểu đồ cột kép.', 'Biểu đồ hình quạt tròn.', 'Biểu đồ cột đơn.'], answer: 2, explain: 'Biểu đồ hình quạt tròn dùng để biểu diễn tỉ lệ phần trăm của từng thành phần trong một tổng thể.' },
+      { id: 9, q: 'Biểu đồ hình quạt tròn dưới đây biểu diễn kết quả học tập HK1 của <strong>40 học sinh</strong> lớp 8A. Số học sinh đạt mức <strong>Tốt</strong> là:', svgKey: 'chart_c9', figCaption: 'Biểu đồ Câu 9 — Tỉ lệ kết quả học tập HK1 lớp 8A', options: ['8 học sinh', '10 học sinh', '12 học sinh', '20 học sinh'], answer: 1, explain: 'Mức Tốt chiếm 25% nên số học sinh đạt mức Tốt là 40 × 25% = 10 học sinh.' },
+      { id: 10, q: 'Để trực quan so sánh số học sinh đạt giải Học sinh giỏi hai môn <strong>Toán</strong> và <strong>Ngữ văn</strong> của 4 khối lớp (6, 7, 8, 9), loại biểu đồ thích hợp nhất là:', options: ['Biểu đồ hình quạt tròn.', 'Biểu đồ cột kép.', 'Biểu đồ đoạn thẳng đơn.', 'Biểu đồ tranh.'], answer: 1, explain: 'Biểu đồ cột kép phù hợp nhất để so sánh trực quan hai tập dữ liệu cùng loại theo từng đối tượng (khối lớp).' },
+      { id: 11, q: 'Quan sát biểu đồ đoạn thẳng biểu diễn nhiệt độ lúc 12 giờ trưa trong 5 ngày. Giữa hai ngày liên tiếp nào, nhiệt độ <strong>tăng mạnh nhất</strong>?', svgKey: 'chart_c11', figCaption: 'Biểu đồ Câu 11 — Biến động nhiệt độ trưa trong 5 ngày', options: ['Từ Thứ 2 đến Thứ 3', 'Từ Thứ 3 đến Thứ 4', 'Từ Thứ 4 đến Thứ 5', 'Từ Thứ 5 đến Thứ 6'], answer: 2, explain: 'T2→T3 tăng 2°C; T3→T4 giảm 3°C; T4→T5 tăng 4°C (21°C lên 25°C — tăng mạnh nhất); T5→T6 giảm 2°C.' },
+      { id: 12, q: 'Khi vẽ biểu đồ cột so sánh hai giá trị <span class="math">82</span> và <span class="math">86</span>, nếu người vẽ đặt gốc trục tung bắt đầu từ <span class="math">80</span> thay vì <span class="math">0</span> thì điều gì dễ xảy ra?', layout: 'single', options: ['Giá trị thực tế của các số liệu bị thay đổi.', 'Người xem dễ hiểu nhầm rằng cột 86 lớn gấp nhiều lần cột 82.', 'Không thể ghi nhãn cho trục hoành.', 'Tổng của hai cột bị giảm đi 80 đơn vị.'], answer: 1, explain: 'Khi gốc trục tung không bắt đầu từ 0, chiều cao cột không tỉ lệ thuận với giá trị thực, dễ gây ngộ nhận trực quan về độ chênh lệch.' }
+    ];
+
+    // PHẦN II: 4 câu Đúng / Sai (4 x 1,0đ = 4,0 điểm)
+    const part2Questions = [
+      {
+        id: 13,
+        q: 'Giáo viên chủ nhiệm lập bảng khảo sát một số thông tin của học sinh lớp 8B như dưới đây. Xét tính đúng, sai của các nhận định sau:',
+        htmlKey: 'tbl_c13',
+        items: [
+          { key: 'a', text: 'Chiều cao (cm) là dữ liệu số (định lượng) liên tục.', answer: true },
+          { key: 'b', text: 'Số anh chị em ruột là dữ liệu số (định lượng) rời rạc.', answer: true },
+          { key: 'c', text: 'Môn học yêu thích nhất là dữ liệu số rời rạc.', answer: false },
+          { key: 'd', text: 'Nếu một bạn ghi số anh chị em ruột là <span class="math">1,5</span> thì dữ liệu đó không hợp lí.', answer: true }
+        ],
+        explain: 'Chiều cao là dữ liệu liên tục (a đúng); số anh chị em ruột là số tự nhiên nên là dữ liệu rời rạc và giá trị 1,5 không hợp lí (b, d đúng). Môn học yêu thích là dữ liệu không phải là số (c sai).'
+      },
+      {
+        id: 14,
+        q: 'Biểu đồ cột kép dưới đây thống kê số học sinh Nam và Nữ tham gia Hội khỏe Phù Đổng của 4 lớp khối 8:',
+        svgKey: 'chart_c14', figCaption: 'Biểu đồ Câu 14 — Số học sinh Nam và Nữ tham gia Hội khỏe Phù Đổng',
+        items: [
+          { key: 'a', text: 'Lớp 8C có tổng số học sinh tham gia nhiều nhất (26 học sinh).', answer: true },
+          { key: 'b', text: 'Tổng số học sinh Nam tham gia của cả 4 lớp là 50 học sinh.', answer: true },
+          { key: 'c', text: 'Ở lớp 8B, số học sinh Nam nhiều hơn số học sinh Nữ là 4 học sinh.', answer: false },
+          { key: 'd', text: 'Số học sinh Nữ của lớp 8A chiếm 40% tổng số học sinh tham gia của lớp 8A.', answer: true }
+        ],
+        explain: 'Tổng từng lớp: 8A (20), 8B (24), 8C (26 — cao nhất, a đúng), 8D (24). Tổng Nam = 12 + 10 + 16 + 12 = 50 (b đúng). Ở 8B, Nữ (14) nhiều hơn Nam (10) là 4 em nên c sai. Tỉ lệ Nữ ở 8A = 8 / 20 = 40% (d đúng).'
+      },
+      {
+        id: 15,
+        q: 'Biểu đồ đoạn thẳng dưới đây biểu diễn doanh thu (đơn vị: triệu đồng) của một cửa hàng văn phòng phẩm trong 6 tháng đầu năm:',
+        svgKey: 'chart_c15', figCaption: 'Biểu đồ Câu 15 — Doanh thu 6 tháng đầu năm của cửa hàng',
+        items: [
+          { key: 'a', text: 'Doanh thu thấp nhất vào tháng 2 (30 triệu đồng) và cao nhất vào tháng 6 (75 triệu đồng).', answer: true },
+          { key: 'b', text: 'Doanh thu trung bình mỗi tháng trong 6 tháng đầu năm là 50 triệu đồng.', answer: true },
+          { key: 'c', text: 'Doanh thu tháng 6 tăng 20% so với tháng 5.', answer: false },
+          { key: 'd', text: 'Tổng doanh thu Quý II (tháng 4, 5, 6) nhiều hơn tổng doanh thu Quý I (tháng 1, 2, 3) là 60 triệu đồng.', answer: true }
+        ],
+        explain: 'Thấp nhất T2 (30), cao nhất T6 (75) ⇒ a đúng. Trung bình = (40+30+50+45+60+75)/6 = 300/6 = 50 (b đúng). T6 so với T5 tăng (75−60)/60 = 25% (c sai). Quý II (180) − Quý I (120) = 60 triệu đồng (d đúng).'
+      },
+      {
+        id: 16,
+        q: 'Biểu đồ hình quạt tròn dưới đây biểu diễn tỉ lệ phần trăm khối lượng các loại trái cây bán được trong ngày của một cửa hàng (tổng cộng <strong>200 kg</strong>):',
+        svgKey: 'chart_c16', figCaption: 'Biểu đồ Câu 16 — Tỉ lệ khối lượng các loại trái cây bán được trong ngày',
+        items: [
+          { key: 'a', text: 'Khối lượng Cam bán được trong ngày là 70 kg.', answer: true },
+          { key: 'b', text: 'Khối lượng Xoài bán được nhiều hơn khối lượng Táo là 15 kg.', answer: false },
+          { key: 'c', text: 'Tổng khối lượng Nho và Lê bán được bằng đúng khối lượng Táo bán được.', answer: true },
+          { key: 'd', text: 'Số đo góc ở tâm của hình quạt biểu diễn lượng Cam là 126°.', answer: true }
+        ],
+        explain: 'Cam = 35% × 200 = 70 kg (a đúng). Xoài = 50 kg, Táo = 40 kg ⇒ hơn 10 kg (b sai). Nho + Lê = 15% + 5% = 20% = Táo (c đúng). Góc ở tâm của Cam = 35% × 360° = 126° (d đúng).'
+      }
+    ];
+
+    // PHẦN III: 6 câu Trả lời ngắn (6 x 0,5đ = 3,0 điểm)
+    const part3Questions = [
+      { id: 17, q: 'Quan sát bảng thống kê điểm kiểm tra môn Toán của 20 học sinh dưới đây. Tỉ lệ phần trăm số học sinh đạt <strong>từ 8 điểm trở lên</strong> là bao nhiêu phần trăm?', htmlKey: 'tbl_c17', answer: '70', hint: '(Chỉ nhập số, ví dụ: 70)', explain: 'Số học sinh đạt từ 8 điểm trở lên là 6 + 5 + 3 = 14 học sinh. Tỉ lệ phần trăm = (14 / 20) × 100% = 70%.' },
+      { id: 18, q: 'Biểu đồ cột dưới đây thống kê số cây xanh trồng được của 5 lớp khối 8 trong dịp Tết trồng cây. Hỏi <strong>trung bình mỗi lớp</strong> trồng được bao nhiêu cây xanh?', svgKey: 'chart_c18', figCaption: 'Biểu đồ Câu 18 — Số cây xanh trồng được của 5 lớp khối 8', answer: '32', hint: '(Chỉ nhập số, không kèm đơn vị)', explain: 'Tổng số cây = 32 + 28 + 40 + 36 + 24 = 160 cây. Trung bình mỗi lớp trồng được 160 : 5 = 32 cây.' },
+      { id: 19, q: 'Biểu đồ hình quạt tròn biểu diễn tỉ lệ phương tiện đi học của học sinh khối 8. Biết số học sinh đi học bằng <strong>xe đạp</strong> là 135 bạn. Hỏi tổng số học sinh khối 8 được khảo sát là bao nhiêu học sinh?', svgKey: 'chart_c19', figCaption: 'Biểu đồ Câu 19 — Tỉ lệ phương tiện đi học của khối 8', answer: '300', hint: '(Chỉ nhập số, không kèm đơn vị)', explain: 'Xe đạp chiếm 45% tổng số học sinh ⇒ Tổng số học sinh = 135 : 45% = 135 × 100 / 45 = 300 học sinh.' },
+      { id: 20, q: 'Quan sát biểu đồ cột kép về sản lượng xuất khẩu gạo (nghìn tấn) của hai doanh nghiệp A và B trong 3 năm 2023–2025. Trong cả 3 năm, tổng sản lượng của <strong>doanh nghiệp A</strong> nhiều hơn <strong>doanh nghiệp B</strong> bao nhiêu nghìn tấn?', svgKey: 'chart_c20', figCaption: 'Biểu đồ Câu 20 — Sản lượng xuất khẩu gạo của DN A và DN B', answer: '20', hint: '(Chỉ nhập số, đơn vị nghìn tấn)', explain: 'Tổng DN A = 40 + 50 + 65 = 155 (nghìn tấn); Tổng DN B = 35 + 45 + 55 = 135 (nghìn tấn). Hiệu = 155 − 135 = 20 nghìn tấn.' },
+      { id: 21, q: 'Biểu đồ đoạn thẳng dưới đây cho biết lượng điện tiêu thụ (kWh) của gia đình bạn Nam từ tháng 5 đến tháng 8. Lượng điện tiêu thụ <strong>tháng 8 giảm bao nhiêu phần trăm so với tháng 7</strong>?', svgKey: 'chart_c21', figCaption: 'Biểu đồ Câu 21 — Lượng điện tiêu thụ của gia đình bạn Nam', answer: '20', hint: '(Chỉ nhập số, không cần ký hiệu %)', explain: 'Tháng 7 tiêu thụ 300 kWh, tháng 8 tiêu thụ 240 kWh (giảm 60 kWh). Tỉ lệ giảm = (60 / 300) × 100% = 20%.' },
+      { id: 22, hardTag: 'Vận dụng cao', q: 'Biểu đồ hình quạt tròn biểu diễn kết quả xếp loại học lực của <strong>240 học sinh</strong> khối 8 gồm 4 mức (trong đó tỉ lệ mức Tốt đang bị ẩn là <span class="math">?%</span>). Hỏi số học sinh đạt mức <strong>Tốt</strong> nhiều hơn số học sinh mức <strong>Chưa đạt</strong> bao nhiêu bạn?', svgKey: 'chart_c22', figCaption: 'Biểu đồ Câu 22 — Xếp loại học lực của 240 học sinh khối 8', answer: '60', hint: '(Chỉ nhập số, không kèm đơn vị)', explain: 'Tỉ lệ mức Tốt = 100% − (45% + 20% + 5%) = 30%. Số học sinh mức Tốt = 240 × 30% = 72 bạn; mức Chưa đạt = 240 × 5% = 12 bạn. Hiệu = 72 − 12 = 60 bạn.' }
+    ];
+
+    const TOTAL_Q_COUNT = part1Questions.length + part2Questions.length + part3Questions.length;
+
+    /* ================= TRẠNG THÁI, ÂM THANH & RENDER ================= */
+    let examState = 'RULES', antiCheatArmed = false, studentName = '', studentClass = '';
+    let remainingSec = EXAM_DURATION_SEC, timerInterval = null, startTimestamp = null;
+    const answers = { p1: {}, p2: {}, p3: {} };
+    const $ = (id) => document.getElementById(id);
+
+    function playTone(type) {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx(), now = ctx.currentTime;
+        const seq = type === 'violation' ? [440, 320, 220] : (type === 'success' ? [523.25, 659.25, 783.99, 1046.5] : [587.33]);
+        const wave = type === 'violation' ? 'sawtooth' : (type === 'success' ? 'triangle' : 'sine');
+        seq.forEach((freq, i) => {
+          const osc = ctx.createOscillator(), gain = ctx.createGain(), t = now + i * (type === 'violation' ? 0.14 : 0.1);
+          osc.type = wave; osc.frequency.setValueAtTime(freq, t);
+          gain.gain.setValueAtTime(0.14, t); gain.gain.exponentialRampToValueAtTime(0.001, t + 0.28);
+          osc.connect(gain); gain.connect(ctx.destination); osc.start(t); osc.stop(t + 0.3);
+        });
+      } catch (_) {}
+    }
+
+    function renderVisualHtml(q) {
+      if (q.htmlKey && VISUALS[q.htmlKey]) return VISUALS[q.htmlKey];
+      if (q.svgKey && VISUALS[q.svgKey]) {
+        return `<figure class="q-figure">${VISUALS[q.svgKey]}${q.figCaption ? `<figcaption>${q.figCaption}</figcaption>` : ''}</figure>`;
+      }
+      return '';
+    }
+
+    function addNavDot(parent, id) {
+      const dot = document.createElement('button');
+      dot.type = 'button'; dot.className = 'nav-dot'; dot.id = `nav-${id}`; dot.textContent = id;
+      dot.addEventListener('click', () => $(`q-${id}`).scrollIntoView({ behavior: 'smooth' }));
+      parent.appendChild(dot);
+    }
+
+    function renderExam() {
+      const container = $('questionsContainer');
+      const [navP1, navP2, navP3] = ['navPart1', 'navPart2', 'navPart3'].map($);
+      container.innerHTML = navP1.innerHTML = navP2.innerHTML = navP3.innerHTML = '';
+
+      container.insertAdjacentHTML('beforeend', `<div class="section-header"><h2>PHẦN I. TRẮC NGHIỆM NHIỀU PHƯƠNG ÁN LỰA CHỌN (3,0 điểm)</h2><p>Từ câu 1 đến câu 12 (0,25 điểm/câu). Mỗi câu hỏi chỉ chọn một phương án đúng.</p></div>`);
+      part1Questions.forEach((q) => {
+        container.insertAdjacentHTML('beforeend', `<div class="q-card" id="q-${q.id}"><div class="q-title"><span class="q-num">Câu ${q.id}</span>${q.q}</div>${renderVisualHtml(q)}<div class="mcq-grid ${q.layout === 'single' ? 'single-col' : ''}">${q.options.map((opt, idx) => `<div class="mcq-option" data-qid="${q.id}" data-idx="${idx}"><span class="mcq-letter">${LETTERS[idx]}</span><span>${opt}</span></div>`).join('')}</div></div>`);
+        addNavDot(navP1, q.id);
+      });
+
+      container.insertAdjacentHTML('beforeend', `<div class="section-header"><h2>PHẦN II. TRẮC NGHIỆM ĐÚNG / SAI (4,0 điểm)</h2><p>Từ câu 13 đến câu 16 (1,0 điểm/câu). Trong mỗi ý a), b), c), d), hãy chọn Đúng (Đ) hoặc Sai (S).</p></div>`);
+      part2Questions.forEach((q) => {
+        answers.p2[q.id] = {};
+        container.insertAdjacentHTML('beforeend', `<div class="q-card" id="q-${q.id}"><div class="q-title"><span class="q-num">Câu ${q.id}</span>${q.q}</div>${renderVisualHtml(q)}<table class="tf-table"><thead><tr><th>Mệnh đề</th><th>Đúng</th><th>Sai</th></tr></thead><tbody>${q.items.map((it) => `<tr><td><strong>${it.key})</strong> ${it.text}</td><td class="tf-btn-cell"><button type="button" class="tf-btn" data-qid="${q.id}" data-key="${it.key}" data-val="true">Đ</button></td><td class="tf-btn-cell"><button type="button" class="tf-btn" data-qid="${q.id}" data-key="${it.key}" data-val="false">S</button></td></tr>`).join('')}</tbody></table></div>`);
+        addNavDot(navP2, q.id);
+      });
+
+      container.insertAdjacentHTML('beforeend', `<div class="section-header"><h2>PHẦN III. TRẮC NGHIỆM TRẢ LỜI NGẮN (3,0 điểm)</h2><p>Từ câu 17 đến câu 22 (0,5 điểm/câu). Điền kết quả số ngắn gọn vào ô trống.</p></div>`);
+      part3Questions.forEach((q) => {
+        container.insertAdjacentHTML('beforeend', `<div class="q-card" id="q-${q.id}"><div class="q-title"><span class="q-num">Câu ${q.id}</span>${q.q}${q.hardTag ? `<span class="q-hard-badge">${q.hardTag}</span>` : ''}</div>${renderVisualHtml(q)}<div class="sa-row"><span class="sa-label">Đáp số:</span><input type="text" class="sa-input" data-qid="${q.id}" placeholder="Nhập số..." autocomplete="off" spellcheck="false" /><span class="sa-hint">${q.hint || ''}</span></div></div>`);
+        addNavDot(navP3, q.id);
+      });
+
+      document.querySelectorAll('.mcq-option').forEach((el) => el.addEventListener('click', () => {
+        const qid = +el.dataset.qid, idx = +el.dataset.idx;
+        answers.p1[qid] = idx;
+        document.querySelectorAll(`.mcq-option[data-qid="${qid}"]`).forEach((o) => o.classList.toggle('selected', +o.dataset.idx === idx));
+        updateProgress();
+      }));
+
+      document.querySelectorAll('.tf-btn').forEach((btn) => btn.addEventListener('click', () => {
+        const qid = +btn.dataset.qid, key = btn.dataset.key, val = btn.dataset.val === 'true';
+        if (!answers.p2[qid]) answers.p2[qid] = {};
+        answers.p2[qid][key] = val;
+        document.querySelectorAll(`.tf-btn[data-qid="${qid}"][data-key="${key}"]`).forEach((b) => {
+          b.classList.remove('active-true', 'active-false');
+          if (b === btn) b.classList.add(val ? 'active-true' : 'active-false');
+        });
+        updateProgress();
+      }));
+
+      document.querySelectorAll('.sa-input').forEach((inp) => inp.addEventListener('input', () => {
+        answers.p3[+inp.dataset.qid] = inp.value;
+        updateProgress();
+      }));
+
+      updateProgress();
+    }
+
+    function updateProgress() {
+      let done = 0;
+      part1Questions.forEach((q) => { const ok = answers.p1[q.id] !== undefined; $(`nav-${q.id}`).classList.toggle('done', ok); if (ok) done++; });
+      part2Questions.forEach((q) => {
+        const c = Object.keys(answers.p2[q.id] || {}).length, d = $(`nav-${q.id}`);
+        d.classList.remove('done', 'partial');
+        if (c === 4) { d.classList.add('done'); done++; } else if (c > 0) d.classList.add('partial');
+      });
+      part3Questions.forEach((q) => { const ok = (answers.p3[q.id] || '').trim() !== ''; $(`nav-${q.id}`).classList.toggle('done', ok); if (ok) done++; });
+      $('progressText').textContent = `Đã hoàn thành: ${done} / ${TOTAL_Q_COUNT} câu`;
+      return done;
+    }
+
+    /* ================= BẮT ĐẦU THI & CHỐNG GIAN LẬN ================= */
+    const formatTime = (s) => `${String(Math.floor(Math.max(0, s) / 60)).padStart(2, '0')}:${String(Math.max(0, s) % 60).padStart(2, '0')}`;
+
+    function updateTimerUI() {
+      const el = $('timerDisplay');
+      el.textContent = formatTime(remainingSec);
+      el.classList.remove('warn', 'crit');
+      if (remainingSec <= 300) el.classList.add('crit');
+      else if (remainingSec <= 600) el.classList.add('warn');
+    }
+
+    async function startExam() {
+      const nameVal = $('studentName').value.trim();
+      if (!nameVal) { $('formError').style.display = 'block'; $('studentName').focus(); return; }
+      $('formError').style.display = 'none';
+      studentName = nameVal; studentClass = $('studentClass').value.trim();
+      const label = studentClass ? `${studentName} (${studentClass})` : studentName;
+      $('displayStudentName').textContent = label;
+
+      answers.p1 = {}; answers.p2 = {}; answers.p3 = {};
+      remainingSec = EXAM_DURATION_SEC; startTimestamp = Date.now();
+      examState = 'TESTING'; antiCheatArmed = false;
+
+      $('rulesScreen').classList.add('hidden');
+      $('resultScreen').classList.add('hidden');
+      $('examScreen').classList.remove('hidden');
+      document.body.classList.add('exam-active');
+
+      const wm = $('watermarkGrid'); wm.innerHTML = '';
+      for (let i = 0; i < 24; i++) { const sp = document.createElement('span'); sp.textContent = label; wm.appendChild(sp); }
+      $('watermarkLayer').style.display = 'block';
+
+      renderExam();
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      try { if (document.documentElement.requestFullscreen) await document.documentElement.requestFullscreen(); } catch (_) {}
+
+      updateTimerUI();
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        remainingSec--; updateTimerUI();
+        if (remainingSec <= 0) finishExam(false, 'Hết thời gian làm bài 45 phút');
+      }, 1000);
+      setTimeout(() => { if (examState === 'TESTING') antiCheatArmed = true; }, 1000);
+    }
+
+    function triggerViolationSubmit(reason) {
+      if (examState !== 'TESTING' || !antiCheatArmed) return;
+      antiCheatArmed = false;
+      $('privacyShield').style.display = 'flex';
+      playTone('violation');
+      setTimeout(() => { $('privacyShield').style.display = 'none'; finishExam(true, reason); }, 650);
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden && examState === 'TESTING' && antiCheatArmed) triggerViolationSubmit('Bạn đã chuyển sang tab khác hoặc thu nhỏ trình duyệt trong lúc đang làm bài.');
+    });
+    window.addEventListener('blur', () => {
+      if (examState === 'TESTING' && antiCheatArmed) triggerViolationSubmit('Bạn đã rời khỏi cửa sổ làm bài (mở ứng dụng khác hoặc kích hoạt công cụ chụp màn hình).');
+    });
+    document.addEventListener('fullscreenchange', () => {
+      if (!document.fullscreenElement && examState === 'TESTING' && antiCheatArmed) triggerViolationSubmit('Bạn đã thoát khỏi chế độ tập trung (Toàn màn hình) trước khi nộp bài.');
+    });
+    ['contextmenu', 'copy', 'cut', 'paste', 'dragstart'].forEach((evt) => document.addEventListener(evt, (e) => { if (examState === 'TESTING') e.preventDefault(); }));
+    document.addEventListener('selectstart', (e) => { if (examState === 'TESTING' && e.target.tagName !== 'INPUT') e.preventDefault(); });
+
+    function blockKeys(e) {
+      if (examState !== 'TESTING') return;
+      const k = (e.key || '').toLowerCase(), c = (e.code || '').toLowerCase();
+      if (k === 'printscreen' || c === 'printscreen' || e.keyCode === 44) {
+        e.preventDefault();
+        if (navigator.clipboard?.writeText) navigator.clipboard.writeText('CẤM CHỤP MÀN HÌNH TRONG GIỜ KIỂM TRA').catch(() => {});
+        return triggerViolationSubmit('Phát hiện thao tác chụp màn hình (PrintScreen).');
+      }
+      if ((e.metaKey || e.ctrlKey) && e.shiftKey && ['s', '3', '4', '5'].includes(k)) {
+        e.preventDefault();
+        return triggerViolationSubmit('Phát hiện tổ hợp phím chụp màn hình.');
+      }
+      if (k === 'f12' || ((e.ctrlKey || e.metaKey) && e.shiftKey && ['i', 'j', 'c'].includes(k)) || ((e.ctrlKey || e.metaKey) && ['u', 'p', 's', 'c', 'a'].includes(k) && !(k === 'a' && e.target.tagName === 'INPUT'))) {
+        e.preventDefault();
+      }
+    }
+    window.addEventListener('keydown', blockKeys, true);
+    window.addEventListener('keyup', (e) => { if (examState === 'TESTING' && (e.key === 'PrintScreen' || e.keyCode === 44)) blockKeys(e); }, true);
+
+    /* ================= CHẤM ĐIỂM & HIỂN THỊ KẾT QUẢ ================= */
+    function parseMathValue(raw) {
+      const s = String(raw || '')
+        .trim()
+        .replace(/−/g, '-')
+        .replace(/[%°\s]/g, '')
+        .replace(/(nghìntấn|họcsinh|cây|bạn|tấn|kg|kwh|hs)$/i, '')
+        .replace(/,/g, '.');
+      if (!s) return NaN;
+      if (/^-?\d+(\.\d+)?\/-?\d+(\.\d+)?$/.test(s)) { const [a, b] = s.split('/').map(Number); return b ? a / b : NaN; }
+      return Number(s);
+    }
+    const calcTF = (n) => [0, 0.1, 0.25, 0.5, 1.0][n] || 0;
+
+    function finishExam(isViolation, reasonText = '') {
+      if (examState === 'RESULT') return;
+      examState = 'RESULT'; antiCheatArmed = false; clearInterval(timerInterval);
+      $('submitModal').classList.add('hidden');
+      document.body.classList.remove('exam-active');
+      $('watermarkLayer').style.display = 'none';
+      try { if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(() => {}); } catch (_) {}
+
+      const used = Math.min(EXAM_DURATION_SEC, Math.floor((Date.now() - startTimestamp) / 1000));
+      let s1 = 0, s2 = 0, s3 = 0;
+      const rev = $('reviewContainer'); rev.innerHTML = '';
+
+      rev.insertAdjacentHTML('beforeend', `<div class="section-header"><h2>CHI TIẾT PHẦN I — TRẮC NGHIỆM NHIỀU LỰA CHỌN (3,0 điểm)</h2></div>`);
+      part1Questions.forEach((q) => {
+        const ch = answers.p1[q.id], ok = ch === q.answer; if (ok) s1 += 0.25;
+        rev.insertAdjacentHTML('beforeend', `<div class="review-card ${ok ? 'correct' : 'wrong'}"><div class="review-meta"><span>Câu ${q.id}</span><span class="${ok ? 'tag-ok' : 'tag-no'}">${ok ? '✓ Đúng (+0,25đ)' : '✗ Sai (0đ)'}</span></div><div style="margin-bottom:8px">${q.q}</div>${renderVisualHtml(q)}<div style="font-size:.92rem"><div>Bài làm của bạn: <strong>${ch !== undefined ? `${LETTERS[ch]}. ${q.options[ch]}` : '<em>Chưa chọn</em>'}</strong></div><div>Đáp án đúng: <strong style="color:var(--success)">${LETTERS[q.answer]}. ${q.options[q.answer]}</strong></div></div><div class="review-explain"><strong>Giải thích:</strong> ${q.explain}</div></div>`);
+      });
+
+      rev.insertAdjacentHTML('beforeend', `<div class="section-header"><h2>CHI TIẾT PHẦN II — TRẮC NGHIỆM ĐÚNG / SAI (4,0 điểm)</h2></div>`);
+      part2Questions.forEach((q) => {
+        const sub = answers.p2[q.id] || {}; let rc = 0;
+        const rows = q.items.map((it) => {
+          const u = sub[it.key], ok = u === it.answer; if (ok) rc++;
+          return `<div class="tf-review-row ${ok ? 'ok' : 'no'}"><span><strong>${it.key})</strong> ${it.text}</span><span style="white-space:nowrap;font-weight:700">Bạn: ${u === undefined ? 'Chưa chọn' : (u ? 'Đúng' : 'Sai')} | ĐA: ${it.answer ? 'Đúng' : 'Sai'} ${ok ? '✓' : '✗'}</span></div>`;
+        }).join('');
+        const pts = calcTF(rc); s2 += pts;
+        rev.insertAdjacentHTML('beforeend', `<div class="review-card ${rc === 4 ? 'correct' : (rc > 0 ? 'partial' : 'wrong')}"><div class="review-meta"><span>Câu ${q.id}</span><span class="${rc === 4 ? 'tag-ok' : (rc > 0 ? 'tag-part' : 'tag-no')}">Đúng ${rc}/4 ý (+${pts.toFixed(2).replace('.', ',')}đ)</span></div><div>${q.q}</div>${renderVisualHtml(q)}<div class="tf-review-list">${rows}</div><div class="review-explain"><strong>Giải thích:</strong> ${q.explain}</div></div>`);
+      });
+
+      rev.insertAdjacentHTML('beforeend', `<div class="section-header"><h2>CHI TIẾT PHẦN III — TRẢ LỜI NGẮN (3,0 điểm)</h2></div>`);
+      part3Questions.forEach((q) => {
+        const raw = answers.p3[q.id] || '', u = parseMathValue(raw), k = parseMathValue(q.answer);
+        const ok = !Number.isNaN(u) && Math.abs(u - k) < 1e-6; if (ok) s3 += 0.5;
+        rev.insertAdjacentHTML('beforeend', `<div class="review-card ${ok ? 'correct' : 'wrong'}"><div class="review-meta"><span>Câu ${q.id}</span><span class="${ok ? 'tag-ok' : 'tag-no'}">${ok ? '✓ Đúng (+0,50đ)' : '✗ Sai (0đ)'}</span></div><div style="margin-bottom:8px">${q.q}</div>${renderVisualHtml(q)}<div style="font-size:.92rem"><div>Bài làm của bạn: <strong>${raw.trim() || '<em>Bỏ trống</em>'}</strong></div><div>Đáp án đúng: <strong style="color:var(--success)">${q.answer}</strong></div></div><div class="review-explain"><strong>Giải thích:</strong> ${q.explain}</div></div>`);
+      });
+
+      const total = Math.round((s1 + s2 + s3) * 100) / 100;
+      $('violationBanner').classList.toggle('hidden', !isViolation);
+      if (isViolation) $('violationReasonText').textContent = `${reasonText} Hệ thống đã khóa bài lúc ${new Date().toLocaleTimeString('vi-VN')} và chấm điểm theo các câu đã làm.`;
+
+      $('resultStudentInfo').textContent = `Thí sinh: ${studentName}${studentClass ? ` — Lớp ${studentClass}` : ''}${reasonText && !isViolation ? ` (${reasonText})` : ''}`;
+      const totEl = $('totalScoreDisplay');
+      totEl.textContent = `${total.toFixed(2).replace('.', ',')} / 10`;
+      totEl.className = 'score-big ' + (total >= 8 ? 'high' : (total >= 5 ? 'mid' : 'low'));
+
+      $('scoreRankDisplay').textContent = isViolation ? 'Thu bài do vi phạm quy chế' : (total >= 9 ? 'Xuất sắc! Làm chủ toàn diện Chương V: Dữ liệu & Biểu đồ' : (total >= 8 ? 'Giỏi! Đọc và phân tích biểu đồ rất chính xác' : (total >= 6.5 ? 'Khá! Chú ý thêm cách tính phần trăm tăng/giảm' : (total >= 5 ? 'Đạt! Cần ôn kỹ lại phân loại dữ liệu và biểu đồ quạt tròn' : 'Cần ôn tập lại Chương V: Thu thập dữ liệu và phân tích biểu đồ'))));
+      $('scoreP1').textContent = `${s1.toFixed(2).replace('.', ',')} / 3,00`;
+      $('scoreP2').textContent = `${s2.toFixed(2).replace('.', ',')} / 4,00`;
+      $('scoreP3').textContent = `${s3.toFixed(2).replace('.', ',')} / 3,00`;
+      $('timeUsedDisplay').textContent = formatTime(used);
+
+      $('examScreen').classList.add('hidden');
+      $('resultScreen').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      if (!isViolation && total >= 8) { playTone('success'); launchFireworks(); }
+      else if (!isViolation) playTone('done');
+    }
+
+    function launchFireworks() {
+      const cv = $('fireworksCanvas'), ctx = cv.getContext('2d');
+      cv.width = innerWidth; cv.height = innerHeight; cv.style.display = 'block';
+      const colors = ['#2563eb', '#16a34a', '#f59e0b', '#ef4444', '#a855f7', '#06b6d4'], ps = [];
+      const burst = (x, y) => { for (let i = 0; i < 42; i++) { const a = (Math.PI * 2 * i) / 42 + Math.random() * 0.2, sp = 2.5 + Math.random() * 4.5; ps.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, life: 1, color: colors[Math.floor(Math.random() * colors.length)] }); } };
+      burst(cv.width * 0.28, cv.height * 0.32); burst(cv.width * 0.72, cv.height * 0.28);
+      setTimeout(() => burst(cv.width * 0.5, cv.height * 0.24), 450);
+      let f = 0;
+      (function anim() {
+        f++; ctx.clearRect(0, 0, cv.width, cv.height);
+        for (let i = ps.length - 1; i >= 0; i--) {
+          const p = ps[i]; p.x += p.vx; p.y += p.vy; p.vy += 0.08; p.life -= 0.016;
+          if (p.life <= 0) { ps.splice(i, 1); continue; }
+          ctx.globalAlpha = p.life; ctx.fillStyle = p.color; ctx.beginPath(); ctx.arc(p.x, p.y, 3.2, 0, Math.PI * 2); ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+        if (ps.length && f < 160) requestAnimationFrame(anim); else cv.style.display = 'none';
+      })();
+    }
+
+    $('startBtn').addEventListener('click', startExam);
+    $('studentName').addEventListener('keydown', (e) => { if (e.key === 'Enter') startExam(); });
+    const openModal = () => {
+      const rem = TOTAL_Q_COUNT - updateProgress();
+      $('submitModalMsg').textContent = rem > 0 ? `Bạn vẫn còn ${rem} câu chưa hoàn thành (hoặc làm thiếu ý). Bạn có chắc chắn muốn nộp bài ngay không?` : `Bạn đã hoàn thành toàn bộ ${TOTAL_Q_COUNT} câu hỏi. Xác nhận nộp bài để chấm điểm ngay?`;
+      $('submitModal').classList.remove('hidden');
+    };
+    $('openSubmitModalBtn').addEventListener('click', openModal);
+    $('sidebarSubmitBtn').addEventListener('click', openModal);
+    $('cancelSubmitBtn').addEventListener('click', () => $('submitModal').classList.add('hidden'));
+    $('confirmSubmitBtn').addEventListener('click', () => finishExam(false));
+    $('retryBtn').addEventListener('click', () => { $('resultScreen').classList.add('hidden'); $('rulesScreen').classList.remove('hidden'); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  </script>
+</body>
+</html>
